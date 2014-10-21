@@ -16,7 +16,10 @@ namespace ACM.Controllers
         {
             return View();
         }
-
+        public ActionResult Overview()
+        {
+            return View();
+        }
         /// <summary>
         /// 用户登陆
         /// </summary>
@@ -32,7 +35,12 @@ namespace ACM.Controllers
         /// <returns></returns>
         public ActionResult Exit()
         {
-            return View();
+            return RedirectToAction("Login", "Index");
+        }
+       
+        public String MenuTree()
+        {
+            return "[{id:\"user\", text: \"用户管理\"},{id:\"UserManage\", text:\"用户管理\", pid: \"user\" }]";
         }
     }
 }

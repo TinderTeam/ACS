@@ -11,7 +11,7 @@ namespace ACM.Controllers
         //
         // GET: /User/
 
-        public ActionResult Index()
+        public ActionResult UserManage()
         {
             return View();
         }

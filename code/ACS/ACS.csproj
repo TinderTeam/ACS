@@ -223,6 +223,8 @@
     <Content Include="Views\Public\_CopyrightInfo.cshtml" />
     <Content Include="Views\Public\_MenuTree.cshtml" />
     <Content Include="Views\Public\_TitleLink.cshtml" />
+    <Content Include="Views\Index\Overview.cshtml" />
+    <Content Include="Views\UserManage\UserManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
