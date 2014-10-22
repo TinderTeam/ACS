@@ -39,7 +39,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Iesi.Collections, Version=4.0.0.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Iesi.Collections.4.0.1.4000\lib\net40\Iesi.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data">
+      <HintPath>..\packages\MySql.Data.6.9.3\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate">
+      <HintPath>..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -122,16 +136,41 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccessManageController.cs" />
+    <Compile Include="Controllers\DeviceManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\OrganizationManageController.cs" />
     <Compile Include="Controllers\PersonalManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
+    <Compile Include="Dao\DaoContext.cs" />
+    <Compile Include="Dao\DaoInterface.cs" />
+    <Compile Include="Dao\impl\DbTableDaoImpl.cs" />
+    <Compile Include="Dao\impl\UserDaoImpl.cs" />
+    <Compile Include="Dao\SessionManage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model\FormColumn.cs" />
+    <Compile Include="Models\Model\ColumnModel.cs" />
+    <Compile Include="Models\Model\TableModel.cs" />
+    <Compile Include="Models\Model\UserModel.cs" />
+    <Compile Include="Models\Po\DbTable.cs" />
+    <Compile Include="Models\Po\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Impl\UserServiceImpl.cs" />
+    <Compile Include="Service\ModelConventService.cs" />
+    <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
+    <Compile Include="Service\ServiceConstant.cs" />
+    <Compile Include="Service\ServiceContext.cs" />
+    <Compile Include="Service\ServiceInterface.cs" />
+    <Compile Include="Test\Stub.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\hibernate.cfg.xml" />
+    <Content Include="bin\log4net.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -188,8 +227,19 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="ClassDiagram1.cd" />
+    <Content Include="Log4Net.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="bin\Log4Net.config" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="hibernate.cfg.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="log4net.dll" />
+    <Content Include="Models\Po\DBTable.hbm.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -223,16 +273,24 @@
     <Content Include="Views\Public\_CopyrightInfo.cshtml" />
     <Content Include="Views\Public\_MenuTree.cshtml" />
     <Content Include="Views\Public\_TitleLink.cshtml" />
-    <Content Include="Views\Index\Overview.cshtml" />
+        <Content Include="Views\Index\Overview.cshtml" />
+    <Content Include="Views\Public\_EditTable.cshtml" />
     <Content Include="Views\UserManage\UserManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\UserManage\" />
+    <Folder Include="Views\AccessManage\" />
+    <Folder Include="Views\DeviceManage\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\OrgnizationManage\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

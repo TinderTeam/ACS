@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.DbTable,LotterySystem" table="v_sysdb" lazy="true" >
+
+    <composite-id>
+      <key-property name="tableName" column="table_name" type="string" ></key-property>
+      <key-property name="columnName" column="column_name" type="string" ></key-property>
+      <key-property name="tpye" column="data_types" type="string" ></key-property>
+    </composite-id>
+ 
+    <property name="EntranceType" type="string">
+      <column name="ENTRANCE_TYPE" length="50"/>
+    </property>
+ 
+  </class>
+</hibernate-mapping>

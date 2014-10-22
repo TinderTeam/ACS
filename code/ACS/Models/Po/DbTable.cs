@@ -7,13 +7,20 @@ namespace ACS.Models.Po
 {
     public class DbTable
     {
-        private string name;
+        private string columnName;
         private string type;
+        private string tableName;
 
-        public string Name
+        public string TableName
         {
-            get { return name; }
-            set { name = value; }
+            get { return tableName; }
+            set { tableName = value; }
+        }
+
+        public string ColumnName
+        {
+            get { return columnName; }
+            set { columnName = value; }
         }
       
 

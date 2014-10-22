@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "EditTable";
+}
+
+<h2>EditTable</h2>
+<table>
+    <tr>
+         @for (var i = 0; i < @ViewBag.TableTitleCount; i++)
+         {
+             <th>@ViewBag.TableTitle[i].Title</th>
+         }
+    </tr>
+    @for ( var j = 0; j < @ViewBag.TableContentCount; j++)
+    {
+         <tr>
+             @for (var k = 0; k < @ViewBag.TableTitleCount;k++ ){
+                 <td>
+                    @ViewBag.TableContent[j].Title
+                 </td>
+             }
+         </tr>
+    }
+</table>

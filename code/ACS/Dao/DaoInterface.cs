@@ -8,6 +8,12 @@ namespace ACS.Dao
 {
     public interface DbTableDao
     {
-        public List<DbTable> getTableByName(String name);
+        List<DbTable> getTableByName(String name);
+    }
+
+
+    public interface UserDao
+    {
+        List<User> getAll();
     }
 }
