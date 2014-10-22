@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Resources;
 namespace ACM.Controllers
+
 {
-    public class IndexController : Controller
+    public class IndexController : BaseController
     {
         /// <summary>
         /// 首页显示
@@ -35,6 +36,7 @@ namespace ACM.Controllers
         /// <returns></returns>
         public ActionResult Exit()
         {
+            //return new RedirectResult("Index/Login");
             return RedirectToAction("Login", "Index");
         }
        
@@ -42,5 +44,10 @@ namespace ACM.Controllers
         {
             return "[{id:\"user\", text: \"用户管理\"},{id:\"UserManage\", text:\"用户管理\", pid: \"user\" }]";
         }
+        public ActionResult Default()
+        {
+            return View();
+        }
+
     }
 }
