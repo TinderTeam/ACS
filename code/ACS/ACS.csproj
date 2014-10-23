@@ -159,6 +159,7 @@
     </Compile>
     <Compile Include="Models\Model\FormColumn.cs" />
     <Compile Include="Models\Model\ColumnModel.cs" />
+    <Compile Include="Models\Model\MenuTreeModel.cs" />
     <Compile Include="Models\Model\TableModel.cs" />
     <Compile Include="Models\Model\UserModel.cs" />
     <Compile Include="Models\Po\DbTable.cs" />

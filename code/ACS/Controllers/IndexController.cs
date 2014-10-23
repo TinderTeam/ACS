@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ACS.Service;
+using ACS.Models.Model;
 using System.Resources;
 namespace ACM.Controllers
 
 {
     public class IndexController : BaseController
     {
+
+        PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
         /// <summary>
         /// 首页显示
         /// </summary>
@@ -42,7 +46,9 @@ namespace ACM.Controllers
        
         public String MenuTree()
         {
+            MenuTreeModel tree=platFormService.getMenuTreeByUserID(0);
             return "[{id:\"user\", text: \"用户管理\"},{id:\"UserManage\", text:\"用户管理\", pid: \"user\" }]";
+			//return  tree.ToJsonStr();
         }
         public ActionResult Default()
         {
