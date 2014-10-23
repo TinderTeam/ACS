@@ -10,16 +10,16 @@ namespace ACS.Common.Dao.datasource
     {
       
         private List<QueryCondition> conditionList = new List<QueryCondition>();
-	
-       	public void DataBaseSourceImpl()
-	    {
 
-	    }
-	
-	    public void DataBaseSourceImpl(List<QueryCondition> conditionList)
-	    {
-		    this.conditionList = conditionList;
-	    }
+        public DatabaseSourceImpl()
+        {
+
+        }
+        public DatabaseSourceImpl(List<QueryCondition> conditionList)
+        {
+            this.conditionList = conditionList;
+        }
+
  
 	    public List<E> getCurrentPageData(int startNum, int pageSize)
 	    {

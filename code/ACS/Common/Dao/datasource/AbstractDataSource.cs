@@ -8,9 +8,7 @@ namespace ACS.Common.Dao.datasource
     public interface AbstractDataSource<E>
     {
         List<E> getCurrentPageData(int startNum, int endNum);
-
         List<E> getAllPageData();
-
         long getDataCount();
     }
 }

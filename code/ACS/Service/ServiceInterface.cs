@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ACS.Models.Model;
 using ACS.Models.Po;
+using ACS.Common.Dao.datasource;
 namespace ACS.Service
 {
     public interface PlatFormService
@@ -15,7 +16,7 @@ namespace ACS.Service
     }
     public interface UserService
     {
-        List<UserModel> getAllUsers();
+        AbstractDataSource<User> getUserList(User filter);
     }
 
 }
