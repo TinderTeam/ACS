@@ -8,22 +8,20 @@ namespace ACS.Models.Po
     public class User
     {
         private int userID;
+        private String userName;
+        private String pswd;
 
-        public int UserID
+        public virtual int UserID
         {
             get { return userID; }
             set { userID = value; }
         }
-        private String userName;
-
-        public String UserName
+        public virtual String UserName
         {
             get { return userName; }
             set { userName = value; }
         }
-        private String pswd;
-
-        public String Pswd
+        public virtual String Pswd
         {
             get { return pswd; }
             set { pswd = value; }

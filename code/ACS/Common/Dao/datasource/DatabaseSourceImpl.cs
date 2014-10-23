@@ -6,7 +6,7 @@ using ACS.Common.Dao;
 using ACS.Common.Dao.impl;
 namespace ACS.Common.Dao.datasource
 {
-    public class DatabaseSourceImpl<E>:AbstractDao<E>,AbstractDataSource<E>
+    public class DatabaseSourceImpl<E>:DaoCommonImpl<E>,AbstractDataSource<E>
     {
       
         private List<QueryCondition> conditionList = new List<QueryCondition>();
