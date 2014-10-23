@@ -9,7 +9,7 @@ using NHibernate.Criterion;
 
 namespace ACS.Common.Dao.impl
 {
-    public abstract class AbstractViewDao<E> : ViewDao<E>
+    public  class ViewDaoCommonImpl<E> : ViewDao<E>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -20,7 +20,38 @@ namespace ACS.Common.Dao.impl
 
         public List<E> getAll()
         {
-            throw new NotImplementedException();
+            List<E> objectList = new List<E>();
+            ISession session = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+
+                ICriteria c = session.CreateCriteria(this.getFeaturedClass());
+
+                var queryList = c.List<E>();
+                foreach (var result in queryList)
+                {
+                    objectList.Add(result);
+                }
+
+
+            }
+            catch (System.Exception re)
+            {
+                log.Error("getAll error", re);
+
+                throw re;
+            }
+            finally
+            {
+                if (session != null)
+                {
+                    session.Close();
+                }
+            }
+
+            log.Info("the object calss is " + getFeaturedClass() + "the object list size is " + objectList.Count);
+            return objectList;
         }
 
         public long getCount(List<QueryCondition> conditionList)
@@ -30,12 +61,12 @@ namespace ACS.Common.Dao.impl
 
         public List<E> getAll(List<QueryCondition> conditionList)
         {
-            List<E> objectList = null;
+            List<E> objectList = new List<E>();
             ISession session = null;
             try
             {
                 session = SessionManager.getInstance().GetSession();
- 
+
                 ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
 
                 var queryList = c.List<E>();

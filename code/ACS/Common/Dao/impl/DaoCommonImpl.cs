@@ -8,7 +8,7 @@ using NHibernate.Criterion;
 
 namespace ACS.Common.Dao.impl
 {
-    public abstract class AbstractDao<E> : AbstractViewDao<E>, Dao<E>
+    public class DaoCommonImpl<E> : ViewDaoCommonImpl<E>, Dao<E>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
