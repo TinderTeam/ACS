@@ -46,12 +46,35 @@ namespace ACS.Common.Dao.impl
 
         public void update(E obj)
         {
-            throw new NotImplementedException();
+            ISession session = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+                ITransaction tx = session.BeginTransaction();
+
+                session.Update(obj);
+
+                tx.Commit();
+
+            }
+            catch (System.Exception ex)
+            {
+
+                log.Error("update user error", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (null != session)
+                {
+                    session.Close();
+                }
+            }
         }
 
         public void delete(E obj)
         {
-            throw new NotImplementedException();
+            
         }
 
         public void delete(QueryCondition condition)
