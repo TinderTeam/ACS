@@ -74,7 +74,7 @@ namespace ACS.Common.Dao.impl
 
         public void delete(E obj)
         {
-            
+            throw new NotImplementedException();
         }
 
         public void delete(QueryCondition condition)

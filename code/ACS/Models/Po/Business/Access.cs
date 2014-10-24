@@ -11,5 +11,7 @@ namespace ACS.Models.Po
         private String accessName;//规则名称
         private String accessNote;//门禁规则描述
         private String acsString;//备注
+        private int createUserID;
+        private int createDate;
     }
 }
