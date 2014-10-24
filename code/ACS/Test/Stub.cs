@@ -8,19 +8,7 @@ namespace ACS.Test
 {
     public class Stub
     {
-        public static List<DbTable> getDbTableList()
-        {
-            List<DbTable> list = new List<DbTable>();
-            for (int i = 0; i < 5; i++)
-            {
-                DbTable t = new DbTable();
-                t.ColumnName="name"+i;
-                t.Type="varchar";
-                list.Add(t);
-            }
-            return list;
-        }
-
+       
         public static List<User> getUserList()
         {
             List<User> list = new List<User>();

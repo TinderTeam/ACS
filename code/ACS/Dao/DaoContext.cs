@@ -9,7 +9,7 @@ namespace ACS.Dao
     public class DaoContext
     {
         static DaoContext daoContext;
-        private DbTableDao dbTableDao;
+       
         private UserDao userDao;
 
         public static DaoContext getInstance()
@@ -20,14 +20,7 @@ namespace ACS.Dao
             }
             return daoContext;
         }
-        public DbTableDao getDbTableDao()
-        {
-            if (dbTableDao == null)
-            {
-                dbTableDao = new DbTableDaoImpl();
-            }
-            return dbTableDao;
-        }
+     
 
          public UserDao getUserDao()
         {

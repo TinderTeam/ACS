@@ -144,25 +144,17 @@
     <Compile Include="Common\Constant\ConditionTypeEnum.cs" />
     <Compile Include="Common\Constant\ExceptionMsg.cs" />
     <Compile Include="Common\Dao\Dao.cs" />
-
     <Compile Include="Common\Dao\datasource\AbstractDataSource.cs" />
     <Compile Include="Common\Dao\datasource\DatabaseSourceImpl.cs" />
-    <Compile Include="Common\Dao\impl\AbstractDao.cs" />
-    <Compile Include="Common\Dao\impl\AbstractViewDao.cs" />
-    <Compile Include="Common\Dao\PersistenceObject.cs" />
-    <Compile Include="Common\Dao\QueryCondition.cs" />
     <Compile Include="Common\Dao\SessionManage.cs" />
     <Compile Include="Common\Dao\ViewDao.cs" />
     <Compile Include="Common\Model\PageModel.cs" />
     <Compile Include="Common\Model\TableDataModel.cs" />
     <Compile Include="Common\Model\TableForm.cs" />
-
     <Compile Include="Common\Dao\impl\DaoCommonImpl.cs" />
     <Compile Include="Common\Dao\impl\ViewDaoCommonImpl.cs" />
     <Compile Include="Common\Dao\PersistenceObject.cs" />
     <Compile Include="Common\Dao\QueryCondition.cs" />
-    <Compile Include="Common\Dao\ViewDao.cs" />
-
     <Compile Include="Common\Util\DataTypeConvert.cs" />
     <Compile Include="Common\Util\ReflectionUtil.cs" />
     <Compile Include="Controllers\AccessManageController.cs" />
@@ -175,21 +167,23 @@
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Dao\DaoContext.cs" />
     <Compile Include="Dao\DaoInterface.cs" />
-    <Compile Include="Common\Dao\datasource\AbstractDataSource.cs" />
-    <Compile Include="Common\Dao\datasource\DatabaseSourceImpl.cs" />
-    <Compile Include="Dao\impl\DbTableDaoImpl.cs" />
     <Compile Include="Dao\impl\UserDaoImpl.cs" />
-    <Compile Include="Common\Dao\SessionManage.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Model\FormColumn.cs" />
     <Compile Include="Models\Model\ColumnModel.cs" />
     <Compile Include="Models\Model\MenuTreeModel.cs" />
-    <Compile Include="Models\Model\TableModel.cs" />
     <Compile Include="Models\Model\UserModel.cs" />
-    <Compile Include="Models\Po\DbTable.cs" />
-    <Compile Include="Models\Po\User.cs" />
+    <Compile Include="Models\Po\Access.cs" />
+    <Compile Include="Models\Po\CF\Privilege.cs" />
+    <Compile Include="Models\Po\CF\Role.cs" />
+    <Compile Include="Models\Po\CF\UserRole.cs" />
+    <Compile Include="Models\Po\CF\User.cs" />
+    <Compile Include="Models\Po\Employee.cs" />
+    <Compile Include="Models\Po\Sys\Sys_Application.cs" />
+    <Compile Include="Models\Po\Sys\Sys_Button.cs" />
+    <Compile Include="Models\Po\Sys\Sys_Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Impl\UserServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />

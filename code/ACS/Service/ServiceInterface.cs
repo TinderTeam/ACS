@@ -10,7 +10,6 @@ namespace ACS.Service
 {
     public interface PlatFormService
     {
-        List<ColumnModel> getTableColumn(String tableName);
         MenuTreeModel getMenuTreeByUserID(int userid);
       
     }
