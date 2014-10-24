@@ -13,10 +13,11 @@ namespace ACS.Common.Util
         public static Object convertToFieldObject(Type clazz,String fieldName,String value)  
 	    {
 		Object obj = null;
-		
+        
 		try
 		{
-			Type fieldClass = clazz.GetField(fieldName).FieldType;
+          
+            Type fieldClass = clazz.GetProperty(fieldName).PropertyType;
 			obj = DataTypeConvert.convertStrToObject(value, fieldClass);
 
 		}

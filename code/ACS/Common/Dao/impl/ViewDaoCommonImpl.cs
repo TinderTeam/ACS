@@ -56,7 +56,31 @@ namespace ACS.Common.Dao.impl
 
         public long getCount(List<QueryCondition> conditionList)
         {
-            throw new NotImplementedException();
+            long count = 0;
+            ISession session = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+                ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
+                count = Convert.ToInt64(c.SetProjection(Projections.RowCount()).UniqueResult());
+            }
+            catch (System.Exception re)
+            {
+                log.Error("getAll error", re);
+
+                throw re;
+            }
+            finally
+            {
+                if (session != null)
+                {
+                    session.Close();
+                }
+            }
+
+            log.Info("the object calss is " + getFeaturedClass() + "the count is " + count);
+            return count;
+
         }
 
         public List<E> getAll(List<QueryCondition> conditionList)
@@ -66,7 +90,6 @@ namespace ACS.Common.Dao.impl
             try
             {
                 session = SessionManager.getInstance().GetSession();
-
                 ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
 
                 var queryList = c.List<E>();
@@ -97,7 +120,37 @@ namespace ACS.Common.Dao.impl
 
         public List<E> getAll(List<QueryCondition> conditionList, int startNum, int pageSize)
         {
-            throw new NotImplementedException();
+            List<E> objectList = new List<E>();
+            ISession session = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+                ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
+
+                c.SetFirstResult(startNum);
+                c.SetMaxResults(pageSize);
+                var queryList = c.List<E>();
+                foreach (var result in queryList)
+                {
+                    objectList.Add(result);
+                }
+            }
+            catch (System.Exception re)
+            {
+                log.Error("getAll error", re);
+
+                throw re;
+            }
+            finally
+            {
+                if (session != null)
+                {
+                    session.Close();
+                }
+            }
+
+            log.Info("the object calss is " + getFeaturedClass() + "the object list size is " + objectList.Count());
+            return objectList;
         }
 
         public List<E> getAll(QueryCondition condition)
@@ -113,12 +166,70 @@ namespace ACS.Common.Dao.impl
 
         public E getUniRecord(QueryCondition condition)
         {
-            throw new NotImplementedException();
+            E record;
+            ISession session = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+
+                List<QueryCondition> conditionList = new List<QueryCondition>();
+
+                if (null != condition)
+                {
+                    conditionList.Add(condition);
+                }
+                ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
+                record = (E)c.UniqueResult();
+            }
+            catch (System.Exception re)
+            {
+                log.Error("get UniRecord error", re);
+
+                throw re;
+            }
+            finally
+            {
+                if (session != null)
+                {
+                    session.Close();
+                }
+            }
+
+            log.Info("the object calss is " + getFeaturedClass() + "the object is " + record);
+
+            return record;
         }
 
         public E getUniRecord(List<QueryCondition> conditionList)
         {
-            throw new NotImplementedException();
+            E record;
+            ISession session = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+
+                ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
+                record = (E)c.UniqueResult();
+            }
+            catch (System.Exception re)
+            {
+                log.Error("get UniRecord error", re);
+
+                throw re;
+            }
+            finally
+            {
+                if (session != null)
+                {
+                    session.Close();
+                }
+            }
+
+            log.Info("the object calss is " + getFeaturedClass() + "the object is " + record);
+
+            return record;
         }
+
+
     }
 }
