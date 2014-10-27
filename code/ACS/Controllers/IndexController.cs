@@ -65,9 +65,11 @@ namespace ACM.Controllers
        
         public String MenuTree()
         {
+
             MenuTreeModel tree=platFormService.getMenuTreeByUserID(0);
-            return "[{id:\"user\", text: \"用户管理\"},{id:\"UserManage\", text:\"用户管理\", pid: \"user\" }]";
-			//return  tree.ToJsonStr();
+            //return "[{id:\"user\", text: \"用户管理\"},{id:\"UserManage\", text:\"用户管理\", pid: \"user\" }]";
+
+			return  tree.ToJsonStr();
         }
         public ActionResult Default()
         {
