@@ -8,6 +8,41 @@ namespace ACS.Common.Dao
 {
     public class QueryCondition
     {
+        public QueryCondition(ConditionTypeEnum conditionType, String attrName)
+        {
+           
+            this.conditionType = conditionType;
+            this.attrName = attrName;
+        }
+
+        public QueryCondition(ConditionTypeEnum conditionType, String attrName, String firstValue)
+        {
+            
+            this.conditionType = conditionType;
+            this.attrName = attrName;
+            this.firstValue = firstValue;
+        }
+        public QueryCondition(ConditionTypeEnum conditionType, String attrName, List<String> listValue)
+        {
+          
+            this.conditionType = conditionType;
+            this.attrName = attrName;
+            this.listValue = listValue;
+        }
+        /**
+         * @param conditionType
+         * @param attrName
+         * @param firstValue
+         * @param secondValue
+         */
+        public QueryCondition(ConditionTypeEnum conditionType, String attrName, String firstValue, String secondValue)
+        {
+           
+            this.conditionType = conditionType;
+            this.attrName = attrName;
+            this.firstValue = firstValue;
+            this.secondValue = secondValue;
+        }
         private ConditionTypeEnum conditionType;
         public ConditionTypeEnum ConditionType
         {

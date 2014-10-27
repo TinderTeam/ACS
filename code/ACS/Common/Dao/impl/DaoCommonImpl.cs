@@ -46,40 +46,97 @@ namespace ACS.Common.Dao.impl
 
         public void update(E obj)
         {
+            log.Info("the object class is " + getFeaturedClass()+"the object is "+obj.ToString());
             ISession session = null;
-            try
-            {
+		    try
+		    {
                 session = SessionManager.getInstance().GetSession();
                 ITransaction tx = session.BeginTransaction();
-
                 session.Update(obj);
 
-                tx.Commit();
-
+                tx.Commit();    
             }
-            catch (System.Exception ex)
-            {
+            catch (System.Exception re)
+		    {
+			    log.Error("update error",re);
+			    throw re;
 
-                log.Error("update user error", ex);
-                throw ex;
-            }
+		    } 
             finally
-            {
+		    {
                 if (null != session)
                 {
                     session.Close();
                 }
-            }
+		    }
         }
 
         public void delete(E obj)
         {
-            throw new NotImplementedException();
+            log.Info("the object class is " + getFeaturedClass()+"the object is "+obj.ToString());
+
+		    ISession session = null;
+		    try
+		    {
+			    session = SessionManager.getInstance().GetSession();
+			    ITransaction tx = session.BeginTransaction();
+                Object classObj = session.Load(getFeaturedClass(), obj);
+			    session.Delete(classObj);
+			    tx.Commit();
+
+		    } catch (System.Exception re)
+		    {
+			    log.Error("delete error",re);
+			    throw re;
+
+		    } finally
+		    {
+			    if (session != null)
+			    {
+				    session.Close();
+			    }
+		    }
         }
 
         public void delete(QueryCondition condition)
         {
-            throw new NotImplementedException();
+            log.Info("the query is " + condition.ToString());
+	
+		    List<QueryCondition> conditionList = new List<QueryCondition>();
+		
+		    if(null != condition)
+		    {
+			    conditionList.Add(condition);
+		    }ISession session = null;
+		
+		
+		    ITransaction tx = null;
+		    try
+		    {
+			    session = SessionManager.getInstance().GetSession();
+			    tx = session.BeginTransaction();
+                ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
+			    
+			    foreach(var obj in c.List())
+			    {
+				    session.Delete(obj);
+			    }
+
+
+			    tx.Commit();
+            }
+            catch (System.Exception re)
+		    {
+			    log.Error("delete error",re);
+			    throw re;
+
+		    } finally
+		    {
+			    if (session != null)
+			    {
+				    session.Close();
+			    }
+		    }
         }
     }
 }
