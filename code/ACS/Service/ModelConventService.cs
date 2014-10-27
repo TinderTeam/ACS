@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using ACS.Models.Model;
 using ACS.Models.Po;
-
+using ACS.Models.Po.Sys;
 namespace ACS.Service
 {
     public class ModelConventService
@@ -28,8 +28,39 @@ namespace ACS.Service
             u.UserID = user.UserID;
             return u;
         }
+        public static User toUser(UserModel m)
+        {
+            User user = new User();
 
-       
+            //TODO: 实现转化 方法
+            return user;
+        }  
+        /// <summary>
+        /// 转化为menuTreemodel
+        /// </summary>
+        public static MenuTreeModel toMenuTreeModel(List<Sys_Menu> menuList)
+        {
+            MenuTreeModel menuTreeModle = new MenuTreeModel();
+            List<MenuTreeItem> list = new List<MenuTreeItem>();
+            foreach (Sys_Menu sysMenu in menuList)
+            {
+                if (sysMenu.IsVisble.Equals(ServiceConstant.SYS_VISIABLE))
+                {
+                    //menu visiable 时
+                    MenuTreeItem item = new MenuTreeItem();
+                    item.Id = sysMenu.MenuID.ToString();
+                    item.Pid = sysMenu.MenuParentNo;
+                    item.Text = sysMenu.MenuName;
+                    list.Add(item);
+                }        
+            }
+            menuTreeModle.MenuTreeItemList = list;
+            return menuTreeModle;
+        }
 
+        public static Employee toEmployee(EmployeeModel employeeModel)
+        {
+            return null;
+        }
     }
 }

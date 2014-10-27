@@ -165,12 +165,17 @@
     <Compile Include="Controllers\OrganizationManageController.cs" />
     <Compile Include="Controllers\PersonalManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
+    <Compile Include="Controllers\EmployeeManageController.cs" />
     <Compile Include="Dao\DaoContext.cs" />
     <Compile Include="Dao\DaoInterface.cs" />
+    <Compile Include="Dao\impl\PrivilegeDaoImpl.cs" />
+    <Compile Include="Dao\impl\SysMenuDaoImpl.cs" />
     <Compile Include="Dao\impl\UserDaoImpl.cs" />
+    <Compile Include="Dao\impl\EmployeeDaoImpl.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model\EmployeeModel.cs" />
     <Compile Include="Models\Model\FormColumn.cs" />
     <Compile Include="Models\Model\ColumnModel.cs" />
     <Compile Include="Models\Model\MenuTreeModel.cs" />
@@ -195,9 +200,11 @@
     <Compile Include="Models\Po\Sys\Sys_Button.cs" />
     <Compile Include="Models\Po\Sys\Sys_Menu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Impl\EmployeeServiceImpl.cs" />
     <Compile Include="Service\Impl\UserServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />
     <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
+    <Compile Include="Service\ModelVerificationService.cs" />
     <Compile Include="Service\ServiceConstant.cs" />
     <Compile Include="Service\ServiceContext.cs" />
     <Compile Include="Service\ServiceInterface.cs" />

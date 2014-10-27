@@ -8,27 +8,27 @@ using NHibernate.Criterion;
 using ACS.Test;
 namespace ACS.Dao.impl
 {
-    public class UserDaoImpl : UserDao
+    public class EmployeeDaoImpl : EmployeeDao
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public List<User> getAll()
+        public List<Employee> getAll()
         {
-            return Stub.getUserList();
+            return null;
             //To be Implemented
         }
 
-        public void create(User user)
+        public void create(Employee employee)
         {
             return ;
             //To be Implemented
         }
-        public void update(User user)
+        public void update(Employee employee)
         {
             return;
             //To be Implemented
         }
 
-        public void delete(int userID)
+        public void delete(int employeeID)
         {
             return ;
             //To be Implemented

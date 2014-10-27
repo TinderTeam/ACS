@@ -21,7 +21,20 @@ namespace ACS.Service.Impl
             AbstractDataSource<User> dataSource = new DatabaseSourceImpl<User>(conditionList);  
 		    return dataSource;
         }
+        public void create(User user)
+        {
+            userDao.create(user);
+        }
 
+        public void delete(int userID)
+        {
+            userDao.delete(userID);
+        }
+
+        public void update(User user)
+        {
+            userDao.update(user);
+        }
 
     }
 }

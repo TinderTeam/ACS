@@ -7,6 +7,9 @@ namespace ACS.Service
 {
     public class ServiceConstant
     {
-        public const String USER_TABLE = "t_system_user";
+        public static  String SYS_VISIABLE = "visible";
+        public static String SYS_TYPE_MENU= "MENU";
+        public static String SYS_MASTER_TYPE_USER="USER";
+
     }
 }

@@ -16,6 +16,17 @@ namespace ACS.Service
     public interface UserService
     {
         AbstractDataSource<User> getUserList(User filter);
+        void create(User user);
+        void delete(int userID);
+        void update(User user);
+    }
+
+    public interface EmployeeService
+    {
+        AbstractDataSource<Employee> getEmployeeList(Employee filter);
+        void create(Employee employee);
+        void delete(int employeeId);
+        void update(Employee employee);
     }
 
 }
