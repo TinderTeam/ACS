@@ -11,7 +11,7 @@ namespace ACS.Models.Po
         private String netID;//连接号即
         private String code;//编号
         private String controlName;//名称
-        private String adress;//
+        private String address;//
         private String serial;//控制器序列号
         private String type;//控制器类型
         private String enable;//状态
@@ -35,7 +35,7 @@ namespace ACS.Models.Po
         private String online;//
         private String doorOpen;//
         private String functionMast;//
-        private String outPut;//
+        private String output;//
         private String input;//
         private String is16;//
         private DateTime openTime;//
@@ -45,7 +45,7 @@ namespace ACS.Models.Po
         private String mxOutPort;//
         private String aesPin;//
         private String useAes;//
-        private String icAdress;//
+        private String icAddress;//
         private String icIsSt;//
 
     }
