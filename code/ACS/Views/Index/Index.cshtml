@@ -56,9 +56,9 @@
         <div class="logo">澳普门禁管理系统</div>
 
         <div class="topNav">	
-            <a href="javascript:personalManage()">个人信息</a> |
-            <a href="javascript:pswdManage()">修改密码</a> |            
-            <a href="Index/Exit">退出</a>
+            <a id="PersonalInfo" href="javascript:personalManage()">@Resources.Resource.ResourceManager.GetString("PersonalInfo")</a> |
+            <a id="ModifyPswd" href="javascript:pswdManage()">@Resources.Resource.ResourceManager.GetString("ModifyPswd")</a> |            
+            <a href="Index/Exit">@Resources.Resource.ResourceManager.GetString("Exit")</a>
 			<a>&nbsp&nbsp</a>
         </div>
 
@@ -178,7 +178,7 @@
 	    function personalManage() {
 	        mini.open({
 	            url: "PersonalManage/PersonalManage",
-	            title: "个人信息", width: 600, height: 360,
+	            title: document.getElementById("PersonalInfo").innerHTML, width: 600, height: 360,
 	            onload: function () {
 	                var iframe = this.getIFrameEl();
 	                var data = { action: "new" };
@@ -191,7 +191,7 @@
 	    function pswdManage() {
 	        mini.open({
 	            url: "PersonalManage/PswdManage",
-	            title: "修改密码", width: 600, height: 360,
+	            title: document.getElementById("ModifyPswd").innerHTML, width: 400, height: 240,
 	            onload: function () {
 	                var iframe = this.getIFrameEl();
 	                var data = { action: "new" };

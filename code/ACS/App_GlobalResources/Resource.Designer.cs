@@ -61,11 +61,74 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查找类似 nna 的本地化字符串。
+        ///   查找类似 取消 的本地化字符串。
         /// </summary>
-        internal static string button {
+        internal static string Cancel {
             get {
-                return ResourceManager.GetString("button", resourceCulture);
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 退出 的本地化字符串。
+        /// </summary>
+        internal static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 修改密码 的本地化字符串。
+        /// </summary>
+        internal static string ModifyPswd {
+            get {
+                return ResourceManager.GetString("ModifyPswd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 个人信息 的本地化字符串。
+        /// </summary>
+        internal static string PersonalInfo {
+            get {
+                return ResourceManager.GetString("PersonalInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入新密码： 的本地化字符串。
+        /// </summary>
+        internal static string PleaseInputNewPswd {
+            get {
+                return ResourceManager.GetString("PleaseInputNewPswd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请再次输入新密码： 的本地化字符串。
+        /// </summary>
+        internal static string PleaseInputNewPswdAgain {
+            get {
+                return ResourceManager.GetString("PleaseInputNewPswdAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入原密码： 的本地化字符串。
+        /// </summary>
+        internal static string PleaseInputOldPswd {
+            get {
+                return ResourceManager.GetString("PleaseInputOldPswd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 提交 的本地化字符串。
+        /// </summary>
+        internal static string Submit {
+            get {
+                return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
     }

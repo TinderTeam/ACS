@@ -117,7 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="button" xml:space="preserve">
-    <value>nna</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="ModifyPswd" xml:space="preserve">
+    <value>修改密码</value>
+  </data>
+  <data name="PersonalInfo" xml:space="preserve">
+    <value>个人信息</value>
+  </data>
+  <data name="PleaseInputNewPswd" xml:space="preserve">
+    <value>请输入新密码：</value>
+  </data>
+  <data name="PleaseInputNewPswdAgain" xml:space="preserve">
+    <value>请再次输入新密码：</value>
+  </data>
+  <data name="PleaseInputOldPswd" xml:space="preserve">
+    <value>请输入原密码：</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>提交</value>
   </data>
 </root>

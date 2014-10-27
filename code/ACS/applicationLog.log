@@ -1,0 +1,184 @@
+[2014-10-24 14:11:02,456]  9624 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- NHibernate 4.0.1.GA (assembly 4.0.0.4000)
+[2014-10-24 14:11:02,536]  9624 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- hibernate-configuration section not found in application configuration file
+[2014-10-24 14:11:02,538]  9624 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- Bytecode provider name : lcg
+[2014-10-24 14:11:02,540]  9624 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- Using reflection optimizer
+[2014-10-24 14:11:02,683]  9624 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- dialect=NHibernate.Dialect.MsSql2008Dialect
+[2014-10-24 14:11:02,685]  9624 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- connection.provider=NHibernate.Connection.DriverConnectionProvider
+[2014-10-24 14:11:02,686]  9624 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- connection.connection_string=server=127.0.0.1,1433;database=ACSdatabase;uid=sa;pwd=1234;
+[2014-10-24 14:11:02,690]  9624 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- proxyfactory.factory_class=NHibernate.Bytecode.DefaultProxyFactoryFactory,NHibernate
+[2014-10-24 14:11:02,691]  9624 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- hbm2ddl.auto=update
+[2014-10-24 14:11:02,693]  9624 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- <-ACS
+[2014-10-24 14:11:02,694]  9624 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- Searching for mapped documents in assembly: ACS
+[2014-10-24 14:11:02,697]  9624 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- Mapping resource: ACS.Models.Po.User.hbm.xml
+[2014-10-24 14:11:04,354]  9624 -- INFO  -- NHibernate.Dialect.Dialect [lambda_method] -- Using dialect: NHibernate.Dialect.MsSql2008Dialect
+[2014-10-24 14:11:04,450]  9624 -- INFO  -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapping class: ACS.Models.Po.User -> t_user
+[2014-10-24 14:11:04,511]  9624 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: UserID -> USER_ID, type: Int32
+[2014-10-24 14:11:04,544]  9624 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: UserName -> USER_NAME, type: String
+[2014-10-24 14:11:04,550]  9624 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: Pswd -> PSWD, type: String
+[2014-10-24 14:11:04,572]  9624 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- properties: System.Collections.Generic.Dictionary`2[System.String,System.String]
+[2014-10-24 14:11:04,588]  9624 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- checking mappings queue
+[2014-10-24 14:11:04,590]  9624 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing one-to-many association mappings
+[2014-10-24 14:11:04,591]  9624 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing one-to-one association property references
+[2014-10-24 14:11:04,592]  9624 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing foreign key constraints
+[2014-10-24 14:11:04,595]  9624 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing filters (second pass)
+[2014-10-24 14:11:04,685]  9624 -- ERROR -- ACS.Common.Dao.impl.ViewDaoCommonImpl`1 [getCount] -- getAll error
+NHibernate.InvalidProxyTypeException: The following types may not be used as proxies:
+ACS.Models.Po.User: method get_UserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_UserName should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserName should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_UserDesc should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserDesc should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_Pswd should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_Pswd should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_CreateUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_CreateUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_CreateDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_CreateDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_ModifyUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_ModifyUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_ModifyDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_ModifyDate should be 'public/protected virtual' or 'protected internal virtual'
+   在 NHibernate.Cfg.Configuration.ValidateEntities()
+   在 NHibernate.Cfg.Configuration.Validate()
+   在 NHibernate.Cfg.Configuration.BuildSessionFactory()
+   在 ACS.Common.Dao.SessionManager..ctor() 位置 e:\VSProject\ACS\code\ACS\Common\Dao\SessionManage.cs:行号 18
+   在 ACS.Common.Dao.SessionManager.getInstance() 位置 e:\VSProject\ACS\code\ACS\Common\Dao\SessionManage.cs:行号 24
+   在 ACS.Common.Dao.impl.ViewDaoCommonImpl`1.getCount(List`1 conditionList) 位置 e:\VSProject\ACS\code\ACS\Common\Dao\impl\ViewDaoCommonImpl.cs:行号 63
+[2014-10-27 09:46:55,649]  3344 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- NHibernate 4.0.1.GA (assembly 4.0.0.4000)
+[2014-10-27 09:46:55,760]  3344 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- hibernate-configuration section not found in application configuration file
+[2014-10-27 09:46:55,781]  3344 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- Bytecode provider name : lcg
+[2014-10-27 09:46:55,784]  3344 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- Using reflection optimizer
+[2014-10-27 09:46:56,079]  3344 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- dialect=NHibernate.Dialect.MsSql2008Dialect
+[2014-10-27 09:46:56,081]  3344 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- connection.provider=NHibernate.Connection.DriverConnectionProvider
+[2014-10-27 09:46:56,081]  3344 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- connection.connection_string=server=127.0.0.1,1433;database=ACSdatabase;uid=sa;pwd=1234;
+[2014-10-27 09:46:56,082]  3344 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- proxyfactory.factory_class=NHibernate.Bytecode.DefaultProxyFactoryFactory,NHibernate
+[2014-10-27 09:46:56,083]  3344 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- hbm2ddl.auto=update
+[2014-10-27 09:46:56,085]  3344 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- <-ACS
+[2014-10-27 09:46:56,088]  3344 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- Searching for mapped documents in assembly: ACS
+[2014-10-27 09:46:56,091]  3344 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- Mapping resource: ACS.Models.Po.User.hbm.xml
+[2014-10-27 09:46:57,845]  3344 -- INFO  -- NHibernate.Dialect.Dialect [lambda_method] -- Using dialect: NHibernate.Dialect.MsSql2008Dialect
+[2014-10-27 09:46:58,032]  3344 -- INFO  -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapping class: ACS.Models.Po.User -> t_user
+[2014-10-27 09:46:58,133]  3344 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: UserID -> USER_ID, type: Int32
+[2014-10-27 09:46:58,161]  3344 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: UserName -> USER_NAME, type: String
+[2014-10-27 09:46:58,163]  3344 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: Pswd -> PSWD, type: String
+[2014-10-27 09:46:58,172]  3344 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- properties: System.Collections.Generic.Dictionary`2[System.String,System.String]
+[2014-10-27 09:46:58,179]  3344 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- checking mappings queue
+[2014-10-27 09:46:58,180]  3344 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing one-to-many association mappings
+[2014-10-27 09:46:58,181]  3344 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing one-to-one association property references
+[2014-10-27 09:46:58,182]  3344 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing foreign key constraints
+[2014-10-27 09:46:58,185]  3344 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing filters (second pass)
+[2014-10-27 09:46:58,316]  3344 -- ERROR -- ACS.Common.Dao.impl.ViewDaoCommonImpl`1 [getCount] -- getAll error
+NHibernate.InvalidProxyTypeException: The following types may not be used as proxies:
+ACS.Models.Po.User: method get_UserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_UserName should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserName should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_UserDesc should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserDesc should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_Pswd should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_Pswd should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_CreateUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_CreateUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_CreateDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_CreateDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_ModifyUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_ModifyUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_ModifyDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_ModifyDate should be 'public/protected virtual' or 'protected internal virtual'
+   在 NHibernate.Cfg.Configuration.ValidateEntities()
+   在 NHibernate.Cfg.Configuration.Validate()
+   在 NHibernate.Cfg.Configuration.BuildSessionFactory()
+   在 ACS.Common.Dao.SessionManager..ctor() 位置 e:\VSProject\ACS\code\ACS\Common\Dao\SessionManage.cs:行号 18
+   在 ACS.Common.Dao.SessionManager.getInstance() 位置 e:\VSProject\ACS\code\ACS\Common\Dao\SessionManage.cs:行号 24
+   在 ACS.Common.Dao.impl.ViewDaoCommonImpl`1.getCount(List`1 conditionList) 位置 e:\VSProject\ACS\code\ACS\Common\Dao\impl\ViewDaoCommonImpl.cs:行号 63
+[2014-10-27 12:47:18,002]  8116 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- NHibernate 4.0.1.GA (assembly 4.0.0.4000)
+[2014-10-27 12:47:18,157]  8116 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- hibernate-configuration section not found in application configuration file
+[2014-10-27 12:47:18,158]  8116 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- Bytecode provider name : lcg
+[2014-10-27 12:47:18,160]  8116 -- INFO  -- NHibernate.Cfg.Environment [lambda_method] -- Using reflection optimizer
+[2014-10-27 12:47:18,342]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- dialect=NHibernate.Dialect.MsSql2008Dialect
+[2014-10-27 12:47:18,344]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- connection.provider=NHibernate.Connection.DriverConnectionProvider
+[2014-10-27 12:47:18,345]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- connection.connection_string=server=127.0.0.1,1433;database=ACSdatabase;uid=sa;pwd=1234;
+[2014-10-27 12:47:18,346]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- proxyfactory.factory_class=NHibernate.Bytecode.DefaultProxyFactoryFactory,NHibernate
+[2014-10-27 12:47:18,347]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- hbm2ddl.auto=update
+[2014-10-27 12:47:18,349]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- <-ACS
+[2014-10-27 12:47:18,350]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- Searching for mapped documents in assembly: ACS
+[2014-10-27 12:47:18,353]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- Mapping resource: ACS.Models.Po.User.hbm.xml
+[2014-10-27 12:47:20,522]  8116 -- INFO  -- NHibernate.Dialect.Dialect [lambda_method] -- Using dialect: NHibernate.Dialect.MsSql2008Dialect
+[2014-10-27 12:47:20,704]  8116 -- INFO  -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapping class: ACS.Models.Po.User -> t_user
+[2014-10-27 12:47:20,763]  8116 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: UserID -> USER_ID, type: Int32
+[2014-10-27 12:47:20,791]  8116 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: UserName -> USER_NAME, type: String
+[2014-10-27 12:47:20,792]  8116 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: Pswd -> PSWD, type: String
+[2014-10-27 12:47:20,801]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- properties: System.Collections.Generic.Dictionary`2[System.String,System.String]
+[2014-10-27 12:47:20,818]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- checking mappings queue
+[2014-10-27 12:47:20,819]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing one-to-many association mappings
+[2014-10-27 12:47:20,820]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing one-to-one association property references
+[2014-10-27 12:47:20,821]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing foreign key constraints
+[2014-10-27 12:47:20,824]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing filters (second pass)
+[2014-10-27 12:47:20,965]  8116 -- ERROR -- ACS.Common.Dao.impl.ViewDaoCommonImpl`1 [getCount] -- getAll error
+NHibernate.InvalidProxyTypeException: The following types may not be used as proxies:
+ACS.Models.Po.User: method get_UserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_UserName should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserName should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_UserDesc should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserDesc should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_Pswd should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_Pswd should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_CreateUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_CreateUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_CreateDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_CreateDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_ModifyUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_ModifyUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_ModifyDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_ModifyDate should be 'public/protected virtual' or 'protected internal virtual'
+   在 NHibernate.Cfg.Configuration.ValidateEntities()
+   在 NHibernate.Cfg.Configuration.Validate()
+   在 NHibernate.Cfg.Configuration.BuildSessionFactory()
+   在 ACS.Common.Dao.SessionManager..ctor() 位置 e:\VSProject\ACS\code\ACS\Common\Dao\SessionManage.cs:行号 18
+   在 ACS.Common.Dao.SessionManager.getInstance() 位置 e:\VSProject\ACS\code\ACS\Common\Dao\SessionManage.cs:行号 24
+   在 ACS.Common.Dao.impl.ViewDaoCommonImpl`1.getCount(List`1 conditionList) 位置 e:\VSProject\ACS\code\ACS\Common\Dao\impl\ViewDaoCommonImpl.cs:行号 63
+[2014-10-27 12:47:52,010]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- dialect=NHibernate.Dialect.MsSql2008Dialect
+[2014-10-27 12:47:52,014]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- connection.provider=NHibernate.Connection.DriverConnectionProvider
+[2014-10-27 12:47:52,015]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- connection.connection_string=server=127.0.0.1,1433;database=ACSdatabase;uid=sa;pwd=1234;
+[2014-10-27 12:47:52,016]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- proxyfactory.factory_class=NHibernate.Bytecode.DefaultProxyFactoryFactory,NHibernate
+[2014-10-27 12:47:52,017]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- hbm2ddl.auto=update
+[2014-10-27 12:47:52,019]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- <-ACS
+[2014-10-27 12:47:52,020]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- Searching for mapped documents in assembly: ACS
+[2014-10-27 12:47:52,021]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- Mapping resource: ACS.Models.Po.User.hbm.xml
+[2014-10-27 12:47:52,083]  8116 -- INFO  -- NHibernate.Dialect.Dialect [lambda_method] -- Using dialect: NHibernate.Dialect.MsSql2008Dialect
+[2014-10-27 12:47:52,085]  8116 -- INFO  -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapping class: ACS.Models.Po.User -> t_user
+[2014-10-27 12:47:52,087]  8116 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: UserID -> USER_ID, type: Int32
+[2014-10-27 12:47:52,088]  8116 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: UserName -> USER_NAME, type: String
+[2014-10-27 12:47:52,089]  8116 -- DEBUG -- NHibernate.Cfg.XmlHbmBinding.Binder [lambda_method] -- Mapped property: Pswd -> PSWD, type: String
+[2014-10-27 12:47:52,090]  8116 -- DEBUG -- NHibernate.Cfg.Configuration [lambda_method] -- properties: System.Collections.Generic.Dictionary`2[System.String,System.String]
+[2014-10-27 12:47:52,091]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- checking mappings queue
+[2014-10-27 12:47:52,092]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing one-to-many association mappings
+[2014-10-27 12:47:52,094]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing one-to-one association property references
+[2014-10-27 12:47:52,095]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing foreign key constraints
+[2014-10-27 12:47:52,096]  8116 -- INFO  -- NHibernate.Cfg.Configuration [lambda_method] -- processing filters (second pass)
+[2014-10-27 12:47:52,149]  8116 -- ERROR -- ACS.Common.Dao.impl.ViewDaoCommonImpl`1 [getCount] -- getAll error
+NHibernate.InvalidProxyTypeException: The following types may not be used as proxies:
+ACS.Models.Po.User: method get_UserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_UserName should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserName should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_UserDesc should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_UserDesc should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_Pswd should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_Pswd should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_CreateUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_CreateUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_CreateDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_CreateDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_ModifyUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_ModifyUserID should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method get_ModifyDate should be 'public/protected virtual' or 'protected internal virtual'
+ACS.Models.Po.User: method set_ModifyDate should be 'public/protected virtual' or 'protected internal virtual'
+   在 NHibernate.Cfg.Configuration.ValidateEntities()
+   在 NHibernate.Cfg.Configuration.Validate()
+   在 NHibernate.Cfg.Configuration.BuildSessionFactory()
+   在 ACS.Common.Dao.SessionManager..ctor() 位置 e:\VSProject\ACS\code\ACS\Common\Dao\SessionManage.cs:行号 18
+   在 ACS.Common.Dao.SessionManager.getInstance() 位置 e:\VSProject\ACS\code\ACS\Common\Dao\SessionManage.cs:行号 24
+   在 ACS.Common.Dao.impl.ViewDaoCommonImpl`1.getCount(List`1 conditionList) 位置 e:\VSProject\ACS\code\ACS\Common\Dao\impl\ViewDaoCommonImpl.cs:行号 63

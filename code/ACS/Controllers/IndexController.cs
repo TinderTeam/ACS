@@ -33,7 +33,26 @@ namespace ACM.Controllers
         {
             return View();
         }
+        public ActionResult LoginCheck()
+        {
+            try
+            {
 
+                //loginSerivce.Login(model.UserName, model.Password);
+                //Session["SystemUser"] = loginSerivce.getLoginUser(model.UserName);
+
+                //ServiceContext.getInstance().getLogService().recordLoginLog(model.UserName, "成功", model.Os, model.Broswer);
+
+            }
+            catch (SystemException ex)
+            {
+                //log.Error("login failed", ex);
+                //ServiceContext.getInstance().getLogService().recordLoginLog(model.UserName, "失败", model.Os, model.Broswer);
+                return RedirectToAction("Login", "Index", new { msg = ex.Message });
+            }
+
+            return RedirectToAction("Index", "Index");
+        }
         /// <summary>
         /// 用户登出
         /// </summary>

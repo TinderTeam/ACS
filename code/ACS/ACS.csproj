@@ -146,7 +146,6 @@
     <Compile Include="Common\Dao\Dao.cs" />
     <Compile Include="Common\Dao\datasource\AbstractDataSource.cs" />
     <Compile Include="Common\Dao\datasource\DatabaseSourceImpl.cs" />
-    <Compile Include="Common\Dao\QueryCondition.cs" />
     <Compile Include="Common\Dao\SessionManage.cs" />
     <Compile Include="Common\Dao\ViewDao.cs" />
     <Compile Include="Common\Model\PageModel.cs" />
@@ -154,7 +153,6 @@
     <Compile Include="Common\Model\TableForm.cs" />
     <Compile Include="Common\Dao\impl\DaoCommonImpl.cs" />
     <Compile Include="Common\Dao\impl\ViewDaoCommonImpl.cs" />
-    <Compile Include="Common\Dao\PersistenceObject.cs" />
     <Compile Include="Common\Dao\QueryCondition.cs" />
     <Compile Include="Common\Util\DataTypeConvert.cs" />
     <Compile Include="Common\Util\ReflectionUtil.cs" />
