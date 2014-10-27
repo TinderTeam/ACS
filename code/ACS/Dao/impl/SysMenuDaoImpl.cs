@@ -8,7 +8,7 @@ namespace ACS.Dao.impl
 {
     public class SysMenuDaoImpl : SysMenuDao
     {
-        public List<Sys_Menu> getListByPrivilegeList(List<Privilege> privilege)
+        public List<Sys_Menu> getListByAppIDList(List<int> appIDList)
         {
             return null;
         }

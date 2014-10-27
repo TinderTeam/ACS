@@ -19,7 +19,7 @@ namespace ACS.Dao
     }
     public interface SysMenuDao
     {
-        List<Sys_Menu> getListByPrivilegeList(List<Privilege> privilege);
+        List<Sys_Menu> getListByAppIDList(List<int> appIDList);
     }
 
     public interface PrivilegeDao
@@ -33,5 +33,9 @@ namespace ACS.Dao
         void create(Employee employee);
         void update(Employee employee);
         void delete(int employeeID);
+    }
+
+    public interface UserRoleViewDao
+    {
     }
 }

@@ -10,6 +10,8 @@ namespace ACS.Service
         public static  String SYS_VISIABLE = "visible";
         public static String SYS_TYPE_MENU= "MENU";
         public static String SYS_MASTER_TYPE_USER="USER";
-
+        public static String SYS_MASTER_TYPE_ROLE = "ROLE";
+        public static String SYS_MASTER_TYPE_APP = "APPLICATION";
+        public static String SYS_MASTER_VALUE_ALLOW = "ALLOW";
     }
 }
