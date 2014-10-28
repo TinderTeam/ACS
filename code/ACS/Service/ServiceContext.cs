@@ -8,9 +8,12 @@ namespace ACS.Service
     public class ServiceContext
     {
         static ServiceContext serviceContext;
-        PlatFormService platFormService;
-        UserService userService;
-        EmployeeService employeeService;
+
+        private PlatFormService platFormService;
+        private UserService userService;
+        private EmployeeService employeeService;
+        private LoginService loginService;
+
         public static ServiceContext getInstance()
         {
             if (serviceContext == null)
@@ -47,6 +50,15 @@ namespace ACS.Service
                 employeeService = new EmployeeServiceImpl();
             }
             return employeeService;
+        }
+        public LoginService getLoginService()
+        {
+
+            if (loginService == null)
+            {
+                loginService = new LoginServiceImpl();
+            }
+            return loginService;
         }
     }
 }

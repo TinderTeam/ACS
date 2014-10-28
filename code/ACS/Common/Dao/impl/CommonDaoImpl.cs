@@ -8,7 +8,7 @@ using NHibernate.Criterion;
 
 namespace ACS.Common.Dao.impl
 {
-    public class DaoCommonImpl<E> : ViewDaoCommonImpl<E>, CommonDao<E>
+    public class CommonDaoImpl<E> : ViewDaoCommonImpl<E>, CommonDao<E>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -71,44 +71,6 @@ namespace ACS.Common.Dao.impl
 		    }
         }
 
-        public void delete(List<QueryCondition> conditionList)
-        {
-            log.Info("the query is " + conditionList.ToString());
-
-
-            ISession session = null;
-
-
-            ITransaction tx = null;
-            try
-            {
-                session = SessionManager.getInstance().GetSession();
-                tx = session.BeginTransaction();
-                ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
-
-                foreach (var obj in c.List())
-                {
-                    session.Delete(obj);
-                }
-
-
-                tx.Commit();
-            }
-            catch (System.Exception re)
-            {
-                log.Error("delete error", re);
-                throw re;
-
-            }
-            finally
-            {
-                if (session != null)
-                {
-                    session.Close();
-                }
-            }
-        }
-
         public void delete(QueryCondition condition)
         {
             log.Info("the query is " + condition.ToString());
@@ -149,5 +111,44 @@ namespace ACS.Common.Dao.impl
 			    }
 		    }
         }
+
+        public void delete(List<QueryCondition> conditionList)
+        {
+            log.Info("the query is " + conditionList.ToString());
+
+
+            ISession session = null;
+
+
+            ITransaction tx = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+                tx = session.BeginTransaction();
+                ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
+
+                foreach (var obj in c.List())
+                {
+                    session.Delete(obj);
+                }
+
+
+                tx.Commit();
+            }
+            catch (System.Exception re)
+            {
+                log.Error("delete error", re);
+                throw re;
+
+            }
+            finally
+            {
+                if (session != null)
+                {
+                    session.Close();
+                }
+            }
+        }
+
     }
 }

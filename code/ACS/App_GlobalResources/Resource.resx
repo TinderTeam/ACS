@@ -141,4 +141,7 @@
   <data name="Submit" xml:space="preserve">
     <value>提交</value>
   </data>
+  <data name="USERNAME_PASSWORD_WRONG" xml:space="preserve">
+    <value>用户名或密码错误</value>
+  </data>
 </root>

@@ -11,8 +11,9 @@ namespace ACM.Controllers
 {
     public class IndexController : BaseController
     {
-
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
+        LoginService loginService = ServiceContext.getInstance().getLoginService();
         /// <summary>
         /// 首页显示
         /// </summary>
@@ -29,29 +30,27 @@ namespace ACM.Controllers
         /// 用户登陆
         /// </summary>
         /// <returns></returns>
-        public ActionResult Login()
+        public ActionResult Login(string msg)
         {
+            ViewBag.msg = msg;
             return View();
         }
-        public ActionResult LoginCheck()
+        [HttpPost]
+        public ActionResult LoginCheck(UserModel model)
         {
+
             try
             {
 
-                //loginSerivce.Login(model.UserName, model.Password);
-                //Session["SystemUser"] = loginSerivce.getLoginUser(model.UserName);
-
-                //ServiceContext.getInstance().getLogService().recordLoginLog(model.UserName, "成功", model.Os, model.Broswer);
+                Session["SystemUser"] = loginService.Login(model.UserName, model.Pswd);
 
             }
             catch (SystemException ex)
             {
-                //log.Error("login failed", ex);
-                //ServiceContext.getInstance().getLogService().recordLoginLog(model.UserName, "失败", model.Os, model.Broswer);
                 return RedirectToAction("Login", "Index", new { msg = ex.Message });
             }
-
             return RedirectToAction("Index", "Index");
+            
         }
         /// <summary>
         /// 用户登出

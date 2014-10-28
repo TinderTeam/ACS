@@ -8,6 +8,7 @@ using ACS.Common.Dao;
 using ACS.Models.Po.Sys;
 using ACS.Models.Po;
 using ACS.Models.Po.CF;
+using ACS.Models.Po.Business;
 
 namespace ACS.Dao
 {
@@ -36,7 +37,7 @@ namespace ACS.Dao
         {
             if (sysMenuDao == null)
             {
-                sysMenuDao = new DaoCommonImpl<Sys_Menu>();
+                sysMenuDao = new CommonDaoImpl<Sys_Menu>();
             }
             return sysMenuDao;
         }
@@ -55,16 +56,15 @@ namespace ACS.Dao
          {
              if (privilegeDao == null)
              {
-                 privilegeDao = new DaoCommonImpl<Privilege>();
+                 privilegeDao = new CommonDaoImpl<Privilege>();
              }
              return privilegeDao;
          }
-
-        public CommonDao<User> getUserDao()
+         public CommonDao<User> getUserDao()
          {
              if (userDao == null)
              {
-                 userDao = new DaoCommonImpl<User>();
+                 userDao = new CommonDaoImpl<User>();
              }
              return userDao;
          }
@@ -73,7 +73,7 @@ namespace ACS.Dao
          {
              if (employeeDao == null)
              {
-                 employeeDao = new DaoCommonImpl<Employee>();
+                 employeeDao = new CommonDaoImpl<Employee>();
              }
              return employeeDao;
          }

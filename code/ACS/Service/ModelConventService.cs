@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ACS.Models.Model;
-using ACS.Models.Po;
+using ACS.Models.Po.Business;
+using ACS.Models.Po.CF;
 using ACS.Models.Po.Sys;
 namespace ACS.Service
 {
@@ -23,7 +24,7 @@ namespace ACS.Service
         public static UserModel toUserModel(User user)
         {
             UserModel u = new UserModel();
-            u.Username = user.UserName;
+            u.UserName = user.UserName;
             u.Pswd = user.Pswd;
             u.UserID = user.UserID;
             return u;

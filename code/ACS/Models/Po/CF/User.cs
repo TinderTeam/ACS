@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ACS.Models.Po
+namespace ACS.Models.Po.CF
 {
     public class User
     {
@@ -15,51 +15,51 @@ namespace ACS.Models.Po
         private DateTime createDate;//创建时间
         private int modifyUserID;//最后编辑用户
         private DateTime modifyDate;//最后编辑时间
-		
+
 		public const String ID="UserID";
-        public int UserID
+        public virtual int UserID
         {
             get { return userID; }
             set { userID = value; }
         }
 
-        public String UserName
+        public virtual String UserName
         {
             get { return userName; }
             set { userName = value; }
         }
 
-        public String UserDesc
+        public virtual String UserDesc
         {
             get { return userDesc; }
             set { userDesc = value; }
         }
-        
-        public String Pswd
+
+        public virtual String Pswd
         {
             get { return pswd; }
             set { pswd = value; }
         }
-        
-        public int CreateUserID
+
+        public virtual int CreateUserID
         {
             get { return createUserID; }
             set { createUserID = value; }
         }
-        
-        public DateTime CreateDate
+
+        public virtual DateTime CreateDate
         {
             get { return createDate; }
             set { createDate = value; }
         }
-        
-        public int ModifyUserID
+
+        public virtual int ModifyUserID
         {
             get { return modifyUserID; }
             set { modifyUserID = value; }
         }
-        
-        public DateTime ModifyDate
+
+        public virtual DateTime ModifyDate
         {
             get { return modifyDate; }
             set { modifyDate = value; }

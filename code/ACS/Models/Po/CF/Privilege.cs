@@ -16,26 +16,41 @@ namespace ACS.Models.Po.CF
 
         public const String MASTER_VALUE = "PrivilegeMasterValue";
         public const String MASTER = "PrivilegeMaster";
-        public int PrivilegeID
+        public virtual int PrivilegeID
         {
             get { return privilegeID; }
             set { privilegeID = value; }
         }
 
-
-        public String PrivilegeMaster
+        public virtual String PrivilegeMaster
         {
             get { return privilegeMaster; }
             set { privilegeMaster = value; }
         }
 
-
-        public String PrivilegeMasterValue
+        public virtual String PrivilegeMasterValue
         {
             get { return privilegeMasterValue; }
             set { privilegeMasterValue = value; }
         }
-       
+
+        public virtual String PrivilegeAccess
+        {
+            get { return privilegeAccess; }
+            set { privilegeAccess = value; }
+        }
+
+        public virtual String PrivilegeAccessValue
+        {
+            get { return privilegeAccessValue; }
+            set { privilegeAccessValue = value; }
+        }
+
+        public virtual String PrivilegeOperation
+        {
+            get { return privilegeOperation; }
+            set { privilegeOperation = value; }
+        }
 
     }
 }

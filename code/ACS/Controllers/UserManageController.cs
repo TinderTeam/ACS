@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using ACS.Models.Model;
 using ACS.Common.Model;
 using ACS.Service;
-using ACS.Models.Po;
+using ACS.Models.Po.CF;
 namespace ACM.Controllers
 {
     public class UserManageController : Controller

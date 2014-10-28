@@ -22,7 +22,7 @@ namespace ACS.Models.Model
             get { return pswd; }
             set { pswd = value; }
         }
-        public String Username
+        public String UserName
         {
             get { return userName; }
             set { userName = value; }

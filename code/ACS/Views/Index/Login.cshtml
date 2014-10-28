@@ -26,9 +26,13 @@
 		</div>
 		<div id="login_content">
 			<div class="loginForm">
-                @using (Html.BeginForm("Index", "Index", FormMethod.Post, new { id = "myform" }))
+                @using (Html.BeginForm("LoginCheck", "Index", FormMethod.Post, new { id = "myform" }))
 				{
 					<p>
+                         @ViewBag.msg
+                    </p>
+                    <p>
+                        
 						<label>用户名：</label>
 						<input type="text" name="UserName" size="15" class="login_input" />
 					</p>

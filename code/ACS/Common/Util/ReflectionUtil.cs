@@ -25,7 +25,7 @@ namespace ACS.Common.Util
 		{
 			log.Error("can not convert to right type.the class is " + clazz + " the field name is " + fieldName + "the value is " + value);
 			log.Error("convert data failed",e);
-			throw new Exception(ExceptionMsg.DATA_CONVERT_ERROR);
+			throw new Exception(CommonMsg.DATA_CONVERT_ERROR);
 		}
 		
 	 

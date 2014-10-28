@@ -131,5 +131,14 @@ namespace Resources {
                 return ResourceManager.GetString("Submit", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 用户名或密码错误 的本地化字符串。
+        /// </summary>
+        internal static string USERNAME_PASSWORD_WRONG {
+            get {
+                return ResourceManager.GetString("USERNAME_PASSWORD_WRONG", resourceCulture);
+            }
+        }
     }
 }
