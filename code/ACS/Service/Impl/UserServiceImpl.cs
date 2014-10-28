@@ -8,12 +8,13 @@ using ACS.Models.Po;
 using ACS.Dao;
 using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
+using ACS.Common.Constant;
 namespace ACS.Service.Impl
 {
     public class UserServiceImpl : UserService
     {
 
-        UserDao userDao = DaoContext.getInstance().getUserDao();
+        CommonDao<User> userDao = DaoContext.getInstance().getUserDao();
 
         public AbstractDataSource<User> getUserList(User filter)
         {
@@ -28,7 +29,13 @@ namespace ACS.Service.Impl
 
         public void delete(int userID)
         {
-            userDao.delete(userID);
+            userDao.delete(
+                new QueryCondition(
+                   ConditionTypeEnum.EQUAL,
+                   User.ID,
+                   userID.ToString()
+                )
+            );
         }
 
         public void update(User user)

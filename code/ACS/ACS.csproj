@@ -143,7 +143,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\Constant\ConditionTypeEnum.cs" />
     <Compile Include="Common\Constant\ExceptionMsg.cs" />
-    <Compile Include="Common\Dao\Dao.cs" />
+    <Compile Include="Common\Dao\CommonDao.cs" />
     <Compile Include="Common\Dao\datasource\AbstractDataSource.cs" />
     <Compile Include="Common\Dao\datasource\DatabaseSourceImpl.cs" />
     <Compile Include="Common\Dao\SessionManage.cs" />
@@ -167,14 +167,7 @@
     <Compile Include="Controllers\EmployeeManageController.cs" />
     <Compile Include="Dao\DaoContext.cs" />
     <Compile Include="Dao\DaoInterface.cs" />
-    <Compile Include="Dao\impl\PrivilegeDaoImpl.cs" />
-    <Compile Include="Dao\impl\SysMenuDaoImpl.cs" />
-    <Compile Include="Dao\impl\UserDaoImpl.cs" />
-
-    <Compile Include="Dao\impl\EmployeeDaoImpl.cs" />
-
     <Compile Include="Dao\SessionManage.cs" />
-
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -197,13 +190,13 @@
     <Compile Include="Models\Po\Business\Control.cs" />
     <Compile Include="Models\Po\Business\Door.cs" />
     <Compile Include="Models\Po\Business\Employee.cs" />
-    <Compile Include="Models\Po\Log\AlarmRecord.cs" />
-    <Compile Include="Models\Po\Log\EventRecord.cs" />
+    <Compile Include="Models\Po\Business\AlarmRecord.cs" />
+    <Compile Include="Models\Po\Business\EventRecord.cs" />
     <Compile Include="Models\Po\Log\SystemLog.cs" />
     <Compile Include="Models\Po\Sys\Sys_Application.cs" />
     <Compile Include="Models\Po\Sys\Sys_Button.cs" />
     <Compile Include="Models\Po\Sys\Sys_Menu.cs" />
-    <Compile Include="Models\Po\View\UserRoleView.cs" />
+    <Compile Include="Models\Po\CF\UserRoleView.cs" />
     <Compile Include="Service\Cache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Impl\EmployeeServiceImpl.cs" />

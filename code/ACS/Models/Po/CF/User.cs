@@ -15,7 +15,8 @@ namespace ACS.Models.Po
         private DateTime createDate;//创建时间
         private int modifyUserID;//最后编辑用户
         private DateTime modifyDate;//最后编辑时间
-
+		
+		public const String ID="UserID";
         public int UserID
         {
             get { return userID; }

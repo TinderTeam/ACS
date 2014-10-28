@@ -9,8 +9,7 @@ namespace ACS.Common.Constant
     {
         INCLUDLE,
 	    EXCLUDLE, 
-	    EQUAL, 
- 
+	    EQUAL,
 	    BIGER, 
 	    BIGER_EQ,
 	    LOWER, 

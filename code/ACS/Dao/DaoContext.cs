@@ -3,16 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ACS.Dao;
-using ACS.Dao.impl;
+using ACS.Common.Dao.impl;
+using ACS.Common.Dao;
+using ACS.Models.Po.Sys;
+using ACS.Models.Po;
+using ACS.Models.Po.CF;
+
 namespace ACS.Dao
 {
     public class DaoContext
     {
         static DaoContext daoContext;
-        private PrivilegeDao privilegeDao;
-        private SysMenuDao sysMenuDao;
-        private UserDao userDao;
-        private EmployeeDao employeeDao;
+        private CommonDao<Privilege> privilegeDao;
+        private CommonDao<Sys_Menu> sysMenuDao;
+        private CommonDao<User> userDao;
+        private CommonDao<Employee> employeeDao;
+        private ViewDao<UserRoleView> userRoleViewDao;
+
+
+
         public static DaoContext getInstance()
         {
             if (daoContext == null)
@@ -23,38 +32,48 @@ namespace ACS.Dao
         }
 
 
-        public SysMenuDao getSysMenuDao()
+        public CommonDao<Sys_Menu> getSysMenuDao()
         {
             if (sysMenuDao == null)
             {
-                sysMenuDao = new SysMenuDaoImpl();
+                sysMenuDao = new DaoCommonImpl<Sys_Menu>();
             }
             return sysMenuDao;
         }
 
-        public PrivilegeDao getPrivilegeDao()
+
+        public ViewDao<UserRoleView> getUserRoleViewDao()
+        {
+            if (userRoleViewDao == null)
+            {
+                userRoleViewDao = new ViewDaoCommonImpl<UserRoleView>();
+            }
+            return userRoleViewDao;
+        }
+
+        public CommonDao<Privilege> getPrivilegeDao()
          {
              if (privilegeDao == null)
              {
-                 privilegeDao = new PrivilegeDaoImpl();
+                 privilegeDao = new DaoCommonImpl<Privilege>();
              }
              return privilegeDao;
          }
 
-         public UserDao getUserDao()
+        public CommonDao<User> getUserDao()
          {
              if (userDao == null)
              {
-                 userDao = new UserDaoImpl();
+                 userDao = new DaoCommonImpl<User>();
              }
              return userDao;
          }
 
-         public EmployeeDao getEmployeeDao()
+        public CommonDao<Employee> getEmployeeDao()
          {
              if (employeeDao == null)
              {
-                 employeeDao = new EmployeeDaoImpl();
+                 employeeDao = new DaoCommonImpl<Employee>();
              }
              return employeeDao;
          }

@@ -16,7 +16,7 @@ namespace ACS.Models.Po.Sys
         private String isVisble;//显示        
         private String isLeaf;//是否有子节点
 
-
+        public const string APP_ID = "ApplicationCode";
         public String MenuName
         {
             get { return menuName; }

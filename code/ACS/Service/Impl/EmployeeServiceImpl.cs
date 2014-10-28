@@ -8,11 +8,12 @@ using ACS.Models.Po;
 using ACS.Dao;
 using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
+using ACS.Common.Constant;
 namespace ACS.Service.Impl
 {
     public class EmployeeServiceImpl : EmployeeService
     {
-        EmployeeDao employeeDao = DaoContext.getInstance().getEmployeeDao();
+        CommonDao<Employee> employeeDao = DaoContext.getInstance().getEmployeeDao();
 
         public AbstractDataSource<Employee> getEmployeeList(Employee filter)
         {
@@ -27,7 +28,13 @@ namespace ACS.Service.Impl
 
         public void delete(int employeeID)
         {
-            employeeDao.delete(employeeID);
+            employeeDao.delete(
+                new QueryCondition(
+                   ConditionTypeEnum.EQUAL,
+                   Employee.ID,
+                   employeeID.ToString()
+                )
+            );
         }
 
         public void update(Employee employee)

@@ -8,6 +8,15 @@ namespace ACS.Models.Po
     public class Employee
     {
         private int employeeID;//员工ID
+
+        public int EmployeeID
+        {
+          get { return employeeID; }
+          set { employeeID = value; }
+        }
+
+        public const String ID = "EmployeeID";
+
         private String employeeName;//
         private String employeeCode;//
         private String englishName;//
@@ -49,6 +58,8 @@ namespace ACS.Models.Po
         private DateTime timeStampx;//
         private String isBlackCard;//
         private String ascString;//
+
+
 
     }
 }

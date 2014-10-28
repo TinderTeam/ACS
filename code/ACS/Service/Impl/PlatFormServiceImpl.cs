@@ -8,14 +8,14 @@ using ACS.Models.Po;
 using ACS.Models.Po.Sys;
 using ACS.Models.Po.CF;
 using ACS.Dao;
-using ACS.Service;
+using ACS.Common.Dao;
 using ACS.Test;
 namespace ACS.Service.Impl
 {
     public class PlatFormServiceImpl : PlatFormService
     {
-        SysMenuDao sysMenuDao = DaoContext.getInstance().getSysMenuDao();
-        PrivilegeDao privilegeDao = DaoContext.getInstance().getPrivilegeDao();
+        CommonDao<Sys_Menu> sysMenuDao = DaoContext.getInstance().getSysMenuDao();
+        CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
         /// <summary>
         /// 根据用户ID获取 主菜单
         /// </summary>

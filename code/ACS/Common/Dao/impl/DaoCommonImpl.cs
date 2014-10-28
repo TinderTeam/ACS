@@ -8,7 +8,7 @@ using NHibernate.Criterion;
 
 namespace ACS.Common.Dao.impl
 {
-    public class DaoCommonImpl<E> : ViewDaoCommonImpl<E>, Dao<E>
+    public class DaoCommonImpl<E> : ViewDaoCommonImpl<E>, CommonDao<E>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -71,31 +71,42 @@ namespace ACS.Common.Dao.impl
 		    }
         }
 
-        public void delete(E obj)
+        public void delete(List<QueryCondition> conditionList)
         {
-            log.Info("the object class is " + getFeaturedClass()+"the object is "+obj.ToString());
+            log.Info("the query is " + conditionList.ToString());
 
-		    ISession session = null;
-		    try
-		    {
-			    session = SessionManager.getInstance().GetSession();
-			    ITransaction tx = session.BeginTransaction();
-                Object classObj = session.Load(getFeaturedClass(), obj);
-			    session.Delete(classObj);
-			    tx.Commit();
 
-		    } catch (System.Exception re)
-		    {
-			    log.Error("delete error",re);
-			    throw re;
+            ISession session = null;
 
-		    } finally
-		    {
-			    if (session != null)
-			    {
-				    session.Close();
-			    }
-		    }
+
+            ITransaction tx = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+                tx = session.BeginTransaction();
+                ICriteria c = SessionManager.getCriteriaByCondition(this.getFeaturedClass(), conditionList, session);
+
+                foreach (var obj in c.List())
+                {
+                    session.Delete(obj);
+                }
+
+
+                tx.Commit();
+            }
+            catch (System.Exception re)
+            {
+                log.Error("delete error", re);
+                throw re;
+
+            }
+            finally
+            {
+                if (session != null)
+                {
+                    session.Close();
+                }
+            }
         }
 
         public void delete(QueryCondition condition)
