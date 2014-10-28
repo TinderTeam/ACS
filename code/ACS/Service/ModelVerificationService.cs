@@ -14,7 +14,7 @@ namespace ACS.Service
 
             return true;
         }
-        public static bool UserIDExist(int id)
+        public static bool UserIDExist(List<int> id)
         {
             //TODO
             return true;

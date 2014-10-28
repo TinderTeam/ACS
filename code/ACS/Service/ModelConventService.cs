@@ -10,8 +10,17 @@ namespace ACS.Service
 {
     public class ModelConventService
     {
-      
+        public static List<int> toIDList(String str)
+        {
+            List<int> list = new List<int>();
+            foreach(String  i in str.Split(','))
+            {
+                list.Add(Convert.ToInt16(i));
+            }
+            return list;
 
+        }
+          
         public static List<UserModel> toUserModelList(List<User> userList){
             List<UserModel> userModelList = new List<UserModel>();
             foreach (User item in userList)

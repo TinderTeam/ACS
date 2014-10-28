@@ -16,8 +16,8 @@ namespace ACS.Service
     public class PrivilegeCache
     {
 
-      
 
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static Dictionary<int,List<UserRoleView>> userRoleMap=null;
         private static Dictionary<int, PrivilegeSet> userPrivilegeMap = null;
         private static Dictionary<int, List<Sys_Menu>> userMenuMap = null;
@@ -68,6 +68,8 @@ namespace ACS.Service
         //增加一个缓存
         private static void addCache(int userid)
         {
+            log.Info("add cache where userID = " + userid);
+
             CommonDao<Sys_Menu> sysMenuDao = DaoContext.getInstance().getSysMenuDao();
             CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
             ViewDao<UserRoleView> userRoleViewDao = DaoContext.getInstance().getUserRoleViewDao();
@@ -80,6 +82,7 @@ namespace ACS.Service
                 );
             List<UserRoleView> userRoleList = userRoleViewDao.getAll();
             userRoleMap.Add(userid,userRoleList);
+            log.Debug("UserRoleView of userID = " + userRoleList);
 
             //根据用户加入权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
@@ -97,6 +100,7 @@ namespace ACS.Service
             );
           
             List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
+            log.Debug("userPrivilegeList of userID = " + userPrivilegeList);
 
             PrivilegeSet set = new PrivilegeSet();
             set.AddList(userPrivilegeList);
@@ -128,7 +132,7 @@ namespace ACS.Service
         
             //通过应用权限列表获取菜单列表
             List<String> appIDList =  getAppPrivilegeList(list);
-
+            log.Debug("appIDList of userID = " + appIDList);
 
             ///设置条件：在idList中
             QueryCondition inCondition = new QueryCondition(
@@ -139,12 +143,14 @@ namespace ACS.Service
 
             //加入用户菜单表
             List<Sys_Menu> menuList = sysMenuDao.getAll(inCondition);
+            log.Debug("menuList of userID = " + menuList);
             userMenuMap.Add(userid, menuList);
         }
 
         //初始化用户权限
         private static void initCache()
         {
+            log.Info("init PrivilegeCache...");
             //用户角色表加入缓存
             userRoleMap=new Dictionary<int,List<UserRoleView>>();
             //用户

@@ -7,27 +7,27 @@ namespace ACS.Common.Model
 {
     public class TableForm
     {
-        private int numPerPage = 20;
-        private int pageNum = 1;
+        private int pageSize = 20;
+        private int pageIndex = 1;
  
         public PageModel getPage()
         {
             PageModel page = new PageModel();
-            page.setPageSize(NumPerPage);
-            page.setCurrentPage(PageNum);
+            page.setPageSize(PageSize);
+            page.setCurrentPage(PageIndex);
             return page;
         }
 
-        public int NumPerPage
+        public int PageSize
         {
-            get { return numPerPage; }
-            set { numPerPage = value; }
+            get { return pageSize; }
+            set { pageSize = value; }
         }
 
-        public int PageNum
+        public int PageIndex
         {
-            get { return pageNum; }
-            set { pageNum = value; }
+            get { return pageIndex; }
+            set { pageIndex = value; }
         }
     }
 }

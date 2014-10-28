@@ -6,28 +6,54 @@ using System.Web.Mvc;
 using ACS.Models.Model;
 using ACS.Common.Model;
 using ACS.Service;
+using ACS.Test;
+using ACS.Models.Po;
+using System.Collections;
+using PluSoft.Utils;
+using System.Text;
+using System.Runtime.Serialization;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
 using ACS.Models.Po.CF;
 namespace ACM.Controllers
 {
     public class UserManageController : Controller
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         UserService userService = ServiceContext.getInstance().getUserService();
-        public ActionResult UserManage(TableForm tableForm, User filter)
+
+        public ActionResult UserManage()
         {
-            TableDataModel<User> userModelTable = new TableDataModel<User>();
-            userModelTable.setPage(tableForm.getPage());
-            userModelTable.setDataSource(userService.getUserList(filter));
-            @ViewBag.UserList = userModelTable.getCurrentPageData();
             return View();
         }
 
+        public ActionResult Load(TableForm tableForm)
+        {
+            log.Debug("Load Data...");
+            //数据库操作：使用查询条件、分页、排序等参数进行查询
+            TableDataModel<User> userModelTable = new TableDataModel<User>();
+            //userModelTable.setPage(tableForm.getPage());
+            //userModelTable.setDataSource(userService.getUserList(filter));
+
+            log.Debug("pageIndex = " + tableForm.PageIndex + ";pageSize=" + tableForm.PageSize);
+
+            //返回JSON：将查询的结果，序列化为JSON字符串返回  
+            JavaScriptSerializer jsonSerialize = new JavaScriptSerializer();
+            String json = jsonSerialize.Serialize(Stub.getUserList());
+            log.Debug("Json = "+ json);
+            Response.Write(json);
+            return null;
+        }
         /// <summary>
         /// 新增用户
         /// 可以改成用Ajax调用的响应
         /// </summary>
         /// <returns></returns>
-        public ActionResult createUser(UserModel usermodle)
+        public ActionResult create(UserModel usermodle)
         {
+            log.Debug("Create User...");
             User user = ModelConventService.toUser(usermodle);
             if (ModelVerificationService.UserVerification(user))
             {
@@ -37,7 +63,7 @@ namespace ACM.Controllers
                 //校验失败
                 //TODO: 
             }
-            return View();
+            return null;
         }
 
         /// <summary>
@@ -45,8 +71,9 @@ namespace ACM.Controllers
         /// Ajax调用
         /// </summary>
         /// <returns></returns>
-        public ActionResult modifyUser(UserModel usermodle)
+        public ActionResult Edit(UserModel usermodle)
         {
+            log.Debug("Modify User...");
             User user = ModelConventService.toUser(usermodle);
             if (ModelVerificationService.UserVerification(user))
             {
@@ -58,7 +85,7 @@ namespace ACM.Controllers
                 //校验失败
                 //TODO: 
             }
-            return View();
+            return null;
         }
 
         /// <summary>
@@ -66,20 +93,22 @@ namespace ACM.Controllers
         /// Ajax调用
         /// </summary>
         /// <returns></returns>
-        public ActionResult deleteUser(int userID)
+        public ActionResult Remove(String idstr)
         {
-
-            if (ModelVerificationService.UserIDExist(userID))
+            List<int> idList=ModelConventService.toIDList(idstr);
+            log.Debug("Delete User (id=" + idList + ") ...");
+            if (ModelVerificationService.UserIDExist(idList))
             {
                 //校验成功
-                userService.delete(userID);
+                userService.delete(idList);
             }
             else
             {
                 //校验失败
                 //TODO: 
             }
-            return View();
+            Response.Write("ok");
+            return null;
         }
     }
 }

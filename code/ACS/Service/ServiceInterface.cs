@@ -18,7 +18,7 @@ namespace ACS.Service
     {
         AbstractDataSource<User> getUserList(User filter);
         void create(User user);
-        void delete(int userID);
+        void delete(List<int> userIDList);
         void update(User user);
     }
 

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ACS.Models.Po.CF;
+using ACS.Models.Po;
 using ACS.Models.Model;
+using ACS.Models.Po.CF;
 namespace ACS.Test
 {
     public class Stub
@@ -12,7 +13,7 @@ namespace ACS.Test
         public static List<User> getUserList()
         {
             List<User> list = new List<User>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 100; i++)
             {
                 User t = new User();
                 t.UserID = i;
@@ -42,6 +43,33 @@ namespace ACS.Test
                 }
             }
             return treeList;            
+        }
+
+        public static MenuTreeModel getTestTree()
+        {
+
+            List<MenuTreeItem> treeList = new List<MenuTreeItem>();
+            MenuTreeItem item = new MenuTreeItem();
+            item.Id = "test";
+            item.Text = "测试";
+            treeList.Add(item);
+            ///
+            ///加入测试用的菜单项
+            ///
+            treeList.Add(testItem("UserManage/userManage"));
+            ///
+            MenuTreeModel tree = new MenuTreeModel();
+            tree.MenuTreeItemList = treeList;
+            return tree;
+        }
+
+        private static  MenuTreeItem testItem(String name)
+        {
+            MenuTreeItem item = new MenuTreeItem();
+            item.Id = name;
+            item.Text = "测试-" + name;
+            item.Pid = "test";
+            return item;
         }
     }
 }
