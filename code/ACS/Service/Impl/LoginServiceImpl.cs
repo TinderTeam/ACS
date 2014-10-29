@@ -47,6 +47,33 @@ namespace ACS.Service.Impl
             
             return userModel;
         }
+        /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public void ModifyPswd(string userName, string oldPswd, string newPswd)
+        {
+
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserName", userName);
+            User user = userDao.getUniRecord(condition);
+            
+            if (null == user)
+            {
+                log.Error("session has out of time,username is " + userName);
+                throw new SystemException(ExceptionMsg.USERNAME_PASSWORD_WRONG);
+            }
+
+            if (!user.Pswd.Equals(oldPswd))
+            {
+                log.Error("old password is wrong. user name is " + userName);
+                throw new SystemException(ExceptionMsg.USERNAME_PASSWORD_WRONG);
+            }
+            
+            user.Pswd = newPswd;
+            userDao.update(user);
+        }
 
     }
 }

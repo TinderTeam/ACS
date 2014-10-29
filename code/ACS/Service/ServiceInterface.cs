@@ -32,6 +32,6 @@ namespace ACS.Service
     public interface LoginService
     {
         UserModel Login(string userName, string password);
+        void ModifyPswd(string userName, string oldPswd, string newPswd);
     }
-
 }

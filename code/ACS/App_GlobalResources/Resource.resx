@@ -126,6 +126,15 @@
   <data name="ModifyPswd" xml:space="preserve">
     <value>修改密码</value>
   </data>
+  <data name="NewPasswordNull" xml:space="preserve">
+    <value>新密码不能为空</value>
+  </data>
+  <data name="OldPasswordNull" xml:space="preserve">
+    <value>原密码不能为空</value>
+  </data>
+  <data name="PasswordNotSame" xml:space="preserve">
+    <value>请输入相同的密码</value>
+  </data>
   <data name="PersonalInfo" xml:space="preserve">
     <value>个人信息</value>
   </data>

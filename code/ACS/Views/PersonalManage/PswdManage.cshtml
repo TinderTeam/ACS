@@ -3,39 +3,119 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>修改密码</title>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8" /><link href="../demo.css" rel="stylesheet" type="text/css" />
-
-    
-    <script src="../../scripts/boot.js" type="text/javascript"></script>
-        
-    <link href="../../diysize.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="../../Scripts/boot.js" type="text/javascript"></script>   
+    <link href="../../Scripts/diysize.css" rel="stylesheet" type="text/css" />
+    <link href="../../Scripts/demo.css" rel="stylesheet" type="text/css" />
 
 </head>
 <body>
-    <br/>
-    <span style="width:20px;display:inline-block;">&nbsp&nbsp</span>
-    <span style="width:120px;display:inline-block;">@Resources.Resource.ResourceManager.GetString("PleaseInputOldPswd")</span>
-        <input class="mini-textbox" style="width:200px;" />
-    <br /><br />
-    <span style="width:20px;display:inline-block;">&nbsp&nbsp</span>
-    <span style="width:120px;display:inline-block;">@Resources.Resource.ResourceManager.GetString("PleaseInputNewPswd")</span>
-        <input class="mini-textbox" style="width:200px;"/>
-    <br /><br />
-    <span style="width:20px;display:inline-block;">&nbsp&nbsp</span>
-    <span style="width:120px;display:inline-block;">@Resources.Resource.ResourceManager.GetString("PleaseInputNewPswdAgain")</span>
-        <input class="mini-textbox" style="width:200px;"/>
-    <br /><br />
+    @using (Html.BeginForm("ModifyPswd", "Index", FormMethod.Post, new { id = "myform" }))
+    {
+        <br/>
+        <span style="width:20px;display:inline-block;">&nbsp&nbsp</span>
+        <span style="width:120px;display:inline-block;">@Resources.Resource.ResourceManager.GetString("PleaseInputOldPswd")</span>
+            <input name ="OldPswd" type="password" class="mini-password" onvalidation="noPswdError" style="width:200px;" requiredErrorText="@Resources.Resource.ResourceManager.GetString("OldPasswordNull")" required="true" />
+        <br />
+            <span style="width:180px;display:inline-block;">&nbsp&nbsp</span>
+            <span id="noPswd" class="errorText"></span>
+        <br />
+        
+        <span style="width:20px;display:inline-block;">&nbsp&nbsp</span>
+        <span style="width:120px;display:inline-block;">@Resources.Resource.ResourceManager.GetString("PleaseInputNewPswd")</span>
+            <input id ="NewPswd" name ="NewPswd" class="mini-password" onvalidation="noNewPswdError" style="width:200px;" requiredErrorText="@Resources.Resource.ResourceManager.GetString("NewPasswordNull")" required="true"/>
+        <br />
+            <span style="width:180px;display:inline-block;">&nbsp&nbsp</span>
+            <span id="noNewPswd" class="errorText"></span>
+        <br />
+        <span style="width:20px;display:inline-block;">&nbsp&nbsp</span>
+        <span style="width:120px;display:inline-block;">@Resources.Resource.ResourceManager.GetString("PleaseInputNewPswdAgain")</span>
+            <input type="password" class="mini-password" onvalidation="samePasswordValidation" style="width:200px;"/>
+            <input id="pswdError" class="mini-password" style="display:none" value="@Resources.Resource.ResourceManager.GetString("PasswordNotSame")"/>
+        <br />
+            <span style="width:180px;display:inline-block;">&nbsp&nbsp</span>
+            <span id="notSamePswd" class="errorText"></span>
+        <br />
 
-    <span style="width:140px;display:inline-block;">&nbsp&nbsp</span>
-        <span style="width:80px;">&nbsp&nbsp</span>
-		<a class="mini-button" style="width:80px;" iconCls="icon-ok">@Resources.Resource.ResourceManager.GetString("Submit")</a>
-		<span style="width:80px;">&nbsp&nbsp</span>
-        <a class="mini-button" style="width:80px;" iconCls="icon-cancel">@Resources.Resource.ResourceManager.GetString("Cancel")</a>
-            
+        <span style="width:140px;display:inline-block;">&nbsp&nbsp</span>
+            <span style="width:80px;">&nbsp&nbsp</span>
+		    <a id="btn-submit"class="mini-button" style="width:80px;" iconCls="icon-ok" onclick="onOk">@Resources.Resource.ResourceManager.GetString("Submit")</a>
+		    <span style="width:80px;">&nbsp&nbsp</span>
+            <a class="mini-button" style="width:80px;" iconCls="icon-cancel" onclick="onCancel">@Resources.Resource.ResourceManager.GetString("Cancel")</a>
+    }        
     <script type="text/javascript">
         mini.parse();
 
-      
+        var form = new mini.Form("#myform");
+
+        function SaveData() {
+            
+            var o = form.getData();
+
+            form.validate();
+            if (form.isValid() == false) return;
+
+            var json = mini.encode(o);
+            $.ajax({
+                url: "/Index/ModifyPswd",
+                type: 'post',
+                data: { data: json },
+                cache: false,
+                success: function (text) {
+                    CloseWindow("save");
+                    top.location = "/";
+                },
+                error: function (text) {
+                    CloseWindow("cancel");
+                    top.location = "/Index";
+                }
+            });
+        }
+        function GetData() {
+            var o = form.getData();
+            return o;
+        }
+        function CloseWindow(action) {
+            if (action == "close" && form.isChanged()) {
+                if (confirm("数据被修改了，是否先保存？")) {
+                    return false;
+                }
+            }
+            if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+            else window.close();
+        }
+        function onOk(e) {
+            SaveData();
+        }
+        function onCancel(e) {
+            CloseWindow("cancel");
+        }
+        //原密码输入为空，错误提示信息
+        function noPswdError(e) {
+            var el = document.getElementById("noPswd");
+            if (el) {
+                el.innerHTML = e.errorText;
+            }
+        }
+        //新密码输入为空，提示信息
+        function noNewPswdError(e) {
+            var el = document.getElementById("noNewPswd");
+            if (el) {
+                el.innerHTML = e.errorText;
+            }
+        }
+        //两次密码不一致提示信息
+        function samePasswordValidation(e) {
+            var password = mini.get("NewPswd").getValue();
+            var pswdError = mini.get("pswdError").getValue();
+            var el = document.getElementById("notSamePswd");
+            if (e.isValid) {
+                if (e.value != password) {
+                    el.innerHTML = pswdError;
+                    e.isValid = false;
+                }
+            }
+        }
     </script>
 
 </body>

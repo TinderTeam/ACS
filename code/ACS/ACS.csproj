@@ -162,6 +162,7 @@
     <Compile Include="Common\Dao\impl\ViewDaoCommonImpl.cs" />
     <Compile Include="Common\Dao\QueryCondition.cs" />
     <Compile Include="Common\Util\DataTypeConvert.cs" />
+    <Compile Include="Common\Util\JsonConvert.cs" />
     <Compile Include="Common\Util\ReflectionUtil.cs" />
     <Compile Include="Controllers\AccessManageController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -184,6 +185,7 @@
     <Compile Include="Models\Model\MenuTreeModel.cs" />
     <Compile Include="Models\Model\PrivilegeSet.cs" />
     <Compile Include="Models\Model\UserModel.cs" />
+    <Compile Include="Models\Model\PswdModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\Access.cs" />

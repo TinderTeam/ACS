@@ -88,6 +88,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 新密码不能为空 的本地化字符串。
+        /// </summary>
+        internal static string NewPasswordNull {
+            get {
+                return ResourceManager.GetString("NewPasswordNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 原密码不能为空 的本地化字符串。
+        /// </summary>
+        internal static string OldPasswordNull {
+            get {
+                return ResourceManager.GetString("OldPasswordNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请输入相同的密码 的本地化字符串。
+        /// </summary>
+        internal static string PasswordNotSame {
+            get {
+                return ResourceManager.GetString("PasswordNotSame", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 个人信息 的本地化字符串。
         /// </summary>
         internal static string PersonalInfo {

@@ -7,6 +7,7 @@ using ACS.Service;
 using ACS.Models.Model;
 using System.Resources;
 using ACS.Test;
+using ACS.Common.Util;
 namespace ACM.Controllers
 
 {
@@ -36,6 +37,10 @@ namespace ACM.Controllers
             ViewBag.msg = msg;
             return View();
         }
+        /// <summary>
+        /// 用户登陆
+        /// </summary>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult LoginCheck(UserModel model)
         {
@@ -54,6 +59,29 @@ namespace ACM.Controllers
             
         }
         /// <summary>
+        /// 修改密码
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ModifyPswd(string data)
+        {
+
+            try
+            {
+
+                UserModel user = (UserModel) Session["SystemUser"];
+        
+                PswdModel pwd =  JsonConvert.JsonToObject<PswdModel>(data);
+                loginService.ModifyPswd(user.UserName, pwd.OldPswd, pwd.NewPswd);
+            }
+            catch (SystemException ex)
+            {
+                return RedirectToAction("Index", "Index", new { msg = ex.Message });
+            }
+            return RedirectToAction("Login", "Index");
+
+        }
+        /// <summary>
         /// 用户登出
         /// </summary>
         /// <returns></returns>
@@ -62,14 +90,14 @@ namespace ACM.Controllers
             //return new RedirectResult("Index/Login");
             return RedirectToAction("Login", "Index");
         }
-       
+
         public String MenuTree()
         {
 
             //MenuTreeModel tree=platFormService.getMenuTreeByUserID(0);
             //return "[{id:\"user\", text: \"用户管理\"},{id:\"UserManage\", text:\"用户管理\", pid: \"user\" }]";
-            MenuTreeModel tree =Stub.getTestTree();
-			return  tree.ToJsonStr();
+            MenuTreeModel tree = Stub.getTestTree();
+            return tree.ToJsonStr();
         }
         public ActionResult Default()
         {
