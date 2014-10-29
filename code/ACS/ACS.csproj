@@ -53,7 +53,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate">
       <HintPath>..\packages\NHibernate.4.0.1.4000\lib\net40\NHibernate.dll</HintPath>
@@ -1556,7 +1556,9 @@
     <Content Include="Views\Index\Overview.cshtml" />
     <Content Include="Views\Public\_EditTable.cshtml" />
     <Content Include="Views\UserManage\UserManage.cshtml" />
-    <Content Include="Views\UserManage\UserEdit.cshtml" />
+    <Content Include="Views\UserManage\UserEdit.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

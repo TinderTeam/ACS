@@ -14,6 +14,7 @@ namespace ACS.Service.Constant
         public const String OLD_PASSWORD_WRONG = "OLD_PASSWORD_WRONG";
         public const String DATE_FOMATE = "DATE_FOMATE";
         public const String DATA_CONVERT_ERROR = "DATA_CONVERT_ERROR";
+        public const String USERNAME_EXIST = "USERNAME_EXIST";
 
 
         public const String OPERATE_SUCCESS = "OPERATE_SUCCESS";

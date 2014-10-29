@@ -10,19 +10,32 @@ using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
 using ACS.Common.Constant;
 using ACS.Models.Po.CF;
+using ACS.Service.Constant;
 namespace ACS.Service.Impl
 {
     public class UserServiceImpl : UserService
     {
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         CommonDao<User> userDao = DaoContext.getInstance().getUserDao();
+
         public AbstractDataSource<User> getUserList(User filter)
         {
             List<QueryCondition> conditionList = new List<QueryCondition>();
             AbstractDataSource<User> dataSource = new DatabaseSourceImpl<User>(conditionList);  
 		    return dataSource;
         }
-        public void create(User user)
+        //创建新用户
+        public void create(UserModel userModel)
         {
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserName", userModel.UserName);
+            if (null != userDao.getUniRecord(condition))
+            {
+                log.Error("create failed, the userName has exist. user name is " + userModel.UserName);
+                throw new SystemException(ExceptionMsg.USERNAME_EXIST);
+            }
+            User user = ModelConventService.toUser(userModel);
+            user.CreateDate = DateTime.Now;
+            user.ModifyDate = DateTime.Now;
             userDao.create(user);
         }
         public void delete(List<int> userIDList)
@@ -38,6 +51,18 @@ namespace ACS.Service.Impl
            );
             }
            
+        }
+        public UserModel getUserByID(string userID)
+        {
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserID", userID);
+            User user = userDao.getUniRecord(condition);
+            if (null == user)
+            {
+                log.Error("get user failed, the user is not exist. userID is " + userID);
+                throw new SystemException(ExceptionMsg.USER_NOT_EXISTED);
+            }
+            UserModel userModel = ModelConventService.toUserModel(user);
+            return userModel;
         }
         public void update(User user)
         {

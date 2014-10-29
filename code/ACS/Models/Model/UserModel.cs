@@ -8,8 +8,41 @@ namespace ACS.Models.Model
     public class UserModel
     {
         private String userName;
+        private String userDesc;
         private String pswd;
         private int userID;
+        private int createUserID;
+        private DateTime createDate;
+        private int modifyUserID;
+        private DateTime modifyDate;
+
+        public String UserDesc
+        {
+            get { return userDesc; }
+            set { userDesc = value; }
+        }
+        public DateTime ModifyDate
+        {
+            get { return modifyDate; }
+            set { modifyDate = value; }
+        }
+
+        public int ModifyUserID
+        {
+            get { return modifyUserID; }
+            set { modifyUserID = value; }
+        }
+        public DateTime CreateDate
+        {
+            get { return createDate; }
+            set { createDate = value; }
+        }
+
+        public int CreateUserID
+        {
+            get { return createUserID; }
+            set { createUserID = value; }
+        }
 
         public int UserID
         {

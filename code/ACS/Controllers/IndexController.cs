@@ -8,6 +8,7 @@ using ACS.Models.Model;
 using System.Resources;
 using ACS.Test;
 using ACS.Common.Util;
+using System.Web.Script.Serialization;
 namespace ACM.Controllers
 
 {
@@ -63,9 +64,9 @@ namespace ACM.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ModifyPswd(string data)
+        public string ModifyPswd(string data)
         {
-
+            string text = null;
             try
             {
 
@@ -76,9 +77,14 @@ namespace ACM.Controllers
             }
             catch (SystemException ex)
             {
-                return RedirectToAction("Index", "Index", new { msg = ex.Message });
+              
+                text = ex.Message; 
+                Response.Write(text);
+                return null;
             }
-            return RedirectToAction("Login", "Index");
+            text = "Success";
+            Response.Write(text);
+            return null;
 
         }
         /// <summary>

@@ -44,7 +44,7 @@ namespace ACS.Service.Impl
 
             UserModel userModel = new UserModel();
             userModel.UserName = user.UserName;
-            
+            userModel.UserID = user.UserID;
             return userModel;
         }
         /// <summary>

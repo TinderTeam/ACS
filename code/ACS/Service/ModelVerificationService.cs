@@ -4,11 +4,12 @@ using System.Linq;
 using System.Web;
 using ACS.Models.Po.CF;
 using ACS.Models.Po.Business;
+using ACS.Models.Model;
 namespace ACS.Service
 {
     public class ModelVerificationService
     {
-        public static bool UserVerification(User user)
+        public static bool UserVerification(UserModel userModel)
         {
             //TODO
 

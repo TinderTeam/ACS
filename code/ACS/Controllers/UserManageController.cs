@@ -15,6 +15,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using ACS.Models.Po.CF;
+using ACS.Common.Util;
 namespace ACM.Controllers
 {
     public class UserManageController : Controller
@@ -31,6 +32,8 @@ namespace ACM.Controllers
         public ActionResult UserEdit(String id)
         {
             ViewBag.Type = "EDIT";
+            UserModel userModel = userService.getUserByID(id);
+            ViewBag.user = userModel;
             return View();
         }
 
@@ -63,14 +66,31 @@ namespace ACM.Controllers
         /// 可以改成用Ajax调用的响应
         /// </summary>
         /// <returns></returns>
-        public ActionResult create(UserModel usermodle)
+        public string create(string data)
         {
+            string text = null;
             log.Debug("Create User...");
-            User user = ModelConventService.toUser(usermodle);
-            if (ModelVerificationService.UserVerification(user))
+            UserModel userModel = JsonConvert.JsonToObject<UserModel>(data);
+            UserModel model = (UserModel) Session["SystemUser"];
+            userModel.CreateUserID =model.UserID;
+
+            if (ModelVerificationService.UserVerification(userModel))
             {
-                //校验成功
-                userService.create(user);
+                try
+                {
+                    //校验成功
+                    userService.create(userModel);
+                }
+                catch (SystemException ex)
+                {
+                    text = ex.Message;
+                    Response.Write(text);
+                    return null;    
+                }
+                text = "Success";
+                Response.Write(text);
+                return null;
+
             }else{
                 //校验失败
                 //TODO: 
@@ -86,8 +106,9 @@ namespace ACM.Controllers
         public ActionResult Edit(UserModel usermodle)
         {
             log.Debug("Modify User...");
-            User user = ModelConventService.toUser(usermodle);
-            if (ModelVerificationService.UserVerification(user))
+            UserModel userModel = new UserModel();
+            User user = new User(); 
+            if (ModelVerificationService.UserVerification(userModel))
             {
                 //校验成功
                 userService.update(user);

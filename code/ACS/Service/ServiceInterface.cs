@@ -17,8 +17,9 @@ namespace ACS.Service
     public interface UserService
     {
         AbstractDataSource<User> getUserList(User filter);
-        void create(User user);
+        void create(UserModel userModel);
         void delete(List<int> userIDList);
+        UserModel getUserByID(string userID);
         void update(User user);
     }
 
