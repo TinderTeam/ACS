@@ -49,47 +49,44 @@
 
     <script type="text/javascript">
         mini.parse();
-        var grid = mini.get("datagrid1");
+        var grid = mini.get("#datagrid1");
         grid.load();
 
-        function create() {          
+        function add() {
             mini.open({
-                url: bootPATH + "Add",
-                title: "新增员工", width: 600, height: 360,
+                url:"../UserManage/UserCreate",
+                title: "新增用户", width: 800, height: 600,
                 onload: function () {
-                    var iframe = this.getIFrameEl();
-                    var data = { action: "new"};
-                    iframe.contentWindow.SetData(data);
+
                 },
-                ondestroy: function (action) {
+                ondestroy: function (action) {           
                     grid.reload();
                 }
             });
         }
+
         function edit() {
          
             var row = grid.getSelected();
             if (row) {
+                var id = row.UserID;
                 mini.open({
-                    url: "Edit",
-                    title: "编辑员工", width: 600, height: 360,
+                    url: "../UserManage/UserEdit?id=" + id,
+                    title: "编辑用户", width: 800, height: 600,
                     onload: function () {
-                        var iframe = this.getIFrameEl();
-                        var data = { action: "Edit", id: row.id };
-                        iframe.contentWindow.SetData(data);
-                        
+                      
                     },
                     ondestroy: function (action) {
                         grid.reload();
                         
                     }
-                });
-                
+                });             
             } else {
                 alert("请选中一条记录");
             }
             
         }
+
         function remove() {
             
             var rows = grid.getSelecteds();
@@ -117,6 +114,7 @@
                 alert("请选中一条记录");
             }
         }
+
         function search() {
             var key = mini.get("key").getValue();
             grid.load({ key: key });
@@ -142,11 +140,6 @@
             }
             return "";
         }
-
-
-
-
-
     </script>
 
     <div class="description">

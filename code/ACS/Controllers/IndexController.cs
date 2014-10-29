@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using ACS.Service;
 using ACS.Models.Model;
 using System.Resources;
+using ACS.Test;
 namespace ACM.Controllers
 
 {
@@ -65,9 +66,9 @@ namespace ACM.Controllers
         public String MenuTree()
         {
 
-            MenuTreeModel tree=platFormService.getMenuTreeByUserID(0);
+            //MenuTreeModel tree=platFormService.getMenuTreeByUserID(0);
             //return "[{id:\"user\", text: \"用户管理\"},{id:\"UserManage\", text:\"用户管理\", pid: \"user\" }]";
-
+            MenuTreeModel tree =Stub.getTestTree();
 			return  tree.ToJsonStr();
         }
         public ActionResult Default()

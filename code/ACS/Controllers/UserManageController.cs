@@ -29,6 +29,19 @@ namespace ACM.Controllers
             return View();
         }
 
+        public ActionResult UserEdit(String id)
+        {
+            ViewBag.Type = "EDIT";
+            return View();
+        }
+
+        public ActionResult UserCreate()
+        {
+            ViewBag.Type = "CREATE";
+            return View("UserEdit");
+        }
+
+
         public ActionResult Load(TableForm tableForm)
         {
             log.Debug("Load Data...");

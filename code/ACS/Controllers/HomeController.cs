@@ -14,8 +14,8 @@ namespace ACM.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return RedirectToAction("Login", "Index");
-           // return RedirectToAction("Test", "Home");
+           // return RedirectToAction("Login", "Index");
+            return RedirectToAction("Index", "Index");
         }
 
         public ActionResult Test()

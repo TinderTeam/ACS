@@ -1554,6 +1554,7 @@
     <Content Include="Views\Index\Overview.cshtml" />
     <Content Include="Views\Public\_EditTable.cshtml" />
     <Content Include="Views\UserManage\UserManage.cshtml" />
+    <Content Include="Views\UserManage\UserEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
