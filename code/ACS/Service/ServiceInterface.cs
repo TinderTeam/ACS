@@ -27,7 +27,7 @@ namespace ACS.Service
     {
         AbstractDataSource<Employee> getEmployeeList(Employee filter);
         void create(Employee employee);
-        void delete(int employeeId);
+        void delete(List<int> employeeIDList);
         void update(Employee employee);
     }
     public interface LoginService

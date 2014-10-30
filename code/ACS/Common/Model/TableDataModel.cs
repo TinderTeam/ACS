@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ACS.Common.Dao.datasource;
+using ACS.Common.Util;
 namespace ACS.Common.Model
 {
     public class TableDataModel<E>
@@ -38,6 +39,15 @@ namespace ACS.Common.Model
         public void setPage(PageModel page)
         {
             this.page = page;
+        }
+
+
+        // 从page对象List信息生成Json串
+        public string getMiniUIJson()
+        {
+            String data = JsonConvert.ObjectToJson(this.getCurrentPageData());
+            String json = "{\"total\":" + this.getPage().getCount() + ",\"data\":" + data + "}";
+            return json;
         }
 
     }

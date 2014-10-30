@@ -92,6 +92,7 @@ namespace ACS.Test
             treeList.Add(testItem("日志管理", "LogManage/LogManage", "sysmanage"));
 
             treeList.Add(testItem("数据配置", "datamanage", ""));
+            treeList.Add(testItem("员工管理", "EmployeeManage/EmployeeManage", "datamanage"));
             treeList.Add(testItem("部门管理", "DeptManage/DeptManage", "datamanage"));
             treeList.Add(testItem("门禁规则管理", "AccessManage/AccessManage", "datamanage"));
             treeList.Add(testItem("设备管理", "DeviceManage/DeviceManage", "datamanage"));

@@ -44,21 +44,16 @@ namespace ACM.Controllers
         }
 
 
-        public ActionResult Load(TableForm tableForm)
+        public ActionResult Load(TableForm tableForm, User filter)
         {
             log.Debug("Load Data...");
             //数据库操作：使用查询条件、分页、排序等参数进行查询
             TableDataModel<User> userModelTable = new TableDataModel<User>();
             userModelTable.setPage(tableForm.getPage());
-            userModelTable.setDataSource(userService.getUserList(null));
+            userModelTable.setDataSource(userService.getUserList(filter));
 
             log.Debug("pageIndex = " + tableForm.PageIndex + ";pageSize=" + tableForm.PageSize);
-
-            //返回JSON：将查询的结果，序列化为JSON字符串返回  
-            JavaScriptSerializer jsonSerialize = new JavaScriptSerializer();
-            String json = jsonSerialize.Serialize(userModelTable.getCurrentPageData());
-            log.Debug("Json = "+ json);
-            Response.Write(json);
+            Response.Write(userModelTable.getMiniUIJson());
             return null;
         }
         /// <summary>

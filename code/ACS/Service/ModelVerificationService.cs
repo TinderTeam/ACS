@@ -27,7 +27,7 @@ namespace ACS.Service
             return true;
         }
 
-        public static bool EmployeeModelIDExist(int  employeeID)
+        public static bool EmployeeModelIDExist(List<int> employeeID)
         {
             //TODO
             return true;

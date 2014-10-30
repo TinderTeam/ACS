@@ -25,16 +25,22 @@ namespace ACS.Service.Impl
         {
             employeeDao.create(employee);
         }
-
-        public void delete(int employeeID)
+        /// <summary>
+        ///批量删除员工
+        /// </summary>
+        /// <returns></returns>
+        public void delete(List<int> employeeIDList)
         {
-            employeeDao.delete(
-                new QueryCondition(
-                   ConditionTypeEnum.EQUAL,
-                   Employee.ID,
-                   employeeID.ToString()
-                )
-            );
+            foreach (int i in employeeIDList)
+            {
+                employeeDao.delete(
+                    new QueryCondition(
+                       ConditionTypeEnum.EQUAL,
+                       Employee.ID,
+                       i.ToString()
+                    )
+                );
+            }
         }
 
         public void update(Employee employee)

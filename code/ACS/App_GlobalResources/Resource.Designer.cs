@@ -70,6 +70,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 测试 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeEdit_ {
+            get {
+                return ResourceManager.GetString("EmployeeEdit_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 退出 的本地化字符串。
         /// </summary>
         internal static string Exit {

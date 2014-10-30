@@ -117,43 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cancel" xml:space="preserve">
-    <value>取消</value>
+  <data name="EmployeeEdit_Birthday" xml:space="preserve">
+    <value>生日：</value>
   </data>
-  <data name="EmployeeEdit_" xml:space="preserve">
-    <value>测试</value>
+  <data name="EmployeeEdit_Car" xml:space="preserve">
+    <value>车牌：</value>
   </data>
-  <data name="Exit" xml:space="preserve">
-    <value>退出</value>
+  <data name="EmployeeEdit_Code" xml:space="preserve">
+    <value>工号：</value>
   </data>
-  <data name="ModifyPswd" xml:space="preserve">
-    <value>修改密码</value>
+  <data name="EmployeeEdit_DeptID" xml:space="preserve">
+    <value>部门：</value>
   </data>
-  <data name="NewPasswordNull" xml:space="preserve">
-    <value>新密码不能为空</value>
+  <data name="EmployeeEdit_Email" xml:space="preserve">
+    <value>邮箱：</value>
   </data>
-  <data name="OldPasswordNull" xml:space="preserve">
-    <value>原密码不能为空</value>
+  <data name="EmployeeEdit_EndDate" xml:space="preserve">
+    <value>有效期：</value>
   </data>
-  <data name="PasswordNotSame" xml:space="preserve">
-    <value>请输入相同的密码</value>
+  <data name="EmployeeEdit_EnglishName" xml:space="preserve">
+    <value>英文名：</value>
   </data>
-  <data name="PersonalInfo" xml:space="preserve">
-    <value>个人信息</value>
+  <data name="EmployeeEdit_Home" xml:space="preserve">
+    <value>地址：</value>
   </data>
-  <data name="PleaseInputNewPswd" xml:space="preserve">
-    <value>请输入新密码：</value>
+  <data name="EmployeeEdit_JobID" xml:space="preserve">
+    <value>职位：</value>
   </data>
-  <data name="PleaseInputNewPswdAgain" xml:space="preserve">
-    <value>请再次输入新密码：</value>
+  <data name="EmployeeEdit_Name" xml:space="preserve">
+    <value>姓名：</value>
   </data>
-  <data name="PleaseInputOldPswd" xml:space="preserve">
-    <value>请输入原密码：</value>
+  <data name="EmployeeEdit_Note1" xml:space="preserve">
+    <value>备注1：</value>
   </data>
-  <data name="Submit" xml:space="preserve">
-    <value>提交</value>
+  <data name="EmployeeEdit_Note2" xml:space="preserve">
+    <value>备注2：</value>
   </data>
-  <data name="USERNAME_PASSWORD_WRONG" xml:space="preserve">
-    <value>用户名或密码错误</value>
+  <data name="EmployeeEdit_Note3" xml:space="preserve">
+    <value>备注3：</value>
+  </data>
+  <data name="EmployeeEdit_Note4" xml:space="preserve">
+    <value>备注4：</value>
+  </data>
+  <data name="EmployeeEdit_PersonCode" xml:space="preserve">
+    <value>身份证件：</value>
+  </data>
+  <data name="EmployeeEdit_Phone" xml:space="preserve">
+    <value>电话：</value>
+  </data>
+  <data name="EmployeeEdit_RegDate" xml:space="preserve">
+    <value>登记日期：</value>
+  </data>
+  <data name="EmployeeEdit_Sex" xml:space="preserve">
+    <value>性别：</value>
+  </data>
+  <data name="EmployeeEdit_WorkInfo" xml:space="preserve">
+    <value>工作信息</value>
   </data>
 </root>
