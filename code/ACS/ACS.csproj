@@ -171,6 +171,7 @@
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\OrganizationManageController.cs" />
     <Compile Include="Controllers\PersonalManageController.cs" />
+    <Compile Include="Controllers\PrivilegeManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Controllers\EmployeeManageController.cs" />
     <Compile Include="Dao\DaoContext.cs" />
@@ -1557,8 +1558,17 @@
     <Content Include="Views\Public\_EditTable.cshtml" />
     <Content Include="Views\UserManage\UserManage.cshtml" />
     <Content Include="Views\UserManage\UserEdit.cshtml">
-      <SubType>Code</SubType>
+    	<SubType>Code</SubType>
     </Content>
+    <Content Include="Views\DeviceManage\DeviceManage.cshtml" />
+    <Content Include="Views\DeviceManage\DeviceEdit.cshtml" />
+    <Content Include="Views\AccessManage\AccessManage.cshtml" />
+    <Content Include="Views\AccessManage\AccessEdit.cshtml" />
+    <Content Include="Views\OrgnizationManage\OrgnizationManage.cshtml" />
+    <Content Include="Views\OrgnizationManage\OrgnizationEdit.cshtml" />
+    <Content Include="Views\EmployeeManage\EmployeeManage.cshtml" />
+    <Content Include="Views\EmployeeManage\EmployeeEdit.cshtml" />
+    <Content Include="Views\PrivilegeManage\PrivilegeManage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

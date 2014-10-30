@@ -96,14 +96,17 @@ namespace ACM.Controllers
             //return new RedirectResult("Index/Login");
             return RedirectToAction("Login", "Index");
         }
-
+       
         public String MenuTree()
         {
+            UserModel loginUser = (UserModel)Session["SystemUser"];
+            /*
+            Test
+            MenuTreeModel tree=platFormService.getMenuTreeByUserID(loginUser.UserID);
+            //*/
 
-            //MenuTreeModel tree=platFormService.getMenuTreeByUserID(0);
-            //return "[{id:\"user\", text: \"用户管理\"},{id:\"UserManage\", text:\"用户管理\", pid: \"user\" }]";
             MenuTreeModel tree = Stub.getTestTree();
-            return tree.ToJsonStr();
+			return  tree.ToJsonStr();
         }
         public ActionResult Default()
         {
