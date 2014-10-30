@@ -20,7 +20,7 @@ namespace ACS.Service
         void create(UserModel userModel);
         void delete(List<int> userIDList);
         UserModel getUserByID(string userID);
-        void update(User user);
+        void update(UserModel userModel);
     }
 
     public interface EmployeeService

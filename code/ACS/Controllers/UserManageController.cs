@@ -103,15 +103,31 @@ namespace ACM.Controllers
         /// Ajax调用
         /// </summary>
         /// <returns></returns>
-        public ActionResult Edit(UserModel usermodle)
+        public ActionResult Edit(string data)
         {
+            string text = null;
             log.Debug("Modify User...");
-            UserModel userModel = new UserModel();
-            User user = new User(); 
+            UserModel userModel = JsonConvert.JsonToObject<UserModel>(data);
+            UserModel model = (UserModel)Session["SystemUser"];
+            userModel.ModifyUserID = model.UserID;
+
             if (ModelVerificationService.UserVerification(userModel))
             {
-                //校验成功
-                userService.update(user);
+                try
+                {
+                    //校验成功
+                    userService.update(userModel);
+                }
+                catch (SystemException ex)
+                {
+                    text = ex.Message;
+                    Response.Write(text);
+                    return null;
+                }
+                text = "Success";
+                Response.Write(text);
+                return null;
+                
             }
             else
             {

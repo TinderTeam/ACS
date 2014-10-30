@@ -65,11 +65,12 @@
                 <tr style ="height:35px">
                     <td >创建者ID：</td>
                     <td >    
-                        <input class="mini-textbox" readonly="readonly" value="@ViewBag.user.CreateUserID"/>
+                        <input name="CreateUserID" class="mini-textbox" readonly="readonly" value="@ViewBag.user.CreateUserID"/>
                     </td>
                     <td >创建时间：</td>
                     <td >    
-                        <input class="mini-textbox" style="width:160px;" readonly="readonly" value="@ViewBag.user.CreateDate"/>
+                        <input name ="CreateDate" class="mini-textbox" style="width:160px;" readonly="readonly" value="@ViewBag.user.CreateDate"/>
+                        <input name ="UserID" class="mini-textbox" style="display:none" value="@ViewBag.user.UserID"/>
                     </td>
                 </tr>
                 <tr style ="height:35px">
@@ -79,7 +80,7 @@
                     </td>
                     <td >最后编辑时间：</td>
                     <td >    
-                        <input class="mini-textbox" style="width:160px;" readonly="readonly" value="@ViewBag.user.ModifyDate"/>
+                        <input name ="ModifyDate" class="mini-textbox" style="width:160px;" readonly="readonly" value="@ViewBag.user.ModifyDate"/>
                     </td>
                 </tr>         
             </table>    

@@ -48,6 +48,11 @@ namespace ACS.Service
             User user = new User();
             user.UserName = m.UserName;
             user.Pswd = m.Pswd;
+            user.CreateUserID = m.CreateUserID;
+            user.CreateDate = m.CreateDate;
+            user.UserDesc = m.UserDesc;
+            user.ModifyUserID = m.ModifyUserID;
+            user.ModifyDate = m.ModifyDate;
             //TODO: 实现转化 方法
             return user;
         }  

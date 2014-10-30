@@ -12,9 +12,9 @@ namespace ACS.Models.Model
         private String pswd;
         private int userID;
         private int createUserID;
-        private DateTime createDate;
+        private DateTime createDate = DateTime.Now;
         private int modifyUserID;
-        private DateTime modifyDate;
+        private DateTime modifyDate = DateTime.Now;
 
         public String UserDesc
         {

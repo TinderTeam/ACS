@@ -64,8 +64,22 @@ namespace ACS.Service.Impl
             UserModel userModel = ModelConventService.toUserModel(user);
             return userModel;
         }
-        public void update(User user)
+        public void update(UserModel userModel)
         {
+            //判断用户是否存在
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserID", userModel.UserID.ToString());
+            User orignalUser = userDao.getUniRecord(condition);
+            if (null == orignalUser)
+            {
+                log.Error("modify user failed, the user is not exist. userID is " + userModel.UserID);
+                throw new SystemException(ExceptionMsg.USER_NOT_EXISTED);
+            }
+            User user = ModelConventService.toUser(userModel);
+            user.UserID = orignalUser.UserID;
+            user.Pswd = orignalUser.Pswd;
+            user.UserName = orignalUser.UserName;
+            user.CreateDate = orignalUser.CreateDate;
+            user.ModifyDate = DateTime.Now;
             userDao.update(user);
         }
 
