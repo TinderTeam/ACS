@@ -291,6 +291,7 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <EmbeddedResource Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="log4net.dll" />
     <EmbeddedResource Include="Models\Po\CF\User.hbm.xml">
