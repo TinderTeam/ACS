@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Sys.Sys_Menu,ACS" table="t_sys_menu"  >
+
+    <id name="MenuID" column ="MENU_ID" >
+      <generator class ="increment"/>
+    </id>
+
+    <property name="MenuName" type="string">
+      <column name="MENU_NAME"/>
+    </property>
+
+    <property name="ApplicationCode" type="string">
+      <column name="APPLICATION_CODE"/>
+    </property>
+
+    <property name="MenuNo" type="string">
+      <column name="MENU_NO"/>
+    </property>
+    
+    <property name="MenuIcon" type="string">
+      <column name="MENU_ICON"/>
+    </property>
+
+    <property name="IsVisible" type="string">
+      <column name="IS_VISIBLE"/>
+    </property>
+
+    <property name="IsLeaf" type="string">
+      <column name="IS_LEAF"/>
+    </property>
+
+    <property name="MenuParentNo" type="string">
+      <column name="MENU_PARENT_NO"/>
+    </property>
+
+
+  </class>
+</hibernate-mapping>

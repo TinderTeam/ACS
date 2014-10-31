@@ -100,12 +100,12 @@ namespace ACM.Controllers
         public String MenuTree()
         {
             UserModel loginUser = (UserModel)Session["SystemUser"];
-            /*
-            Test
-            MenuTreeModel tree=platFormService.getMenuTreeByUserID(loginUser.UserID);
-            //*/
+            
+            //Test
+            TreeModel tree=platFormService.getMenuTreeByUserID(loginUser.UserID);
+            
 
-            TreeModel tree = Stub.getTestTree();
+            //TreeModel tree = Stub.getTestTree();
 			return  tree.ToJsonStr();
         }
         public ActionResult Default()

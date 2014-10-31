@@ -12,6 +12,8 @@
       <property name="connection.connection_string">server=127.0.0.1,1433;database=ACSdatabase;uid=sa;pwd=1234;</property>
       <property name="proxyfactory.factory_class"> NHibernate.Bytecode.DefaultProxyFactoryFactory,NHibernate</property>
       <property name="hbm2ddl.auto">update</property>
+      <property name="show_sql">true</property>
+
       <!-- Need Changed -->
       <mapping assembly="ACS"/>
     </session-factory>

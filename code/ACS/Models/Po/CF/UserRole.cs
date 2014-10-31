@@ -15,6 +15,9 @@ namespace ACS.Models.Po.CF
         private int modifyUserID;//最后编辑用户
         private DateTime modifyDate;//最后编辑时间
 
+        public const String USER_ID = "UserID";   //封装后的方法名
+        public const String Role_ID = "RoleID";   //封装后的方法名
+
         public virtual int UserRoleID
         {
             get { return userRoleID; }

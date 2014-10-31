@@ -18,11 +18,11 @@ namespace ACS.Service
 
 
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static Dictionary<int,List<UserRoleView>> userRoleMap=null;
+        private static Dictionary<int,List<UserRole>> userRoleMap=null;
         private static Dictionary<int, PrivilegeSet> userPrivilegeMap = null;
         private static Dictionary<int, List<Sys_Menu>> userMenuMap = null;
         
-        public static List<UserRoleView> getUserRoleListByID(int userid){
+        public static List<UserRole> getUserRoleListByID(int userid){
            
             if (userRoleMap == null)
             {
@@ -31,7 +31,7 @@ namespace ACS.Service
                     addCache(userid);
                 }
             }
-            List<UserRoleView> list = userRoleMap[userid];
+            List<UserRole> list = userRoleMap[userid];
             return list;
         }
 
@@ -72,15 +72,15 @@ namespace ACS.Service
 
             CommonDao<Sys_Menu> sysMenuDao = DaoContext.getInstance().getSysMenuDao();
             CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
-            ViewDao<UserRoleView> userRoleViewDao = DaoContext.getInstance().getUserRoleViewDao();
+            CommonDao<UserRole> userRoleDao = DaoContext.getInstance().getUserRoleDao();
 
             //用户角色表加入缓存
             QueryCondition condition = new QueryCondition(
                 ConditionTypeEnum.EQUAL,
-                UserRoleView.USER_ID, 
+                UserRole.USER_ID, 
                 userid.ToString()
                 );
-            List<UserRoleView> userRoleList = userRoleViewDao.getAll();
+            List<UserRole> userRoleList = userRoleDao.getAll(condition);
             userRoleMap.Add(userid,userRoleList);
             log.Debug("UserRoleView of userID = " + userRoleList);
 
@@ -95,7 +95,7 @@ namespace ACS.Service
             conditionList.Add(new QueryCondition(
                   ConditionTypeEnum.EQUAL,
                   Privilege.MASTER,
-                  userid.ToString()
+                  ServiceConstant.SYS_MASTER_TYPE_USER
                   )
             );
           
@@ -104,7 +104,7 @@ namespace ACS.Service
 
             PrivilegeSet set = new PrivilegeSet();
             set.AddList(userPrivilegeList);
-            foreach (UserRoleView userRole in userRoleList)
+            foreach (UserRole userRole in userRoleList)
             {
                 
                 ///设置条件：masterValue=RoleID;masterType="ROLE"
@@ -143,7 +143,27 @@ namespace ACS.Service
 
             //加入用户菜单表
             List<Sys_Menu> menuList = sysMenuDao.getAll(inCondition);
+            
+            //加入父类菜单
+            List<String> fatheridList = new List<String>();
+            foreach (Sys_Menu menu in menuList)
+            {
+               String str= menu.MenuParentNo;
+               fatheridList.Add(str);
+            }
+            
+            QueryCondition fatherinCondition = new QueryCondition(
+                  ConditionTypeEnum.IN,
+                  Sys_Menu.MEMU_ID,
+                  fatheridList
+                  );
+            List<Sys_Menu> fatherList = sysMenuDao.getAll(fatherinCondition);
+            foreach (Sys_Menu m in fatherList)
+            {
+                menuList.Add(m);
+            }
             log.Debug("menuList of userID = " + menuList);
+
             userMenuMap.Add(userid, menuList);
         }
 
@@ -152,7 +172,7 @@ namespace ACS.Service
         {
             log.Info("init PrivilegeCache...");
             //用户角色表加入缓存
-            userRoleMap=new Dictionary<int,List<UserRoleView>>();
+            userRoleMap=new Dictionary<int,List<UserRole>>();
             //用户
             userPrivilegeMap = new Dictionary<int, PrivilegeSet>();
 
@@ -164,12 +184,12 @@ namespace ACS.Service
             List<String> id = new List<String>();
             foreach(Privilege p in list ){
                 if (
-                    p.PrivilegeMaster.Equals(ServiceConstant.SYS_MASTER_TYPE_APP)
+                    p.PrivilegeAccess.Equals(ServiceConstant.SYS_MASTER_TYPE_APP)
                     && 
-                    p.PrivilegeMasterValue.Equals(ServiceConstant.SYS_MASTER_VALUE_ALLOW)
+                    p.PrivilegeOperation.Equals(ServiceConstant.SYS_MASTER_VALUE_ALLOW)
                     )
                 {
-                    id.Add(p.PrivilegeID.ToString());
+                    id.Add(p.PrivilegeAccessValue.ToString());
                 }
             }
             return id; 

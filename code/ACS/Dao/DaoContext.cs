@@ -19,7 +19,7 @@ namespace ACS.Dao
         private CommonDao<Sys_Menu> sysMenuDao;
         private CommonDao<User> userDao;
         private CommonDao<Employee> employeeDao;
-        private ViewDao<UserRoleView> userRoleViewDao;
+        private CommonDao<UserRole> userRoleDao;
 
 
 
@@ -43,13 +43,13 @@ namespace ACS.Dao
         }
 
 
-        public ViewDao<UserRoleView> getUserRoleViewDao()
+        public CommonDao<UserRole> getUserRoleDao()
         {
-            if (userRoleViewDao == null)
+            if (userRoleDao == null)
             {
-                userRoleViewDao = new ViewDaoCommonImpl<UserRoleView>();
+                userRoleDao = new CommonDaoImpl<UserRole>();
             }
-            return userRoleViewDao;
+            return userRoleDao;
         }
 
         public CommonDao<Privilege> getPrivilegeDao()

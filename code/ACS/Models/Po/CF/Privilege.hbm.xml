@@ -11,7 +11,7 @@
       <column name="PRIVILEGE_MASTER" length="255"/>
     </property>
 
-    <property name="PrivilegeMasterValue" type="int">
+    <property name="PrivilegeMasterValue" type="string">
       <column name="PRIVILEGE_MASTER_VALUE"/>
     </property>
     

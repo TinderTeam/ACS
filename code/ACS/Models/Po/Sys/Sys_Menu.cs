@@ -13,46 +13,47 @@ namespace ACS.Models.Po.Sys
         private String menuParentNo;//父菜单编号     
         private String menuName;//菜单名称      
         private String menuIcon;//菜单按钮       
-        private String isVisble;//显示        
+        private String isVisible;//显示        
         private String isLeaf;//是否有子节点
 
         public const string APP_ID = "ApplicationCode";
-        public String MenuName
+        public const string MEMU_ID = "MenuID";
+        public virtual String MenuName
         {
             get { return menuName; }
             set { menuName = value; }
         }
-        public int MenuID
+        public virtual int MenuID
         {
             get { return menuID; }
             set { menuID = value; }
         }
-        public String IsLeaf
+        public virtual String IsLeaf
         {
             get { return isLeaf; }
             set { isLeaf = value; }
         }
-        public String IsVisble
+        public virtual String IsVisible
         {
-            get { return isVisble; }
-            set { isVisble = value; }
+            get { return isVisible; }
+            set { isVisible = value; }
         }
-        public String MenuIcon
+        public virtual String MenuIcon
         {
             get { return menuIcon; }
             set { menuIcon = value; }
         }
-        public String MenuNo
+        public virtual String MenuNo
         {
             get { return menuNo; }
             set { menuNo = value; }
         }
-        public String ApplicationCode
+        public virtual String ApplicationCode
         {
             get { return applicationCode; }
             set { applicationCode = value; }
         }
-        public String MenuParentNo
+        public virtual String MenuParentNo
         {
             get { return menuParentNo; }
             set { menuParentNo = value; }

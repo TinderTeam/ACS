@@ -65,7 +65,7 @@ namespace ACS.Service
             List<TreeItem> list = new List<TreeItem>();
             foreach (Sys_Menu sysMenu in menuList)
             {
-                if (sysMenu.IsVisble.Equals(ServiceConstant.SYS_VISIABLE))
+                if (sysMenu.IsVisible.Equals(ServiceConstant.SYS_VISIABLE))
                 {
                     //menu visiable 时
                     TreeItem item = new TreeItem();

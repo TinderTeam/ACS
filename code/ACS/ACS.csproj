@@ -320,6 +320,9 @@
     <EmbeddedResource Include="Models\Po\Business\Employee.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Sys\Sys_Menu.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
     <Content Include="Scripts\core.js" />
     <Content Include="Scripts\demo.css" />

@@ -11,7 +11,7 @@ namespace ACS.Service
 {
     public interface PlatFormService
     {
-        MenuTreeModel getMenuTreeByUserID(int userid);
+        TreeModel getMenuTreeByUserID(int userid);
       
     }
     public interface UserService
