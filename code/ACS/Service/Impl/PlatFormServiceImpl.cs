@@ -10,6 +10,9 @@ using ACS.Models.Po.CF;
 using ACS.Dao;
 using ACS.Common.Dao;
 using ACS.Test;
+using ACS.Common.Dao.datasource;
+using ACS.Common.Constant;
+using ACS.Service.Constant;
 namespace ACS.Service.Impl
 {
     public class PlatFormServiceImpl : PlatFormService
@@ -22,12 +25,18 @@ namespace ACS.Service.Impl
         /// <param name="userid"></param>
         /// <returns></returns>
        public  TreeModel getMenuTreeByUserID(int userid)
-        {
-            
+        {          
             List<Sys_Menu> menuList=PrivilegeCache.getSysMenuListByID(userid);
             TreeModel tree = ModelConventService.toMenuTreeModel(menuList);            
             return tree;
         }
 
+
+       public AbstractDataSource<Privilege> getPrivilegeList(Privilege filter)
+       {
+           List<QueryCondition> conditionList = new List<QueryCondition>();
+           AbstractDataSource<Privilege> dataSource = new DatabaseSourceImpl<Privilege>(conditionList);
+           return dataSource;
+       }
     }
 }

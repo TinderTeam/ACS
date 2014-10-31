@@ -21,23 +21,24 @@ namespace ACS.Controllers
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
+
         public ActionResult PrivilegeManage()
         {
             return View();
         }
 
-        public ActionResult Load(TableForm tableForm)
+        public ActionResult Load(TableForm tableForm, Privilege filter)
         {
             log.Debug("Load Data...");
             //数据库操作：使用查询条件、分页、排序等参数进行查询
-            TableDataModel<Privilege> userModelTable = new TableDataModel<Privilege>();
+            TableDataModel<Privilege> privilegeTable = new TableDataModel<Privilege>();
+            privilegeTable.setPage(tableForm.getPage());
+            privilegeTable.setDataSource(platFormService.getPrivilegeList(filter));
 
-            //userModelTable.setPage(tableForm.getPage());
-            //userModelTable.setDataSource(userService.getUserList(filter));
 
             log.Debug("pageIndex = " + tableForm.PageIndex + ";pageSize=" + tableForm.PageSize);
-
-            List<Privilege> list = Stub.getPrivilegeList();
+            List<Privilege> list = privilegeTable.getCurrentPageData();
 
             //返回JSON：将查询的结果，序列化为JSON字符串返回  
             JavaScriptSerializer jsonSerialize = new JavaScriptSerializer();

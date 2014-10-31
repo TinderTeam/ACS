@@ -32,7 +32,7 @@ namespace ACS.Test
         }
        public static UserModel getUser(){
            UserModel u = new UserModel();
-           u.UserID = 3;
+           u.UserID = 1;
            u.UserName = "admin";
            u.Pswd = "1234";
            return u;

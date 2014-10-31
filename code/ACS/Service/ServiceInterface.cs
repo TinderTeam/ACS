@@ -12,7 +12,7 @@ namespace ACS.Service
     public interface PlatFormService
     {
         TreeModel getMenuTreeByUserID(int userid);
-      
+        AbstractDataSource<Privilege> getPrivilegeList(Privilege filter);
     }
     public interface UserService
     {
