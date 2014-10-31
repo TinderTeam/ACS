@@ -59,16 +59,16 @@ namespace ACS.Service
         /// <summary>
         /// 转化为menuTreemodel
         /// </summary>
-        public static MenuTreeModel toMenuTreeModel(List<Sys_Menu> menuList)
+        public static TreeModel toMenuTreeModel(List<Sys_Menu> menuList)
         {
-            MenuTreeModel menuTreeModle = new MenuTreeModel();
-            List<MenuTreeItem> list = new List<MenuTreeItem>();
+            TreeModel menuTreeModle = new TreeModel();
+            List<TreeItem> list = new List<TreeItem>();
             foreach (Sys_Menu sysMenu in menuList)
             {
                 if (sysMenu.IsVisble.Equals(ServiceConstant.SYS_VISIABLE))
                 {
                     //menu visiable 时
-                    MenuTreeItem item = new MenuTreeItem();
+                    TreeItem item = new TreeItem();
                     item.Id = sysMenu.MenuID.ToString();
                     item.Pid = sysMenu.MenuParentNo;
                     item.Text = sysMenu.MenuName;

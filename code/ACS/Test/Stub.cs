@@ -51,18 +51,18 @@ namespace ACS.Test
             return list;
         }
 
-        public static List<MenuTreeItem> getTreeItemList()
+        public static List<TreeItem> getTreeItemList()
         {
-            List<MenuTreeItem> treeList = new List<MenuTreeItem>();
+            List<TreeItem> treeList = new List<TreeItem>();
             for (int i = 0; i < 10; i++)
             {
-                MenuTreeItem item = new MenuTreeItem();
+                TreeItem item = new TreeItem();
                 item.Id = "test" + i;
                 item.Text = "test" + i;
                 treeList.Add(item);
                 for (int j = 0; j < 10; j++)
                 {
-                    MenuTreeItem itemj = new MenuTreeItem();
+                    TreeItem itemj = new TreeItem();
                     itemj.Id = "testsub" + j;
                     itemj.Text = "testsub" + j;
                     itemj.Pid = "test" + j;
@@ -72,10 +72,10 @@ namespace ACS.Test
             return treeList;            
         }
 
-        public static MenuTreeModel getTestTree()
+        public static TreeModel getTestTree()
         {
 
-            List<MenuTreeItem> treeList = new List<MenuTreeItem>();
+            List<TreeItem> treeList = new List<TreeItem>();
             ///
             ///加入测试用的菜单项
             ///
@@ -99,18 +99,33 @@ namespace ACS.Test
             treeList.Add(testItem("假日管理", "HolidayManage/HolidayManage", "datamanage"));
             treeList.Add(testItem("事件类型管理", "EventTypeManage/EventTypeManage", "datamanage"));
             ///
-            MenuTreeModel tree = new MenuTreeModel();
+            TreeModel tree = new TreeModel();
             tree.MenuTreeItemList = treeList;
             return tree;
         }
 
-        private static  MenuTreeItem testItem(String name,String url,String father)
+        private static  TreeItem testItem(String name,String url,String father)
         {
-            MenuTreeItem item = new MenuTreeItem();
+            TreeItem item = new TreeItem();
             item.Id = url;
             item.Text =name;
             item.Pid = father;
             return item;
         }
+
+
+        public static TreeModel getTestDeviceTree()
+        {
+            List<TreeItem> treeList = new List<TreeItem>();
+            treeList.Add(testItem("设备列表", "device", ""));
+            for (int i = 0; i < 10; i++)
+            {
+                treeList.Add(testItem("控制器" + i, "d-" + i, "device"));
+            }
+            TreeModel tree = new TreeModel();
+            tree.MenuTreeItemList = treeList;
+            return tree;
+        }
+      
     }
 }

@@ -105,7 +105,7 @@ namespace ACM.Controllers
             MenuTreeModel tree=platFormService.getMenuTreeByUserID(loginUser.UserID);
             //*/
 
-            MenuTreeModel tree = Stub.getTestTree();
+            TreeModel tree = Stub.getTestTree();
 			return  tree.ToJsonStr();
         }
         public ActionResult Default()

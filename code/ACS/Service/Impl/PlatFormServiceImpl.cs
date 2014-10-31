@@ -21,11 +21,11 @@ namespace ACS.Service.Impl
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-       public  MenuTreeModel getMenuTreeByUserID(int userid)
+       public  TreeModel getMenuTreeByUserID(int userid)
         {
             
             List<Sys_Menu> menuList=PrivilegeCache.getSysMenuListByID(userid);
-            MenuTreeModel tree = ModelConventService.toMenuTreeModel(menuList);            
+            TreeModel tree = ModelConventService.toMenuTreeModel(menuList);            
             return tree;
         }
 

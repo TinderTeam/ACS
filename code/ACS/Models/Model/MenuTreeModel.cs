@@ -5,11 +5,11 @@ using System.Web;
 
 namespace ACS.Models.Model
 {
-    public class MenuTreeModel
+    public class TreeModel
     {
-        private List<MenuTreeItem> menuTreeItemList;
+        private List<TreeItem> menuTreeItemList;
 
-        public List<MenuTreeItem> MenuTreeItemList
+        public List<TreeItem> MenuTreeItemList
         {
             get { return menuTreeItemList; }
             set { menuTreeItemList = value; }
@@ -18,7 +18,7 @@ namespace ACS.Models.Model
         public String ToJsonStr()
         {
             String str = "[";
-            foreach (MenuTreeItem i in MenuTreeItemList)
+            foreach (TreeItem i in MenuTreeItemList)
             {
                 if (str.Equals("["))
                 {
@@ -34,7 +34,7 @@ namespace ACS.Models.Model
         }
     }
 
-    public class MenuTreeItem
+    public class TreeItem
     {
         private String id;
 
