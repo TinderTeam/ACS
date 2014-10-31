@@ -7,17 +7,19 @@ namespace ACS.Service.Constant
 {
     public class ExceptionMsg
     {
-        public const String USER_NOT_EXISTED = "USER_NOT_EXISTED";
-        public const String USERNAME_PASSWORD_WRONG = "USERNAME_PASSWORD_WRONG";
-        public const String LOGIN_FAILED = "LOGIN_FAILED";
-        public const String USER_EXISTED = "USER_EXISTED";
-        public const String OLD_PASSWORD_WRONG = "OLD_PASSWORD_WRONG";
-        public const String DATE_FOMATE = "DATE_FOMATE";
-        public const String DATA_CONVERT_ERROR = "DATA_CONVERT_ERROR";
-        public const String USERNAME_EXIST = "USERNAME_EXIST";
+        public const String USER_NOT_EXISTED = "USER_NOT_EXISTED";                 //用户不存在
+        public const String USERNAME_PASSWORD_WRONG = "USERNAME_PASSWORD_WRONG";   //用户密码错误
+        public const String LOGIN_FAILED = "LOGIN_FAILED";                          //登录失败
+        public const String USER_EXISTED = "USER_EXISTED";                          //用户已存在
+        public const String OLD_PASSWORD_WRONG = "OLD_PASSWORD_WRONG";              //原密码错误
+        public const String DATE_FOMATE = "DATE_FOMATE";                            //数据格式
+        public const String DATA_CONVERT_ERROR = "DATA_CONVERT_ERROR";              //数据转换错误
+        public const String USERNAME_EXIST = "USERNAME_EXIST";                      //用户名已存在
+        public const String EMPLOYEE_CODE_EXIST = "EMPLOYEE_CODE_EXIST";            //工号已存在
+        public const String EMPLOYEE_NOT_EXIST = "EMPLOYEE_NOT_EXIST";              //工号不存在
 
 
-        public const String OPERATE_SUCCESS = "OPERATE_SUCCESS";
-        public const String OPERATE_FAILED = "OPERATE_FAILED";
+        public const String OPERATE_SUCCESS = "OPERATE_SUCCESS";                    //操作成功
+        public const String OPERATE_FAILED = "OPERATE_FAILED";                      //操作失败
     }
 }

@@ -226,7 +226,6 @@
     <Compile Include="Service\ServiceContext.cs" />
     <Compile Include="Service\ServiceInterface.cs" />
     <Compile Include="Test\Stub.cs" />
-    <Compile Include="Util\Json\JsonService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\hibernate.cfg.xml" />
@@ -1601,7 +1600,6 @@
     <Folder Include="Scripts\miniui\themes\metro\images\button\" />
     <Folder Include="Views\AccessManage\" />
     <Folder Include="Views\DeviceManage\" />
-    <Folder Include="Views\Home\" />
     <Folder Include="Views\OrgnizationManage\" />
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,7 @@
     </property>
 
     <property name="PrivilegeMasterValue" type="string">
-      <column name="PRIVILEGE_MASTER_VALUE"/>
+      <column name="PRIVILEGE_MASTER_VALUE" length="255"/>
     </property>
     
     <property name="PrivilegeAccess" type="string">

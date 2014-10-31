@@ -26,9 +26,10 @@ namespace ACS.Service
     public interface EmployeeService
     {
         AbstractDataSource<Employee> getEmployeeList(Employee filter);
-        void create(Employee employee);
+        void create(EmployeeModel employeeModel);
         void delete(List<int> employeeIDList);
-        void update(Employee employee);
+        EmployeeModel getEmployeeByID(string employeeID);
+        void update(EmployeeModel employeeModel);
     }
     public interface LoginService
     {

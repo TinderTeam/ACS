@@ -12,11 +12,11 @@ namespace ACS.Models.Po.Business
         private String employeeName;//
         private String employeeCode;//
         private String englishName;//
-        private String cardNo;//
+        private String cardNo;//卡号
         private String pin;//密码开门
         private String empEnable;//是否注销
         private String sex;//
-        private String birthday;//
+        private DateTime birthday;//
         private String personCode;//
         private String home;//
         private String phone;//
@@ -98,7 +98,7 @@ namespace ACS.Models.Po.Business
             set { sex = value; }
         }
 
-        public virtual String Birthday
+        public virtual DateTime Birthday
         {
             get { return birthday; }
             set { birthday = value; }

@@ -102,10 +102,10 @@ namespace ACM.Controllers
             UserModel loginUser = (UserModel)Session["SystemUser"];
             
             //Test
-            TreeModel tree=platFormService.getMenuTreeByUserID(loginUser.UserID);
+            //TreeModel tree=platFormService.getMenuTreeByUserID(loginUser.UserID);
             
 
-            //TreeModel tree = Stub.getTestTree();
+            TreeModel tree = Stub.getTestTree();
 			return  tree.ToJsonStr();
         }
         public ActionResult Default()

@@ -124,6 +124,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 女 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeEdit_Female {
+            get {
+                return ResourceManager.GetString("EmployeeEdit_Female", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 地址： 的本地化字符串。
         /// </summary>
         internal static string EmployeeEdit_Home {
@@ -138,6 +147,15 @@ namespace Resources {
         internal static string EmployeeEdit_JobID {
             get {
                 return ResourceManager.GetString("EmployeeEdit_JobID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 男 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeEdit_Male {
+            get {
+                return ResourceManager.GetString("EmployeeEdit_Male", resourceCulture);
             }
         }
         
@@ -228,6 +246,123 @@ namespace Resources {
         internal static string EmployeeEdit_WorkInfo {
             get {
                 return ResourceManager.GetString("EmployeeEdit_WorkInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 卡号 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_CardNo {
+            get {
+                return ResourceManager.GetString("EmployeeManage_CardNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 工号 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_Code {
+            get {
+                return ResourceManager.GetString("EmployeeManage_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 部门 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_DeptID {
+            get {
+                return ResourceManager.GetString("EmployeeManage_DeptID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 注销 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_EmpEnable {
+            get {
+                return ResourceManager.GetString("EmployeeManage_EmpEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 有效期 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_EndDate {
+            get {
+                return ResourceManager.GetString("EmployeeManage_EndDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 职位 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_JobID {
+            get {
+                return ResourceManager.GetString("EmployeeManage_JobID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 最后一次刷卡 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_LastEventID {
+            get {
+                return ResourceManager.GetString("EmployeeManage_LastEventID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 离职 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_Leave {
+            get {
+                return ResourceManager.GetString("EmployeeManage_Leave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 姓名 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_Name {
+            get {
+                return ResourceManager.GetString("EmployeeManage_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 身份证 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_PersonCode {
+            get {
+                return ResourceManager.GetString("EmployeeManage_PersonCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 电话 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_Phone {
+            get {
+                return ResourceManager.GetString("EmployeeManage_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 照片 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_Photo {
+            get {
+                return ResourceManager.GetString("EmployeeManage_Photo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 性别 的本地化字符串。
+        /// </summary>
+        internal static string EmployeeManage_Sex {
+            get {
+                return ResourceManager.GetString("EmployeeManage_Sex", resourceCulture);
             }
         }
     }

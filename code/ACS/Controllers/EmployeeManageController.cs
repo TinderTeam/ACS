@@ -8,6 +8,7 @@ using ACS.Common.Model;
 using ACS.Service;
 using ACS.Models.Po.Business;
 using System.Web.Script.Serialization;
+using ACS.Common.Util;
 namespace ACM.Controllers
 {
     public class EmployeeManageController : Controller
@@ -22,8 +23,8 @@ namespace ACM.Controllers
         public ActionResult EmployeeEdit(String id)
         {
             ViewBag.Type = "EDIT";
-            //UserModel userModel = userService.getUserByID(id);
-            //ViewBag.user = userModel;
+            EmployeeModel employeeModel = employeeService.getEmployeeByID(id);
+            ViewBag.employee = employeeModel;
             return View();
         }
 
@@ -50,18 +51,36 @@ namespace ACM.Controllers
         /// 可以改成用Ajax调用的响应
         /// </summary>
         /// <returns></returns>
-        public ActionResult create(EmployeeModel employeeModel)
+        public string create(string data)
         {
-            Employee employee = ModelConventService.toEmployee(employeeModel);
-            if (ModelVerificationService.EmployeeVerification(employee))
+            string text = null;
+            log.Debug("Create Employee...");
+            EmployeeModel employeeModel = JsonConvert.JsonToObject<EmployeeModel>(data);
+            employeeModel.TimeStamp = DateTime.Now;
+            employeeModel.TimeStampx = DateTime.Now;
+            employeeModel.LeaveDate = DateTime.Now;
+            if (ModelVerificationService.EmployeeVerification(employeeModel))
             {
-                //校验成功
-                employeeService.create(employee);
+                
+                try
+                {
+                    //校验成功
+                    employeeService.create(employeeModel);
+                }
+                catch (SystemException ex)
+                {
+                    text = ex.Message;
+                    Response.Write(text);
+                    return null;
+                }
+                text = "Success";
+                Response.Write(text);
+                return null;
             }else{
                 //校验失败
                 //TODO: 
             }
-            return View();
+            return null;
         }
 
         /// <summary>
@@ -69,20 +88,36 @@ namespace ACM.Controllers
         /// Ajax调用
         /// </summary>
         /// <returns></returns>
-        public ActionResult modify(EmployeeModel employeeModel)
+        public ActionResult Edit(string data)
         {
-            Employee employee = ModelConventService.toEmployee(employeeModel);
-            if (ModelVerificationService.EmployeeVerification(employee))
+            string text = null;
+            log.Debug("Modify Employee...");
+            EmployeeModel employeeModel = JsonConvert.JsonToObject<EmployeeModel>(data);
+
+            if (ModelVerificationService.EmployeeVerification(employeeModel))
             {
-                //校验成功
-                employeeService.create(employee);
+                try
+                {
+                    //校验成功
+                    employeeService.update(employeeModel);
+                }
+                catch (SystemException ex)
+                {
+                    text = ex.Message;
+                    Response.Write(text);
+                    return null;
+                }
+                text = "Success";
+                Response.Write(text);
+                return null;
+
             }
             else
             {
                 //校验失败
                 //TODO: 
             }
-            return View();
+            return null;
         }
 
         /// <summary>

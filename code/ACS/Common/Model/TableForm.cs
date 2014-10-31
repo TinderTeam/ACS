@@ -8,13 +8,13 @@ namespace ACS.Common.Model
     public class TableForm
     {
         private int pageSize = 20;
-        private int pageIndex = 1;
+        private int pageIndex = 0;
  
         public PageModel getPage()
         {
             PageModel page = new PageModel();
             page.setPageSize(PageSize);
-            page.setCurrentPage(PageIndex);
+            page.setCurrentPage(PageIndex+1);
             return page;
         }
 

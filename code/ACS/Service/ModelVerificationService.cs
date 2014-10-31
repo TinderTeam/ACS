@@ -21,7 +21,7 @@ namespace ACS.Service
             return true;
         }
 
-        public static bool EmployeeVerification(Employee employee)
+        public static bool EmployeeVerification(EmployeeModel employeeModel)
         {
             //TODO
             return true;

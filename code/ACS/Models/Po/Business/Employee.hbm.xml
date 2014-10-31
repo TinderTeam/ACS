@@ -35,8 +35,8 @@
       <column name="SEX" length="255"/>
     </property>
 
-    <property name="Birthday" type="string">
-      <column name="BIRTHDAY" length="255"/>
+    <property name="Birthday" type="DateTime">
+      <column name="BIRTHDAY"/>
     </property>
 
     <property name="PersonCode" type="string">

@@ -35,22 +35,22 @@
         <div property="columns">
             <!--<div type="indexcolumn"></div>        -->
             <div type="checkcolumn" ></div>                  
-            <div field="EmployeeID" width="70" headerAlign="center" allowSort="true">员工系统ID</div>    
-            <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">用户名称</div>    
-            <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">EmployeeCode</div>
-            <div field="EnglishName" width="70" headerAlign="center" allowSort="true">EnglishName</div>   
-            <div field="CardNo" width="70" headerAlign="center" allowSort="true">CardNo</div>
-            <div field="Pin" width="70" headerAlign="center" allowSort="true">Pin</div>
-            <div field="EmpEnable" width="70" headerAlign="center" allowSort="true">EmpEnable</div> 
-            <div field="Sex" width="70" headerAlign="center" allowSort="true">Sex</div>    
-            <div field="Birthday" width="70" headerAlign="center" allowSort="true">Birthday</div>    
-            <div field="PersonCode" width="70" headerAlign="center" allowSort="true">PersonCode</div>
+            <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Code")</div>    
+            <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Name")</div>    
+            <div field="Photo" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Photo")</div>
+            <div field="Sex" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Sex")</div>   
+            <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_CardNo")</div>
+            <div field="EmpEnable" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EmpEnable")</div>
+            <div field="EndDate" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EndDate")</div> 
+            <div field="DeptID" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_DeptID")</div>    
+            <div field="JobID" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_JobID")</div>    
+            <div field="Leave" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Leave")</div>
 
-            <div field="Home" width="70" headerAlign="center" allowSort="true">Home</div>   
-            <div field="Phone" width="70" headerAlign="center" allowSort="true">Phone</div>
-            <div field="Email" width="70" headerAlign="center" allowSort="true">Email</div>
-            <div field="Car" width="70" headerAlign="center" allowSort="true">Car</div>
-            <div field="JobID" width="70" headerAlign="center" allowSort="true">JobID</div>    
+            <div field="PersonCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_PersonCode")</div>   
+            <div field="Phone" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Phone")</div>
+            <div field="LastEventID" width="80" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_LastEventID")</div>
+            <!--<div field="Car" width="70" headerAlign="center" allowSort="true"></div>
+            <div field="JobID" width="70" headerAlign="center" allowSort="true"></div>    
             <div field="DeptID" width="70" headerAlign="center" allowSort="true">DeptID</div>    
             <div field="Photo" width="70" headerAlign="center" allowSort="true">Photo</div>
             <div field="RegDate" width="70" headerAlign="center" allowSort="true">RegDate</div>   
@@ -79,7 +79,7 @@
             <div field="TimeStampx" width="70" headerAlign="center" allowSort="true">TimeStampx</div>   
             <div field="IsBlackCard" width="70" headerAlign="center" allowSort="true">IsBlackCard</div>
 
-            <div field="AscString" width="70" headerAlign="center" allowSort="true">AscString</div>                  
+            <div field="AscString" width="70" headerAlign="center" allowSort="true">AscString</div>-->                  
         </div>
     </div>
     
@@ -107,10 +107,10 @@
          
             var row = grid.getSelected();
             if (row) {
-                var id = row.UserID;
+                var id = row.EmployeeID;
                 mini.open({
-                    url: "../UserManage/UserEdit?id=" + id,
-                    title: "编辑用户", width: 600, height: 200,
+                    url: "../EmployeeManage/EmployeeEdit?id=" + id,
+                    title: "编辑员工", width: 560, height: 500,
                     onload: function () {
                       
                     },
