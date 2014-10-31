@@ -63,14 +63,44 @@ namespace ACS.Service
         {
             TreeModel menuTreeModle = new TreeModel();
             List<TreeItem> list = new List<TreeItem>();
+            Dictionary<String, String> fathermap = new Dictionary<string, string>();
+            foreach (Sys_Menu sysMenu in menuList)
+            {
+                fathermap.Add(sysMenu.MenuID.ToString(), sysMenu.MenuNo);
+            }
             foreach (Sys_Menu sysMenu in menuList)
             {
                 if (sysMenu.IsVisible.Equals(ServiceConstant.SYS_VISIABLE))
                 {
                     //menu visiable 时
                     TreeItem item = new TreeItem();
-                    item.Id = sysMenu.MenuID.ToString();
-                    item.Pid = sysMenu.MenuParentNo;
+                    if (sysMenu.IsLeaf != null && sysMenu.IsLeaf.Equals("TRUE"))
+                    {
+                        item.Id = sysMenu.MenuNo;
+                    }
+                    else
+                    {       
+                        item.Id = sysMenu.MenuNo + "/" + sysMenu.MenuNo;
+                    }
+                    
+
+                    try
+                    {
+                        if (sysMenu.MenuParentNo != null)
+                        {
+                            item.Pid = fathermap[sysMenu.MenuParentNo];
+                        }
+                        else
+                        {
+                            item.Pid = null;
+                        }
+                       
+                    }
+                    catch (KeyNotFoundException ex)
+                    {
+                        item.Pid = null;
+                    }
+                   
                     item.Text = sysMenu.MenuName;
                     list.Add(item);
                 }        
