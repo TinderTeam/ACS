@@ -180,6 +180,8 @@
     <Compile Include="Controllers\PrivilegeManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Controllers\EmployeeManageController.cs" />
+    <Compile Include="Controllers\EventRecordController.cs" />
+    <Compile Include="Controllers\AlarmRecordController.cs" />
     <Compile Include="Dao\DaoContext.cs" />
     <Compile Include="Dao\DaoInterface.cs" />
     <Compile Include="Dao\SessionManage.cs" />
@@ -198,6 +200,7 @@
     <Compile Include="Models\Po\Business\Access.cs" />
     <Compile Include="Models\Po\Business\AccessDetail.cs" />
     <Compile Include="Models\Po\Business\DoorTime.cs" />
+    <Compile Include="Models\Po\Business\EventRecordView.cs" />
     <Compile Include="Models\Po\CF\Privilege.cs" />
     <Compile Include="Models\Po\CF\Role.cs" />
     <Compile Include="Models\Po\CF\UserRole.cs" />
@@ -219,6 +222,8 @@
     <Compile Include="Service\Impl\EmployeeServiceImpl.cs" />
     <Compile Include="Service\Impl\UserServiceImpl.cs" />
     <Compile Include="Service\Impl\LoginServiceImpl.cs" />
+    <Compile Include="Service\Impl\EventRecordViewServiceImpl.cs" />
+    <Compile Include="Service\Impl\AlarmRecordServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />
     <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
     <Compile Include="Service\ModelVerificationService.cs" />
@@ -320,6 +325,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Sys\Sys_Menu.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\EventRecordView.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\EventRecord.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\AlarmRecord.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
@@ -1575,7 +1589,7 @@
     <Content Include="Views\Public\_EditTable.cshtml" />
     <Content Include="Views\UserManage\UserManage.cshtml" />
     <Content Include="Views\UserManage\UserEdit.cshtml">
-    	<SubType>Code</SubType>
+      <SubType>Code</SubType>
     </Content>
     <Content Include="Views\DeviceManage\DeviceManage.cshtml" />
     <Content Include="Views\DeviceManage\DeviceEdit.cshtml" />
@@ -1587,6 +1601,8 @@
     <Content Include="Views\EmployeeManage\EmployeeEdit.cshtml" />
     <Content Include="Views\PrivilegeManage\PrivilegeManage.cshtml" />
     <Content Include="Views\Monitor\Monitor.cshtml" />
+    <Content Include="Views\EventRecord\EventRecord.cshtml" />
+    <Content Include="Views\AlarmRecord\AlarmRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

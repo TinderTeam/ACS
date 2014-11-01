@@ -31,6 +31,16 @@ namespace ACS.Service
         EmployeeModel getEmployeeByID(string employeeID);
         void update(EmployeeModel employeeModel);
     }
+    public interface EventRecordViewService
+    {
+        AbstractDataSource<EventRecordView> getEventRecordViewList(EventRecordView filter);
+
+    }
+    public interface AlarmRecordService
+    {
+        AbstractDataSource<AlarmRecord> getAlarmRecordList(AlarmRecord filter);
+
+    }
     public interface LoginService
     {
         UserModel Login(string userName, string password);

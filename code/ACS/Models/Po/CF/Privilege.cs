@@ -12,7 +12,7 @@ namespace ACS.Models.Po.CF
         private String privilegeMasterValue;//权限主体名称
         private String privilegeAccess;//权限类型
         private String privilegeAccessValue;//权限名称
-        private String privilegeOperation;//最后编辑用户
+        private String privilegeOperation;//操作类型
 
         public const String MASTER_VALUE = "PrivilegeMasterValue";
         public const String MASTER = "PrivilegeMaster";

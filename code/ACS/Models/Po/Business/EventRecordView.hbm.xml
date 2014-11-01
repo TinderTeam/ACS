@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.EventRecordView,ACS" table="t_event_record_view"  >
+
+    <id name="EventID" column ="EVENT_ID" >
+      <generator class ="increment"/>
+    </id>
+
+    <property name="EmployeeID" type="int">
+      <column name="EMPLOYEE_ID"/>
+    </property>
+    
+    <property name="EventTime" type="DateTime">
+      <column name="EVENT_TIME"/>
+    </property>
+
+    <property name="ControlID" type="int">
+      <column name="CONTROL_ID"/>
+    </property>
+
+    <property name="DoorID" type="int">
+      <column name="DOOR_ID"/>
+    </property>
+
+    <property name="EventType" type="string">
+      <column name="EVENT_TYPE" length="255"/>
+    </property>
+
+    <property name="Modify" type="string">
+      <column name="MODIFY" length="255"/>
+    </property>
+    
+    <property name="EmployeeName" type="string">
+      <column name="EMPLOYEE_NAME" length="255" unique="true"/>
+    </property>
+
+    <property name="EmployeeCode" type="string">
+      <column name="EMPLOYEE_CODE" length="255"/>
+    </property>
+    
+    <property name="EnglishName" type="string">
+      <column name="ENGLISH_NAME" length="255"/>
+    </property>
+
+    <property name="CardNo" type="string">
+      <column name="CARD_NO" length="255"/>
+    </property>
+
+    <property name="EmpEnable" type="string">
+      <column name="EMP_ENABLE" length="255"/>
+    </property>
+
+    <property name="Sex" type="string">
+      <column name="SEX" length="255"/>
+    </property>
+
+    <property name="Birthday" type="DateTime">
+      <column name="BIRTHDAY"/>
+    </property>
+
+    <property name="PersonCode" type="string">
+      <column name="PERSON_CODE" length="255"/>
+    </property>
+
+    <property name="Home" type="string">
+      <column name="HOME" length="255"/>
+    </property>
+
+    <property name="Phone" type="string">
+      <column name="PHONE" length="255"/>
+    </property>
+
+    <property name="Email" type="string">
+      <column name="EMAIL" length="255"/>
+    </property>
+
+    <property name="Car" type="string">
+      <column name="CAR" length="255"/>
+    </property>
+
+    <property name="JobID" type="int">
+      <column name="JOB_ID"/>
+    </property>
+
+    <property name="DeptID" type="int">
+      <column name="DEPT_ID"/>
+    </property>
+
+    <property name="RegDate" type="DateTime">
+      <column name="REG_DATE"/>
+    </property>
+
+    <property name="Leave" type="string">
+      <column name="LEAVE" length="255"/>
+    </property>
+
+    <property name="LeaveDate" type="DateTime">
+      <column name="LEAVE_DATE"/>
+    </property>
+
+    <property name="BeKQ" type="string">
+      <column name="BE_KQ" length="255"/>
+    </property>
+
+    <property name="Note1" type="string">
+      <column name="NOTE1" length="255"/>
+    </property>
+
+    <property name="Note2" type="string">
+      <column name="NOTE2" length="255"/>
+    </property>
+
+    <property name="Note3" type="string">
+      <column name="NOTE3" length="255"/>
+    </property>
+
+    <property name="Note4" type="string">
+      <column name="NOTE4" length="255"/>
+    </property>
+
+  </class>
+</hibernate-mapping>

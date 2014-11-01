@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.EventRecord,ACS" table="t_event_record"  >
+
+    <id name="EventID" column ="EVENT_ID" >
+      <generator class ="increment"/>
+    </id>
+
+    <property name="EmployeeID" type="int">
+      <column name="EMPLOYEE_ID"/>
+    </property>
+    
+    <property name="EventTime" type="DateTime">
+      <column name="EVENT_TIME"/>
+    </property>
+
+    <property name="ControlID" type="int">
+      <column name="CONTROL_ID"/>
+    </property>
+
+    <property name="DoorID" type="int">
+      <column name="DOOR_ID"/>
+    </property>
+
+    <property name="EventType" type="string">
+      <column name="EVENT_TYPE" length="255"/>
+    </property>
+
+    <property name="Modify" type="string">
+      <column name="MODIFY" length="255"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>

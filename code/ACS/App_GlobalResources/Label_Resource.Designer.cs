@@ -61,6 +61,87 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 报警记录查询 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_AlarmRecordSearch {
+            get {
+                return ResourceManager.GetString("AlarmRecord_AlarmRecordSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 报警时间 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_AlarmTime {
+            get {
+                return ResourceManager.GetString("AlarmRecord_AlarmTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 报警类型 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_AlarmType {
+            get {
+                return ResourceManager.GetString("AlarmRecord_AlarmType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 报警类型： 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_AlarmTypeSearch {
+            get {
+                return ResourceManager.GetString("AlarmRecord_AlarmTypeSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 控制器 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_ControlID {
+            get {
+                return ResourceManager.GetString("AlarmRecord_ControlID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 门 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_DoorID {
+            get {
+                return ResourceManager.GetString("AlarmRecord_DoorID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 门： 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_DoorSearch {
+            get {
+                return ResourceManager.GetString("AlarmRecord_DoorSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查询 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_Search {
+            get {
+                return ResourceManager.GetString("AlarmRecord_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 时间： 的本地化字符串。
+        /// </summary>
+        internal static string AlarmRecord_TimeSearch {
+            get {
+                return ResourceManager.GetString("AlarmRecord_TimeSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 生日： 的本地化字符串。
         /// </summary>
         internal static string EmployeeEdit_Birthday {
@@ -363,6 +444,339 @@ namespace Resources {
         internal static string EmployeeManage_Sex {
             get {
                 return ResourceManager.GetString("EmployeeManage_Sex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 考勤 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_BeKQ {
+            get {
+                return ResourceManager.GetString("EventRecord_BeKQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 生日 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Birthday {
+            get {
+                return ResourceManager.GetString("EventRecord_Birthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 车牌 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Car {
+            get {
+                return ResourceManager.GetString("EventRecord_Car", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 卡号 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_CardNo {
+            get {
+                return ResourceManager.GetString("EventRecord_CardNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 卡号： 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_CardNoSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_CardNoSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 刷卡记录查询 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_CardRecordSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_CardRecordSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 工号： 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_CodeSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_CodeSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 控制器 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_ControlID {
+            get {
+                return ResourceManager.GetString("EventRecord_ControlID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 部门 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_DeptID {
+            get {
+                return ResourceManager.GetString("EventRecord_DeptID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 部门： 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_DeptSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_DeptSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 门 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_DoorID {
+            get {
+                return ResourceManager.GetString("EventRecord_DoorID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 门： 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_DoorSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_DoorSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 邮箱 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Email {
+            get {
+                return ResourceManager.GetString("EventRecord_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否注销 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_EmpEnable {
+            get {
+                return ResourceManager.GetString("EventRecord_EmpEnable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 工号 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_EmployeeCode {
+            get {
+                return ResourceManager.GetString("EventRecord_EmployeeCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 姓名 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_EmployeeName {
+            get {
+                return ResourceManager.GetString("EventRecord_EmployeeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 英文名 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_EnglishName {
+            get {
+                return ResourceManager.GetString("EventRecord_EnglishName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 时间 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_EventTime {
+            get {
+                return ResourceManager.GetString("EventRecord_EventTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 事件类型 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_EventType {
+            get {
+                return ResourceManager.GetString("EventRecord_EventType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 事件类型： 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_EventTypeSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_EventTypeSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 地址 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Home {
+            get {
+                return ResourceManager.GetString("EventRecord_Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 职位 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_JobID {
+            get {
+                return ResourceManager.GetString("EventRecord_JobID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 职务： 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_JobSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_JobSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 离职 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Leave {
+            get {
+                return ResourceManager.GetString("EventRecord_Leave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 离职时间 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_LeaveDate {
+            get {
+                return ResourceManager.GetString("EventRecord_LeaveDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 是否修改 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Modify {
+            get {
+                return ResourceManager.GetString("EventRecord_Modify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 姓名： 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_NameSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_NameSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注1 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Note1 {
+            get {
+                return ResourceManager.GetString("EventRecord_Note1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注2 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Note2 {
+            get {
+                return ResourceManager.GetString("EventRecord_Note2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注3 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Note3 {
+            get {
+                return ResourceManager.GetString("EventRecord_Note3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注4 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Note4 {
+            get {
+                return ResourceManager.GetString("EventRecord_Note4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 身份证 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_PersonCode {
+            get {
+                return ResourceManager.GetString("EventRecord_PersonCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 电话 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Phone {
+            get {
+                return ResourceManager.GetString("EventRecord_Phone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 注册时间 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_RegTime {
+            get {
+                return ResourceManager.GetString("EventRecord_RegTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查询 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Search {
+            get {
+                return ResourceManager.GetString("EventRecord_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 性别 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_Sex {
+            get {
+                return ResourceManager.GetString("EventRecord_Sex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 时间： 的本地化字符串。
+        /// </summary>
+        internal static string EventRecord_TimeSearch {
+            get {
+                return ResourceManager.GetString("EventRecord_TimeSearch", resourceCulture);
             }
         }
     }

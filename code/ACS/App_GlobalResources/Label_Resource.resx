@@ -117,6 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlarmRecord_AlarmRecordSearch" xml:space="preserve">
+    <value>报警记录查询</value>
+  </data>
+  <data name="AlarmRecord_AlarmTime" xml:space="preserve">
+    <value>报警时间</value>
+  </data>
+  <data name="AlarmRecord_AlarmType" xml:space="preserve">
+    <value>报警类型</value>
+  </data>
+  <data name="AlarmRecord_AlarmTypeSearch" xml:space="preserve">
+    <value>报警类型：</value>
+  </data>
+  <data name="AlarmRecord_ControlID" xml:space="preserve">
+    <value>控制器</value>
+  </data>
+  <data name="AlarmRecord_DoorID" xml:space="preserve">
+    <value>门</value>
+  </data>
+  <data name="AlarmRecord_DoorSearch" xml:space="preserve">
+    <value>门：</value>
+  </data>
+  <data name="AlarmRecord_Search" xml:space="preserve">
+    <value>查询</value>
+  </data>
+  <data name="AlarmRecord_TimeSearch" xml:space="preserve">
+    <value>时间：</value>
+  </data>
   <data name="EmployeeEdit_Birthday" xml:space="preserve">
     <value>生日：</value>
   </data>
@@ -218,5 +245,116 @@
   </data>
   <data name="EmployeeManage_Sex" xml:space="preserve">
     <value>性别</value>
+  </data>
+  <data name="EventRecord_BeKQ" xml:space="preserve">
+    <value>考勤</value>
+  </data>
+  <data name="EventRecord_Birthday" xml:space="preserve">
+    <value>生日</value>
+  </data>
+  <data name="EventRecord_Car" xml:space="preserve">
+    <value>车牌</value>
+  </data>
+  <data name="EventRecord_CardNo" xml:space="preserve">
+    <value>卡号</value>
+  </data>
+  <data name="EventRecord_CardNoSearch" xml:space="preserve">
+    <value>卡号：</value>
+  </data>
+  <data name="EventRecord_CardRecordSearch" xml:space="preserve">
+    <value>刷卡记录查询</value>
+  </data>
+  <data name="EventRecord_CodeSearch" xml:space="preserve">
+    <value>工号：</value>
+  </data>
+  <data name="EventRecord_ControlID" xml:space="preserve">
+    <value>控制器</value>
+  </data>
+  <data name="EventRecord_DeptID" xml:space="preserve">
+    <value>部门</value>
+  </data>
+  <data name="EventRecord_DeptSearch" xml:space="preserve">
+    <value>部门：</value>
+  </data>
+  <data name="EventRecord_DoorID" xml:space="preserve">
+    <value>门</value>
+  </data>
+  <data name="EventRecord_DoorSearch" xml:space="preserve">
+    <value>门：</value>
+  </data>
+  <data name="EventRecord_Email" xml:space="preserve">
+    <value>邮箱</value>
+  </data>
+  <data name="EventRecord_EmpEnable" xml:space="preserve">
+    <value>是否注销</value>
+  </data>
+  <data name="EventRecord_EmployeeCode" xml:space="preserve">
+    <value>工号</value>
+  </data>
+  <data name="EventRecord_EmployeeName" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="EventRecord_EnglishName" xml:space="preserve">
+    <value>英文名</value>
+  </data>
+  <data name="EventRecord_EventTime" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="EventRecord_EventType" xml:space="preserve">
+    <value>事件类型</value>
+  </data>
+  <data name="EventRecord_EventTypeSearch" xml:space="preserve">
+    <value>事件类型：</value>
+  </data>
+  <data name="EventRecord_Home" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="EventRecord_JobID" xml:space="preserve">
+    <value>职位</value>
+  </data>
+  <data name="EventRecord_JobSearch" xml:space="preserve">
+    <value>职务：</value>
+  </data>
+  <data name="EventRecord_Leave" xml:space="preserve">
+    <value>离职</value>
+  </data>
+  <data name="EventRecord_LeaveDate" xml:space="preserve">
+    <value>离职时间</value>
+  </data>
+  <data name="EventRecord_Modify" xml:space="preserve">
+    <value>是否修改</value>
+  </data>
+  <data name="EventRecord_NameSearch" xml:space="preserve">
+    <value>姓名：</value>
+  </data>
+  <data name="EventRecord_Note1" xml:space="preserve">
+    <value>备注1</value>
+  </data>
+  <data name="EventRecord_Note2" xml:space="preserve">
+    <value>备注2</value>
+  </data>
+  <data name="EventRecord_Note3" xml:space="preserve">
+    <value>备注3</value>
+  </data>
+  <data name="EventRecord_Note4" xml:space="preserve">
+    <value>备注4</value>
+  </data>
+  <data name="EventRecord_PersonCode" xml:space="preserve">
+    <value>身份证</value>
+  </data>
+  <data name="EventRecord_Phone" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="EventRecord_RegTime" xml:space="preserve">
+    <value>注册时间</value>
+  </data>
+  <data name="EventRecord_Search" xml:space="preserve">
+    <value>查询</value>
+  </data>
+  <data name="EventRecord_Sex" xml:space="preserve">
+    <value>性别</value>
+  </data>
+  <data name="EventRecord_TimeSearch" xml:space="preserve">
+    <value>时间：</value>
   </data>
 </root>

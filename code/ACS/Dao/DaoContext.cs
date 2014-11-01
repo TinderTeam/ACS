@@ -20,8 +20,8 @@ namespace ACS.Dao
         private CommonDao<User> userDao;
         private CommonDao<Employee> employeeDao;
         private CommonDao<UserRole> userRoleDao;
-
-
+        private CommonDao<EventRecordView> eventRecordViewDao;
+        private CommonDao<AlarmRecord> alarmRecordDao;
 
         public static DaoContext getInstance()
         {
@@ -78,7 +78,21 @@ namespace ACS.Dao
              return employeeDao;
          }
 
-        
-
+        public CommonDao<EventRecordView> geEventRecordViewDao()
+        {
+            if (eventRecordViewDao == null)
+            {
+                eventRecordViewDao = new CommonDaoImpl<EventRecordView>();
+            }
+            return eventRecordViewDao;
+        }
+        public CommonDao<AlarmRecord> geAlarmRecordDao()
+        {
+            if (alarmRecordDao == null)
+            {
+                alarmRecordDao = new CommonDaoImpl<AlarmRecord>();
+            }
+            return alarmRecordDao;
+        }
     }
 }

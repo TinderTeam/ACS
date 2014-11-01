@@ -13,6 +13,8 @@ namespace ACS.Service
         private UserService userService;
         private EmployeeService employeeService;
         private LoginService loginService;
+        private EventRecordViewService eventRecordViewService;
+        private AlarmRecordService alarmRecordService;
 
         public static ServiceContext getInstance()
         {
@@ -59,6 +61,24 @@ namespace ACS.Service
                 loginService = new LoginServiceImpl();
             }
             return loginService;
+        }
+        public EventRecordViewService getEventRecordViewService()
+        {
+
+            if (eventRecordViewService == null)
+            {
+                eventRecordViewService = new EventRecordViewServiceImpl();
+            }
+            return eventRecordViewService;
+        }
+        public AlarmRecordService getAlarmRecordService()
+        {
+
+            if (alarmRecordService == null)
+            {
+                alarmRecordService = new AlarmRecordServiceImpl();
+            }
+            return alarmRecordService;
         }
 
     }
