@@ -37,8 +37,8 @@ namespace ACM.Controllers
         public ActionResult HolidayEdit(String id)
         {
             ViewBag.Type = "EDIT";
-            //EmployeeModel employeeModel = employeeService.getEmployeeByID(id);
-            //ViewBag.employee = employeeModel;
+            HolidayModel holidayModel = holidayService.getHolidayModelByID(id);
+            ViewBag.holiday = holidayModel;
             return View();
         }
 
@@ -87,18 +87,18 @@ namespace ACM.Controllers
         /// Ajax调用
         /// </summary>
         /// <returns></returns>
-        /*public ActionResult Edit(string data)
+        public ActionResult Edit(string data)
         {
             string text = null;
-            log.Debug("Modify Employee...");
-            EmployeeModel employeeModel = JsonConvert.JsonToObject<EmployeeModel>(data);
+            log.Debug("Modify Holiday...");
+            HolidayModel holidayModel = JsonConvert.JsonToObject<HolidayModel>(data);
 
-            if (ModelVerificationService.EmployeeVerification(employeeModel))
+            if (ModelVerificationService.HolidayVerification(holidayModel))
             {
                 try
                 {
                     //校验成功
-                    employeeService.update(employeeModel);
+                    holidayService.update(holidayModel);
                 }
                 catch (SystemException ex)
                 {
@@ -127,11 +127,11 @@ namespace ACM.Controllers
         public ActionResult Remove(String idstr)
         {
             List<int> idList = ModelConventService.toIDList(idstr);
-            log.Debug("Delete User (id=" + idList + ") ...");
-            if (ModelVerificationService.UserIDExist(idList))
+            log.Debug("Delete Holiday (id=" + idList + ") ...");
+            if (ModelVerificationService.HolidayIDExist(idList))
             {
                 //校验成功
-                employeeService.delete(idList);
+                holidayService.delete(idList);
             }
             else
             {
@@ -140,6 +140,6 @@ namespace ACM.Controllers
             }
             Response.Write("ok");
             return null;
-        }*/
+        }
     }
 }

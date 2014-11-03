@@ -174,5 +174,17 @@ namespace ACS.Service
 
             return holiday;
         }
+        public static HolidayModel toHolidayModel(Holiday holiday)
+        {
+            //TODO: 实现转化 方法
+            HolidayModel holidayModel = new HolidayModel();
+            holidayModel.HolidayID = holiday.HolidayID;
+            holidayModel.HolidayName = holiday.HolidayName;
+            holidayModel.StartTime = holiday.StartTime;
+            holidayModel.EndTime = holiday.EndTime;
+            holidayModel.HolidayNote = holiday.HolidayNote;
+
+            return holidayModel;
+        }
     }
 }

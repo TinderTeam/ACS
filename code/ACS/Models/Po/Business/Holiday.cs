@@ -7,6 +7,7 @@ namespace ACS.Models.Po.Business
 {
     public class Holiday
     {
+        public const String ID = "HolidayID";
         private int holidayID;//假日ID
         private String holidayName;//假日名称
         private String holidayNote;//假日说明
