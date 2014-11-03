@@ -126,6 +126,17 @@ namespace ACS.Test
             tree.MenuTreeItemList = treeList;
             return tree;
         }
+        public static TreeModel getTestDoorTree()
+        {
+            List<TreeItem> treeList = new List<TreeItem>();
+            for (int i = 0; i < 10; i++)
+            {
+                treeList.Add(testItem("门" + i, "door-" + i, ""));
+            }
+            TreeModel tree = new TreeModel();
+            tree.MenuTreeItemList = treeList;
+            return tree;
+        }
       
     }
 }
