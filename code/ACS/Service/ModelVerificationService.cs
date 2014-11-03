@@ -38,6 +38,12 @@ namespace ACS.Service
             //TODO
             return true;
         }
+
+        public static bool HolidayIDExist(List<int> HolidayID)
+        {
+            //TODO
+            return true;
+        }
         
     }
 }

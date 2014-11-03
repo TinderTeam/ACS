@@ -45,6 +45,9 @@ namespace ACS.Service
     {
         AbstractDataSource<Holiday> getHolidayList(Holiday filter);
         void create(HolidayModel holidayModel);
+        HolidayModel getHolidayModelByID(string holidayID);
+        void update(HolidayModel holidayModel);
+        void delete(List<int> holidayIDList);
 
     }
     public interface LoginService

@@ -98,12 +98,12 @@
                     var ids = [];
                     for (var i = 0, l = rows.length; i < l; i++) {
                         var r = rows[i];
-                        ids.push(r.EmployeeID);
+                        ids.push(r.HolidayID);
                     }
                     var id = ids.join(',');
                     grid.loading("操作中，请稍后......");
                     $.ajax({
-                        url: "../EmployeeManage/Remove?idstr="+id,
+                        url: "../HolidayManage/Remove?idstr="+id,
                         success: function (text) {                        
                             grid.reload();
                         },

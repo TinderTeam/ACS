@@ -62,27 +62,28 @@
                     <tr style ="height:35px">
                         <td style="width:60px;">@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_HolidayName")</td>
                         <td style="width:150px;">
-                            <input name="HolidayName" class="mini-textbox" required="true"/>
+                            <input name="HolidayName" class="mini-textbox" required="true" value="@ViewBag.holiday.HolidayName"/>
                         </td>
                         
                     </tr>
                     <tr style ="height:35px">
                         <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_StartTime")</td>
                         <td >    
-                            <input name="StartTime" class="mini-datepicker" required="true"/>
+                            <input name="StartTime" class="mini-datepicker" required="true" value="@ViewBag.holiday.StartTime"/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
                         
                         <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_EndTime")</td>
                         <td >    
-                            <input name="EndTime" class="mini-datepicker" required="true"/>
+                            <input name="EndTime" class="mini-datepicker" required="true" value="@ViewBag.holiday.EndTime"/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
                         <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_HolidayNote")</td>
                         <td >    
-                            <input name="HolidayNote" class="mini-textbox"/>
+                            <input name="HolidayNote" class="mini-textbox" value="@ViewBag.holiday.HolidayNote"/>
+                            <input name ="HolidayID" class="mini-textbox" style="display:none" value="@ViewBag.holiday.HolidayID"/>
                         </td>
                     </tr>        
                 </table>
@@ -113,7 +114,7 @@
             }
             else if (type == 'EDIT') {
                 //编辑
-                url = "/EmployeeManage/Edit";
+                url = "/HolidayManage/Edit";
             }
             var json = mini.encode(o);
             $.ajax({

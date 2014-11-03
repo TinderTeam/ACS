@@ -34,20 +34,20 @@ namespace ACS.Service.Impl
         ///批量删除员工
         /// </summary>
         /// <returns></returns>
-        /*public void delete(List<int> employeeIDList)
+        public void delete(List<int> holidayIDList)
         {
-            foreach (int i in employeeIDList)
+            foreach (int i in holidayIDList)
             {
-                employeeDao.delete(
+                holidayDao.delete(
                     new QueryCondition(
                        ConditionTypeEnum.EQUAL,
-                       Employee.ID,
+                       Holiday.ID,
                        i.ToString()
                     )
                 );
             }
-        }*/
-        /*public HolidayModel getHolidayByID(string holidayID)
+        }
+        public HolidayModel getHolidayModelByID(string holidayID)
         {
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "HolidayID", holidayID);
             Holiday holiday = holidayDao.getUniRecord(condition);
@@ -59,24 +59,18 @@ namespace ACS.Service.Impl
             HolidayModel holidayModel = ModelConventService.toHolidayModel(holiday);
             return holidayModel;
         }
-        public void update(EmployeeModel employeeModel)
+        public void update(HolidayModel holidayModel)
         {
             //判断用户是否存在
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "EmployeeID", employeeModel.EmployeeID.ToString());
-            Employee orignalEmployee = employeeDao.getUniRecord(condition);
-            if (null == orignalEmployee)
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "HolidayID", holidayModel.HolidayID.ToString());
+            Holiday orignalHoliday = holidayDao.getUniRecord(condition);
+            if (null == orignalHoliday)
             {
-                log.Error("modify employee failed, the employee is not exist. EmployeeID is " + employeeModel.EmployeeID);
-                throw new SystemException(ExceptionMsg.EMPLOYEE_NOT_EXIST);
+                log.Error("modify holiday failed, the holiday is not exist. HolidayID is " + holidayModel.HolidayID);
+                throw new SystemException(ExceptionMsg.HOLIDAY_NOT_EXIST);
             }
-            QueryCondition codeCondition = new QueryCondition(ConditionTypeEnum.EQUAL, "EmployeeCode", employeeModel.EmployeeCode);
-            if ((null != employeeDao.getUniRecord(codeCondition)) && (orignalEmployee.EmployeeID != employeeModel.EmployeeID))
-            {
-                log.Error("modify employee failed, the EmployeeCode has exist. EmployeeCode is " + employeeModel.EmployeeCode);
-                throw new SystemException(ExceptionMsg.EMPLOYEE_CODE_EXIST);
-            }
-            Employee employee = ModelConventService.toEmployee(orignalEmployee, employeeModel);
-            employeeDao.update(employee);
-        }*/
+            Holiday holiday = ModelConventService.toHoliday(orignalHoliday, holidayModel);
+            holidayDao.update(holiday);
+        }
     }
 }
