@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.Holiday,ACS" table="t_holiday"  >
+
+    <id name="HolidayID" column ="HOLIDAY_ID" >
+      <generator class ="increment"/>
+    </id>
+
+    <property name="HolidayName" type="string">
+      <column name="HOLIDAY_NAME" length="255"/>
+    </property>
+    
+    <property name="StartTime" type="DateTime">
+      <column name="START_TIME"/>
+    </property>
+
+    <property name="EndTime" type="DateTime">
+      <column name="END_TIME"/>
+    </property>
+
+    <property name="HolidayNote" type="string">
+      <column name="HOLIDAY_NOTE" length="255"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>

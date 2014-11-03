@@ -17,6 +17,7 @@ namespace ACS.Service.Constant
         public const String USERNAME_EXIST = "USERNAME_EXIST";                      //用户名已存在
         public const String EMPLOYEE_CODE_EXIST = "EMPLOYEE_CODE_EXIST";            //工号已存在
         public const String EMPLOYEE_NOT_EXIST = "EMPLOYEE_NOT_EXIST";              //工号不存在
+        public const String HOLIDAY_NOT_EXIST = "HOLIDAY_NOT_EXIST";              //工号不存在
 
 
         public const String OPERATE_SUCCESS = "OPERATE_SUCCESS";                    //操作成功

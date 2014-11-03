@@ -20,90 +20,74 @@
     </style>
 </head>
 <body> 
-    <form id="userForm" method="post">
+    <form id="holidayForm" method="post">
         
-            @if(@ViewBag.Type == "CREATE")
-            {
+        @if (@ViewBag.Type == "CREATE")
+        {
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
                     <tr style ="height:35px">
-                        <td style="width:90px;">用户名称：</td>
+                        <td style="width:60px;">@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_HolidayName")</td>
                         <td style="width:150px;">
-                            <input name="UserName" class="mini-textbox" required="true"  emptyText="请输入用户名"/>
+                            <input name="HolidayName" class="mini-textbox" required="true"/>
                         </td>
                         
                     </tr>
                     <tr style ="height:35px">
-                        <td >输入密码：</td>
+                        <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_StartTime")</td>
                         <td >    
-                            <input name="Pswd" class="mini-password" required="true"/>
+                            <input name="StartTime" class="mini-datepicker" required="true"/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
                         
-                        <td >再次输入密码：</td>
+                        <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_EndTime")</td>
                         <td >    
-                            <input name="RePswd" class="mini-password" required="true"/>
+                            <input name="EndTime" class="mini-datepicker" required="true"/>
                         </td>
-                    </tr> 
+                    </tr>
                     <tr style ="height:35px">
-                        <td style="width:90px;">备注：</td>
-                        <td style="width:150px;">    
-                            <input name="UserDesc" class="mini-textbox"/>
+                        <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_HolidayNote")</td>
+                        <td >    
+                            <input name="HolidayNote" class="mini-textbox"/>
                         </td>
-                    </tr>       
+                    </tr>        
                 </table>
             </div>
-            }
-            else
-            {
+        }
+        else
+        {
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
-                <tr style ="height:35px">
-                    <td style="width:90px;">用户名称：</td>
-                    <td style="width:150px;">
-                        <input class="mini-textbox" readonly="readonly" emptyText="请输入用户名" value="@ViewBag.user.UserName"/>
-                    </td>
-                    
-                </tr>
-                <tr style ="height:35px">
-                    <td >创建者ID：</td>
-                    <td >    
-                        <input name="CreateUserID" class="mini-textbox" readonly="readonly" value="@ViewBag.user.CreateUserID"/>
-                    </td>
-                </tr>
-                <tr style ="height:35px">
-                    
-                    <td >创建时间：</td>
-                    <td >    
-                        <input name ="CreateDate" class="mini-textbox" readonly="readonly" value="@ViewBag.user.CreateDate"/>
-                        <input name ="UserID" class="mini-textbox" style="display:none" value="@ViewBag.user.UserID"/>
-                    </td>
-                </tr>
-                <tr style ="height:35px">
-                    <td >最后编辑者ID：</td>
-                    <td >    
-                        <input class="mini-textbox" readonly="readonly" value="@ViewBag.user.ModifyUserID"/>
-                    </td>
-                    
-                </tr>
-                <tr style ="height:35px">
-                    <td >最后编辑时间：</td>
-                    <td >    
-                        <input name ="ModifyDate" class="mini-textbox" readonly="readonly" value="@ViewBag.user.ModifyDate"/>
-                    </td>
-                </tr>
-                <tr style ="height:35px">
-                    <td >备注：</td>
-                    <td>    
-                        <input name="UserDesc" class="mini-textbox" value="@ViewBag.user.UserDesc"/>
-                    </td>
-                </tr>             
-            </table>
+                    <tr style ="height:35px">
+                        <td style="width:60px;">@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_HolidayName")</td>
+                        <td style="width:150px;">
+                            <input name="HolidayName" class="mini-textbox" required="true"/>
+                        </td>
+                        
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_StartTime")</td>
+                        <td >    
+                            <input name="StartTime" class="mini-datepicker" required="true"/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        
+                        <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_EndTime")</td>
+                        <td >    
+                            <input name="EndTime" class="mini-datepicker" required="true"/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_HolidayNote")</td>
+                        <td >    
+                            <input name="HolidayNote" class="mini-textbox"/>
+                        </td>
+                    </tr>        
+                </table>
             </div>    
-            }
-
-                  
+        }        
         <div style="text-align:center;padding:5px;">               
             <a class="mini-button" onclick="onOk" style="width:60px;margin-right:20px;">确定</a>       
             <a class="mini-button" onclick="onCancel" style="width:60px;">取消</a>       
@@ -113,7 +97,7 @@
     <script type="text/javascript">
         mini.parse();
 
-        var form = new mini.Form("#userForm");
+        var form = new mini.Form("#holidayForm");
 
         function SaveData() {
             var o = form.getData();
@@ -125,11 +109,11 @@
             var url;
             if (type == 'CREATE') {
                 //新建
-                url = "/UserManage/Create";
+                url = "/HolidayManage/Create";
             }
             else if (type == 'EDIT') {
                 //编辑
-                url = "/UserManage/Edit?id=@ViewBag.ID";
+                url = "/EmployeeManage/Edit";
             }
             var json = mini.encode(o);
             $.ajax({

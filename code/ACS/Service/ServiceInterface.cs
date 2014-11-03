@@ -41,6 +41,12 @@ namespace ACS.Service
         AbstractDataSource<AlarmRecord> getAlarmRecordList(AlarmRecord filter);
 
     }
+    public interface HolidayService
+    {
+        AbstractDataSource<Holiday> getHolidayList(Holiday filter);
+        void create(HolidayModel holidayModel);
+
+    }
     public interface LoginService
     {
         UserModel Login(string userName, string password);

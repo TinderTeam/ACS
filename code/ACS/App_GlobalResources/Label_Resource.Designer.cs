@@ -779,5 +779,131 @@ namespace Resources {
                 return ResourceManager.GetString("EventRecord_TimeSearch", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 结束时间: 的本地化字符串。
+        /// </summary>
+        internal static string HolidayEdit_EndTime {
+            get {
+                return ResourceManager.GetString("HolidayEdit_EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 假日名称: 的本地化字符串。
+        /// </summary>
+        internal static string HolidayEdit_HolidayName {
+            get {
+                return ResourceManager.GetString("HolidayEdit_HolidayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注: 的本地化字符串。
+        /// </summary>
+        internal static string HolidayEdit_HolidayNote {
+            get {
+                return ResourceManager.GetString("HolidayEdit_HolidayNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开始时间: 的本地化字符串。
+        /// </summary>
+        internal static string HolidayEdit_StartTime {
+            get {
+                return ResourceManager.GetString("HolidayEdit_StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 增加 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_Add {
+            get {
+                return ResourceManager.GetString("HolidayManage_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_Delete {
+            get {
+                return ResourceManager.GetString("HolidayManage_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 编辑 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_Edit {
+            get {
+                return ResourceManager.GetString("HolidayManage_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 结束时间 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_EndTime {
+            get {
+                return ResourceManager.GetString("HolidayManage_EndTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 假日编号 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_HolidayID {
+            get {
+                return ResourceManager.GetString("HolidayManage_HolidayID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 假日管理 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_HolidayManage {
+            get {
+                return ResourceManager.GetString("HolidayManage_HolidayManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 假日名称 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_HolidayName {
+            get {
+                return ResourceManager.GetString("HolidayManage_HolidayName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 备注 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_HolidayNote {
+            get {
+                return ResourceManager.GetString("HolidayManage_HolidayNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 查询 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_Search {
+            get {
+                return ResourceManager.GetString("HolidayManage_Search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 开始时间 的本地化字符串。
+        /// </summary>
+        internal static string HolidayManage_StartTime {
+            get {
+                return ResourceManager.GetString("HolidayManage_StartTime", resourceCulture);
+            }
+        }
     }
 }

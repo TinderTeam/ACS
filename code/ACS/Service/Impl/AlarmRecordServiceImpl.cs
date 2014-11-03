@@ -15,7 +15,7 @@ namespace ACS.Service.Impl
     public class AlarmRecordServiceImpl : AlarmRecordService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        CommonDao<AlarmRecord> alarmRecordDao = DaoContext.getInstance().geAlarmRecordDao();
+        CommonDao<AlarmRecord> alarmRecordDao = DaoContext.getInstance().getAlarmRecordDao();
 
         public AbstractDataSource<AlarmRecord> getAlarmRecordList(AlarmRecord filter)
         {

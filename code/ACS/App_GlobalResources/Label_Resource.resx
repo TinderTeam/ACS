@@ -357,4 +357,46 @@
   <data name="EventRecord_TimeSearch" xml:space="preserve">
     <value>时间：</value>
   </data>
+  <data name="HolidayEdit_EndTime" xml:space="preserve">
+    <value>结束时间:</value>
+  </data>
+  <data name="HolidayEdit_HolidayName" xml:space="preserve">
+    <value>假日名称:</value>
+  </data>
+  <data name="HolidayEdit_HolidayNote" xml:space="preserve">
+    <value>备注:</value>
+  </data>
+  <data name="HolidayEdit_StartTime" xml:space="preserve">
+    <value>开始时间:</value>
+  </data>
+  <data name="HolidayManage_Add" xml:space="preserve">
+    <value>增加</value>
+  </data>
+  <data name="HolidayManage_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="HolidayManage_Edit" xml:space="preserve">
+    <value>编辑</value>
+  </data>
+  <data name="HolidayManage_EndTime" xml:space="preserve">
+    <value>结束时间</value>
+  </data>
+  <data name="HolidayManage_HolidayID" xml:space="preserve">
+    <value>假日编号</value>
+  </data>
+  <data name="HolidayManage_HolidayManage" xml:space="preserve">
+    <value>假日管理</value>
+  </data>
+  <data name="HolidayManage_HolidayName" xml:space="preserve">
+    <value>假日名称</value>
+  </data>
+  <data name="HolidayManage_HolidayNote" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="HolidayManage_Search" xml:space="preserve">
+    <value>查询</value>
+  </data>
+  <data name="HolidayManage_StartTime" xml:space="preserve">
+    <value>开始时间</value>
+  </data>
 </root>

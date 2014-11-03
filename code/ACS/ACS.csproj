@@ -182,6 +182,7 @@
     <Compile Include="Controllers\EmployeeManageController.cs" />
     <Compile Include="Controllers\EventRecordController.cs" />
     <Compile Include="Controllers\AlarmRecordController.cs" />
+    <Compile Include="Controllers\HolidayManageController.cs" />
     <Compile Include="Dao\DaoContext.cs" />
     <Compile Include="Dao\DaoInterface.cs" />
     <Compile Include="Dao\SessionManage.cs" />
@@ -195,6 +196,7 @@
     <Compile Include="Models\Model\PrivilegeSet.cs" />
     <Compile Include="Models\Model\UserModel.cs" />
     <Compile Include="Models\Model\PswdModel.cs" />
+    <Compile Include="Models\Model\HolidayModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\Access.cs" />
@@ -224,6 +226,7 @@
     <Compile Include="Service\Impl\LoginServiceImpl.cs" />
     <Compile Include="Service\Impl\EventRecordViewServiceImpl.cs" />
     <Compile Include="Service\Impl\AlarmRecordServiceImpl.cs" />
+    <Compile Include="Service\Impl\HolidayServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />
     <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
     <Compile Include="Service\ModelVerificationService.cs" />
@@ -334,6 +337,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\AlarmRecord.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\Holiday.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
@@ -1603,6 +1609,8 @@
     <Content Include="Views\Monitor\Monitor.cshtml" />
     <Content Include="Views\EventRecord\EventRecord.cshtml" />
     <Content Include="Views\AlarmRecord\AlarmRecord.cshtml" />
+    <Content Include="Views\HolidayManage\HolidayManage.cshtml" />
+    <Content Include="Views\HolidayManage\HolidayEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

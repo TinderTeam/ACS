@@ -27,6 +27,12 @@ namespace ACS.Service
             return true;
         }
 
+        public static bool HolidayVerification(HolidayModel holidayModel)
+        {
+            //TODO
+            return true;
+        }
+
         public static bool EmployeeModelIDExist(List<int> employeeID)
         {
             //TODO

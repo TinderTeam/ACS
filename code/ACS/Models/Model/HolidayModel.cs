@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ACS.Models.Po.Business
+namespace ACS.Models.Model
 {
-    public class Holiday
+    public class HolidayModel
     {
         private int holidayID;//假日ID
         private String holidayName;//假日名称
@@ -13,35 +13,36 @@ namespace ACS.Models.Po.Business
         private DateTime startTime;//开始时间
         private DateTime endTime;//结束时间
 
-        public virtual int HolidayID
+        public int HolidayID
         {
             get { return holidayID; }
             set { holidayID = value; }
         }
-
-        public virtual String HolidayName
+        
+        public String HolidayName
         {
             get { return holidayName; }
             set { holidayName = value; }
         }
-
-        public virtual String HolidayNote
+        
+        public String HolidayNote
         {
             get { return holidayNote; }
             set { holidayNote = value; }
         }
-
-        public virtual DateTime StartTime
+        
+        public DateTime StartTime
         {
             get { return startTime; }
             set { startTime = value; }
         }
-
-        public virtual DateTime EndTime
+        
+        public DateTime EndTime
         {
             get { return endTime; }
             set { endTime = value; }
         }
 
+        
     }
 }
