@@ -25,11 +25,11 @@ namespace ACS.Models.Po.Business
         private DateTime fireTime;//
         private DateTime alarmTime;//
         private String alarmMast;//
-        private String group;//
+        private String controlGroup;//
         private DateTime timeTamp;//
         private String localSetup;//
         private int mapID;//
-        private int xPiont;//
+        private int xPoint;//
         private int yPoint;//
         private String mapVisible;//
         private String online;//
@@ -47,6 +47,244 @@ namespace ACS.Models.Po.Business
         private String useAes;//
         private String icAddress;//
         private String icIsSt;//
+
+
+        public virtual int ControlID
+        {
+            get { return controlID; }
+            set { controlID = value; }
+        }
+        public virtual String NetID
+        {
+            get { return netID; }
+            set { netID = value; }
+        }
+        public virtual String Code
+        {
+            get { return code; }
+            set { code = value; }
+        }
+        public virtual String ControlName
+        {
+            get { return controlName; }
+            set { controlName = value; }
+        }
+
+        public virtual String Address
+        {
+            get { return address; }
+            set { address = value; }
+        }
+
+        public virtual String Serial
+        {
+            get { return serial; }
+            set { serial = value; }
+        }
+
+        public virtual String Type
+        {
+            get { return type; }
+            set { type = value; }
+        }
+
+        public virtual String Enable
+        {
+            get { return enable; }
+            set { enable = value; }
+        }
+
+        public virtual String DuressPin
+        {
+            get { return duressPin; }
+            set { duressPin = value; }
+        }
+
+        public virtual int AreaID
+        {
+            get { return areaID; }
+            set { areaID = value; }
+        }
+
+        public virtual String Www
+        {
+            get { return www; }
+            set { www = value; }
+        }
+
+        public virtual String Ip
+        {
+            get { return ip; }
+            set { ip = value; }
+        }
+
+        public virtual int Port
+        {
+            get { return port; }
+            set { port = value; }
+        }
+
+        public virtual String ByIP
+        {
+            get { return byIP; }
+            set { byIP = value; }
+        }
+
+        public virtual String LockEach
+        {
+            get { return lockEach; }
+            set { lockEach = value; }
+        }
+
+        public virtual DateTime FireTime
+        {
+            get { return fireTime; }
+            set { fireTime = value; }
+        }
+
+        public virtual DateTime AlarmTime
+        {
+            get { return alarmTime; }
+            set { alarmTime = value; }
+        }
+
+        public virtual String AlarmMast
+        {
+            get { return alarmMast; }
+            set { alarmMast = value; }
+        }
+
+        public virtual String ControlGroup
+        {
+            get { return controlGroup; }
+            set { controlGroup = value; }
+        }
+
+        public virtual DateTime TimeTamp
+        {
+            get { return timeTamp; }
+            set { timeTamp = value; }
+        }
+
+        public virtual String LocalSetup
+        {
+            get { return localSetup; }
+            set { localSetup = value; }
+        }
+
+        public virtual int MapID
+        {
+            get { return mapID; }
+            set { mapID = value; }
+        }
+
+        public virtual int XPoint
+        {
+            get { return xPoint; }
+            set { xPoint = value; }
+        }
+
+        public virtual int YPoint
+        {
+            get { return yPoint; }
+            set { yPoint = value; }
+        }
+
+        public virtual String MapVisible
+        {
+            get { return mapVisible; }
+            set { mapVisible = value; }
+        }
+
+        public virtual String Online
+        {
+            get { return online; }
+            set { online = value; }
+        }
+
+        public virtual String DoorOpen
+        {
+            get { return doorOpen; }
+            set { doorOpen = value; }
+        }
+
+        public virtual String FunctionMast
+        {
+            get { return functionMast; }
+            set { functionMast = value; }
+        }
+
+        public virtual String Output
+        {
+            get { return output; }
+            set { output = value; }
+        }
+
+        public virtual String Input
+        {
+            get { return input; }
+            set { input = value; }
+        }
+
+        public virtual String Is16
+        {
+            get { return is16; }
+            set { is16 = value; }
+        }
+
+        public virtual DateTime OpenTime
+        {
+            get { return openTime; }
+            set { openTime = value; }
+        }
+
+        public virtual DateTime CloseTime
+        {
+            get { return closeTime; }
+            set { closeTime = value; }
+        }
+
+        public virtual String FloorDelay
+        {
+            get { return floorDelay; }
+            set { floorDelay = value; }
+        }
+
+        public virtual String OtherFuction
+        {
+            get { return otherFuction; }
+            set { otherFuction = value; }
+        }
+
+        public virtual String MxOutPort
+        {
+            get { return mxOutPort; }
+            set { mxOutPort = value; }
+        }
+
+        public virtual String AesPin
+        {
+            get { return aesPin; }
+            set { aesPin = value; }
+        }
+
+        public virtual String UseAes
+        {
+            get { return useAes; }
+            set { useAes = value; }
+        }
+
+        public virtual String IcAddress
+        {
+            get { return icAddress; }
+            set { icAddress = value; }
+        }
+
+        public virtual String IcIsSt
+        {
+            get { return icIsSt; }
+            set { icIsSt = value; }
+        }
 
     }
 }

@@ -7,9 +7,9 @@ namespace ACS.Models.Po.CF
 {
     public class User
     {
-        private int userID;//角色ID
-        private String userName;//角色名称
-        private String userDesc;//角色描述
+        private int userID;//用户ID
+        private String userName;//用户名称
+        private String userDesc;//用户描述
         private String pswd;//用户密码
         private int createUserID;//创建用户ID
         private DateTime createDate;//创建时间

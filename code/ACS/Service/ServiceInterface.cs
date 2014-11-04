@@ -48,7 +48,10 @@ namespace ACS.Service
         HolidayModel getHolidayModelByID(string holidayID);
         void update(HolidayModel holidayModel);
         void delete(List<int> holidayIDList);
-
+    }
+    public interface MonitorService
+    {
+        AbstractDataSource<Control> getControlList(Control filter);
     }
     public interface LoginService
     {

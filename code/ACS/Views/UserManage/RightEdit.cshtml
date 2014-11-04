@@ -13,25 +13,41 @@
         margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
     }    
 </style>
-    <h1>用户管理</h1>      
-    <div style="width:100%;">
-        <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+    <h2 style="margin-left:15px;">用户名：****</h2>      
+    <fieldset style="width:96%;border:solid 1px #aaa;margin-top:8px;position:relative;">
+        <legend>新增权限</legend>
+        <div id="editForm1" style="padding:5px;">
+            <input class="mini-hidden" name="id"/>
             <table style="width:100%;">
                 <tr>
-                    <td style="width:100%;">
-                        <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
-                        <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
-                        <a class="mini-button" iconCls="icon-user" onclick="rightEdit()">管理权限</a>
-                        <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>       
-                    </td>
-                    <td style="white-space:nowrap;">
-                        <input id="key" class="mini-textbox" emptyText="请输入姓名" style="width:150px;" onenter="onKeyEnter"/>   
-                        <a class="mini-button" onclick="search()">查询</a>
-                    </td>
+                    <td style="width:60px;">角色</td>
+                    <td style="width:130px;"><input id="birthday" name="birthday" class="mini-datepicker" /></td>
+                    <td style="width:150px;">
+                        <a class="mini-button " iconCls="icon-search" onclick="onClick">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_Search")</a>
+                    </td>  
                 </tr>
-            </table>           
+            </table>
         </div>
-    </div>
+    </fieldset>
+    <fieldset style="width:96%;border:solid 1px #aaa;margin-top:8px;position:relative;">
+        <legend>新增权限</legend>
+        <div id="editForm1" style="padding:5px;">
+            <input class="mini-hidden" name="id"/>
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:20px;">控制器</td>
+                    <td style="width:130px;"><input name="salary" class="mini-textbox"></td>
+                    <td style="width:40px;">操作</td>
+                    <td style="width:130px;">
+                        <input name="birthday" class="mini-datepicker" />
+                    </td>
+                    <td style="width:150px;">
+                        <a class="mini-button " iconCls="icon-search" onclick="onClick">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_Search")</a>
+                    </td>  
+                </tr>
+            </table>
+        </div>
+    </fieldset>
 <div class="mini-fit" >
     <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
         url="Load"  idField="UserID" multiSelect="true">
@@ -72,25 +88,16 @@
         }
 
         function rightEdit() {
+            mini.open({
+                url: "../UserManage/RightEdit",
+                title: "新增用户", width: 800, height: 600,
+                onload: function () {
 
-            var row = grid.getSelected();
-            if (row) {
-                var id = row.UserID;
-                mini.open({
-                    url: "../UserManage/RightEdit?userID=" + id,
-                    title: "管理权限", width: 560, height: 500,
-                    onload: function () {
-
-                    },
-                    ondestroy: function (action) {
-                        grid.reload();
-
-                    }
-                });
-            } else {
-                alert("请选中一条记录");
-            }
-
+                },
+                ondestroy: function (action) {
+                    grid.reload();
+                }
+            });
         }
 
         function edit() {

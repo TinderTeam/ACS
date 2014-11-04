@@ -227,6 +227,7 @@
     <Compile Include="Service\Impl\EventRecordViewServiceImpl.cs" />
     <Compile Include="Service\Impl\AlarmRecordServiceImpl.cs" />
     <Compile Include="Service\Impl\HolidayServiceImpl.cs" />
+    <Compile Include="Service\Impl\MonitorServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />
     <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
     <Compile Include="Service\ModelVerificationService.cs" />
@@ -340,6 +341,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\Holiday.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\Control.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
@@ -1611,6 +1615,7 @@
     <Content Include="Views\AlarmRecord\AlarmRecord.cshtml" />
     <Content Include="Views\HolidayManage\HolidayManage.cshtml" />
     <Content Include="Views\HolidayManage\HolidayEdit.cshtml" />
+    <Content Include="Views\UserManage\RightEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -132,6 +132,12 @@ namespace ACM.Controllers
             return null;
         }
 
+        public ActionResult RightEdit(String userID)
+        {
+
+            return View();
+        }
+
         /// <summary>
         /// 删除用户
         /// Ajax调用
