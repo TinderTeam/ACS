@@ -132,12 +132,16 @@ namespace ACM.Controllers
             return null;
         }
 
-        public ActionResult RightEdit(String userID)
+        public ActionResult MenuPrivilege(String userID)
         {
 
             return View();
         }
 
+        public string MenuEdit(string data)
+        {
+            return null;
+        }
         /// <summary>
         /// 删除用户
         /// Ajax调用

@@ -20,14 +20,37 @@ namespace ACS.Controllers
     public class PrivilegeManageController : Controller
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
-
+        //PrivilegeService privilegeService = ServiceContext.getInstance();
+        //显示权限管理页面
         public ActionResult PrivilegeManage()
         {
             return View();
         }
+        //载入用户列表
+        public String UserTree()
+        {
+            //UserTree
+            TreeModel userTree = platFormService.getUserTree();
 
+            //TreeModel tree = Stub.getTestTree();
+            return userTree.ToJsonStr();
+        }
+        public string EditMenu(string data)
+        {
+            return null;
+        }
+        public String MenuTree()
+        {
+            UserModel loginUser = (UserModel)Session["SystemUser"];
+
+            //Test
+            //TreeModel tree = platFormService.getMenuTreeByUserID(loginUser.UserID);
+
+
+            TreeModel tree = Stub.getTestTree();
+            return tree.ToJsonStr();
+        }
         public ActionResult Load(TableForm tableForm, Privilege filter)
         {
             log.Debug("Load Data...");

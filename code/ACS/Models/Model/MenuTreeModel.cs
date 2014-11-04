@@ -67,7 +67,6 @@ namespace ACS.Models.Model
                 str = "{id:\"" + id + "\", text: \"" + text + "\", pid: \""+pid+"\" }";
             }
             return str;
-           
             
         }
     }

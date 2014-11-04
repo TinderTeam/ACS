@@ -109,6 +109,22 @@ namespace ACS.Service
             return menuTreeModle;
         }
 
+        public static TreeModel toUserTreeModel(List<User> userList)
+        {
+            TreeModel userTreeModle = new TreeModel();
+            List<TreeItem> list = new List<TreeItem>();
+            foreach (User user in userList)
+            {
+
+                TreeItem item = new TreeItem();
+                item.Id = user.UserID.ToString();
+                item.Text = user.UserName;    
+                list.Add(item);
+            }
+            userTreeModle.MenuTreeItemList = list;
+            return userTreeModle;
+        }
+
         public static Employee toEmployee(Employee employee,EmployeeModel employeeModel)
         {
             //TODO: 实现转化 方法

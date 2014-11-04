@@ -13,6 +13,7 @@ namespace ACS.Service
     {
         TreeModel getMenuTreeByUserID(int userid);
         AbstractDataSource<Privilege> getPrivilegeList(Privilege filter);
+        TreeModel getUserTree();
     }
     public interface UserService
     {
@@ -52,6 +53,10 @@ namespace ACS.Service
     public interface MonitorService
     {
         AbstractDataSource<Control> getControlList(Control filter);
+    }
+    public interface PrivilegeService
+    {
+        
     }
     public interface LoginService
     {
