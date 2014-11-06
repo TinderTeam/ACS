@@ -9,7 +9,7 @@
 <body>
  <style type="text/css">
     html, body{
-        margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
+        margin:10px;padding:0;border:0;width:100%;height:100%;overflow:hidden;
     }
 
        .my-label
@@ -24,101 +24,52 @@
          width: 100px;
          text-align:left;
      }
-</style> 
-         
-
-    <h1>用户权限管理</h1>      
-    <table style="margin-bottom:20px">
-        <tr>
-            <td style="width:60px;">选择用户：</td>
-            <td style="width:100px">
-                <input name="JobID" class="mini-combobox" valueField="id" textField="text"
-                 url="../PrivilegeManage/UserTree" required="true" emptyText="请选择用户" valuechanged="" />
-            </td>
-        </tr>
-    </table> 
+</style>       
 <div class="mini-fit" >
-    <div style="width:100%;height:100%;">
-        <table>
-            <tr>
-                <td >
-                    <h4 style="margin:0;line-height:22px;font-size:13px;">菜单管理：</h4>
-                    <div style="width:250px;height:280px;" >
-                       <ul id="tree1" class="mini-tree" style="width:100%;height:80%;" url="../Index/MenuTree" 
-                            showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"  
-                            showCheckBox="true" checkRecursive="true"
-                            expandOnLoad="true" allowSelect="false" enableHotTrack="false" 
-                            >
-                        </ul>
-                    </div>
+        <div id="tabs1" class="mini-tabs" activeIndex="0" style="width:90%;height:90%;">
+            <div title="菜单权限分配">
+               <h3>菜单权限分配</h3>
+                <ul id="menutree" class="mini-tree" url="../Test/tree.txt" style="width:80%;height:80%;"
+                    showTreeIcon="true" textField="text" idField="id" showCheckBox="true"
+                    checkRecursive="true" allowSelect="false" enableHotTrack="false">        
+                </ul>
+            </div>
+            <div title="管理范围分配">
+               <h3>管理范围分配</h3>
+                <ul id="admintree" class="mini-tree" url="../Test/tree.txt" style="width:80%;height:80%;"
+                    showTreeIcon="true" textField="text" idField="id" showCheckBox="true"
+                    checkRecursive="true" allowSelect="false" enableHotTrack="false">        
+                </ul>
+            </div>
+             
+        </div>
+    </div> 
+        <div style="text-align:center;padding:5px;">               
+          <a class="mini-button" onclick="onOk" style="width:60px;margin-right:20px;">确定</a>              
+        </div> 
+    <script type="text/javascript">
+        mini.parse();
+        function onOk(e) {
+            SaveData();
+        }
+        function saveData() {
+            var tree = mini.get("tree1");
+            var data = tree.getData();
+            var json = mini.encode(data);
 
-                    <div class="mini-toolbar" style="text-align:center;padding-top:8px;padding-bottom:8px;" 
-                        borderStyle="border-left:0;border-bottom:0;border-right:0;">
-                        <a class="mini-button" style="width:60px;" onclick="onOk()">确定</a>
-                        <span style="display:inline-block;width:25px;"></span>
-                        <a class="mini-button" style="width:60px;" onclick="onCancel()">取消</a>
-                    </div>
-                </td>
-
-                <td style="padding:10px;">
-                </td>
-
-                <td >
-                    <h4 style="margin:0;line-height:22px;font-size:13px;">控制器管理：</h4>
-                    <div style="width:250px;height:280px;" showCheckBox="true" multiSelect="true" >     
-                        <ul id="tree2" class="mini-tree" style="width:100%;height:80%;" 
-                            showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"  
-                            showCheckBox="true" checkRecursive="true"
-                            expandOnLoad="true" allowSelect="false" enableHotTrack="false" 
-                            >
-                        </ul>
-                    </div>
-                    <div class="mini-toolbar" style="text-align:center;padding-top:8px;padding-bottom:8px;" 
-                        borderStyle="border-left:0;border-bottom:0;border-right:0;">
-                        <a class="mini-button" style="width:60px;" onclick="onOk2()">确定</a>
-                        <span style="display:inline-block;width:25px;"></span>
-                        <a class="mini-button" style="width:60px;" onclick="onCancel2()">取消</a>
-                    </div>                       
-                </td>
-            </tr>
-        </table>
-    </div>    
-
-</div>    
-
-
-<script type="text/javascript">
-    mini.parse();
-    var tree = mini.get("tree1");
-
-    function onOk() {
-
-        var value = tree.getValue();
-
-        $.ajax({
-            url: "../PrivilegeManage/EditMenu",
-            type: 'post',
-            data: { data: value },
-            cache: false,
-            success: function (text) {
-
-                if (text == "Success") {
-                    mini.alert("修改成功！");
-                    tree.load("../Index/MenuTree");
+            var msgid = mini.loading("数据保存中，请稍后......", "保存数据");
+            $.ajax({
+                url: "../DeptManage/SaveDeptTree",
+                data: { data: json },
+                type: "post",
+                success: function (text) {
+                    mini.hideMessageBox(msgid);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
                 }
-                else {
-                    alert(text);
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(jqXHR.responseText);
-            }
-        });
-    }
-    function onCancel() {
-        tree.load("../Index/MenuTree");
-    }
-</script>
+            });
+    </script>
 </body>
 </html>
 

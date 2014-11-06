@@ -128,8 +128,8 @@ namespace ACM.Controllers
         public ActionResult Remove(String idstr)
         {
             List<int> idList = ModelConventService.toIDList(idstr);
-            log.Debug("Delete User (id=" + idList + ") ...");
-            if (ModelVerificationService.UserIDExist(idList))
+            log.Debug("Delete employee (id=" + idList + ") ...");
+            if (ModelVerificationService.EmployeeIDExist(idList))
             {
                 //校验成功
                 employeeService.delete(idList);
@@ -139,6 +139,74 @@ namespace ACM.Controllers
                 //校验失败
                 //TODO: 
             }
+            Response.Write("ok");
+            return null;
+        }
+
+        /// <summary>
+        /// 注销用户
+        /// </summary>
+        /// <param name="idstr"></param>
+        /// <returns></returns>
+        public ActionResult Cancel(String idstr)
+        {
+            List<int> idList = ModelConventService.toIDList(idstr);
+            log.Debug("Delete employee (id=" + idList + ") ...");
+            if (ModelVerificationService.EmployeeIDExist(idList))
+            {
+                //校验成功
+                //TODO
+            }
+            else
+            {
+                //校验失败
+                //TODO: 
+            }
+            Response.Write("ok");
+            return null;
+        }
+        /// <summary>
+        /// 用户离职
+        /// </summary>
+        /// <param name="idstr"></param>
+        /// <returns></returns>
+        public ActionResult Leave(String idstr)
+        {
+             List<int> idList = ModelConventService.toIDList(idstr);
+            log.Debug("Delete employee (id=" + idList + ") ...");
+            if (ModelVerificationService.EmployeeIDExist(idList))
+            {
+                //校验成功
+                //TODO
+            }           
+            else
+            {
+                //校验失败
+                //TODO: 
+            }
+            Response.Write("ok");
+            return null;
+        }
+
+          /// <summary>
+        /// 员工发卡
+        /// </summary>
+        /// <param name="idstr"></param>
+        /// <returns></returns>
+        public ActionResult Card(String idstr)
+        {
+            //
+            return View();
+        }
+
+
+        /// <summary>
+        /// 发卡保存
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult SaveCard()
+        {
+            ///
             Response.Write("ok");
             return null;
         }

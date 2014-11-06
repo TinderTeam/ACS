@@ -171,6 +171,7 @@
     <Compile Include="Common\Util\ReflectionUtil.cs" />
     <Compile Include="Controllers\AccessManageController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DeptManageController.cs" />
     <Compile Include="Controllers\DeviceManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
@@ -1578,6 +1579,9 @@
     <Content Include="Scripts\themes\silver\style.css" />
     <Content Include="Scripts\tongji.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Test\Dept.txt" />
+    <Content Include="Test\Job.txt" />
+    <Content Include="Test\tree.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

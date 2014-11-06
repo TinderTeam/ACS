@@ -9,6 +9,9 @@ namespace ACS.Service
 {
     public class ModelVerificationService
     {
+
+
+
         public static bool UserVerification(UserModel userModel)
         {
             //TODO
@@ -33,7 +36,7 @@ namespace ACS.Service
             return true;
         }
 
-        public static bool EmployeeModelIDExist(List<int> employeeID)
+        public static bool EmployeeIDExist(List<int> employeeID)
         {
             //TODO
             return true;

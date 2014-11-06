@@ -24,7 +24,10 @@
                     <td style="width:100%;">
                         <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
                         <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
-                        <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>       
+                        <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>   
+                        <a class="mini-button" iconCls="icon-remove" onclick="leave()">离职</a> 
+                        <a class="mini-button" iconCls="icon-remove" onclick="cancel()">注销</a> 
+                        <a class="mini-button" iconCls="icon-remove" onclick="card()">发卡</a>       
                     </td>
                     <td style="white-space:nowrap;">
                         <input id="key" class="mini-textbox" emptyText="请输入姓名" style="width:150px;" onenter="onKeyEnter"/>   
@@ -92,6 +95,87 @@
         var grid = mini.get("#datagrid1");
         grid.load();
         //grid.sortBy("createtime", "desc");
+
+
+        //注销操作
+        function cancel() {
+            var rows = grid.getSelecteds();
+            if (rows.length > 0) {
+                if (confirm("确定删除选中记录？")) {
+
+                    var ids = [];
+                    for (var i = 0, l = rows.length; i < l; i++) {
+                        var r = rows[i];
+                        ids.push(r.UserID);
+                    }
+                    var id = ids.join(',');
+                    grid.loading("操作中，请稍后......");
+                    $.ajax({
+                        url: "../EmployeeManage/Cancel?idstr=" + id,
+                        success: function (text) {
+                            grid.reload();
+                        },
+                        error: function () {
+                        }
+                    });
+                }
+            } else {
+                alert("请选中一条记录");
+            }
+        }
+        //离职操作
+        function leave() {
+            var rows = grid.getSelecteds();
+            if (rows.length > 0) {
+                if (confirm("确定删除选中记录？")) {
+
+                    var ids = [];
+                    for (var i = 0, l = rows.length; i < l; i++) {
+                        var r = rows[i];
+                        ids.push(r.UserID);
+                    }
+                    var id = ids.join(',');
+                    grid.loading("操作中，请稍后......");
+                    $.ajax({
+                        url: "../EmployeeManage/Cancel?idstr=" + id,
+                        success: function (text) {
+                            grid.reload();
+                        },
+                        error: function () {
+                        }
+                    });
+                }
+            } else {
+                alert("请选中一条记录");
+            }
+        }
+        //发卡操作
+        function card() {
+            var rows = grid.getSelecteds();
+            if (rows.length > 0) {
+                if (confirm("确定对选中记录进行发卡操作？")) {
+
+                    var ids = [];
+                    for (var i = 0, l = rows.length; i < l; i++) {
+                        var r = rows[i];
+                        ids.push(r.UserID);
+                    }
+                    var id = ids.join(',');
+                    grid.loading("操作中，请稍后......");
+                    mini.open({
+                        url: "../EmployeeManage/Card?id=" + id,
+                        title: "员工发卡", width: 560, height: 500,
+                        onload: function () {
+                        },
+                        ondestroy: function (action) {
+                            grid.reload();
+                        }
+                    });
+                }
+            } else {
+                alert("请选中一条记录");
+            }
+        }
 
         function add() {
             mini.open({

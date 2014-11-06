@@ -137,6 +137,20 @@ namespace ACS.Test
             tree.MenuTreeItemList = treeList;
             return tree;
         }
-      
+        public static TreeModel getTestContollerDoorTree()
+        {
+            List<TreeItem> treeList = new List<TreeItem>();
+            for (int i = 0; i < 4; i++)
+            {
+                treeList.Add(testItem("控制器" + i, "ctrl-" + i, ""));
+                for (int j = 0; j < 4; j++)
+                {
+                    treeList.Add(testItem("门" + j, "door-" + j, "ctrl-"+i));
+                }
+            }       
+            TreeModel tree = new TreeModel();
+            tree.MenuTreeItemList = treeList;
+            return tree;
+        }
     }
 }
