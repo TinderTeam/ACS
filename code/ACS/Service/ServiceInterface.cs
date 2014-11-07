@@ -9,6 +9,16 @@ using ACS.Models.Po.Business;
 using ACS.Common.Dao.datasource;
 namespace ACS.Service
 {
+    public interface DeviceService
+    {
+        AbstractDataSource<Control> getDeviceList(Control filter);
+        AbstractDataSource<Door> getDoorList(Door filter);
+
+        DeviceModel getDeviceByID(string DeviceID);
+
+        DoorModel getDoorByID(string DoorID);
+    }
+
     public interface PlatFormService
     {
         TreeModel getMenuTreeByUserID(int userid);

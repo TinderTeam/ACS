@@ -202,5 +202,39 @@ namespace ACS.Service
 
             return holidayModel;
         }
+
+        /// <summary>
+        /// 通过控制器获取控制器-树列表
+        /// </summary>
+        /// <param name="datasource"></param>
+        /// <returns></returns>
+        public static TreeModel toDeviceTree(Common.Dao.datasource.AbstractDataSource<Control> datasource)
+        {
+           //获取所有控制器
+            TreeModel tree = new TreeModel();
+            List<TreeItem> itemList = new List<TreeItem>();
+            List<Control> List = datasource.getAllPageData();
+
+            foreach (Control device in List)
+            {
+                TreeItem i = new TreeItem();
+                i.Id = "C_"+device.ControlID.ToString();
+                i.Text = device.ControlName;
+                i.Pid = "";
+                itemList.Add(i);
+            }
+            //获取所有门
+            List<Door> doorList=ServiceContext.getInstance().getDeviceService().getDoorList(null).getAllPageData();
+            foreach (Door door in doorList)
+            {
+                TreeItem i = new TreeItem();
+                i.Id = "D_"+door.DoorID.ToString();
+                i.Text = door.DoorName;
+                i.Pid = "C_" + door.ControlID.ToString();
+                itemList.Add(i);
+            }
+            tree.MenuTreeItemList = itemList;
+            return tree;
+        }
     }
 }

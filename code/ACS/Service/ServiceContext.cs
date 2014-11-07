@@ -18,6 +18,8 @@ namespace ACS.Service
         private HolidayService holidayService;
         private MonitorService monitorService;
         private PrivilegeService privilegeService;
+        private DeviceService deviceService;
+
 
         public static ServiceContext getInstance()
         {
@@ -26,6 +28,16 @@ namespace ACS.Service
                 serviceContext = new ServiceContext();
             }
             return serviceContext;
+        }
+
+         public DeviceService getDeviceService()
+        {
+
+            if (deviceService == null)
+            {
+                deviceService = new DeviceServiceImpl();
+            }
+            return deviceService;
         }
 
         public PlatFormService getPlatFormService()

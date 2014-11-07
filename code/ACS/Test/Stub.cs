@@ -5,6 +5,7 @@ using System.Web;
 using ACS.Models.Po;
 using ACS.Models.Model;
 using ACS.Models.Po.CF;
+using ACS.Models.Po.Business;
 namespace ACS.Test
 {
     public class Stub
@@ -151,6 +152,55 @@ namespace ACS.Test
             TreeModel tree = new TreeModel();
             tree.MenuTreeItemList = treeList;
             return tree;
+        }
+
+        internal static DeviceModel getDevice()
+        {
+            DeviceModel d = new DeviceModel();
+            d.Control = getControl();
+            d.DoorList = getDoorList();
+            return d;
+
+        }
+
+        private static List<Door> getDoorList()
+        {
+            List<Door> dLsit = new List<Door>();
+            for (int i = 0; i < 8; i++)
+            {
+                Door d = new Door();
+                d.DoorID = 1;
+                dLsit.Add(d);
+            }
+            return dLsit;
+        }
+
+        private static Control getControl()
+        {
+            Control c = new Control();
+            c.ControlID = 1;
+            c.ControlName = "CName";
+            return c;
+        }
+
+        internal static DoorModel getDoor()
+        {
+            DoorModel d = new DoorModel();
+            d.Door = getDoorList()[1];
+            d.DoorTimeList = getDoorTiemList();
+            return d;
+        }
+
+        private static List<DoorTime> getDoorTiemList()
+        {
+            List<DoorTime> list = new List<DoorTime>();
+
+            for (int i = 0; i < 8; i++)
+            {
+                DoorTime d = new DoorTime();
+                list.Add(d);
+            }
+            return list;
         }
     }
 }

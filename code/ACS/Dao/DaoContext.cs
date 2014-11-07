@@ -23,6 +23,17 @@ namespace ACS.Dao
         private CommonDao<EventRecordView> eventRecordViewDao;
         private CommonDao<AlarmRecord> alarmRecordDao;
         private CommonDao<Holiday> holidayDao;
+        private CommonDao<Control> controlDao;
+          private CommonDao<Door> doorDao;
+
+          public CommonDao<Door> getDoorDao()
+          {
+              if (doorDao == null)
+              {
+                  doorDao = new CommonDaoImpl<Door>();
+              }
+              return doorDao;
+          }
 
         public static DaoContext getInstance()
         {
@@ -32,7 +43,14 @@ namespace ACS.Dao
             }
             return daoContext;
         }
-
+        public CommonDao<Control> getControlDao()
+        {
+            if (controlDao == null)
+            {
+                controlDao = new CommonDaoImpl<Control>();
+            }
+            return controlDao;
+        }
 
         public CommonDao<Sys_Menu> getSysMenuDao()
         {

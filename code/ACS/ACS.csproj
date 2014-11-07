@@ -190,6 +190,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model\DeviceModel.cs" />
+    <Compile Include="Models\Model\DoorModel.cs" />
     <Compile Include="Models\Model\EmployeeModel.cs" />
     <Compile Include="Models\Model\FormColumn.cs" />
     <Compile Include="Models\Model\ColumnModel.cs" />
@@ -222,6 +224,7 @@
     <Compile Include="Service\Cache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Constant\ExceptionMsg.cs" />
+    <Compile Include="Service\Impl\DeviceServiceImpl.cs" />
     <Compile Include="Service\Impl\EmployeeServiceImpl.cs" />
     <Compile Include="Service\Impl\UserServiceImpl.cs" />
     <Compile Include="Service\Impl\LoginServiceImpl.cs" />

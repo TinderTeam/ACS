@@ -7,6 +7,7 @@ namespace ACS.Models.Po.Business
 {
     public class Control
     {
+        public const String CONTROL_ID = "ControlID";
         private int controlID;//编号
         private String netID;//连接号即
         private String code;//编号
