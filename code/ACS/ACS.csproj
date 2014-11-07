@@ -1583,6 +1583,7 @@
     <Content Include="Scripts\tongji.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Test\Dept.txt" />
+    <Content Include="Test\DeviceTree.txt" />
     <Content Include="Test\Job.txt" />
     <Content Include="Test\tree.txt" />
     <Content Include="Web.config" />
@@ -1624,6 +1625,12 @@
     <Content Include="Views\HolidayManage\HolidayManage.cshtml" />
     <Content Include="Views\HolidayManage\HolidayEdit.cshtml" />
     <Content Include="Views\UserManage\MenuPrivilege.cshtml" />
+    <Content Include="Views\DeptManage\DeptManage.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\EmployeeManage\Card.cshtml" />
+    <Content Include="Views\DeviceManage\DeviceView.cshtml" />
+    <Content Include="Views\DeviceManage\DoorView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
