@@ -169,8 +169,10 @@
     <Compile Include="Common\Util\DataTypeConvert.cs" />
     <Compile Include="Common\Util\JsonConvert.cs" />
     <Compile Include="Common\Util\ReflectionUtil.cs" />
+    <Compile Include="Common\Util\ValidatorUtil.cs" />
     <Compile Include="Controllers\AccessManageController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Constant\AjaxConstant.cs" />
     <Compile Include="Controllers\DeptManageController.cs" />
     <Compile Include="Controllers\DeviceManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1631,6 +1633,7 @@
     <Content Include="Views\EmployeeManage\Card.cshtml" />
     <Content Include="Views\DeviceManage\DeviceView.cshtml" />
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
+    <Content Include="Views\UserManage\DevicePrivilege.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

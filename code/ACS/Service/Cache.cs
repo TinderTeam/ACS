@@ -184,9 +184,9 @@ namespace ACS.Service
             List<String> id = new List<String>();
             foreach(Privilege p in list ){
                 if (
-                    p.PrivilegeAccess.Equals(ServiceConstant.SYS_MASTER_TYPE_APP)
+                    p.PrivilegeAccess.Equals(ServiceConstant.SYS_ACCESS_TYPE_APP)
                     && 
-                    p.PrivilegeOperation.Equals(ServiceConstant.SYS_MASTER_VALUE_ALLOW)
+                    p.PrivilegeOperation.Equals(ServiceConstant.SYS_OPRATION_VALUE_VISIBLE)
                     )
                 {
                     id.Add(p.PrivilegeAccessValue.ToString());

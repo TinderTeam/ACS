@@ -15,6 +15,7 @@ namespace ACS.Models.Po.Sys
         private String menuIcon;//菜单按钮       
         private String isVisible;//显示        
         private String isLeaf;//是否有子节点
+        private String menuURL; //菜单链接地址
 
         public const string APP_ID = "ApplicationCode";
         public const string MEMU_ID = "MenuID";
@@ -58,5 +59,12 @@ namespace ACS.Models.Po.Sys
             get { return menuParentNo; }
             set { menuParentNo = value; }
         }
+
+        public virtual String MenuURL
+        {
+            get { return menuURL; }
+            set { menuURL = value; }
+        }
+
     }
 }

@@ -151,11 +151,12 @@ namespace ACM.Controllers
         public ActionResult Cancel(String idstr)
         {
             List<int> idList = ModelConventService.toIDList(idstr);
-            log.Debug("Delete employee (id=" + idList + ") ...");
+            log.Debug("Cancel employee (id=" + idList + ") ...");
             if (ModelVerificationService.EmployeeIDExist(idList))
             {
                 //校验成功
                 //TODO
+                employeeService.cancel(idList);
             }
             else
             {
@@ -178,6 +179,7 @@ namespace ACM.Controllers
             {
                 //校验成功
                 //TODO
+                employeeService.leave(idList);
             }           
             else
             {

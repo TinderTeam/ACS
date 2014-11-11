@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ACS.Common.Util;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Criterion;
@@ -14,8 +15,14 @@ namespace ACS.Common.Dao.impl
 
         public void create(E obj)
         {
-            
-		    log.Info("the object class is " + getFeaturedClass()+"the object is "+ obj.ToString());
+            log.Info("the object class is " + getFeaturedClass());
+            if (null == obj)
+            {
+                log.Warn("the object is null.");
+            }
+
+		    log.Info("the object is "+ obj.ToString());
+
             ISession session = null;
             try
             {
@@ -44,6 +51,48 @@ namespace ACS.Common.Dao.impl
             }
         }
 
+ 
+
+        public void create(List<E> objList)
+        {
+            log.Info("the object class is " + getFeaturedClass());
+            if(ValidatorUtil.isEmpty<E>(objList))
+            {
+                log.Warn("the object list is empty");
+                return ;
+            }
+
+            log.Info( "the object list count is  " + objList.Count);
+            ISession session = null;
+            try
+            {
+
+                session = SessionManager.getInstance().GetSession();
+                ITransaction tx = session.BeginTransaction();
+                foreach(E e in objList)
+                {
+                    session.Save(e);
+                }
+ 
+                tx.Commit();
+
+
+            }
+            catch (System.Exception ex)
+            {
+
+                log.Error("create object", ex);
+                throw ex;
+            }
+            finally
+            {
+                if (null != session)
+                {
+                    session.Close();
+                }
+            }
+        }
+ 
         public void update(E obj)
         {
             log.Info("the object class is " + getFeaturedClass()+"the object is "+obj.ToString());

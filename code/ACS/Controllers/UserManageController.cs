@@ -16,12 +16,13 @@ using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using ACS.Models.Po.CF;
 using ACS.Common.Util;
+using ACS.Controllers.Constant;
 namespace ACM.Controllers
 {
     public class UserManageController : Controller
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
         UserService userService = ServiceContext.getInstance().getUserService();
 
         public ActionResult UserManage()
@@ -131,17 +132,39 @@ namespace ACM.Controllers
             }
             return null;
         }
-
+        //显示菜单权限编辑页面
         public ActionResult MenuPrivilege(String userID)
         {
 
+            ViewBag.userID = userID;
+            return View();
+        }
+        //加载用户对应的菜单树列表
+        public String MenuPrivilegeTree(string userID)
+        {
+
+            //Test
+            TreeModel tree = platFormService.getPrivilegeMenuTree(userID);
+
+            return tree.ToJsonStr();
+        }
+        //提交修改后的用户菜单权限列表
+        public string MenuEdit(string userID,string data)
+        {
+            List<string> menuIDList = JsonConvert.JsonToObject<List<string>>(data);
+            userService.updateMenuPrivilege(userID,menuIDList);
+            Response.Write(AjaxConstant.AJAX_SUCCESS);
+            return null;
+        }
+
+        public ActionResult DevicePrivilege(String userID)
+        {
+
+            ViewBag.userID = userID;
             return View();
         }
 
-        public string MenuEdit(string data)
-        {
-            return null;
-        }
+        
         /// <summary>
         /// 删除用户
         /// Ajax调用

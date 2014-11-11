@@ -53,6 +53,34 @@ namespace ACS.Service.Impl
                 );
             }
         }
+        /// <summary>
+        ///批量注销员工
+        /// </summary>
+        /// <returns></returns>
+        public void cancel(List<int> employeeIDList)
+        {
+            foreach (int i in employeeIDList)
+            {
+                QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "EmployeeID", i.ToString());
+                Employee orignalEmployee = employeeDao.getUniRecord(condition);
+                orignalEmployee.EmpEnable = "已注销";
+                employeeDao.update(orignalEmployee);
+            }
+        }
+        /// <summary>
+        ///批量离职
+        /// </summary>
+        /// <returns></returns>
+        public void leave(List<int> employeeIDList)
+        {
+            foreach (int i in employeeIDList)
+            {
+                QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "EmployeeID", i.ToString());
+                Employee orignalEmployee = employeeDao.getUniRecord(condition);
+                orignalEmployee.Leave = "已离职";
+                employeeDao.update(orignalEmployee);
+            }
+        }
         public EmployeeModel getEmployeeByID(string employeeID)
         {
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "EmployeeID", employeeID);

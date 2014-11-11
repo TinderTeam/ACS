@@ -34,7 +34,10 @@
     <property name="MenuParentNo" type="string">
       <column name="MENU_PARENT_NO"/>
     </property>
-
+    
+    <property name="MenuURL" type="string">
+      <column name="MENU_URL"/>
+    </property>
 
   </class>
 </hibernate-mapping>

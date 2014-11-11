@@ -11,12 +11,14 @@ using ACS.Common.Dao;
 using ACS.Common.Constant;
 using ACS.Models.Po.CF;
 using ACS.Service.Constant;
+using ACS.Common.Util;
 namespace ACS.Service.Impl
 {
     public class UserServiceImpl : UserService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         CommonDao<User> userDao = DaoContext.getInstance().getUserDao();
+        CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
 
         public AbstractDataSource<User> getUserList(User filter)
         {
@@ -81,6 +83,38 @@ namespace ACS.Service.Impl
             user.CreateDate = orignalUser.CreateDate;
             user.ModifyDate = DateTime.Now;
             userDao.update(user);
+        }
+        public void updateMenuPrivilege(string userID,List<string> menuIDList)
+        {
+            //获取所选用户对应的权限
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_APP));
+            privilegeDao.delete(conditionList); //删除原有菜单权限列表
+
+            if (ValidatorUtil.isEmpty<string>(menuIDList))
+            {
+                log.Warn("selected menuList is empty,userID is " + userID);
+                return;
+            }
+
+            List<Privilege> privilegeList = new List<Privilege>();
+            
+            //新获取到的用户菜单权限加入权限列表
+            foreach (string i in menuIDList)
+            {
+                Privilege privilege = new Privilege();
+                privilege.PrivilegeMaster = ServiceConstant.SYS_MASTER_TYPE_USER;
+                privilege.PrivilegeMasterValue = userID;
+                privilege.PrivilegeAccess = ServiceConstant.SYS_ACCESS_TYPE_APP;
+                privilege.PrivilegeAccessValue = i;
+                privilege.PrivilegeOperation = ServiceConstant.SYS_OPRATION_VALUE_VISIBLE;
+
+                privilegeList.Add(privilege);
+            }
+
+            privilegeDao.create(privilegeList);
+
         }
 
     }

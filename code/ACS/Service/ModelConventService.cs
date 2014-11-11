@@ -74,21 +74,12 @@ namespace ACS.Service
                 {
                     //menu visiable 时
                     TreeItem item = new TreeItem();
-                    if (sysMenu.IsLeaf != null && sysMenu.IsLeaf.Equals("TRUE"))
-                    {
-                        item.Id = sysMenu.MenuNo;
-                    }
-                    else
-                    {       
-                        item.Id = sysMenu.MenuNo + "/" + sysMenu.MenuNo;
-                    }
-                    
-
+                  
                     try
                     {
                         if (sysMenu.MenuParentNo != null)
                         {
-                            item.Pid = fathermap[sysMenu.MenuParentNo];
+                            item.Pid = sysMenu.MenuParentNo;
                         }
                         else
                         {
@@ -100,7 +91,8 @@ namespace ACS.Service
                     {
                         item.Pid = null;
                     }
-                   
+                    item.Id = sysMenu.MenuID.ToString();
+                    item.Url = sysMenu.MenuURL;
                     item.Text = sysMenu.MenuName;
                     list.Add(item);
                 }        

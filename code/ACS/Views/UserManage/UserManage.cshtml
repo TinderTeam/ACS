@@ -22,6 +22,7 @@
                         <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
                         <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
                         <a class="mini-button" iconCls="icon-user" onclick="menuPrivilege()">菜单权限</a>
+                        <a class="mini-button" iconCls="icon-user" onclick="devicePrivilege()">设备权限</a>
                         <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>       
                     </td>
                     <td style="white-space:nowrap;">
@@ -78,6 +79,28 @@
                 var id = row.UserID;
                 mini.open({
                     url: "../UserManage/MenuPrivilege?userID=" + id,
+                    title: "管理权限", width: 350, height: 350,
+                    onload: function () {
+
+                    },
+                    ondestroy: function (action) {
+                        grid.reload();
+
+                    }
+                });
+            } else {
+                alert("请选中一条记录");
+            }
+
+        }
+
+        function devicePrivilege() {
+
+            var row = grid.getSelected();
+            if (row) {
+                var id = row.UserID;
+                mini.open({
+                    url: "../UserManage/DevicePrivilege?userID=" + id,
                     title: "管理权限", width: 350, height: 350,
                     onload: function () {
 

@@ -11,7 +11,8 @@ namespace ACS.Service
         public static String SYS_TYPE_MENU= "MENU";
         public static String SYS_MASTER_TYPE_USER="USER";
         public static String SYS_MASTER_TYPE_ROLE = "ROLE";
-        public static String SYS_MASTER_TYPE_APP = "APP";
-        public static String SYS_MASTER_VALUE_ALLOW = "OP";
+        public static String SYS_ACCESS_TYPE_APP = "APP";
+        public static String SYS_ACCESS_TYPE_DEVICE_DOMAIN = "DEVICE_DOMAIN";
+        public static String SYS_OPRATION_VALUE_VISIBLE = "OP";
     }
 }

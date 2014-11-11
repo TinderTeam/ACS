@@ -47,13 +47,11 @@
     function onOk() {
 
         var value = tree.getValue();
-        var array = value.split(",");
-        var json = mini.encode(array);
 
         $.ajax({
-            url: "../UserManage/MenuEdit?userID=@ViewBag.userID",
+            url: "../UserManage/MenuEdit",
             type: 'post',
-            data: { data: json },
+            data: { data: value },
             cache: false,
             success: function (text) {
 

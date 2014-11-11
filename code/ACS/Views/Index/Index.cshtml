@@ -130,13 +130,12 @@
         var tab = tabs.getTab(id);
         if (!tab) {
             tab = {};
-            tab._nodeid = node.id;
+
             tab.name = id;
             tab.title = node.text;
             tab.showCloseButton = true;
 
-            //这里拼接了url，实际项目，应该从后台直接获得完整的url地址
-            tab.url = node.id;
+            tab.url = node.url;
 
             tabs.addTab(tab);
         }

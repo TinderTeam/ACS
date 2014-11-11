@@ -57,16 +57,35 @@ namespace ACS.Models.Model
             get { return pid; }
             set { pid = value; }
         }
+        private bool checkNode;
+
+        public bool CheckNode
+        {
+            get { return checkNode; }
+            set { checkNode = value; }
+        }
+
+        private String url;
+
+        public String Url
+        {
+            get { return url; }
+            set { url = value; }
+        }
 
         public String ToJsonStr()
         {
-            String str;
-            if(pid==null||pid.Equals("")){
-                str = "{id:\"" + id + "\", text: \"" + text + "\"}";
-            }else{
-                str = "{id:\"" + id + "\", text: \"" + text + "\", pid: \""+pid+"\" }";
+            String str = "{id:\"" + id + "\", text:\"" + text + "\",url:\""+url+"\"";
+            if((pid!=null)&&(!pid.Equals(""))){
+         
+                str = str+", pid:\""+pid+"\"";
             }
-            return str;
+            if ((checkNode!= false) && (!checkNode.Equals("")))
+            {
+
+                str = str + ", checked:\"" + checkNode + "\"";
+            }
+            return str + "}";
             
         }
     }
