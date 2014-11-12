@@ -100,6 +100,34 @@ namespace ACS.Service
             menuTreeModle.MenuTreeItemList = list;
             return menuTreeModle;
         }
+        /// <summary>
+        /// 转化为DeviceTreemodel
+        /// </summary>
+        public static TreeModel toDeviceTreeModel(List<Control> controlList, List<Door> doorList)
+        {
+            TreeModel deviceTreeModel = new TreeModel();
+            List<TreeItem> list = new List<TreeItem>();
+            
+            foreach (Control control in controlList)
+            {
+                TreeItem item = new TreeItem();
+                item.Id = "C"+  control.ControlID.ToString();
+                item.Text = control.ControlName;
+                item.Pid = null;
+                list.Add(item);
+            }
+            foreach (Door door in doorList)
+            {
+                TreeItem item = new TreeItem();
+                item.Id = "C"+door.ControlID.ToString()+"D" + door.DoorID.ToString();
+                item.Text = door.DoorName;
+                item.Pid = "C"+door.ControlID.ToString();
+                list.Add(item);
+            }
+
+            deviceTreeModel.MenuTreeItemList = list;
+            return deviceTreeModel;
+        }
 
         public static TreeModel toUserTreeModel(List<User> userList)
         {

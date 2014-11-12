@@ -23,7 +23,6 @@ namespace ACS.Service
     {
         TreeModel getMenuTreeByUserID(int userid);
         AbstractDataSource<Privilege> getPrivilegeList(Privilege filter);
-        TreeModel getPrivilegeMenuTree(string userID);
         TreeModel getUserTree();
     }
     public interface UserService
@@ -33,7 +32,11 @@ namespace ACS.Service
         void delete(List<int> userIDList);
         UserModel getUserByID(string userID);
         void update(UserModel userModel);
+        TreeModel getPrivilegeMenuTree(string userID);
         void updateMenuPrivilege(string userID,List<string> menuIDList);
+        TreeModel getDevicePrivilegeTree(string userID);
+        void updateDevicePrivilege(string userID, List<string> deviceIDList);
+        
     }
 
     public interface EmployeeService

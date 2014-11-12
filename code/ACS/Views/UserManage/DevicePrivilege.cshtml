@@ -23,7 +23,7 @@
 <body>
     <div class="mini-fit">
         
-        <ul id="tree1" class="mini-tree" style="width:100%;height:100%;" url="../UserManage/MenuPrivilegeTree?userID=@ViewBag.userID" 
+        <ul id="tree1" class="mini-tree" style="width:100%;height:100%;" url="../UserManage/DevicePrivilegeTree?userID=@ViewBag.userID" 
             showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"  
             showCheckBox="true" checkRecursive="true"
             expandOnLoad="true" allowSelect="false" enableHotTrack="false" 
@@ -47,11 +47,13 @@
     function onOk() {
 
         var value = tree.getValue();
+        var array = value.split(",");
+        var json = mini.encode(array);
 
         $.ajax({
-            url: "../UserManage/MenuEdit",
+            url: "../UserManage/DeviceEdit?userID=@ViewBag.userID",
             type: 'post',
-            data: { data: value },
+            data: { data: json },
             cache: false,
             success: function (text) {
 

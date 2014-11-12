@@ -9,169 +9,169 @@ namespace ACS.Models.Po.Business
     {
         public const String DOOR_ID = "DoorID";
         private int doorID;//门编号
+        private int controlID;//控制器编号
+        private String doorName;//
+        private String doorSerial;//
+        private String doorAddress;//
+        private DateTime openTime;//
+        private DateTime closeOutTime;//
+        private long doorAlerm2Long;//
+        private String passBack;//
+        private String doorEnable;//
+        private String doorVisible;//
+        private int mapID;//
+        private int xPoint;//
+        private int yPoint;//
+        private String mapVisible;//
+        private String isKQ;//
+        private String isRepast;//
+        private String alarmMast;//
+        private DateTime alarmTime;//
+        private String isMainDoor;//
+        private String readerIn;//
+        private String readerOut;//
+        private String mCardsOpen;//
+        private String mCardsOpenInOut;//
 
-        public int DoorID
+        public virtual int DoorID
         {
             get { return doorID; }
             set { doorID = value; }
         }
-        private int controlID;//控制器编号
 
-        public int ControlID
+        public virtual int ControlID
         {
             get { return controlID; }
             set { controlID = value; }
         }
-        private String doorName;//
 
-        public String DoorName
+        public virtual String DoorName
         {
             get { return doorName; }
             set { doorName = value; }
         }
-        private String doorSerial;//
 
-        public String DoorSerial
+        public virtual String DoorSerial
         {
             get { return doorSerial; }
             set { doorSerial = value; }
         }
-        private String doorAddress;//
 
-        public String DoorAddress
+        public virtual String DoorAddress
         {
             get { return doorAddress; }
             set { doorAddress = value; }
         }
-        private DateTime openTime;//
 
-        public DateTime OpenTime
+        public virtual DateTime OpenTime
         {
             get { return openTime; }
             set { openTime = value; }
         }
-        private DateTime closeOutTime;//
 
-        public DateTime CloseOutTime
+        public virtual DateTime CloseOutTime
         {
             get { return closeOutTime; }
             set { closeOutTime = value; }
         }
-        private long doorAlerm2Long;//
 
-        public long DoorAlerm2Long
+        public virtual long DoorAlerm2Long
         {
             get { return doorAlerm2Long; }
             set { doorAlerm2Long = value; }
         }
-        private String passBack;//
 
-        public String PassBack
+        public virtual String PassBack
         {
             get { return passBack; }
             set { passBack = value; }
         }
-        private String doorEnable;//
 
-        public String DoorEnable
+        public virtual String DoorEnable
         {
             get { return doorEnable; }
             set { doorEnable = value; }
         }
-        private String doorVisible;//
 
-        public String DoorVisible
+        public virtual String DoorVisible
         {
             get { return doorVisible; }
             set { doorVisible = value; }
         }
-        private int mapID;//
 
-        public int MapID
+        public virtual int MapID
         {
             get { return mapID; }
             set { mapID = value; }
         }
-        private int xPoint;//
 
-        public int XPoint
+        public virtual int XPoint
         {
             get { return xPoint; }
             set { xPoint = value; }
         }
-        private int yPoint;//
 
-        public int YPoint
+        public virtual int YPoint
         {
             get { return yPoint; }
             set { yPoint = value; }
         }
-        private String mapVisible;//
 
-        public String MapVisible
+        public virtual String MapVisible
         {
             get { return mapVisible; }
             set { mapVisible = value; }
         }
-        private String isKQ;//
 
-        public String IsKQ
+        public virtual String IsKQ
         {
             get { return isKQ; }
             set { isKQ = value; }
         }
-        private String isRepast;//
 
-        public String IsRepast
+        public virtual String IsRepast
         {
             get { return isRepast; }
             set { isRepast = value; }
         }
-        private String alarmMast;//
 
-        public String AlarmMast
+        public virtual String AlarmMast
         {
             get { return alarmMast; }
             set { alarmMast = value; }
         }
-        private DateTime alarmTime;//
 
-        public DateTime AlarmTime
+        public virtual DateTime AlarmTime
         {
             get { return alarmTime; }
             set { alarmTime = value; }
         }
-        private String isMainDoor;//
 
-        public String IsMainDoor
+        public virtual String IsMainDoor
         {
             get { return isMainDoor; }
             set { isMainDoor = value; }
         }
-        private String readerIn;//
 
-        public String ReaderIn
+        public virtual String ReaderIn
         {
             get { return readerIn; }
             set { readerIn = value; }
         }
-        private String readerOut;//
 
-        public String ReaderOut
+        public virtual String ReaderOut
         {
             get { return readerOut; }
             set { readerOut = value; }
         }
-        private String mCardsOpen;//
 
-        public String MCardsOpen
+        public virtual String MCardsOpen
         {
             get { return mCardsOpen; }
             set { mCardsOpen = value; }
         }
-        private String mCardsOpenInOut;//
 
-        public String MCardsOpenInOut
+        public virtual String MCardsOpenInOut
         {
             get { return mCardsOpenInOut; }
             set { mCardsOpenInOut = value; }

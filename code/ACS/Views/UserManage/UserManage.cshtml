@@ -73,9 +73,9 @@
         }
 
         function menuPrivilege() {
-
+            var rows = grid.getSelecteds();
             var row = grid.getSelected();
-            if (row) {
+            if (rows.length == 1) {
                 var id = row.UserID;
                 mini.open({
                     url: "../UserManage/MenuPrivilege?userID=" + id,
@@ -95,9 +95,9 @@
         }
 
         function devicePrivilege() {
-
+            var rows = grid.getSelecteds();
             var row = grid.getSelected();
-            if (row) {
+            if (rows.length == 1) {
                 var id = row.UserID;
                 mini.open({
                     url: "../UserManage/DevicePrivilege?userID=" + id,
@@ -117,9 +117,9 @@
         }
 
         function edit() {
-         
+            var rows = grid.getSelecteds();
             var row = grid.getSelected();
-            if (row) {
+            if (rows.length==1) {
                 var id = row.UserID;
                 mini.open({
                     url: "../UserManage/UserEdit?id=" + id,

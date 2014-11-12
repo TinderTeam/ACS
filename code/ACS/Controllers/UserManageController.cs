@@ -144,7 +144,7 @@ namespace ACM.Controllers
         {
 
             //Test
-            TreeModel tree = platFormService.getPrivilegeMenuTree(userID);
+            TreeModel tree = userService.getPrivilegeMenuTree(userID);
 
             return tree.ToJsonStr();
         }
@@ -156,14 +156,30 @@ namespace ACM.Controllers
             Response.Write(AjaxConstant.AJAX_SUCCESS);
             return null;
         }
-
+        //显示设备权限编辑页面
         public ActionResult DevicePrivilege(String userID)
         {
 
             ViewBag.userID = userID;
             return View();
         }
+        //加载用户对应的设备树列表
+        public String DevicePrivilegeTree(string userID)
+        {
 
+            //Test
+            TreeModel tree = userService.getDevicePrivilegeTree(userID);
+
+            return tree.ToJsonStr();
+        }
+        //提交修改后的用户设备权限列表
+        public string DeviceEdit(string userID, string data)
+        {
+            List<string> deviceIDList = JsonConvert.JsonToObject<List<string>>(data);
+            userService.updateDevicePrivilege(userID, deviceIDList);
+            Response.Write(AjaxConstant.AJAX_SUCCESS);
+            return null;
+        }
         
         /// <summary>
         /// 删除用户
