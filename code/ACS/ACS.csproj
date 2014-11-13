@@ -166,6 +166,11 @@
     <Compile Include="Common\Dao\impl\CommonDaoImpl.cs" />
     <Compile Include="Common\Dao\impl\ViewDaoCommonImpl.cs" />
     <Compile Include="Common\Dao\QueryCondition.cs" />
+    <Compile Include="Common\Service\DataManipulationAdapter.cs" />
+    <Compile Include="Common\Service\DataManipulationService.cs" />
+    <Compile Include="Common\Service\EmptyDataManipulationAdapter.cs" />
+    <Compile Include="Common\Service\exception\DataManipulationException.cs" />
+    <Compile Include="Common\Service\impl\DataManipulationServiceImpl.cs" />
     <Compile Include="Common\Util\DataTypeConvert.cs" />
     <Compile Include="Common\Util\JsonConvert.cs" />
     <Compile Include="Common\Util\ReflectionUtil.cs" />
