@@ -10,6 +10,7 @@ using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
 using ACS.Common.Constant;
 using ACS.Service.Constant;
+using ACS.Common.Util;
 namespace ACS.Service.Impl
 {
     public class EmployeeServiceImpl : EmployeeService
@@ -111,6 +112,60 @@ namespace ACS.Service.Impl
             }
             Employee employee = ModelConventService.toEmployee(orignalEmployee, employeeModel);
             employeeDao.update(employee);
+        }
+        /// <summary>
+        ///批量发卡员工信息加载
+        /// </summary>
+        /// <returns></returns>
+        public string getEmployeeList(List<string> idList)
+        {
+            
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN, Employee.ID, idList);
+
+            List<Employee> employeeList = employeeDao.getAll(condition);
+            String data = JsonConvert.ObjectToJson(employeeList);
+            String json = "{\"total\":" + idList.Count + ",\"data\":" + data + "}";
+            return json;
+        }
+        /// <summary>
+        ///员工批量发卡
+        /// </summary>
+        /// <returns></returns>
+        public void saveEmployeeCard(List<EmployeeModel> employeeModelList)
+        {
+            //判断卡号是否重复
+            for(int i=0;i<employeeModelList.Count;i++)
+            {
+                //判断提交的卡号是否已存在
+                QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, Employee.Card,employeeModelList[i].CardNo);
+                Employee employeeTest = employeeDao.getUniRecord(condition);
+                if (null != employeeTest)
+                {
+                    if(employeeModelList[i].EmployeeID != employeeTest.EmployeeID)
+                    {
+                        log.Error("employee card NO duplicate, " + employeeModelList[i].EmployeeName + " and " + employeeTest.EmployeeName + "are the same");
+                        throw new SystemException(ExceptionMsg.EMPLOYEE_CARDNO_DUPLICATE);
+                    }   
+                }
+                //判断提交的卡号是否存在重复
+                for(int j=i+1;j<employeeModelList.Count;j++)
+                {
+                    if(employeeModelList[i].CardNo==employeeModelList[j].CardNo)
+                    {
+                        log.Error("employee card NO duplicate, "+employeeModelList[i].EmployeeName+" and " +employeeModelList[j].EmployeeName+"are the same");
+                        throw new SystemException(ExceptionMsg.EMPLOYEE_CARDNO_DUPLICATE);
+                    }
+                }
+            }
+
+            //更新发卡信息
+            for (int i = 0; i < employeeModelList.Count; i++)
+            {
+                QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, Employee.ID, employeeModelList[i].EmployeeID.ToString());
+                Employee orignalEmployee = employeeDao.getUniRecord(condition);
+                orignalEmployee.CardNo = employeeModelList[i].CardNo;
+                employeeDao.update(orignalEmployee);
+            }
         }
     }
 }

@@ -19,7 +19,9 @@ namespace ACS.Service
     {
         AbstractDataSource<Control> getDeviceList(Control filter);
         AbstractDataSource<Door> getDoorList(Door filter);
+
         DeviceModel getDeviceByID(string DeviceID);
+
         DoorModel getDoorByID(string DoorID);
     }
 
@@ -52,6 +54,8 @@ namespace ACS.Service
         void leave(List<int> employeeIDList);
         EmployeeModel getEmployeeByID(string employeeID);
         void update(EmployeeModel employeeModel);
+        string getEmployeeList(List<string> idList);
+        void saveEmployeeCard(List<EmployeeModel> employeeModelList);
     }
     public interface EventRecordViewService
     {

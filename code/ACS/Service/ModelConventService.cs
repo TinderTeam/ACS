@@ -20,6 +20,17 @@ namespace ACS.Service
             return list;
 
         }
+
+        public static List<string> toIDStrList(String str)
+        {
+            List<string> list = new List<string>();
+            foreach (String i in str.Split(','))
+            {
+                list.Add(i);
+            }
+            return list;
+
+        }
           
         public static List<UserModel> toUserModelList(List<User> userList){
             List<UserModel> userModelList = new List<UserModel>();

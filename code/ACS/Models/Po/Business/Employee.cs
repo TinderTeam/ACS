@@ -8,6 +8,7 @@ namespace ACS.Models.Po.Business
     public class Employee
     {
         public const String ID = "EmployeeID";
+        public const String Card = "CardNo";
         private int employeeID;//员工ID
         private String employeeName;//
         private String employeeCode;//

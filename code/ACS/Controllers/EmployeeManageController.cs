@@ -9,6 +9,7 @@ using ACS.Service;
 using ACS.Models.Po.Business;
 using System.Web.Script.Serialization;
 using ACS.Common.Util;
+using ACS.Controllers.Constant;
 namespace ACM.Controllers
 {
     public class EmployeeManageController : Controller
@@ -191,26 +192,49 @@ namespace ACM.Controllers
         }
 
           /// <summary>
-        /// 员工发卡
+        /// 显示员工发卡界面
         /// </summary>
         /// <param name="idstr"></param>
         /// <returns></returns>
         public ActionResult Card(String idstr)
         {
-            //
+            ViewBag.idstr = idstr;
             return View();
         }
-
+        //加载需要发卡的用户列表
+        public ActionResult distributeCardList(String idstr)
+        {
+            List<string> idList = ModelConventService.toIDStrList(idstr);
+            log.Debug("Load Employee Data...");
+            //数据库操作：使用查询条件、分页、排序等参数进行查询
+            string data = employeeService.getEmployeeList(idList);
+            Response.Write(data);
+            return null;
+        }
 
         /// <summary>
-        /// 发卡保存
+        /// 员工发卡提交
         /// </summary>
         /// <returns></returns>
-        public ActionResult SaveCard()
+        public ActionResult SaveCard(string data)
         {
-            ///
-            Response.Write("ok");
-            return null;
+            string text = null;
+            log.Debug("Save Employee card...");
+            List<EmployeeModel> employeeModelList = JsonConvert.JsonToObject<List<EmployeeModel>>(data);
+
+                try
+                {
+                    //校验成功
+                    employeeService.saveEmployeeCard(employeeModelList);
+                }
+                catch (SystemException ex)
+                {
+                    text = ex.Message;
+                    Response.Write(text);
+                    return null;
+                }
+                Response.Write(AjaxConstant.AJAX_SUCCESS);
+                return null;
         }
     }
 }

@@ -30,6 +30,8 @@ namespace ACS.Models.Model
         private String note2;//
         private String note3;//
         private String note4;//
+        private String cardNo;//卡号
+
 
         public int EmployeeID
         {
@@ -167,6 +169,12 @@ namespace ACS.Models.Model
         {
             get { return note4; }
             set { note4 = value; }
+        }
+
+        public String CardNo
+        {
+            get { return cardNo; }
+            set { cardNo = value; }
         }
     }
 }

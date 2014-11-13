@@ -153,25 +153,22 @@
         function card() {
             var rows = grid.getSelecteds();
             if (rows.length > 0) {
-                if (confirm("确定对选中记录进行发卡操作？")) {
-
-                    var ids = [];
-                    for (var i = 0, l = rows.length; i < l; i++) {
-                        var r = rows[i];
-                        ids.push(r.EmployeeID);
-                    }
-                    var id = ids.join(',');
-                    grid.loading("操作中，请稍后......");
-                    mini.open({
-                        url: "../EmployeeManage/Card?id=" + id,
-                        title: "员工发卡", width: 560, height: 500,
-                        onload: function () {
-                        },
-                        ondestroy: function (action) {
-                            grid.reload();
-                        }
-                    });
+                var ids = [];
+                for (var i = 0, l = rows.length; i < l; i++) {
+                    var r = rows[i];
+                    ids.push(r.EmployeeID);
                 }
+                var id = ids.join(',');
+                grid.loading("操作中，请稍后......");
+                mini.open({
+                    url: "../EmployeeManage/Card?idstr=" + id,
+                    title: "员工发卡", width: 560, height: 500,
+                    onload: function () {
+                    },
+                    ondestroy: function (action) {
+                        grid.reload();
+                    }
+                });
             } else {
                 alert("请选中一条记录");
             }
@@ -191,9 +188,9 @@
         }
 
         function edit() {
-         
+            var rows = grid.getSelecteds();
             var row = grid.getSelected();
-            if (row) {
+            if (rows.length == 1) {
                 var id = row.EmployeeID;
                 mini.open({
                     url: "../EmployeeManage/EmployeeEdit?id=" + id,
