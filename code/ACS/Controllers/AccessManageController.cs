@@ -18,9 +18,14 @@ namespace ACS.Controllers
             return View();
         }
 
-        public String AccessList(String key)
+        /// <summary>
+        /// Load access list
+        /// </summary>
+        /// <returns></returns>
+        public String AccessList()
         {
-            TreeModel tree = Stub.getTestContollerDoorTree();
+
+            TreeModel tree = Stub.getTestAccessList();
             String str = tree.ToJsonStr();
             return str;
         }

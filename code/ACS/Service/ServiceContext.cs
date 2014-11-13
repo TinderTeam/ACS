@@ -19,7 +19,7 @@ namespace ACS.Service
         private MonitorService monitorService;
         private PrivilegeService privilegeService;
         private DeviceService deviceService;
-
+        private AccessService accessService;
 
         public static ServiceContext getInstance()
         {
@@ -28,6 +28,16 @@ namespace ACS.Service
                 serviceContext = new ServiceContext();
             }
             return serviceContext;
+        }
+
+        public AccessService getAccessService()
+        {
+
+            if (accessService == null)
+            {
+                accessService = new AccessServiceImpl();
+            }
+            return accessService;
         }
 
          public DeviceService getDeviceService()

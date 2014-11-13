@@ -11,6 +11,23 @@ namespace ACS.Test
     public class Stub
     {
 
+        public static TreeModel getTestAccessList()
+        {
+            TreeModel tree = new TreeModel();
+            List<TreeItem> list = new List<TreeItem>();
+            for (int i = 1; i < 10; i++)
+            {
+                TreeItem item = new TreeItem();
+                item.Id = i.ToString();
+                item.Pid = "";
+                item.Text = "权限"+i;
+                list.Add(item);
+            }
+            tree.MenuTreeItemList = list;
+            return tree;
+        }
+
+
         public static List<Privilege> getPrivilegeList()
         {
             List<Privilege> list = new List<Privilege>();

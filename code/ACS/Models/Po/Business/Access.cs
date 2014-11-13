@@ -13,5 +13,41 @@ namespace ACS.Models.Po.Business
         private String acsString;//备注
         private int createUserID;
         private DateTime createDate;
+
+        public int AccessID
+        {
+            get { return accessID; }
+            set { accessID = value; }
+        }
+
+        public String AccessName
+        {
+            get { return accessName; }
+            set { accessName = value; }
+        }
+
+        public String AccessNote
+        {
+            get { return accessNote; }
+            set { accessNote = value; }
+        }
+
+        public String AcsString
+        {
+            get { return acsString; }
+            set { acsString = value; }
+        }
+
+        public int CreateUserID
+        {
+            get { return createUserID; }
+            set { createUserID = value; }
+        }
+
+        public DateTime CreateDate
+        {
+            get { return createDate; }
+            set { createDate = value; }
+        }
     }
 }

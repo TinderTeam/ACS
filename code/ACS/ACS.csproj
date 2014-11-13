@@ -231,6 +231,7 @@
     <Compile Include="Service\Cache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Constant\ExceptionMsg.cs" />
+    <Compile Include="Service\Impl\AccessServiceImpl.cs" />
     <Compile Include="Service\Impl\DeviceServiceImpl.cs" />
     <Compile Include="Service\Impl\EmployeeServiceImpl.cs" />
     <Compile Include="Service\Impl\UserServiceImpl.cs" />
@@ -359,6 +360,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\Door.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\Access.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
@@ -1641,7 +1645,6 @@
     <Content Include="Views\EmployeeManage\Card.cshtml" />
     <Content Include="Views\DeviceManage\DeviceView.cshtml" />
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
-    <Content Include="Views\UserManage\DevicePrivilege.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1653,9 +1656,6 @@
     <Folder Include="Scripts\miniui\themes\metro-green\images\button\" />
     <Folder Include="Scripts\miniui\themes\metro-orange\images\button\" />
     <Folder Include="Scripts\miniui\themes\metro\images\button\" />
-    <Folder Include="Views\AccessManage\" />
-    <Folder Include="Views\DeviceManage\" />
-    <Folder Include="Views\OrgnizationManage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -1687,7 +1687,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>7440</DevelopmentServerPort>
+          <DevelopmentServerPort>4346</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
