@@ -29,29 +29,25 @@ namespace ACS.Controllers
             String str = tree.ToJsonStr();
             return str;
         }
-        public ActionResult  AccessSelect(String doorID)
+        
+        /// <summary>
+        /// Load access detail
+        /// </summary>
+        /// <param name="AccessID"></param>
+        /// <returns></returns>
+        public ActionResult AccessDetail(String AccessID)
         {
             return View();
         }
 
         /// <summary>
-        /// 移除门禁权限
+        /// Load access detail
         /// </summary>
-        /// <param name="idstr">选中的门禁权限ID,用','分割</param>
-        /// <returns>ajax返回</returns>
-        public ActionResult Remove(String idstr)
-        {
-            return null;
-        }
-
-        /// <summary>
-        /// 选择门禁权限
-        /// </summary>
+        /// <param name="AccessID"></param>
         /// <returns></returns>
-
-        public ActionResult select()
+        public ActionResult AccessEdit()
         {
-            return null;
+            return View();
         }
     }
 }

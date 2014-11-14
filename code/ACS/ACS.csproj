@@ -1642,6 +1642,7 @@
     <Content Include="Views\EmployeeManage\Card.cshtml" />
     <Content Include="Views\DeviceManage\DeviceView.cshtml" />
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
+    <Content Include="Views\AccessManage\AccessDetail.cshtml" />
     <Content Include="Views\UserManage\DevicePrivilege.cshtml" />
   </ItemGroup>
   <ItemGroup>
