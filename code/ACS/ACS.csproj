@@ -207,6 +207,7 @@
     <Compile Include="Models\Model\UserModel.cs" />
     <Compile Include="Models\Model\PswdModel.cs" />
     <Compile Include="Models\Model\HolidayModel.cs" />
+    <Compile Include="Models\Model\DeptModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\Access.cs" />
@@ -241,6 +242,7 @@
     <Compile Include="Service\Impl\HolidayServiceImpl.cs" />
     <Compile Include="Service\Impl\MonitorServiceImpl.cs" />
     <Compile Include="Service\Impl\PrivilegeServiceImpl.cs" />
+    <Compile Include="Service\Impl\DeptServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />
     <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
     <Compile Include="Service\ModelVerificationService.cs" />
@@ -360,6 +362,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\Door.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\Dept.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
@@ -1643,6 +1648,7 @@
     <Content Include="Views\DeviceManage\DeviceView.cshtml" />
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
     <Content Include="Views\UserManage\DevicePrivilege.cshtml" />
+    <Content Include="Views\DeptManage\DeptEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

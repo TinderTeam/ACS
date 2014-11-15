@@ -20,6 +20,7 @@ namespace ACS.Service
         private PrivilegeService privilegeService;
         private DeviceService deviceService;
         private AccessService accessService;
+        private DeptService deptService;
 
         public static ServiceContext getInstance()
         {
@@ -131,6 +132,15 @@ namespace ACS.Service
                 privilegeService = new PrivilegeServiceImpl();
             }
             return privilegeService;
+        }
+        public DeptService getDeptService()
+        {
+
+            if (deptService == null)
+            {
+                deptService = new DeptServiceImpl();
+            }
+            return deptService;
         }
 
     }

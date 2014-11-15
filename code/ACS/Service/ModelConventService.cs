@@ -66,7 +66,36 @@ namespace ACS.Service
             user.ModifyDate = m.ModifyDate;
             //TODO: 实现转化 方法
             return user;
-        }  
+        }
+        //转化为Dept
+        public static Dept toDept(Dept dept, DeptModel deptModel)
+        {
+            dept.DeptName = deptModel.DeptName;
+            dept.FatherDeptID = deptModel.FatherDeptID;
+            dept.DeptCode = deptModel.DeptCode;
+            dept.Note = deptModel.Note;
+            return dept;
+        }
+        //转化为Dept Model
+        public static DeptModel toDeptModel(Dept dept, Dept fatherDept)
+        {
+            DeptModel deptModel = new DeptModel();
+            if (dept != null)
+            {
+                deptModel.DeptID = dept.DeptID;
+                deptModel.DeptName = dept.DeptName;
+                deptModel.DeptCode = dept.DeptCode;
+                deptModel.FatherDeptID = dept.FatherDeptID;
+                deptModel.Note = dept.Note;
+            }
+            if (fatherDept != null)
+            {
+                deptModel.FatherDeptID = fatherDept.DeptID.ToString();
+                deptModel.FatherDeptName = fatherDept.DeptName;
+            }
+
+            return deptModel;
+        }
         /// <summary>
         /// 转化为menuTreemodel
         /// </summary>
