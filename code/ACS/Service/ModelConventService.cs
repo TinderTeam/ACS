@@ -67,6 +67,26 @@ namespace ACS.Service
             //TODO: 实现转化 方法
             return user;
         }
+        /// <summary>
+        /// 转化为DeptTreemodel
+        /// </summary>
+        public static TreeModel toDeptTreeModel(List<Dept> deptList)
+        {
+            TreeModel deptTreeModel = new TreeModel();
+            List<TreeItem> list = new List<TreeItem>();
+
+            foreach (Dept dept in deptList)
+            {
+                TreeItem item = new TreeItem();
+                item.Id = dept.DeptID.ToString();
+                item.Text = dept.DeptName;
+                item.Pid = dept.FatherDeptID;
+                list.Add(item);
+            }
+
+            deptTreeModel.MenuTreeItemList = list;
+            return deptTreeModel;
+        }
         //转化为Dept
         public static Dept toDept(Dept dept, DeptModel deptModel)
         {
