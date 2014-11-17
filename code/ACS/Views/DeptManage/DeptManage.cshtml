@@ -13,97 +13,104 @@
         margin:10px;padding:0;border:0;width:100%;height:100%;overflow:hidden;
     }    
 </style>
-
-    <div class="mini-panel" title="部门管理" iconCls="icon-add" style="width:95%;height:80%;" 
+     <div class="mini-panel" title="部门管理" iconCls="icon-add" style="width:95%;height:80%;" 
         showToolbar="true" showCollapseButton="true" showFooter="true">
-        <!--toolbar-->
         <div property="toolbar" >
-            <input type="button" value="插入部门(前)" onclick="onAddBefore()" style='vertical-align:middle;'/>
-            <input type="button" value="插入部门(后)" onclick="onAddAfter()" style='vertical-align:middle;'/>
-            <input type="button" value="插入子部门" onclick="onAddNode() " style='vertical-align:middle;'/>      
-            <input type="button" value="编辑部门名称" onclick="onEditNode()" style='vertical-align:middle;'/>
+            <input type="button" value="插入子部门" onclick="onEditNode('Add')" style='vertical-align:middle;'/>      
+            <input type="button" value="编辑部门" onclick="onEditNode('Edit')" style='vertical-align:middle;'/>
             <input type="button" value="删除部门" onclick="onRemoveNode()" style='vertical-align:middle;'/>
         </div>
-         <div property="footer">
-            <input type="button" value="保存" onclick="saveData()" style="margin-left:30px;font-weight:bold;" />
-        </div>
-    <!--body--> 
         <div style="margin-left: 30px;">
-            <ul id="tree1" class="mini-tree" url="../Test/Dept.txt" style="width:200px;padding:5px;" 
+            <ul id="tree1" class="mini-tree" url="../DeptManage/LoadTree" style="width:200px;padding:5px;" 
                 showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"  
                 allowDrag="true" allowDrop="true" 
                 >
             </ul>
         </div>
     </div>
-        
-
-    
-        
+  
     <script type="text/javascript">
 
-        function onAddBefore(e) {
+        function onEditNode(type) {
             var tree = mini.get("tree1");
             var node = tree.getSelectedNode();
-
-            var newNode = {};
-            tree.addNode(newNode, "before", node);
-        }
-        function onAddAfter(e) {
-            var tree = mini.get("tree1");
-            var node = tree.getSelectedNode();
-
-            var newNode = {};
-            tree.addNode(newNode, "after", node);
-        }
-        function onAddNode(e) {
-            var tree = mini.get("tree1");
-            var node = tree.getSelectedNode();
-
-            var newNode = {};
-            tree.addNode(newNode, "add", node);
-        }
-        function onEditNode(e) {
-            var tree = mini.get("tree1");
-            var node = tree.getSelectedNode();
-
-            tree.beginEdit(node);
-        }
-        function onRemoveNode(e) {
-
-            var tree = mini.get("tree1");
-            var node = tree.getSelectedNode();
-
+            var value = tree.getValue();
             if (node) {
-                if (confirm("确定删除选中节点?")) {
-                    tree.removeNode(node);
+                if (type == "Edit") {
+                    var titleName = "编辑部门";
                 }
+                else if (type == "Add") {
+                    var titleName = "新增部门";
+                }
+                mini.open({
+                    url: "../DeptManage/DeptEdit",
+                    title: titleName, width: 350, height: 350,
+                    onload: function () {
+                        var iframe = this.getIFrameEl();
+                        var data = { action: type, id: value };
+                        iframe.contentWindow.Show(data);
+
+                    },
+                    ondestroy: function (action) {
+
+                        if (action == "ok")     //关闭窗口时点击的是确定
+                        {
+                            var iframe = this.getIFrameEl();
+                            var data = iframe.contentWindow.GetData();
+                            data = mini.clone(data);
+
+                            if (type == "Add") {
+                                var newNode = { text: data.DeptName };
+                                tree.addNode(newNode, "add", node);
+                            }
+                            else if (type == "Edit") {
+                                tree.updateNode(node, { text: data.DeptName });
+                                //tree.load("../DeptManage/LoadTree");
+                            }
+                        }
+
+
+                    }
+                });
+            }
+            else {
+                alert("请选中一个节点");
             }
         }
-        function onMoveNode(e) {
+        function onRemoveNode(e) {
             var tree = mini.get("tree1");
+            var value = tree.getValue();
             var node = tree.getSelectedNode();
+            
+            if (node) {
+                if (confirm("确定删除选中节点?")) {
 
-            alert("moveNode");
-        }
-        function saveData() {
-            var tree = mini.get("tree1");
-            var data = tree.getData();
-            var json = mini.encode(data);
+                    $.ajax({
+                        url: "../DeptManage/DeleteDept",
+                        type: 'post',
+                        data: { data: value },
+                        cache: false,
+                        success: function (text) {
 
-            var msgid = mini.loading("数据保存中，请稍后......", "保存数据");
-            $.ajax({
-                url: "../DeptManage/SaveDeptTree",
-                data: { data: json },
-                type: "post",
-                success: function (text) {
-                    mini.hideMessageBox(msgid);
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
+                            if (text == "Success") {
+                                mini.alert("删除成功！");
+                                tree.removeNode(node);
+                            }
+                            else {
+                                alert(text);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(jqXHR.responseText);
+                        }
+                    });
                 }
-            });
+            }
+            else {
+                alert("请选中一个节点");
+            }
         }
+
     </script>
 </body>
 </html>

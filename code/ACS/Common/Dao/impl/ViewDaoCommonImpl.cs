@@ -166,6 +166,7 @@ namespace ACS.Common.Dao.impl
 
         public E getUniRecord(QueryCondition condition)
         {
+            log.Info("the condition is " + condition);
             E record;
             ISession session = null;
             try

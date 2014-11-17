@@ -19,7 +19,8 @@ namespace ACS.Service.Constant
         public const String EMPLOYEE_NOT_EXIST = "EMPLOYEE_NOT_EXIST";              //工号不存在
         public const String HOLIDAY_NOT_EXIST = "HOLIDAY_NOT_EXIST";                //假日不存在
         public const String EMPLOYEE_CARDNO_DUPLICATE = "EMPLOYEE_CARDNO_DUPLICATE";    //员工卡号重复
-
+        public const String DEPTNAME_EXIST = "DEPTNAME_EXIST";                      //用户名已存在
+        public const String DEPT_HAS_CHILDREN = "DEPT_HAS_CHILDREN";                //部门存在子部门
 
         public const String OPERATE_SUCCESS = "OPERATE_SUCCESS";                    //操作成功
         public const String OPERATE_FAILED = "OPERATE_FAILED";                      //操作失败

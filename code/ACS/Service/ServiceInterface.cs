@@ -14,7 +14,14 @@ namespace ACS.Service
     {
         AbstractDataSource<Access> getAccessList(Access filter);
     }
-
+    public interface DeptService
+    {
+        TreeModel getDeptTree();
+        Dept getDeptByID(string deptID);
+        void addDept(DeptModel deptModel);
+        void editDept(DeptModel deptModel);
+        void deleteDept(string deptID);
+    }
     public interface DeviceService
     {
         AbstractDataSource<Control> getDeviceList(Control filter);
