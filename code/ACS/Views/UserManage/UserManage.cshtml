@@ -62,7 +62,7 @@
         function add() {
             mini.open({
                 url:"../UserManage/UserCreate",
-                title: "新增用户", width: 350, height: 350,
+                title: "新增用户", width: 600, height:300,
                 onload: function () {
 
                 },
@@ -79,7 +79,7 @@
                 var id = row.UserID;
                 mini.open({
                     url: "../UserManage/MenuPrivilege?userID=" + id,
-                    title: "管理权限", width: 350, height: 350,
+                    title: "菜单权限", width: 400, height: 600,
                     onload: function () {
 
                     },
@@ -101,7 +101,7 @@
                 var id = row.UserID;
                 mini.open({
                     url: "../UserManage/DevicePrivilege?userID=" + id,
-                    title: "管理权限", width: 350, height: 350,
+                    title: "设备权限", width: 400, height: 600,
                     onload: function () {
 
                     },

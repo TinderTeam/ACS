@@ -43,6 +43,7 @@ namespace ACS.Service.Impl
             user.CreateDate = DateTime.Now;
             user.ModifyDate = DateTime.Now;
             userDao.create(user);
+            log.Info("create success. username="+userModel.UserName);
         }
         public void delete(List<int> userIDList)
         {
