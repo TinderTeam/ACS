@@ -7,6 +7,9 @@ namespace ACS.Models.Po.Business
 {
     public class Access
     {
+        public const String ID = "AccessID";
+        public const String UserID = "CreateUserID";
+        public const String Name = "AccessName";
         private int accessID;//门禁规则
         private String accessName;//规则名称
         private String accessNote;//门禁规则描述
@@ -14,37 +17,37 @@ namespace ACS.Models.Po.Business
         private int createUserID;
         private DateTime createDate;
 
-        public int AccessID
+        public virtual int AccessID
         {
             get { return accessID; }
             set { accessID = value; }
         }
 
-        public String AccessName
+        public virtual String AccessName
         {
             get { return accessName; }
             set { accessName = value; }
         }
 
-        public String AccessNote
+        public virtual String AccessNote
         {
             get { return accessNote; }
             set { accessNote = value; }
         }
 
-        public String AcsString
+        public virtual String AcsString
         {
             get { return acsString; }
             set { acsString = value; }
         }
 
-        public int CreateUserID
+        public virtual int CreateUserID
         {
             get { return createUserID; }
             set { createUserID = value; }
         }
 
-        public DateTime CreateDate
+        public virtual DateTime CreateDate
         {
             get { return createDate; }
             set { createDate = value; }

@@ -116,6 +116,37 @@ namespace ACS.Service
 
             return deptModel;
         }
+        /// 门禁权限管理
+        /// 转化为AccessTreemodel
+        /// </summary>
+        public static TreeModel toAccessTreeModel(List<Access> accessList)
+        {
+            TreeModel accessTreeModel = new TreeModel();
+            List<TreeItem> list = new List<TreeItem>();
+
+            foreach (Access access in accessList)
+            {
+                TreeItem item = new TreeItem();
+                item.Id = access.AccessID.ToString();
+                item.Text = access.AccessName;
+                item.Pid = null;
+                item.CheckNode = false;
+                list.Add(item);
+            }
+
+            accessTreeModel.MenuTreeItemList = list;
+            return accessTreeModel;
+        }
+        /// 门禁权限管理
+        /// 从AccessModel转化为Access
+        /// </summary>
+        public static Access toAccess(AccessModel accessModel)
+        {
+            Access access = new Access();
+            access.AccessID = Convert.ToInt32(accessModel.Id);
+            access.AccessName = accessModel.Text;
+            return access;
+        }
         /// <summary>
         /// 转化为menuTreemodel
         /// </summary>

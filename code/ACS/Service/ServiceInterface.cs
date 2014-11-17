@@ -19,7 +19,11 @@ namespace ACS.Service
 
     public interface AccessService
     {
-        AbstractDataSource<Access> getAccessList(Access filter);
+        List<Access> getAccessList(string userID);
+        Access getAccessByID(string accessID);
+        void addAccess(int creatUserID, string accessName);
+        void updateAccess(Access access);
+        void deleteAccess(string accessID);
     }
     public interface DeptService
     {

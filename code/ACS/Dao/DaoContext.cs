@@ -26,7 +26,7 @@ namespace ACS.Dao
         private CommonDao<Control> controlDao;
         private CommonDao<Door> doorDao;
         private CommonDao<Dept> deptDao;
-
+        private CommonDao<Access> accessDao;
         
         public static DaoContext getInstance()
         {
@@ -130,6 +130,13 @@ namespace ACS.Dao
             }
             return deptDao;
         }
-
+        public CommonDao<Access> getAccessDao()
+        {
+            if (accessDao == null)
+            {
+                accessDao = new CommonDaoImpl<Access>();
+            }
+            return accessDao;
+        }
     }
 }

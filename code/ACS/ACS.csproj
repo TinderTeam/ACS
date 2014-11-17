@@ -213,6 +213,7 @@
     <Compile Include="Models\Model\PswdModel.cs" />
     <Compile Include="Models\Model\HolidayModel.cs" />
     <Compile Include="Models\Model\DeptModel.cs" />
+    <Compile Include="Models\Model\AccessModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\Access.cs" />

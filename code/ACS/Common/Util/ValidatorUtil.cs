@@ -16,5 +16,13 @@ namespace ACS.Common.Util
             }
             return false;
         }
+        public static bool isEmpty(string str)
+        {
+            if (null == str || str.Trim().Count() == 0)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

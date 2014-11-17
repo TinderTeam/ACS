@@ -43,7 +43,7 @@
                         <input type="button" value="删除" onclick="onRemoveAccess()" style='vertical-align:middle;'/>
                     </div>                  
                     <!--body-->
-                       <ul id="accessList" class="mini-tree" url="AccessList" style="width:inherit;padding:3px;" 
+                       <ul id="accessList" class="mini-tree" url="LoadAccessList" style="width:inherit;padding:3px;" 
                             showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false" onEndEdit="afterEditAccess()" onNodeClick="selectAccess()" >
                         </ul>
                 </div>
@@ -60,24 +60,45 @@
     <script type="text/javascript">
         var TREE_ID = 'accessList';
 
-
-        
-
         function onAddAccess(e) {
             var tree = mini.get(TREE_ID);
             var node = tree.getSelectedNode();
+            var name = "未命名";
+            $.ajax({
+                url: "../AccessManage/AddAccess",
+                type: 'post',
+                data: { data: name },
+                cache: false,
+                success: function (text) {
 
-            //通过Ajax获得一个新的Access节点内容
-            //方法：NewAccess
-            var newNode = {};
+                    if (text == "Success") {
+                        //通过Ajax获得一个新的Access节点内容
+                        //方法：NewAccess
+                        var newNode = { text: name };
 
-            tree.addNode(newNode, "after", node);
+                        tree.addNode(newNode, "after", node);
+                    }
+                    else {
+                        alert(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                }
+            });
+            
         }
 
         function onEditAccess(e) {
             var tree = mini.get(TREE_ID);
             var node = tree.getSelectedNode();
-            tree.beginEdit(node);
+            if (node) {
+                tree.beginEdit(node);
+            }
+            else {
+                alert("请选中一个节点");
+            }
+            
         }
 
         function afterEditAccess() {       
@@ -85,18 +106,58 @@
             var node = tree.getSelectedNode();
             //通过Ajax改变节点名称
             //方法：EditAccessName
-            alert(node.text);
+            var json = mini.encode(node);
+            $.ajax({
+                url: "../AccessManage/EditAccess",
+                type: 'post',
+                data: { data: json },
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+
+                    }
+                    else {
+                        alert(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                }
+            });
         }
 
         function onRemoveAccess(e) {
             var tree = mini.get(TREE_ID);
             var node = tree.getSelectedNode();
+            var value = tree.getValue();
             if (node) {
                 if (confirm("确定删除选中门禁权限?")) {
                     //通过Ajax删除节点
                     //方法：removeAccess
-                    tree.removeNode(node);
+                    var json = mini.encode(node);
+                    $.ajax({
+                        url: "../AccessManage/DeleteAccess",
+                        type: 'post',
+                        data: { data: value },
+                        cache: false,
+                        success: function (text) {
+
+                            if (text == "Success") {
+                                tree.removeNode(node);
+                            }
+                            else {
+                                alert(text);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(jqXHR.responseText);
+                        }
+                    });
                 }
+            }
+            else {
+                alert("请选中一个节点");
             }
         }
 
