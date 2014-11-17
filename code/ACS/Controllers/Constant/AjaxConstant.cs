@@ -8,5 +8,6 @@ namespace ACS.Controllers.Constant
     public class AjaxConstant
     {
         public static String AJAX_SUCCESS = "Success";
+        public static String AJAX_FAILED = "Failed";
     }
 }

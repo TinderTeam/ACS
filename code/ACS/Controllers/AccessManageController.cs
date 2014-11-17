@@ -9,10 +9,13 @@ using ACS.Models.Po.Business;
 using ACS.Service;
 using ACS.Common.Util;
 using ACS.Controllers.Constant;
+using ACM.Controllers;
+using ACS.Service.Constant;
+using ACS.Common;
 
 namespace ACS.Controllers
 {
-    public class AccessManageController : Controller
+    public class AccessManageController : BaseController
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         AccessService accessService = ServiceContext.getInstance().getAccessService();
@@ -52,22 +55,30 @@ namespace ACS.Controllers
         /// <returns></returns>
         public string AddAccess(string data)
         {
-            string text = null;
+            
+ 
             log.Debug("Edite Access...");
             UserModel loginUser = (UserModel)Session["SystemUser"];
             try
             {
                 //校验成功
-                accessService.addAccess(loginUser.UserID, data);
+                Access newAccess = accessService.addAccess(loginUser.UserID, data);
+                Rsp.Obj = newAccess;
 
+            }
+            catch (FuegoException e)
+            {
+                Rsp.ErrorCode = e.GetErrorCode();
+                log.Error("add accesss failed", e);
             }
             catch (SystemException ex)
             {
-                text = ex.Message;
-                Response.Write(text);
-                return null;
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+                log.Error("add accesss failed", ex);
             }
-            Response.Write(AjaxConstant.AJAX_SUCCESS);
+
+
+            Response.Write(getRspJson());
             return null;
         }
         /// <summary>
@@ -122,6 +133,11 @@ namespace ACS.Controllers
             Response.Write(AjaxConstant.AJAX_SUCCESS);
             return null;
 
+        }
+
+        public override void delete(string id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -10,6 +10,7 @@ using ACS.Models.Model;
 using ACS.Models.Po.Business;
 using ACS.Service.Constant;
 using ACS.Common.Util;
+using ACS.Common;
 
 namespace ACS.Service.Impl
 {
@@ -39,7 +40,7 @@ namespace ACS.Service.Impl
         }
         //门禁权限管理
         //新增门禁权限
-        public void addAccess(int creatUserID, string accessName)
+        public Access addAccess(int creatUserID, string accessName)
         {
             //新增门禁权限树列表
             Access newAccess = new Access();
@@ -47,6 +48,8 @@ namespace ACS.Service.Impl
             newAccess.CreateUserID = creatUserID;
             newAccess.CreateDate = DateTime.Now;
             accessDao.create(newAccess);
+            return newAccess;
+
         }
         //门禁权限管理
         //更新门禁权限
@@ -68,7 +71,7 @@ namespace ACS.Service.Impl
             if (null == access)
             {
                 log.Error("Delete failed, the Access to be deleted is not exit, AccessID is" + accessID);
-                throw new SystemException(ExceptionMsg.ACCESS_NOT_EXIST);
+                throw new FuegoException(ExceptionMsg.ACCESS_NOT_EXIST);
             }
 
             accessDao.delete(IDcondition);

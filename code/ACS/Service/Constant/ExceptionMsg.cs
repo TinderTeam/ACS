@@ -1,12 +1,14 @@
-﻿using System;
+﻿using ACS.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Service.Constant
 {
-    public class ExceptionMsg
+    public class ExceptionMsg : FuegoCommonMsg
     {
+
         public const String USER_NOT_EXISTED = "USER_NOT_EXISTED";                 //用户不存在
         public const String USERNAME_PASSWORD_WRONG = "USERNAME_PASSWORD_WRONG";   //用户密码错误
         public const String LOGIN_FAILED = "LOGIN_FAILED";                          //登录失败
@@ -25,5 +27,7 @@ namespace ACS.Service.Constant
 
         public const String OPERATE_SUCCESS = "OPERATE_SUCCESS";                    //操作成功
         public const String OPERATE_FAILED = "OPERATE_FAILED";                      //操作失败
+
+
     }
 }

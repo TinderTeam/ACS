@@ -7,6 +7,7 @@ namespace ACS.Common.Constant
 {
     public class CommonMsg
     {
+        public const String SUCCESS = "Success";
         public  const String USER_NOT_EXISTED = "不存在该用户，请重新输入!";
 	    public  const String LOGIN_FAILED = "用户名或密码错误";
 	    public  const String USER_EXISTED = "用户名已经存在";

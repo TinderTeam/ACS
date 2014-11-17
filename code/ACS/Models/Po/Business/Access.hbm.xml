@@ -4,7 +4,7 @@
   <class name="ACS.Models.Po.Business.Access,ACS" table="t_access"  >
 
     <id name="AccessID" column ="ACCESS_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
     <property name="AccessName" type="string">

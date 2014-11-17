@@ -69,13 +69,13 @@
                 type: 'post',
                 data: { data: name },
                 cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
+                success: function (json) {
+                    var rsp = mini.decode(json);
+                    alert(rsp.Obj.AccessID);
+                    if (rsp.ErrorCode == "Success") {
                         //通过Ajax获得一个新的Access节点内容
                         //方法：NewAccess
-                        var newNode = { text: name };
-
+                        var newNode = {id:rsp.Obj.AccessID , text: name };
                         tree.addNode(newNode, "after", node);
                     }
                     else {

@@ -165,6 +165,8 @@
     <Compile Include="Common\Dao\datasource\DatabaseSourceImpl.cs" />
     <Compile Include="Common\Dao\SessionManage.cs" />
     <Compile Include="Common\Dao\ViewDao.cs" />
+    <Compile Include="Common\FuegoCommonMsg.cs" />
+    <Compile Include="Common\FuegoException.cs" />
     <Compile Include="Common\Model\PageModel.cs" />
     <Compile Include="Common\Model\TableDataModel.cs" />
     <Compile Include="Common\Model\TableForm.cs" />
@@ -214,6 +216,7 @@
     <Compile Include="Models\Model\HolidayModel.cs" />
     <Compile Include="Models\Model\DeptModel.cs" />
     <Compile Include="Models\Model\AccessModel.cs" />
+    <Compile Include="Models\Model\AjaxRspModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\Access.cs" />
@@ -379,6 +382,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\Access.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\AccessDetail.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />

@@ -21,7 +21,7 @@ namespace ACS.Service
     {
         List<Access> getAccessList(string userID);
         Access getAccessByID(string accessID);
-        void addAccess(int creatUserID, string accessName);
+        Access addAccess(int creatUserID, string accessName);
         void updateAccess(Access access);
         void deleteAccess(string accessID);
     }

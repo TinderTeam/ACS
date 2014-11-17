@@ -113,5 +113,10 @@ namespace ACM.Controllers
             return View();
         }
 
+
+        public override void delete(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
