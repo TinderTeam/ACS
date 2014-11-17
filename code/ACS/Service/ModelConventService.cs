@@ -160,34 +160,7 @@ namespace ACS.Service
             menuTreeModle.MenuTreeItemList = list;
             return menuTreeModle;
         }
-        /// <summary>
-        /// 转化为DeviceTreemodel
-        /// </summary>
-        public static TreeModel toDeviceTreeModel(List<Control> controlList, List<Door> doorList)
-        {
-            TreeModel deviceTreeModel = new TreeModel();
-            List<TreeItem> list = new List<TreeItem>();
-            
-            foreach (Control control in controlList)
-            {
-                TreeItem item = new TreeItem();
-                item.Id = "C"+  control.ControlID.ToString();
-                item.Text = control.ControlName;
-                item.Pid = null;
-                list.Add(item);
-            }
-            foreach (Door door in doorList)
-            {
-                TreeItem item = new TreeItem();
-                item.Id = "C"+door.ControlID.ToString()+"D" + door.DoorID.ToString();
-                item.Text = door.DoorName;
-                item.Pid = "C"+door.ControlID.ToString();
-                list.Add(item);
-            }
-
-            deviceTreeModel.MenuTreeItemList = list;
-            return deviceTreeModel;
-        }
+   
 
         public static TreeModel toUserTreeModel(List<User> userList)
         {
@@ -298,7 +271,7 @@ namespace ACS.Service
             foreach (Control device in List)
             {
                 TreeItem i = new TreeItem();
-                i.Id = "C_"+device.ControlID.ToString();
+                i.Id = "C"+device.ControlID.ToString();
                 i.Text = device.ControlName;
                 i.Pid = "";
                 itemList.Add(i);
@@ -308,9 +281,25 @@ namespace ACS.Service
             foreach (Door door in doorList)
             {
                 TreeItem i = new TreeItem();
-                i.Id = "D_"+door.DoorID.ToString();
+                i.Id = "D"+door.DoorID.ToString();
                 i.Text = door.DoorName;
-                i.Pid = "C_" + door.ControlID.ToString();
+                i.Pid = "C" + door.ControlID.ToString();
+                itemList.Add(i);
+            }
+            tree.MenuTreeItemList = itemList;
+            return tree;
+        }
+
+        internal static TreeModel toDeviceTreeModel(List<Control> controlList)
+        {
+            TreeModel tree = new TreeModel();
+            List<TreeItem> itemList = new List<TreeItem>();
+            foreach (Control device in controlList)
+            {
+                TreeItem i = new TreeItem();
+                i.Id = device.ControlID.ToString();
+                i.Text = device.ControlName;
+                i.Pid = "";
                 itemList.Add(i);
             }
             tree.MenuTreeItemList = itemList;

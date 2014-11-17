@@ -109,5 +109,23 @@ namespace ACS.Service.Impl
         }
 
         #endregion
+
+        #region DeviceService 成员
+
+
+        public List<DoorTime> getDoorTimeListByDoorID(string DoorID)
+        {
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            QueryCondition condition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                  DoorTime.DOOR_ID,
+                  DoorID
+            );
+            conditionList.Add(condition);
+            AbstractDataSource<DoorTime> dataSource = new DatabaseSourceImpl<DoorTime>(conditionList);
+            return dataSource.getAllPageData() ;
+        }
+
+        #endregion
     }
 }

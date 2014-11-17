@@ -145,7 +145,6 @@ namespace ACM.Controllers
 
             //Test
             TreeModel tree = userService.getPrivilegeMenuTree(userID);
-
             return tree.ToJsonStr();
         }
         //提交修改后的用户菜单权限列表
@@ -163,15 +162,7 @@ namespace ACM.Controllers
             ViewBag.userID = userID;
             return View();
         }
-        //加载用户对应的设备树列表
-        public String DevicePrivilegeTree(string userID)
-        {
 
-            //Test
-            TreeModel tree = userService.getDevicePrivilegeTree(userID);
-
-            return tree.ToJsonStr();
-        }
         //提交修改后的用户设备权限列表
         public string DeviceEdit(string userID, string data)
         {

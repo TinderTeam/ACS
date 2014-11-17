@@ -24,9 +24,14 @@ namespace ACS.Service.Impl
         CommonDao<Sys_Menu> sysMenuDao = DaoContext.getInstance().getSysMenuDao();
         CommonDao<Control> controlDao = DaoContext.getInstance().getControlDao();
         CommonDao<Door> doorDao = DaoContext.getInstance().getDoorDao();
+
+
         public AbstractDataSource<User> getUserList(User filter)
-        {
-            List<QueryCondition> conditionList = new List<QueryCondition>();
+        {   List<QueryCondition> conditionList = new List<QueryCondition>();
+            if (filter == null)
+            {
+                ;
+            }         
             AbstractDataSource<User> dataSource = new DatabaseSourceImpl<User>(conditionList);  
 		    return dataSource;
         }
@@ -151,13 +156,7 @@ namespace ACS.Service.Impl
         //获取用户设备权限树
         public TreeModel getDevicePrivilegeTree(string userID)
         {
-            
-            //获取所有设备树列表
-            List<Control> controlList = controlDao.getAll();
-            List<Door> doorList = doorDao.getAll();
-
-            TreeModel allTree = ModelConventService.toDeviceTreeModel(controlList,doorList);
-            
+            TreeModel allTree = ModelConventService.toDeviceTree(new DatabaseSourceImpl<Control>(new List<QueryCondition>()));        
             //获取所选用户对应的权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
@@ -168,7 +167,7 @@ namespace ACS.Service.Impl
             {
                 foreach (TreeItem j in allTree.MenuTreeItemList)
                 {
-                    if (i.PrivilegeAccessValue.Equals(j.Id))
+                    if (("D" + i.PrivilegeAccessValue).Equals(j.Id) || ("C" + i.PrivilegeAccessValue).Equals(j.Id))
                     {
                         j.CheckNode = true;
                     }
@@ -176,6 +175,9 @@ namespace ACS.Service.Impl
             }
             return allTree;
         }
+
+
+
         //更改用户设备权限
         public void updateDevicePrivilege(string userID, List<string> deviceIDList)
         {
@@ -194,13 +196,13 @@ namespace ACS.Service.Impl
             List<Privilege> privilegeList = new List<Privilege>();
 
             //新获取到的用户菜单权限加入权限列表
-            foreach (string i in deviceIDList)
+            foreach (string str in deviceIDList)
             {
                 Privilege privilege = new Privilege();
                 privilege.PrivilegeMaster = ServiceConstant.SYS_MASTER_TYPE_USER;
                 privilege.PrivilegeMasterValue = userID;
                 privilege.PrivilegeAccess = ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN;
-                privilege.PrivilegeAccessValue = i;
+                privilege.PrivilegeAccessValue = str.Replace("D","");
                 privilege.PrivilegeOperation = ServiceConstant.SYS_OPRATION_VALUE_VISIBLE;
 
                 privilegeList.Add(privilege);

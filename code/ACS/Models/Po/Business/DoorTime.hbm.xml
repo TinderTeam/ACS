@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.DoorTime,ACS" table="t_doortime"  >
+
+    <id name="DoorTimeID" column ="DOOR_TIME_ID" >
+      <generator class ="increment"/>
+    </id>
+
+    <property name="DoorID" type="int">
+      <column name="DOOR_ID"/>
+    </property>
+
+    <property name="DoorTimeName" type="string">
+      <column name="DOOR_TIME_NAME" length="255"/>
+    </property>
+
+    <property name="StartTime" type="Time">
+      <column name="START_TIME"/>
+    </property>
+
+    <property name="EndTime" type="Time">
+      <column name="END_TIME"/>
+    </property>
+
+  </class>
+</hibernate-mapping>

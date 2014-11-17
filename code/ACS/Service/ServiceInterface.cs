@@ -7,8 +7,15 @@ using ACS.Models.Model;
 using ACS.Models.Po.CF;
 using ACS.Models.Po.Business;
 using ACS.Common.Dao.datasource;
+using AccessTcp;
 namespace ACS.Service
 {
+
+
+    public interface DeviceOperatorService
+    {
+        TCPAcs getControllerTCP(string ip);
+    }
 
     public interface AccessService
     {
@@ -30,6 +37,8 @@ namespace ACS.Service
         DeviceModel getDeviceByID(string DeviceID);
 
         DoorModel getDoorByID(string DoorID);
+
+        List<DoorTime> getDoorTimeListByDoorID(string DoorID);
     }
 
     public interface PlatFormService
@@ -49,7 +58,7 @@ namespace ACS.Service
         void updateMenuPrivilege(string userID,List<string> menuIDList);
         TreeModel getDevicePrivilegeTree(string userID);
         void updateDevicePrivilege(string userID, List<string> deviceIDList);
-        
+
     }
 
     public interface EmployeeService
