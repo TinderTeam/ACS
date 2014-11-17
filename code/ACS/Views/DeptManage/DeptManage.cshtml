@@ -13,7 +13,31 @@
         margin:10px;padding:0;border:0;width:100%;height:100%;overflow:hidden;
     }    
 </style>
-     <div class="mini-panel" title="部门管理" iconCls="icon-add" style="width:95%;height:80%;" 
+<div class="mini-fit" >
+    <div style="width:300px;height:98%;border:solid 1px #9da0aa;font-size:12px;font-family:Verdana;color:#201F35;overflow:hidden;">
+        <div class="mini-toolbar" style="border:0;border-bottom:solid 1px #9da0aa;padding:5px;">
+            <table style="width:100%;">
+                <tr>
+                <td style="width:auto;">
+                    <a class="mini-button" iconCls="icon-addfolder" onclick="onEditNode('Add')" plain="true">增加</a>
+                    <a class="mini-button" iconCls="icon-edit" onclick="onEditNode('Edit')" plain="true">修改</a>
+                    <a class="mini-button" iconCls="icon-remove" onclick="onRemoveNode()" plain="true">删除</a>
+                </td>
+                </tr>
+            </table>
+        </div>
+        <div  style="width:100%;height:96%;">
+            <div style="width:100%;height:96%;border:0;">
+                <ul id="tree1" class="mini-tree" url="../DeptManage/LoadTree" style="width:100%;height:100%;padding:0px;" 
+                    showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"  
+                    allowDrag="true" allowDrop="true" 
+                    >
+                </ul>
+            </div>      
+        </div>
+    </div>
+</div>
+     <!--<div class="mini-panel" title="部门管理" iconCls="icon-add" style="width:95%;height:80%;" 
         showToolbar="true" showCollapseButton="true" showFooter="true">
         <div property="toolbar" >
             <input type="button" value="插入子部门" onclick="onEditNode('Add')" style='vertical-align:middle;'/>      
@@ -27,7 +51,7 @@
                 >
             </ul>
         </div>
-    </div>
+    </div>-->
   
     <script type="text/javascript">
 
