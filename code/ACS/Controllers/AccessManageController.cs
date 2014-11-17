@@ -75,7 +75,7 @@ namespace ACS.Controllers
         /// </summary>
         /// <param name="AccessID"></param>
         /// <returns></returns>
-        public string EditAccess(string data)
+        public string EditAccessName(string data)
         {
             string text = null;
             log.Debug("Edite Access...");
