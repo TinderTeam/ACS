@@ -43,6 +43,8 @@ namespace ACS.Service
         DoorModel getDoorByID(string DoorID);
 
         List<DoorTime> getDoorTimeListByDoorID(string DoorID);
+
+        void updateDoorTimeList(List<DoorTime> list);
     }
 
     public interface PlatFormService

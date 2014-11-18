@@ -17,6 +17,7 @@ namespace ACS.Service.Impl
 
         CommonDao<Control> controlDao = DaoContext.getInstance().getControlDao();
         CommonDao<Door> doorDao = DaoContext.getInstance().getDoorDao();
+        CommonDao<DoorTime> doorTimeDao = DaoContext.getInstance().getDoorTimeDao();
         #region DeviceService 成员
 
         public Common.Dao.datasource.AbstractDataSource<Models.Po.Business.Control> getDeviceList(Models.Po.Business.Control filter)
@@ -124,6 +125,20 @@ namespace ACS.Service.Impl
             conditionList.Add(condition);
             AbstractDataSource<DoorTime> dataSource = new DatabaseSourceImpl<DoorTime>(conditionList);
             return dataSource.getAllPageData() ;
+        }
+
+        #endregion
+
+        #region DeviceService 成员
+
+
+        public void updateDoorTimeList(List<DoorTime> list)
+        {
+            foreach (DoorTime doorTime in list)
+            {
+                
+                
+           }
         }
 
         #endregion

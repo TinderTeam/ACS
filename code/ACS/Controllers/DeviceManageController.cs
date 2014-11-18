@@ -10,6 +10,7 @@ using ACS.Models.Po.Business;
 using ACS.Service;
 using ACS.Test;
 using System.Web.Script.Serialization;
+using NHibernate.Mapping;
 namespace ACS.Controllers
 {
     public class DeviceManageController : Controller
@@ -80,6 +81,16 @@ namespace ACS.Controllers
         }
 
 
+        public String  DoorTimeSave(String data)
+        {
+
+            List<DoorTimeModel> modelList = JsonConvert.JsonToObject<List<DoorTimeModel>>(data);
+            deviceService.updateDoorTimeList(ModelConventService.toDoorTimeList(modelList));
+            Response.Write(data);
+            return null;
+
+        }
+        
         /// <summary>
         /// 设备信息变更
         /// </summary>

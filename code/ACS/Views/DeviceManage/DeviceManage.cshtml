@@ -115,6 +115,7 @@
             var tree = mini.get("deviceTree")
             node = tree.getSelectedNode()
             var inner = mini.get(content);
+          
             if (node.id.indexOf("C") != -1) {
                 id=node.id.replace("C", "");
                 inner.load("DeviceView?DeviceID="+id);

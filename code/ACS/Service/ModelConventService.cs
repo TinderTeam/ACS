@@ -336,5 +336,28 @@ namespace ACS.Service
             tree.MenuTreeItemList = itemList;
             return tree;
         }
+
+        internal static List<DoorTime> toDoorTimeList(List<DoorTimeModel> modelList)
+        {
+
+            List<DoorTime> list = new List<DoorTime>();
+            foreach(DoorTimeModel model in modelList){
+                list.Add(toDoorTime(model));
+            }
+            return list;
+        }
+
+        internal static DoorTime toDoorTime(DoorTimeModel model)
+        {
+
+            DoorTime doortime = new DoorTime();
+            doortime.DoorID = model.DoorID;
+            doortime.DoorTimeID = model.DoorTimeID;
+            doortime.DoorTimeName = model.DoorTimeName;
+            doortime.EndTime = model.EndTime;
+            doortime.StartTime = model.StartTime;
+            return doortime;
+
+        }
     }
 }

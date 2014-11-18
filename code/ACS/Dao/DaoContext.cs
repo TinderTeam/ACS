@@ -27,6 +27,7 @@ namespace ACS.Dao
         private CommonDao<Door> doorDao;
         private CommonDao<Dept> deptDao;
         private CommonDao<Access> accessDao;
+		private CommonDao<DoorTime> doorTimeDao;
         
         public static DaoContext getInstance()
         {
@@ -36,6 +37,17 @@ namespace ACS.Dao
             }
             return daoContext;
         }
+
+        public CommonDao<DoorTime> getDoorTimeDao()
+        {
+            if (doorTimeDao == null)
+            {
+                doorTimeDao = new CommonDaoImpl<DoorTime>();
+            }
+            return doorTimeDao;
+        }
+
+
         public CommonDao<Control> getControlDao()
         {
             if (controlDao == null)
