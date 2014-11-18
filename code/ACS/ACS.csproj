@@ -224,6 +224,7 @@
     <Compile Include="Models\Po\Business\AccessDetail.cs" />
     <Compile Include="Models\Po\Business\DoorTime.cs" />
     <Compile Include="Models\Po\Business\EventRecordView.cs" />
+    <Compile Include="Models\Po\Business\AccessDetailView.cs" />
     <Compile Include="Models\Po\CF\Privilege.cs" />
     <Compile Include="Models\Po\CF\Role.cs" />
     <Compile Include="Models\Po\CF\UserRole.cs" />
@@ -378,7 +379,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\Dept.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\DoorTime.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -388,6 +388,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\AccessDetail.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\AccessDetailView.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
     <Content Include="Scripts\core.js" />

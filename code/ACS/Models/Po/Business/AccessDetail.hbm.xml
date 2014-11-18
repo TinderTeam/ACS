@@ -11,12 +11,8 @@
       <column name="ACCESS_ID"/>
     </property>
 
-    <property name="ControlID" type="int">
-      <column name="CONTROL_ID"/>
-    </property>
-    
-    <property name="DoorID" type="int">
-      <column name="DOOR_ID"/>
+    <property name="ValueID" type="int">
+      <column name="VALUE_ID"/>
     </property>
 
     <property name="Type" type="string">

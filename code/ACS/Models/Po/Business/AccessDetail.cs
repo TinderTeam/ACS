@@ -7,11 +7,10 @@ namespace ACS.Models.Po.Business
 {
     public class AccessDetail
     {
-        private int accessDetailID;
-        private int accessID;       //门禁规则
-        private int controlID;      //控制器
-        private int doorID;         //门ID
-        private string type;        //类型 Access/Device
+        private int accessDetailID; //门禁权限详细信息ID
+        private int accessID;       //门禁权限ID
+        private int valueID;         //门ID
+        private string type;        //类型 Access/DoorTime
 
         public virtual int AccessDetailID
         {
@@ -25,16 +24,10 @@ namespace ACS.Models.Po.Business
             set { accessID = value; }
         }
 
-        public virtual int ControlID
+        public virtual int ValueID
         {
-            get { return controlID; }
-            set { controlID = value; }
-        }
-
-        public virtual int DoorID
-        {
-            get { return doorID; }
-            set { doorID = value; }
+            get { return valueID; }
+            set { valueID = value; }
         }
 
         public virtual string Type
