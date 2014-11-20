@@ -7,6 +7,11 @@ namespace ACS.Models.Po.Business
 {
     public class AccessDetail
     {
+        public const String SPLIT = "_";
+        public const String ACCESS_TYPE = "ACCESS";
+        public const String DOORTIME_TYPE = "DOORTIME";
+        public const String CONTROL_TYPE = "CONTROL";
+        public const String DOOR_TYPE = "DOOR";
         private int accessDetailID; //门禁权限详细信息ID
         private int accessID;       //门禁权限ID
         private int valueID;         //门ID

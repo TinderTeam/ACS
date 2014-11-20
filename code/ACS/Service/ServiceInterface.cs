@@ -24,6 +24,7 @@ namespace ACS.Service
         Access addAccess(int creatUserID, string accessName);
         void updateAccess(Access access);
         void deleteAccess(string accessID);
+        List<AccessDetailView> getAccessDetailViewList(string accessID);
     }
     public interface DeptService
     {

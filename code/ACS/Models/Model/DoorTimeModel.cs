@@ -60,16 +60,16 @@ namespace ACS.Models.Model
             get { return enable; }
             set { enable = value; }
         }
-        private DateTime startTime;//开始时间
+        private String startTime;//开始时间
 
-        public virtual DateTime StartTime
+        public virtual String StartTime
         {
             get { return startTime; }
             set { startTime = value; }
         }
-        private DateTime endTime;//截止时间
+        private String endTime;//截止时间
 
-        public virtual DateTime EndTime
+        public virtual String EndTime
         {
             get { return endTime; }
             set { endTime = value; }

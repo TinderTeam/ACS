@@ -19,11 +19,11 @@
       <column name="ENABLE" length="25"/>
     </property>
     
-    <property name="StartTime" type="Time">
+    <property name="StartTime" >
       <column name="START_TIME"/>
     </property>
 
-    <property name="EndTime" type="Time">
+    <property name="EndTime">
       <column name="END_TIME"/>
     </property>
 

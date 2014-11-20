@@ -19,9 +19,11 @@ namespace ACS.Service.Impl
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
         CommonDao<Access> accessDao = DaoContext.getInstance().getAccessDao();
+        CommonDao<AccessDetail> accessDetailDao = DaoContext.getInstance().getAccessDetailDao();
+        CommonDao<AccessDetailView> accessDetailViewDao = DaoContext.getInstance().getAccessDetailViewDao();
 
         //门禁权限管理
-        //获取门禁权限树
+        //获取门禁权限List
         public List<Access> getAccessList(string userID)
         {
             //获取所有门禁权限树列表
@@ -75,6 +77,15 @@ namespace ACS.Service.Impl
             }
 
             accessDao.delete(IDcondition);
+        }
+        //门禁权限管理
+        //获取门禁权限详情List
+        public List<AccessDetailView> getAccessDetailViewList(string accessID)
+        {
+            //获取门禁权限详情列表
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessID);
+            List<AccessDetailView> accessDetailViewList = accessDetailViewDao.getAll();
+            return accessDetailViewList;
         }
     }
 }

@@ -180,6 +180,7 @@
     <Compile Include="Common\Service\exception\DataManipulationException.cs" />
     <Compile Include="Common\Service\impl\DataManipulationServiceImpl.cs" />
     <Compile Include="Common\Util\DataTypeConvert.cs" />
+    <Compile Include="Common\Util\DateUtil.cs" />
     <Compile Include="Common\Util\JsonConvert.cs" />
     <Compile Include="Common\Util\ReflectionUtil.cs" />
     <Compile Include="Common\Util\ValidatorUtil.cs" />
@@ -220,6 +221,7 @@
     <Compile Include="Models\Model\DeptModel.cs" />
     <Compile Include="Models\Model\AccessModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
+    <Compile Include="Models\Model\TreeGridModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\Access.cs" />
@@ -1631,6 +1633,7 @@
     <Content Include="Test\Dept.txt" />
     <Content Include="Test\DeviceTree.txt" />
     <Content Include="Test\Job.txt" />
+    <Content Include="Test\tasks.txt" />
     <Content Include="Test\tree.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

@@ -8,6 +8,7 @@ namespace ACS.Models.Po.Business
     public class AccessDetailView
     {
         //AccessDetail表中获取
+        public const String ID = "AccessID";
         private int accessDetailID;         //门禁权限详细信息ID
         private int accessID;               //门禁权限ID
         private int valueID;                //子AccessID或者DoorTime ID
@@ -17,14 +18,17 @@ namespace ACS.Models.Po.Business
         private String accessName;          //父门禁权限名称
 
         //Control表中获取
+        private int controlID;              //控制器ID
         private String controlName;         //控制器名称
 
         //Door表中获取
+        private int doorID;                 //门ID
         private String doorName;            //门名称
 
         //DoorTime标准获取
-        private DateTime startTime;         //开始时间
-        private DateTime endTime;           //截止时间
+        private String doorTimeName;        //门时间段名称
+        private String startTime;         //开始时间
+        private String endTime;           //截止时间
 
         public virtual int AccessDetailID
         {
@@ -56,10 +60,22 @@ namespace ACS.Models.Po.Business
             set { accessName = value; }
         }
 
+        public virtual int ControlID
+        {
+            get { return controlID; }
+            set { controlID = value; }
+        }
+
         public virtual String ControlName
         {
             get { return controlName; }
             set { controlName = value; }
+        }
+
+        public virtual int DoorID
+        {
+            get { return doorID; }
+            set { doorID = value; }
         }
 
         public virtual String DoorName
@@ -68,13 +84,19 @@ namespace ACS.Models.Po.Business
             set { doorName = value; }
         }
 
-        public virtual DateTime StartTime
+        public virtual String DoorTimeName
+        {
+            get { return doorTimeName; }
+            set { doorTimeName = value; }
+        }
+
+        public virtual String StartTime
         {
             get { return startTime; }
             set { startTime = value; }
         }
 
-        public virtual DateTime EndTime
+        public virtual String EndTime
         {
             get { return endTime; }
             set { endTime = value; }

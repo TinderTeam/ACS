@@ -40,15 +40,6 @@ namespace ACS.Controllers
         }
         
         /// <summary>
-        /// Load access detail
-        /// </summary>
-        /// <param name="AccessID"></param>
-        /// <returns></returns>
-        public ActionResult AccessDetail(String AccessID)
-        {
-            return View();
-        }
-        /// <summary>
         /// 新增门禁权限
         /// </summary>
         /// <param name="AccessID"></param>
@@ -134,8 +125,88 @@ namespace ACS.Controllers
             return null;
 
         }
+        // 加载门禁权限List
+        public string LoadAccessDetail(string accessID)
+        {
 
+           List<TreeGirdItem> tree =  LoadAccessDetailListByID(accessID);
+         
+            TreeGridModel treeModel =   new TreeGridModel();
+            treeModel.TreeGridItemList = tree;
 
+            return treeModel.ToJsonStr();
+        }
+      
+        /// <summary>
+        /// 根据accessID获取AccessList
+        /// </summary>
+        /// <returns></returns>
+        public List<TreeGirdItem> LoadAccessDetailListByID(string accessID)
+        {
+            List<TreeGirdItem> rspTreeList = new List<TreeGirdItem>();
+            
+            List<AccessDetailView> accessDetailViewList = accessService.getAccessDetailViewList(accessID);
+
+            if (ValidatorUtil.isEmpty<AccessDetailView>(accessDetailViewList))
+            {
+                log.Warn("can not find child access by access id. the access id is " + accessID);
+                return rspTreeList;
+            }
+
+            TreeGridModel accessDetailViewTreeModel = new TreeGridModel();
+            Dictionary<String, TreeGirdItem> accessMap = new Dictionary<String, TreeGirdItem>();
+ 
+            foreach (AccessDetailView accessDetailView in accessDetailViewList)
+            {
+                
+
+                if (accessDetailView.Type == AccessDetail.DOORTIME_TYPE)
+                {
+                   
+                    TreeGirdItem control = new TreeGirdItem();
+                    control.Id = AccessDetail.CONTROL_TYPE + AccessDetail.SPLIT + accessDetailView.ControlID.ToString();
+                    control.Text = accessDetailView.ControlName;
+                    control.Pid = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
+                    if (!accessMap.ContainsKey(control.Id))
+                    { 
+                        accessMap.Add(control.Id, control);
+                    }
+                   
+
+                    TreeGirdItem door = new TreeGirdItem();
+                    door.Id = AccessDetail.DOOR_TYPE + AccessDetail.SPLIT + accessDetailView.DoorID.ToString();
+                    door.Text = accessDetailView.DoorName;
+                    door.Pid = control.Id;
+                    if (!accessMap.ContainsKey(door.Id))
+                    {
+                        accessMap.Add(door.Id, door);
+                    }
+
+                    TreeGirdItem doorTime = new TreeGirdItem();
+                    doorTime.Id = AccessDetail.DOORTIME_TYPE + AccessDetail.SPLIT + accessDetailView.ValueID.ToString();
+                    doorTime.Text = accessDetailView.DoorTimeName;
+                    doorTime.Pid = door.Id;
+                    doorTime.StartTime = accessDetailView.StartTime;
+                    doorTime.EndTime = accessDetailView.EndTime;
+                    accessMap.Add(doorTime.Id, doorTime);
+
+                }
+                else if (accessDetailView.Type == AccessDetail.ACCESS_TYPE)
+                {
+                    TreeGirdItem item = new TreeGirdItem();
+                    item.Id = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.ValueID.ToString();
+                    item.Text = accessDetailView.AccessName;
+                    item.Pid = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
+                    accessMap.Add(item.Id, item);
+                    rspTreeList = LoadAccessDetailListByID(accessDetailView.ValueID.ToString());
+
+                }
+                
+            }
+            rspTreeList.AddRange(accessMap.Values.ToList<TreeGirdItem>());
+
+            return rspTreeList;
+        }
         public ActionResult AccessEdit()
         {
             return View();

@@ -20,7 +20,6 @@
 </head>
 <body>
     <div class="mini-fit">
-
         <div id="AccessDetail" class="mini-panel" title="门禁权限编辑" style="width: 100%; height: 100%;" showtoolbar="true">
             <div class="mini-toolbar" style="border-bottom: 0; padding: 0px;">
                 <table style="width: 100%;">
@@ -32,14 +31,15 @@
                     </tr>
                 </table>
             </div>
-            <div id="datagrid" class="mini-datagrid" style="width: 100%; height: 95%;" allowresize="true"
-                url="LoadAccessDetailData" idfield="UserID" multiselect="true">
+
+            <div id="treegrid" class="mini-treegrid" style="width: 100%; height: 95%;"
+                showTreeIcon="true" treeColumn="taskname" idField="UID" parentField="ParentTaskUID" 
+                resultAsTree="false" allowResize="true" expandOnLoad="true">
                 <div property="columns">
-                    <!--<div type="indexcolumn"></div>        -->
-                    <div type="checkcolumn"></div>
+                    <div type="indexcolumn"></div>
+                    <div name="taskname" field="Name" width="120" headeralign="center" allowsort="true">权限名称</div>
                     <div field="UserID" width="120" headeralign="center" allowsort="true">序号</div>
                     <div field="UserName" width="120" headeralign="center" allowsort="true">类型</div>
-                    <div field="UserDesc" width="120" headeralign="center" allowsort="true">权限名称</div>
                     <div header="门禁时间" headeralign="center">
                         <div property="columns" >
                             <div field="CreateUserID" width="120" headeralign="center" allowsort="true">控制器名称</div>
@@ -51,14 +51,15 @@
                     </div>
                 </div>
             </div>
+            
         </div>
+        
     </div>
 </body>
 
 <script type="text/javascript">
     mini.parse();
-    var grid = mini.get("#datagrid");
-    grid.load();
+
     function add() {
         mini.open({
             url: "../AccessManage/AccessEdit",

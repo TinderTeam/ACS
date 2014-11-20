@@ -178,7 +178,7 @@ namespace ACS.Service.Impl
             //删除控制器所属的门
             deleteDoorByControlId(id);
             //
-            deleteDateTimeByControlID();
+            //deleteDateTimeByControlID();
         }
 
         #endregion

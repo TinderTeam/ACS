@@ -13,8 +13,8 @@ namespace ACS.Models.Po.Business
         private int doorTimeID;//开放时间编号
         private int doorID;//门编号
         private String doorTimeName;//开放时间名称
-        private DateTime startTime;//开始时间
-        private DateTime endTime;//截止时间
+        private String startTime;//开始时间
+        private String endTime;//截止时间
         private string enable;
 
         public virtual string Enable
@@ -39,14 +39,14 @@ namespace ACS.Models.Po.Business
             get { return doorTimeName; }
             set { doorTimeName = value; }
         }
-        
-        public virtual DateTime StartTime
+
+        public virtual String StartTime
         {
             get { return startTime; }
             set { startTime = value; }
         }
-        
-        public virtual DateTime EndTime
+
+        public virtual String EndTime
         {
             get { return endTime; }
             set { endTime = value; }
