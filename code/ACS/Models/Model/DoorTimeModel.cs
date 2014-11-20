@@ -52,6 +52,14 @@ namespace ACS.Models.Model
             get { return doorTimeName; }
             set { doorTimeName = value; }
         }
+
+        private String enable;//开放状态
+
+        public virtual String Enable
+        {
+            get { return enable; }
+            set { enable = value; }
+        }
         private DateTime startTime;//开始时间
 
         public virtual DateTime StartTime

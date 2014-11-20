@@ -8,6 +8,7 @@ namespace ACS.Models.Po.Business
     public class Door
     {
         public const String DOOR_ID = "DoorID";
+        public const String CONTROL_ID = "ControlID";
         private int doorID;//门编号
         private int controlID;//控制器编号
         private String doorName;//

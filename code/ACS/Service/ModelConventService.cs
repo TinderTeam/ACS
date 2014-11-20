@@ -356,8 +356,19 @@ namespace ACS.Service
             doortime.DoorTimeName = model.DoorTimeName;
             doortime.EndTime = model.EndTime;
             doortime.StartTime = model.StartTime;
+            doortime.Enable = model.Enable;
             return doortime;
 
+        }
+
+        internal static Control toControl(ControllerModel m)
+        {
+            Control control = new Control();
+            control.Address = m.Address;
+            control.ControlName = m.ControlName;
+            control.ControlID = m.ControlID;
+            control.Ip = m.Ip;
+            return control;
         }
     }
 }

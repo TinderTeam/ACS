@@ -47,6 +47,13 @@ namespace ACS.Service
             //TODO
             return true;
         }
-        
+
+
+        internal static bool ControllerVerification(Control c)
+        {
+            //TODO
+            return true;
+
+        }
     }
 }

@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ACS.Common.Constant;
+using System.Web.Mvc;
 
-namespace ACS.Models.Po.Business
+namespace ACS.Models.Model
 {
-    public class Control
+    public class ControllerModel 
     {
         public const String CONTROL_ID = "ControlID";
+        private string id;//ID
+
+        public string Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
+
         private int controlID;//编号
         private String netID;//连接号即
         private String code;//编号
@@ -24,11 +32,11 @@ namespace ACS.Models.Po.Business
         private int port;//通讯端口
         private String byIP;//ByIP  使用TCPIP通讯（未用）
         private String lockEach;//
-        private DateTime fireTime = DefaltValueConstant.getDefaltDateTime();//
-        private DateTime alarmTime = DefaltValueConstant.getDefaltDateTime();//
+        private DateTime fireTime;//
+        private DateTime alarmTime;//
         private String alarmMast;//
         private String controlGroup;//
-        private DateTime timeTamp = DefaltValueConstant.getDefaltDateTime();//
+        private DateTime timeTamp;//
         private String localSetup;//
         private int mapID;//
         private int xPoint;//
@@ -40,8 +48,8 @@ namespace ACS.Models.Po.Business
         private String output;//
         private String input;//
         private String is16;//
-        private DateTime openTime = DefaltValueConstant.getDefaltDateTime();//
-        private DateTime closeTime = DefaltValueConstant.getDefaltDateTime();//
+        private DateTime openTime;//
+        private DateTime closeTime;//
         private String floorDelay;//
         private String otherFuction;//
         private String mxOutPort;//
@@ -287,6 +295,5 @@ namespace ACS.Models.Po.Business
             get { return icIsSt; }
             set { icIsSt = value; }
         }
-
     }
 }

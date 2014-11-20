@@ -136,11 +136,61 @@ namespace ACS.Service.Impl
         {
             foreach (DoorTime doorTime in list)
             {
-                
-                
-           }
+                doorTimeDao.update(doorTime);              
+            }
         }
 
         #endregion
+
+        #region DeviceService 成员
+
+
+        public void updateControl(Control control)
+        {
+            controlDao.update(control);  
+        }
+        #endregion
+
+        #region DeviceService 成员
+
+
+        public Control addControl(string name)
+        {
+            Control control = new Control();
+            control.ControlName=name;
+            controlDao.create(control);
+            return control;
+        }
+        #endregion
+
+        #region DeviceService 成员
+
+
+        public void deleteControlById(string id)
+        {
+            //删除控制器
+            QueryCondition condition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                  Control.CONTROL_ID,
+                  id
+            );
+            controlDao.delete(condition);
+            //删除控制器所属的门
+            deleteDoorByControlId(id);
+            //
+            deleteDateTimeByControlID();
+        }
+
+        #endregion
+
+        public void deleteDoorByControlId(string id)
+        {
+            QueryCondition condition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                  Door.CONTROL_ID,
+                  id
+            );
+            doorDao.delete(condition);
+        }
     }
 }

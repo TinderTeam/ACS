@@ -1,5 +1,142 @@
-﻿@{
-    ViewBag.Title = "DeviceView";
-}
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<h2>DeviceView</h2>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>设备管理</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" /><link href="../demo.css" rel="stylesheet" type="text/css" />
+
+    
+    <script src="../../scripts/boot.js" type="text/javascript"></script>
+    <link href="../../scripts/miniui/themes/metro/skin.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+    <h1>设备管理</h1>      
+       
+
+    <div id="form1" >
+        <input name="id" class="mini-hidden" />
+        <table>
+            
+            <tr>
+                <td>
+                    <label for="ControlID$text">控制器编号：</label>
+                </td>
+                <td>
+                    <input id="ControlID"  name="ControlID" class="mini-textbox" />
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <label >连接号：</label>
+                </td>
+                <td>
+                    <input name="NetID" class="mini-textbox" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label >控制器名称：</label>
+                </td>
+                <td>
+                    <input name="ControlName" class="mini-textbox" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label >控制器类型：</label>
+                </td>
+                <td>
+                    <input name="Type" class="mini-textbox" />
+                </td>
+            </tr>  
+            <tr>
+                <td>
+                    <label >控制器状态：</label>
+                </td>
+                <td>
+                    <input name="Enable" class="mini-textbox" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label >控制器地址：</label>
+                </td>
+                <td>
+                    <input name="Address" class="mini-textbox" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label >控制器IP：</label>
+                </td>
+                <td>
+                    <input name="Ip" class="mini-textbox" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label >通讯端口：</label>
+                </td>
+                <td>
+                    <input name="Port" class="mini-textbox" />
+                </td>
+            </tr>
+             
+            <tr>
+                <td>
+                    
+                </td>
+                <td>
+                    <input id="deviceID" value="@ViewBag.deviceID" type="hidden"/>
+                    <input value="提交" type="button" onclick="submitForm()"/>                                                        
+                </td>
+            </tr>
+        </table>
+    </div>
+    <script type="text/javascript">
+        loadData();
+        mini.parse();
+
+        function loadData() {
+            id = $("#deviceID").val();
+            $.ajax({
+                url: "LoadControllerInfo?ControllerID=" + id,
+                type: "post",
+                success: function (text) {
+                    var data = mini.decode(text);   //反序列化成对象
+                    form.setData(data);             //设置多个控件数据
+                }
+            });
+            var form = new mini.Form("#form1");
+            form.setData(obj, false);
+        }
+
+        function submitForm() {
+
+            var form = new mini.Form("#form1");
+            var data = form.getData();      //获取表单多个控件的数据
+            //提交表单数据
+           
+            var json = mini.encode(data);   //序列化成JSON
+            
+            
+            $.ajax({
+                url: "DeviceInfoEdit",
+                type: "post",
+                data: { submitData: json },
+                success: function (text) {
+                    alert("提交成功,刷新后查看控制器");
+                }
+            });        
+        }
+    </script>
+    
+    
+
+    <div class="description">
+        <h3>设备管理说明</h3>
+        <p>说明</p>
+    </div>
+</body>
+</html>

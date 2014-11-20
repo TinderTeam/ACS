@@ -15,6 +15,10 @@
       <column name="DOOR_TIME_NAME" length="255"/>
     </property>
 
+    <property name="Enable" type="string">
+      <column name="ENABLE" length="25"/>
+    </property>
+    
     <property name="StartTime" type="Time">
       <column name="START_TIME"/>
     </property>

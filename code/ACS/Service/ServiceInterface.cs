@@ -45,6 +45,12 @@ namespace ACS.Service
         List<DoorTime> getDoorTimeListByDoorID(string DoorID);
 
         void updateDoorTimeList(List<DoorTime> list);
+
+        void updateControl(Control control);
+
+        Control addControl(string name);
+
+        void deleteControlById(string id);
     }
 
     public interface PlatFormService

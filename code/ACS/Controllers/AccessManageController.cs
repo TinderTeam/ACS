@@ -135,7 +135,13 @@ namespace ACS.Controllers
 
         }
 
-        public override void delete(string id)
+
+        public ActionResult AccessEdit()
+        {
+            return View();
+        }
+
+        public override void basicDelete(string id)
         {
             throw new NotImplementedException();
         }

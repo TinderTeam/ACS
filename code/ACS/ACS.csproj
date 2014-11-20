@@ -160,6 +160,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Common\Constant\ConditionTypeEnum.cs" />
     <Compile Include="Common\Constant\CommonMsg.cs" />
+    <Compile Include="Common\Constant\DefaltValueConstant.cs" />
     <Compile Include="Common\Dao\CommonDao.cs" />
     <Compile Include="Common\Dao\datasource\AbstractDataSource.cs" />
     <Compile Include="Common\Dao\datasource\DatabaseSourceImpl.cs" />
@@ -204,6 +205,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model\ControllerModel.cs" />
     <Compile Include="Models\Model\DeviceModel.cs" />
     <Compile Include="Models\Model\DoorModel.cs" />
     <Compile Include="Models\Model\DoorTimeModel.cs" />
@@ -379,6 +381,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\Dept.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\DoorTime.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

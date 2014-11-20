@@ -39,6 +39,10 @@
         
     >
             <div property="columns">
+                <div field="Enable" type="comboboxcolumn" autoShowPopup="true"   width="30" headeralign="center" align="center" allowsort="true">
+                    启用      
+                    <input property="editor" class="mini-combobox" style="width:100%;" data="Genders" />     
+                </div>            
                 <div field="DoorTimeID" width="30" headeralign="center" align="center" allowsort="true">
                     时间段编号      
                 </div>
@@ -55,17 +59,21 @@
                 </div>
                 <div field="EndTime" property="editor" width="100" align="center" headeralign="center" dateformat="H:mm" allowsort="true" headeralign="center" format="H:mm">
                     截止时间
-            <input property="editor" class="mini-timeSpinner" style="width: 100%;" format="H:mm" />
+                      <input property="editor" class="mini-timeSpinner" style="width: 100%;" format="H:mm" />
                 </div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
+
+        var Genders = [{ id: 1, text: '启用' }, { id: 0, text: '禁用' }];
+
         mini.parse();
         var grid = mini.get("#doortimegird");
         grid.load();
         grid.beginEditRow(row);
+
 
         function save() {
             var data = grid.getChanges();
@@ -77,15 +85,13 @@
                 data: { data: json },
                 type: "post",
                 success: function (text) {
-                    alert(text);
                     grid.reload();
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert("error");
                     alert(jqXHR.responseText);
                 }
             });
-            alert(json);
+
         }
     </script>
 </body>

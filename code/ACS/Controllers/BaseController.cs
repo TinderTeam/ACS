@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using ACS.Common;
+using ACS.Service.Constant;
 
 
 namespace ACM.Controllers
@@ -16,7 +18,27 @@ namespace ACM.Controllers
 
         private AjaxRspModel rsp = new AjaxRspModel();
 
-        public abstract void delete(string id);
+        public abstract void basicDelete(string id);
+
+        public string delete(string id)
+        {
+            try
+            {
+                basicDelete(id);
+            }
+            catch (FuegoException e)
+            {
+                Rsp.ErrorCode = e.GetErrorCode();
+                log.Error("add control failed", e);
+            }
+            catch (SystemException ex)
+            {
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+                log.Error("add control failed", ex);
+            }
+            Response.Write(getRspJson());
+            return null;
+        }
 
         public AjaxRspModel Rsp
         {

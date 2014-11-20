@@ -11,9 +11,12 @@ using ACS.Service;
 using ACS.Test;
 using System.Web.Script.Serialization;
 using NHibernate.Mapping;
+using ACM.Controllers;
+using ACS.Common;
+using ACS.Service.Constant;
 namespace ACS.Controllers
 {
-    public class DeviceManageController : Controller
+    public class DeviceManageController : BaseController
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         // GET: /Device/
@@ -50,10 +53,7 @@ namespace ACS.Controllers
        /// <returns></returns>
         public ActionResult DeviceView(String DeviceID)
         {
-            DeviceModel dmodel=null;
-            //dmodel = service.getDeviceByID(DeviceID);
-            dmodel = Test.Stub.getDevice();
-            ViewBag.DeviceModel = dmodel;
+            ViewBag.deviceID = DeviceID;
             return View();
         }
 
@@ -90,7 +90,23 @@ namespace ACS.Controllers
             return null;
 
         }
-        
+
+        /// <summary>
+        /// 设备信息变更
+        /// </summary>
+        /// <returns></returns>
+        public String DeviceInfoEdit(String submitData)
+        {
+            ControllerModel controller = JsonConvert.JsonToObject<ControllerModel>(submitData);
+            Control control = ModelConventService.toControl(controller);
+            if (ModelVerificationService.ControllerVerification(control))
+            {
+                deviceService.updateControl(control);
+            }
+            Response.Write(submitData);
+            return null;
+        }
+
         /// <summary>
         /// 设备信息变更
         /// </summary>
@@ -99,31 +115,47 @@ namespace ACS.Controllers
         {
             return null;
         }
-        /// <summary>
-        /// 设备删除
-        /// </summary>
-        /// <returns></returns>
-        public String DeviceDelete(String DeviceID)
-        {
-            return null;
-        }
+
         /// <summary>
         /// 设备新增
         /// </summary>
         /// <returns></returns>
-        public String DeviceAdd()
+        public String DeviceAdd(String name)
         {
+              try
+            {
+                //校验成功
+                Control control=deviceService.addControl(name);
+                Rsp.Obj = control;
+
+            }
+            catch (FuegoException e)
+            {
+                Rsp.ErrorCode = e.GetErrorCode();
+                log.Error("add control failed", e);
+            }
+            catch (SystemException ex)
+            {
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+                log.Error("add control failed", ex);
+            }
+            Response.Write(getRspJson());
             return null;
         }
-        /// <summary>
-        /// 门时间修改
-        /// </summary>
-        /// <returns></returns>
-        public String DoorTimeEdit(String DoorTime)
-        {
-            return null;
+        //加载控制器的参数
+        public String LoadControllerInfo(String controllerID){
+            DeviceModel deviceModel = deviceService.getDeviceByID(controllerID);
+            String json = JsonConvert.ObjectToJson(deviceModel.Control);         
+            return json;
         }
 
 
+        //删除控制器
+        public override void basicDelete(string id)
+        {
+            deviceService.deleteControlById(id);
+   
+
+        }
     }
 }

@@ -114,7 +114,8 @@ namespace ACM.Controllers
         }
 
 
-        public override void delete(string id)
+
+        public override void basicDelete(string id)
         {
             throw new NotImplementedException();
         }
