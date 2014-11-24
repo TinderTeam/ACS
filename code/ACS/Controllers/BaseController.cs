@@ -20,7 +20,7 @@ namespace ACM.Controllers
 
         public abstract void basicDelete(string id);
 
-        public string delete(string id)
+        public String delete(String id)
         {
             try
             {

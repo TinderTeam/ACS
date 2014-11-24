@@ -27,7 +27,7 @@ namespace ACS.Service.Constant
 
         public const String OPERATE_SUCCESS = "OPERATE_SUCCESS";                    //操作成功
         public const String OPERATE_FAILED = "OPERATE_FAILED";                      //操作失败
-
+        public const String DELETE_CONTROL_ERR = "DELETE_CONTROL_ERR";              //删除控制器失败
 
     }
 }

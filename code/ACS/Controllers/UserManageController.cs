@@ -158,9 +158,15 @@ namespace ACM.Controllers
         //显示设备权限编辑页面
         public ActionResult DevicePrivilege(String userID)
         {
-
             ViewBag.userID = userID;
             return View();
+        }
+        //显示设备权限编辑树
+        public String DevicePrivilegeTree(String userID)
+        {
+            TreeModel tree = userService.getDevicePrivilegeTree(userID);
+            String json = tree.ToJsonStr();
+            return json;
         }
 
         //提交修改后的用户设备权限列表

@@ -153,7 +153,7 @@ namespace ACS.Service.Impl
 
         }
         //用户权限管理
-        //获取用户设备权限树
+        //获取用户设备权限树（全部+勾选）
         public TreeModel getDevicePrivilegeTree(string userID)
         {
             TreeModel allTree = ModelConventService.toDeviceTree(new DatabaseSourceImpl<Control>(new List<QueryCondition>()));        
@@ -162,20 +162,55 @@ namespace ACS.Service.Impl
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
             List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
+            TreeModel controlTree = new TreeModel();
+            //对用户存在的权限菜单打勾
+           
+            foreach (TreeItem j in allTree.MenuTreeItemList)
+            {
+                if (j.Id.StartsWith("C"))
+                {
+                    controlTree.MenuTreeItemList.Add(j);
+                }
+                foreach (Privilege i in userPrivilegeList)
+                {
+                    if (("C" + i.PrivilegeAccessValue).Equals(j.Id))
+                    {
+                        j.CheckNode = true;
+                       
+                    }
+                }
+            }
+            return controlTree;
+        }
+
+        //加载某个用户的设备权限树（只显示有权限的）
+        public TreeModel getUserDevicePrivilegeTree(string userID)
+        {
+            TreeModel allTree = ModelConventService.toDeviceTree(new DatabaseSourceImpl<Control>(new List<QueryCondition>()));
+            //获取所选用户对应的权限
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
+            List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
+            TreeModel userTree = new TreeModel();
             //对用户存在的权限菜单打勾
             foreach (Privilege i in userPrivilegeList)
             {
                 foreach (TreeItem j in allTree.MenuTreeItemList)
                 {
-                    if (("D" + i.PrivilegeAccessValue).Equals(j.Id) || ("C" + i.PrivilegeAccessValue).Equals(j.Id))
+                    if (("C" + i.PrivilegeAccessValue).Equals(j.Id))
                     {
-                        j.CheckNode = true;
+                        userTree.MenuTreeItemList.Add(j);
+                        foreach(TreeItem k in allTree.MenuTreeItemList){
+                            if(k.Pid==j.Id){
+                                userTree.MenuTreeItemList.Add( k);
+                            }
+                        }
                     }
                 }
             }
-            return allTree;
+            return userTree;
         }
-
 
 
         //更改用户设备权限
@@ -202,7 +237,7 @@ namespace ACS.Service.Impl
                 privilege.PrivilegeMaster = ServiceConstant.SYS_MASTER_TYPE_USER;
                 privilege.PrivilegeMasterValue = userID;
                 privilege.PrivilegeAccess = ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN;
-                privilege.PrivilegeAccessValue = str.Replace("D","");
+                privilege.PrivilegeAccessValue = str.Replace("C","");
                 privilege.PrivilegeOperation = ServiceConstant.SYS_OPRATION_VALUE_VISIBLE;
 
                 privilegeList.Add(privilege);

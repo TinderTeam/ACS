@@ -7,7 +7,7 @@ namespace ACS.Models.Model
 {
     public class TreeModel
     {
-        private List<TreeItem> menuTreeItemList;
+        private List<TreeItem> menuTreeItemList= new List<TreeItem>();
 
         public List<TreeItem> MenuTreeItemList
         {

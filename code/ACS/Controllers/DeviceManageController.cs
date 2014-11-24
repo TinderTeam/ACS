@@ -31,6 +31,16 @@ namespace ACS.Controllers
             return View();
         }
 
+ 
+
+        public ActionResult DeviceCreatePanel()
+        {
+            List<String> list = deviceService.getDeviceTypeList();
+            ViewBag.TypeList = list;
+            return View();
+        }
+
+
         /// <summary>
         /// 加载设备-门树
         /// </summary>
@@ -41,7 +51,7 @@ namespace ACS.Controllers
             //获取当前登录用户
             UserModel loginUser = (UserModel)Session["SystemUser"];
             //根据用户获取权限门树
-            TreeModel tree = userService.getDevicePrivilegeTree(loginUser.UserID.ToString());
+            TreeModel tree = userService.getUserDevicePrivilegeTree(loginUser.UserID.ToString());
             String str = tree.ToJsonStr();
             return str;
         }
@@ -120,13 +130,16 @@ namespace ACS.Controllers
         /// 设备新增
         /// </summary>
         /// <returns></returns>
-        public String DeviceAdd(String name)
+        public String DeviceAdd(String type,String data)
         {
-              try
+            try
             {
+
+                Control c= JsonConvert.JsonToObject<Control>(data);
+                c.Type = type;
                 //校验成功
-                Control control=deviceService.addControl(name);
-                Rsp.Obj = control;
+                Control control = deviceService.addControl(c);
+                //Rsp.Obj = control;
 
             }
             catch (FuegoException e)

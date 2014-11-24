@@ -29,8 +29,7 @@ namespace ACS.Dao
         private CommonDao<Access> accessDao;
 		private CommonDao<DoorTime> doorTimeDao;
         private CommonDao<AccessDetail> accessDetailDao;
-        private CommonDao<AccessDetailView> accessDetailViewDao;
-
+        private ViewDao<AccessDetailView> accessDetailViewDao;
         public static DaoContext getInstance()
         {
             if (daoContext == null)
@@ -38,6 +37,14 @@ namespace ACS.Dao
                 daoContext = new DaoContext();
             }
             return daoContext;
+        }
+        public ViewDao<AccessDetailView> getAccessDetailViewDao()
+        {
+            if (accessDetailViewDao == null)
+            {
+                accessDetailViewDao = new ViewDaoCommonImpl<AccessDetailView>();
+            }
+            return accessDetailViewDao;
         }
 
         public CommonDao<DoorTime> getDoorTimeDao()
@@ -160,13 +167,6 @@ namespace ACS.Dao
             }
             return accessDetailDao;
         }
-        public CommonDao<AccessDetailView> getAccessDetailViewDao()
-        {
-            if (accessDetailViewDao == null)
-            {
-                accessDetailViewDao = new CommonDaoImpl<AccessDetailView>();
-            }
-            return accessDetailViewDao;
-        }
+
     }
 }

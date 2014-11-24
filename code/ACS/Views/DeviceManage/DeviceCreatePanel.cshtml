@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>员工面板</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script src="../../Scripts/boot.js" type="text/javascript"></script>
+
+    <style type="text/css">
+    html, body
+    {
+        font-size:12px;
+        padding:0;
+        margin:0;
+        border:0;
+        height:100%;
+        overflow:hidden;
+    }
+    </style>
+</head>
+<body> 
+    <form id="form" method="post">
+            <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
+                <table style="table-layout:fixed;">
+                     <tr style ="height:35px">
+                        <td style="width:90px;">控制器名称：</td>
+                        <td style="width:150px;">
+                            <input name="ControlName" class="mini-textbox" required="true"  emptyText="请输入名称"/>
+                        </td>    
+                    </tr>  
+                     <tr style ="height:35px">
+                        
+                <td >控制器类型：</td>
+                    <td >    
+                        <select id="tpyeSelect">
+                            @for (int i = 0; i < @ViewBag.TypeList.Count; i++)
+                            {
+                                <option value="@ViewBag.TypeList[i]">@ViewBag.TypeList[i]</option>
+                            }     
+                        </select>
+                    </td>
+                </tr> 
+                </table>
+            </div>       
+        <div style="text-align:center;padding:5px;">               
+            <a class="mini-button" onclick="onOk" style="width:60px;margin-right:20px;">确定</a>       
+            <a class="mini-button" onclick="onCancel" style="width:60px;">取消</a>       
+        </div> 
+    </form>
+    <script type="text/javascript">
+        mini.parse();
+
+        var form = new mini.Form("#form");
+
+        function SaveData() {
+            var o = form.getData();
+            var json = mini.encode(o);
+            var type = $('#tpyeSelect').val();
+            var url = "/DeviceManage/DeviceAdd?type=" + type;
+            alert(json);
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: { data: json },
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("修改成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+                        alert(text);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+    }
+    function GetData() {
+        var o = form.getData();
+        return o;
+    }
+    function CloseWindow(action) {
+        window.close();
+    }
+    function onOk(e) {
+        SaveData();
+    }
+    function onCancel(e) {
+        CloseWindow("cancel");
+    }
+    </script>
+</body>
+</html>

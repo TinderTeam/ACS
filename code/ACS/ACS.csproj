@@ -247,6 +247,7 @@
     <Compile Include="Service\Cache.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Constant\ExceptionMsg.cs" />
+    <Compile Include="Service\Constant\ServiceConfigConstants.cs" />
     <Compile Include="Service\Impl\AccessServiceImpl.cs" />
     <Compile Include="Service\Impl\DeviceOperatorServiceImpl.cs" />
     <Compile Include="Service\Impl\DeviceServiceImpl.cs" />
@@ -335,6 +336,10 @@
     </Content>
     <Content Include="bin\Log4Net.config" />
     <Content Include="applicationLog.log" />
+    <EmbeddedResource Include="DeviceConfig.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="App_GlobalResources\Label_Resource.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
@@ -377,6 +382,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\Control.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\Door.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

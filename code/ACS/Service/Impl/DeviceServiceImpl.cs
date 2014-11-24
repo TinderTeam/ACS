@@ -8,7 +8,8 @@ using ACS.Common.Dao.datasource;
 using ACS.Dao;
 using ACS.Models.Model;
 using ACS.Models.Po.Business;
-
+using ACS.Service.Constant;
+using System.Xml;
 namespace ACS.Service.Impl
 {
     public class DeviceServiceImpl:DeviceService
@@ -18,6 +19,7 @@ namespace ACS.Service.Impl
         CommonDao<Control> controlDao = DaoContext.getInstance().getControlDao();
         CommonDao<Door> doorDao = DaoContext.getInstance().getDoorDao();
         CommonDao<DoorTime> doorTimeDao = DaoContext.getInstance().getDoorTimeDao();
+        ViewDao<AccessDetailView> accessDetailViewDao = DaoContext.getInstance().getAccessDetailViewDao();
         #region DeviceService 成员
 
         public Common.Dao.datasource.AbstractDataSource<Models.Po.Business.Control> getDeviceList(Models.Po.Business.Control filter)
@@ -151,37 +153,73 @@ namespace ACS.Service.Impl
         }
         #endregion
 
-        #region DeviceService 成员
-
-
-        public Control addControl(string name)
-        {
-            Control control = new Control();
-            control.ControlName=name;
-            controlDao.create(control);
-            return control;
-        }
-        #endregion
+  
 
         #region DeviceService 成员
 
 
         public void deleteControlById(string id)
         {
-            //删除控制器
-            QueryCondition condition = new QueryCondition(
-                ConditionTypeEnum.EQUAL,
-                  Control.CONTROL_ID,
-                  id
-            );
-            controlDao.delete(condition);
-            //删除控制器所属的门
-            deleteDoorByControlId(id);
-            //
-            //deleteDateTimeByControlID();
+            if (ControlDeleteCheck(id))
+            {
+                //删除控制器
+                QueryCondition condition = new QueryCondition(
+                    ConditionTypeEnum.EQUAL,
+                      Control.CONTROL_ID,
+                      id
+                );
+                controlDao.delete(condition);
+                //删除控制器所属的门的时间段
+                deleteDooTimeByControlId(id);
+                //删除控制器所属的门
+                deleteDoorByControlId(id);
+            }
+            else
+            {
+                throw new SystemException(ExceptionMsg.DELETE_CONTROL_ERR);
+            }         
         }
 
+     
+
         #endregion
+        /// <summary>
+        /// 检查是否具备控制器删除条件
+        /// </summary>
+        /// <returns></returns>
+        private bool ControlDeleteCheck(string id)
+        {
+            //1.检查是否含有时间段
+            List<Door> doorList=getDoorListByControlID(id);
+            foreach (Door door in doorList)
+            {
+                List<QueryCondition> conditionList = new List<QueryCondition>();
+                QueryCondition doorTimeCondition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                Door.DOOR_ID,
+                door.DoorID.ToString()
+                );
+                conditionList.Add(doorTimeCondition);
+                if (doorTimeDao.getCount(conditionList) > 0)
+                {
+                    return false;
+                }
+            }
+            //2.检查是否有权限引用
+            List<QueryCondition> viewConditionList = new List<QueryCondition>();
+            QueryCondition ViewCondition = new QueryCondition(
+               ConditionTypeEnum.EQUAL,
+               Control.CONTROL_ID,
+               id
+               );
+            viewConditionList.Add(ViewCondition);
+            if (accessDetailViewDao.getCount(viewConditionList) > 0)
+            {
+                return false;
+            }
+            return true;
+        }
+   
 
         public void deleteDoorByControlId(string id)
         {
@@ -192,5 +230,116 @@ namespace ACS.Service.Impl
             );
             doorDao.delete(condition);
         }
+
+
+        private void deleteDooTimeByControlId(string id)
+        {
+            List<Door> list = getDoorListByControlID(id);
+            foreach(Door door in list){
+                QueryCondition doorTimeCondition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                Door.DOOR_ID,
+                door.DoorID.ToString()
+                );
+                doorTimeDao.delete(doorTimeCondition);
+            }
+        }
+
+        private List<Door> getDoorListByControlID(string id)
+        {
+            QueryCondition condition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                  Door.CONTROL_ID,
+                  id
+            );
+            List<Door> list = doorDao.getAll(condition);
+            return list;
+        }
+
+        #region DeviceService 成员
+
+        /// <summary>
+        /// 通过读取配置文件获得设备类型对应关系
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public int getDoorNumberByDeviceType(string type)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load(ServiceConfigConstants.getDeviceConfigXmlPath());
+            XmlNode root = xml.SelectSingleNode("/root");
+            XmlNodeList xnl = root.ChildNodes;
+            for (int i = 0; i < xnl.Count; i++)
+            {
+                XmlElement device = (XmlElement)xnl.Item(i);
+                if (device.GetAttribute("type") == type)
+                {
+                    return System.Convert.ToInt16(device.GetAttribute("door_num"));
+                }
+            }
+            return 0;
+        }
+        public int getTimeNumberByDeviceType(string type)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.Load(ServiceConfigConstants.getDeviceConfigXmlPath());
+            XmlNode root = xml.SelectSingleNode("/root");
+            XmlNodeList xnl = root.ChildNodes;
+            for (int i = 0; i < xnl.Count; i++)
+            {
+                XmlElement device = (XmlElement)xnl.Item(i);
+                if (device.GetAttribute("type") == type)
+                {
+                    return System.Convert.ToInt16(device.GetAttribute("time_num"));
+                }
+            }
+            return 0;
+        }
+
+        public List<String> getDeviceTypeList()
+        {
+            List<String> list = new List<String>();
+            XmlDocument xml = new XmlDocument();
+            xml.Load(ServiceConfigConstants.getDeviceConfigXmlPath());
+            XmlNode root = xml.SelectSingleNode("/root");
+            XmlNodeList xnl = root.ChildNodes;
+            for (int i = 0; i < xnl.Count; i++)
+            {
+                XmlElement device = (XmlElement)xnl.Item(i);
+                list.Add(device.GetAttribute("type"));
+            }
+            return list;
+        }
+
+        #endregion
+
+        #region DeviceService 成员
+
+
+        public Control addControl(Control c)
+        {
+            //创建控制器
+            controlDao.create(c);
+            //根据控制器创建门
+            int doorNum=getDoorNumberByDeviceType(c.Type);
+            int doorTimeNum = getTimeNumberByDeviceType(c.Type);
+            //根据控制器创建时间
+            for (int i = 0; i < doorNum; i++)
+            {
+                Door door = new Door();
+                door.ControlID = c.ControlID;
+                doorDao.create(door);
+
+                for (int j = 0; j < doorTimeNum; j++)
+                {
+                    DoorTime doorTime = new DoorTime();
+                    doorTime.DoorID = door.DoorID;
+                    doorTimeDao.create(doorTime);
+                }
+            }
+            return c;
+        }
+
+        #endregion
     }
 }

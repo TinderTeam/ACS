@@ -20,7 +20,7 @@ namespace ACS.Service.Impl
         
         CommonDao<Access> accessDao = DaoContext.getInstance().getAccessDao();
         CommonDao<AccessDetail> accessDetailDao = DaoContext.getInstance().getAccessDetailDao();
-        CommonDao<AccessDetailView> accessDetailViewDao = DaoContext.getInstance().getAccessDetailViewDao();
+        ViewDao<AccessDetailView> accessDetailViewDao = DaoContext.getInstance().getAccessDetailViewDao();
 
         //门禁权限管理
         //获取门禁权限List

@@ -49,9 +49,12 @@ namespace ACS.Service
 
         void updateControl(Control control);
 
-        Control addControl(string name);
-
         void deleteControlById(string id);
+        int getTimeNumberByDeviceType(string type);
+        int getDoorNumberByDeviceType(string type);
+        List<String> getDeviceTypeList();
+
+        Control addControl(Control c);
     }
 
     public interface PlatFormService
@@ -70,6 +73,7 @@ namespace ACS.Service
         TreeModel getPrivilegeMenuTree(string userID);
         void updateMenuPrivilege(string userID,List<string> menuIDList);
         TreeModel getDevicePrivilegeTree(string userID);
+        TreeModel getUserDevicePrivilegeTree(string userID);
         void updateDevicePrivilege(string userID, List<string> deviceIDList);
 
     }
