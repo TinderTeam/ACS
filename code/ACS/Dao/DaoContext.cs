@@ -26,7 +26,6 @@ namespace ACS.Dao
         private CommonDao<Control> controlDao;
         private CommonDao<Door> doorDao;
         private CommonDao<Dept> deptDao;
-        private CommonDao<Access> accessDao;
 		private CommonDao<DoorTime> doorTimeDao;
         private CommonDao<AccessDetail> accessDetailDao;
         private ViewDao<AccessDetailView> accessDetailViewDao;
@@ -144,14 +143,6 @@ namespace ACS.Dao
                 deptDao = new CommonDaoImpl<Dept>();
             }
             return deptDao;
-        }
-        public CommonDao<Access> getAccessDao()
-        {
-            if (accessDao == null)
-            {
-                accessDao = new CommonDaoImpl<Access>();
-            }
-            return accessDao;
         }
         public CommonDao<AccessDetail> getAccessDetailDao()
         {

@@ -22,7 +22,6 @@ namespace ACS.Service.Impl
         CommonDao<DoorTime> doorTimeDao = DaoContext.getInstance().getDoorTimeDao();
         ViewDao<AccessDetailView> accessDetailViewDao = DaoContext.getInstance().getAccessDetailViewDao();
         CommonDao<AccessDetail> accessDetailDao = DaoContext.getInstance().getAccessDetailDao();
-        CommonDao<Access> accessDao = DaoContext.getInstance().getAccessDao();
         CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
 
 

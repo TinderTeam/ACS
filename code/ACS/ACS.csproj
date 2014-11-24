@@ -206,9 +206,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model\AccessModel.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Models\Model\ControllerModel.cs" />
     <Compile Include="Models\Model\DeviceModel.cs" />
     <Compile Include="Models\Model\DoorModel.cs" />
@@ -222,12 +219,10 @@
     <Compile Include="Models\Model\PswdModel.cs" />
     <Compile Include="Models\Model\HolidayModel.cs" />
     <Compile Include="Models\Model\DeptModel.cs" />
-    <Compile Include="Models\Model\AccessModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
     <Compile Include="Models\Model\TreeGridModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
-    <Compile Include="Models\Po\Business\Access.cs" />
     <Compile Include="Models\Po\Business\AccessDetail.cs" />
     <Compile Include="Models\Po\Business\DoorTime.cs" />
     <Compile Include="Models\Po\Business\EventRecordView.cs" />
@@ -396,9 +391,6 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\DoorTime.hbm.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Models\Po\Business\Access.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\AccessDetail.hbm.xml">

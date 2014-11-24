@@ -25,7 +25,7 @@
 
                 <div id="treegrid1" class="mini-treegrid" style="width: 100%; height: 95%;" 
                     showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid"
-                    resultAsTree="false" allowResize="true" expandOnLoad="true">
+                    resultAsTree="false" allowResize="true">
                     <div property="columns">
                         <div type="indexcolumn"></div>
                         <div name="taskname" field="Text" width="120" headeralign="center" allowsort="true">权限名称</div>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div style="text-align: center; padding: 5px;">
-                    <a class="mini-button" onclick="SaveAccessData('AccessSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
+                    <a class="mini-button" onclick="SaveAccessData('DeviceSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
                     <a class="mini-button" onclick="onCancel" style="width: 60px;">取消</a>
                 </div>
             </div>
@@ -98,19 +98,25 @@
     function SaveAccessData(type) {
         //获取操作类型（新建/修改）
         var url;
+        var treeGrid;
+        var node;
+        var json;
         if (type == 'AccessSubmit') {
             //新建
             url = "../AccessManage/AddAccessOfAccess?accessID=" + receiveData.id;
-            var treeGrid = mini.get("#treegrid1");
-            var node = treeGrid.getSelectedNode();
-            var json = mini.encode(node);
+            treeGrid = mini.get("#treegrid1");
+            node = treeGrid.getSelectedNode();
+            json = mini.encode(node);
+        }
+        else if (type == 'DeviceSubmit') {
+            //编辑
+            url = "../AccessManage/AddDeviceOfAccess?accessID=" + receiveData.id;
+            treeGrid = mini.get("#devicetreegrid");
+            node = treeGrid.getCheckedNodes();
+            json = mini.encode(node);
             alert(json);
         }
-        else if (type == 'datetime') {
-            //编辑
-            url = "/AccessManage/updateDateTimeOfAccess";
-        }
-        if ((node) && (node.Pid == "0")) {
+        if ((type == 'DeviceSubmit')||((node) && (node.Pid == "0"))) {
             //var json = mini.encode(o);
             $.ajax({
                 url: url,

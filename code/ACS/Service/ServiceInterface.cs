@@ -25,7 +25,8 @@ namespace ACS.Service
         void addAccessInAccess(string accessID, TreeGirdItem treeItem);
         AccessDetail getAccessDetailByAccessID(string accessID, string parentID);
         void editAccessName(AccessDetail accessDetail);
-        List<DoorTimeView> getDoorTimeViewList(string userID);
+        List<DoorTimeView> getDoorTimeViewList(string userID, string selectedAccessID);
+        void addDeviceInAccess(int userID, string accessID, List<TreeGirdItem> treeItemList);
     }
     public interface DeptService
     {

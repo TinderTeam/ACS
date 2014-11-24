@@ -83,7 +83,6 @@
             var accessObj = form.getData();
             form.validate();
             if (form.isValid() == false) return;
-            alert(accessObj.AccessName);
             var json = null;
             $.ajax({
                 url: "../AccessManage/CreateAccess?accessName=" + accessObj.AccessName,

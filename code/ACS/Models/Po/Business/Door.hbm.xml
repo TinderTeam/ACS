@@ -92,7 +92,7 @@
     </property>
 
     <property name="MCardsOpen" type="string">
-      <column name="M_CARD_OPEN" length="255"/>
+      <column name="M_CARDS_OPEN" length="255"/>
     </property>
 
     <property name="MCardsOpenInOut" type="string">

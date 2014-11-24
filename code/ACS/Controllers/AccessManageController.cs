@@ -68,24 +68,39 @@ namespace ACS.Controllers
                 if (accessDetailView.Type == AccessDetail.DOORTIME_TYPE)
                 {
 
-                    TreeGirdItem control = new TreeGirdItem(parentID, getCurTreeID());
-                    control.ValueID = AccessDetail.CONTROL_TYPE + AccessDetail.SPLIT + accessDetailView.ControlID.ToString();
-                    control.Text = accessDetailView.ControlName;
-                    control.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
+                    TreeGirdItem control = null;
 
-                    if (!accessMap.ContainsKey(control.ValueID))
+                    string controlID = AccessDetail.CONTROL_TYPE + AccessDetail.SPLIT + accessDetailView.ControlID.ToString();
+
+                    if (!accessMap.ContainsKey(controlID))
                     {
+                        control = new TreeGirdItem(parentID, getCurTreeID());
+                        control.ValueID = controlID;
+                        control.Text = accessDetailView.ControlName;
+                        control.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
                         accessMap.Add(control.ValueID, control);
+                    }
+                    else
+                    {
+                        control = accessMap[controlID];
                     }
 
 
-                    TreeGirdItem door = new TreeGirdItem(control.Id, getCurTreeID());
-                    door.ValueID = AccessDetail.DOOR_TYPE + AccessDetail.SPLIT + accessDetailView.DoorID.ToString();
-                    door.Text = accessDetailView.DoorName;
-                    door.AccessID = control.ValueID;
-                    if (!accessMap.ContainsKey(door.ValueID))
-                    {
+                    TreeGirdItem door = null;
+                    string doorID = AccessDetail.DOOR_TYPE + AccessDetail.SPLIT + accessDetailView.DoorID.ToString();
+
+                    if (!accessMap.ContainsKey(doorID))
+                    { 
+                        door = new TreeGirdItem(control.Id, getCurTreeID());
+                        door.ValueID = doorID;
+                       
+                        door.Text = accessDetailView.DoorName;
+                        door.AccessID = control.ValueID;
                         accessMap.Add(door.ValueID, door);
+                    }
+                    else
+                    {
+                        door = accessMap[doorID];
                     }
 
                     TreeGirdItem doorTime = new TreeGirdItem(door.Id, getCurTreeID());
@@ -212,7 +227,7 @@ namespace ACS.Controllers
         {
             log.Info("LoadDeviceTreeList" +  ",selected id is :" + selectedID);
             UserModel loginUser = (UserModel)Session["SystemUser"];
-            List<DoorTimeView> doorTimeViewList = accessService.getDoorTimeViewList(loginUser.UserID.ToString());
+            List<DoorTimeView> doorTimeViewList = accessService.getDoorTimeViewList(loginUser.UserID.ToString(),selectedID);
 
             List<TreeGirdItem> rspTreeList = new List<TreeGirdItem>();
             if (ValidatorUtil.isEmpty<DoorTimeView>(doorTimeViewList))
@@ -262,6 +277,16 @@ namespace ACS.Controllers
             treeModel.TreeGridItemList = doorTimeTreeList;
             string text = treeModel.ToJsonStr();
             return text;
+        }  
+        // 编辑门禁权限中的子权限，数据提交
+        public string AddDeviceOfAccess(string accessID, string data)
+        {
+            //accessID是正在编辑的AccessID,data是编辑后提交上来的ID列表
+            UserModel loginUser = (UserModel)Session["SystemUser"];
+            List<TreeGirdItem> treeItemList = JsonConvert.JsonToObject<List<TreeGirdItem>>(data);
+            accessService.addDeviceInAccess(loginUser.UserID, accessID, treeItemList);
+            Response.Write(AjaxConstant.AJAX_SUCCESS);
+            return null;
         }
         //删除门禁权限
         public string DeleteAccess(string data)

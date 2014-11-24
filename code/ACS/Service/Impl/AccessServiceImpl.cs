@@ -18,8 +18,6 @@ namespace ACS.Service.Impl
     public class AccessServiceImpl:AccessService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        
-        CommonDao<Access> accessDao = DaoContext.getInstance().getAccessDao();
         CommonDao<AccessDetail> accessDetailDao = DaoContext.getInstance().getAccessDetailDao();
         ViewDao<AccessDetailView> accessDetailViewDao = DaoContext.getInstance().getAccessDetailViewDao();
         CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
@@ -96,8 +94,18 @@ namespace ACS.Service.Impl
         }
         //门禁权限管理
         //获取用户DoorTimeList
-        public List<DoorTimeView> getDoorTimeViewList(string userID)
+        public List<DoorTimeView> getDoorTimeViewList(string userID, string selectedAccessID)
         {
+            List<AccessDetailView> selectedDoorTimeList = new List<AccessDetailView>();
+            string[] accessInfo = selectedAccessID.Split(AccessDetail.SPLIT);
+            if (accessInfo.Length == 2)
+            {
+                //获取选取的权限本身包含的DoorTime列表
+                List<QueryCondition> accessConditionList = new List<QueryCondition>();
+                accessConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessInfo[1]));
+                accessConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.DOORTIME_TYPE));
+                selectedDoorTimeList = accessDetailViewDao.getAll(accessConditionList);
+            }
             List<DoorTimeView> allDoorTimeViewList = doorTimeViewDao.getAll();
             List<DoorTimeView> doorTimeViewList = new List<DoorTimeView>();
             //获取所选用户对应的权限
@@ -105,9 +113,10 @@ namespace ACS.Service.Impl
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
             List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
-            //对用户存在的权限菜单打勾
+            //显示用户可以增加的DoorTimeTree
             if (!ValidatorUtil.isEmpty<DoorTimeView>(allDoorTimeViewList))
             {
+                //根据用户权限，获取DoorTimeList
                 foreach (Privilege privilege in userPrivilegeList)
                 {
                     foreach (DoorTimeView doorTimeView in allDoorTimeViewList)
@@ -118,9 +127,50 @@ namespace ACS.Service.Impl
                         }
                     }
                 }
+                //将已选权限中包含的doorTime删除
+                foreach(AccessDetailView accessDetailView in selectedDoorTimeList)
+                {
+                    int count = doorTimeViewList.Count();
+                    for (int i = count - 1; i >= 0; i--)
+                    {
+                        if (doorTimeViewList[i].DoorTimeID == accessDetailView.ValueID)
+                        {
+                            doorTimeViewList.Remove(doorTimeViewList[i]);
+                        }
+                    }
+                }  
+                
             }
             
             return doorTimeViewList;
+        }
+        //门禁权限管理
+        //增加门禁权限中包含的DoorTime
+        public void addDeviceInAccess(int userID, string accessID, List<TreeGirdItem> treeItemList)
+        {
+            List<AccessDetail> accessDetailList = new List<AccessDetail>();
+            string[] accessInfo = accessID.Split(AccessDetail.SPLIT);
+            if (accessInfo.Length == 2)
+            {
+                foreach (TreeGirdItem treeGridItem in treeItemList)
+                {
+                    if (treeGridItem.Type == AccessDetail.DOORTIME_TYPE)
+                    {
+                        string[] treeItemInfo = treeGridItem.Id.Split(AccessDetail.SPLIT);
+                        AccessDetail accessDetail = new AccessDetail();
+                        accessDetail.AccessID = Convert.ToInt32(accessInfo[1]);
+                        accessDetail.AccessName = treeGridItem.Text;
+                        accessDetail.Type = AccessDetail.DOORTIME_TYPE;
+                        accessDetail.ValueID = Convert.ToInt32(treeItemInfo[1]);
+                        accessDetail.CreateDate = DateTime.Now;
+                        accessDetail.CreateUserID = userID;
+                        accessDetailList.Add(accessDetail);
+                    }
+                    
+                }
+            }
+            accessDetailDao.create(accessDetailList);
+
         }
         //门禁权限管理
         //删除门禁权限

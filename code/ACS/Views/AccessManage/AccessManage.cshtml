@@ -38,7 +38,7 @@
                         <td style="width: 100%;">
                             <a class="mini-button" iconcls="icon-add" onclick="onAccessCreate('Add')">新建权限</a>
                             <a class="mini-button" iconcls="icon-edit" onclick="onAccessCreate('Edit')">编辑名称</a>
-                            <a class="mini-button" iconcls="icon-add" onclick="addAccessOfAccess()">增加权限</a>
+                            <a class="mini-button" iconcls="icon-add" onclick="addAccessOfAccess()">编辑权限</a>
                             <a class="mini-button" iconcls="icon-remove" onclick="onRemoveAccess()">删除</a>
                         </td>
                     </tr>
@@ -58,8 +58,8 @@
                             <div field="CreateUserID" width="120" headeralign="center" allowsort="true">控制器名称</div>
                             <div field="CreateDate" width="120" headeralign="center" allowsort="true">门名称</div>
                             <div field="CreateDate" width="120" headeralign="center" allowsort="true">时间段编号</div>
-                            <div field="startTime" width="120" headeralign="center" allowsort="true">开始时间</div>
-                            <div field="endTime" width="120" headeralign="center" allowsort="true">截止时间</div>
+                            <div field="StartTime" width="120" headeralign="center" allowsort="true">开始时间</div>
+                            <div field="EndTime" width="120" headeralign="center" allowsort="true">截止时间</div>
                         </div>
                     </div>
                 </div>
@@ -75,19 +75,22 @@
         function onAccessCreate(type) {
             var tree = mini.get("#treegrid");
             var node = tree.getSelectedNode();
-            if ((node) && (node.Pid == "0")) {
+            var accessID;
+            if ((type == "Add") || ((node) && (node.Pid == "0"))) {
                 if (type == "Edit") {
                     var titleName = "编辑名称";
+                    accessID = node.ValueID;
                 }
                 else if (type == "Add") {
                     var titleName = "新增权限";
+                    accessID = 0;
                 }
                 mini.open({
                     url: "../AccessManage/AccessCreate",
                     title: titleName, width: 350, height: 350,
                     onload: function () {
                         var iframe = this.getIFrameEl();
-                        var data = { action: type, id: node.ValueID };
+                        var data = { action: type, id: accessID };
                         iframe.contentWindow.Show(data);
 
                     },
@@ -104,7 +107,7 @@
             }
             else {
                 alert("请选中一个根节点");
-            }
+           }
         }
         //为选中的门禁权限增加权限
         function addAccessOfAccess() {
