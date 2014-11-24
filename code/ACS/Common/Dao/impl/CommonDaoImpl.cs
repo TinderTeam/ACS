@@ -120,6 +120,43 @@ namespace ACS.Common.Dao.impl
 		    }
         }
 
+        public void update(List<E> objList)
+        {
+            log.Info("the object class is " + getFeaturedClass());
+            if (ValidatorUtil.isEmpty<E>(objList))
+            {
+                log.Warn("the object list is empty");
+                return;
+            }
+
+            log.Info("the object list count is  " + objList.Count);
+            ISession session = null;
+            try
+            {
+                session = SessionManager.getInstance().GetSession();
+                ITransaction tx = session.BeginTransaction();
+                foreach(E obj in objList)
+                {
+                    session.Update(obj);
+                }
+                tx.Commit();
+                
+            }
+            catch (System.Exception re)
+            {
+                log.Error("update error", re);
+                throw re;
+
+            }
+            finally
+            {
+                if (null != session)
+                {
+                    session.Close();
+                }
+            }
+        }
+
         public void delete(QueryCondition condition)
         {
             log.Info("the query is " + condition.ToString());

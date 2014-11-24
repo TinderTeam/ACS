@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACS.Models.Po.Business;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -41,10 +42,37 @@ namespace ACS.Models.Model
         private String pid;
         private String type;
         private String controlName;
-        private String doorName;
-        private String doorTimeName;
         private String startTime;
         private String endTime;
+        private bool checkNode;
+        private String accessID;
+        public TreeGirdItem()
+        {
+        }
+        public String AccessID
+        {
+            get { return accessID; }
+            set { accessID = value; }
+        }
+        private String valueID;
+
+        public String ValueID
+        {
+            get { return valueID; }
+            set { valueID = value; }
+        }
+        private List<TreeGirdItem> children;
+
+        public TreeGirdItem(string pid,string id)
+        {
+            this.pid = pid;
+            this.id = id;
+        }
+        public List<TreeGirdItem> Children
+        {
+            get { return children; }
+            set { children = value; }
+        }
 
         public String Id
         {
@@ -76,18 +104,6 @@ namespace ACS.Models.Model
             set { controlName = value; }
         }
         
-        public String DoorName
-        {
-            get { return doorName; }
-            set { doorName = value; }
-        }
-        
-        public String DoorTimeName
-        {
-            get { return doorTimeName; }
-            set { doorTimeName = value; }
-        }
-        
         public String StartTime
         {
             get { return startTime; }
@@ -99,19 +115,25 @@ namespace ACS.Models.Model
             get { return endTime; }
             set { endTime = value; }
         }
-        
+
+        public bool CheckNode
+        {
+            get { return checkNode; }
+            set { checkNode = value; }
+        }
+
         public String ToJsonStr()
         {
-            String str = "{id:\"" + id + "\", text:\"" + text + "\",type:\"" + type + "\"";
+            String str = "{Id:\"" + id + "\", Text:\"" + text + "\",ValueID:\"" + ValueID + "\",AccessID:\"" + AccessID + "\",Type:\"" + type + "\"";
             if((pid!=null)&&(!pid.Equals(""))){
          
-                str = str+", pid:\""+pid+"\"";
+                str = str+", Pid:\""+pid+"\"";
             }
-            if ((type!= null) && (type.Equals("DoorTimeID")))
+            if ((type != null) && (type.Equals(AccessDetail.DOORTIME_TYPE)))
             {
 
-                str = str + ", controlName:\"" + controlName + "\",doorName:\"" + doorName + "\",doorTimeName:\"" + doorTimeName
-                      + "\",startTime:\"" + startTime + "\",endTime:\"" + endTime+"\"";
+                str = str + ", ControlName:\"" + controlName
+                      + "\",StartTime:\"" + startTime + "\",EndTime:\"" + endTime+"\"";
             }
             return str + "}";
             

@@ -19,12 +19,13 @@ namespace ACS.Service
 
     public interface AccessService
     {
-        List<Access> getAccessList(string userID);
-        Access getAccessByID(string accessID);
-        Access addAccess(int creatUserID, string accessName);
-        void updateAccess(Access access);
-        void deleteAccess(string accessID);
-        List<AccessDetailView> getAccessDetailViewList(string accessID);
+        AccessDetail createAccessDetail(int creatUserID, string accessName);
+        void deleteAccess(TreeGirdItem treeItem);
+        List<AccessDetailView> getAccessDetailViewList(string userID,string parentID);
+        void addAccessInAccess(string accessID, TreeGirdItem treeItem);
+        AccessDetail getAccessDetailByAccessID(string accessID, string parentID);
+        void editAccessName(AccessDetail accessDetail);
+        List<DoorTimeView> getDoorTimeViewList(string userID);
     }
     public interface DeptService
     {

@@ -6,11 +6,11 @@
     <id name="AccessDetailID" column ="ACCESS_DETAIL_ID" >
       <generator class ="increment"/>
     </id>
-
+    
     <property name="AccessID" type="int">
       <column name="ACCESS_ID"/>
     </property>
-
+    
     <property name="ValueID" type="int">
       <column name="VALUE_ID"/>
     </property>
@@ -19,6 +19,14 @@
       <column name="TYPE" length="255"/>
     </property>
 
+    <property name="CreateUserID" type="int">
+      <column name="CREATE_USER_ID"/>
+    </property>
+    
+    <property name="CreateDate">
+      <column name="CREATE_DATE"/>
+    </property>
+    
     <property name="AccessName" type="string">
       <column name="ACCESS_NAME" length="255"/>
     </property>

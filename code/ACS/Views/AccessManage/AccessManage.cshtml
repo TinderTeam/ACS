@@ -30,150 +30,119 @@
 </style>
 
 <div class="mini-fit" >
-        <!--body-->
-         <div class="mini-splitter" style="width:100%;height:100%;">
-            <div size="200px" showCollapseButton="true">
-                <!----权限列表--->
-                        <!----权限列表--->
-                <div class="mini-panel" title="门禁权限管理" style="width:100%;height:100%;" showToolbar="true">
-                    <!--toolbar-->
-                    <div property="toolbar">
-                        <input type="button" value="新建" onclick="onAddAccess()" style='vertical-align:middle;'/>   
-                        <input type="button" value="编辑" onclick="onEditAccess()" style='vertical-align:middle;'/>
-                        <input type="button" value="删除" onclick="onRemoveAccess()" style='vertical-align:middle;'/>
-                    </div>                  
-                    <!--body-->
-                       <ul id="accessList" class="mini-tree" url="LoadAccessList" style="width:inherit;padding:3px;" 
-                            showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false" onEndEdit="afterEditAccess()" onNodeClick="selectAccess()" >
-                        </ul>
+<!----设备信息栏--->
+        <div id="AccessDetail" class="mini-panel" title="门禁权限编辑" style="width: 100%; height: 100%;" showtoolbar="true">
+            <div class="mini-toolbar" style="border-bottom: 0; padding: 0px;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 100%;">
+                            <a class="mini-button" iconcls="icon-add" onclick="onAccessCreate('Add')">新建权限</a>
+                            <a class="mini-button" iconcls="icon-edit" onclick="onAccessCreate('Edit')">编辑名称</a>
+                            <a class="mini-button" iconcls="icon-add" onclick="addAccessOfAccess()">增加权限</a>
+                            <a class="mini-button" iconcls="icon-remove" onclick="onRemoveAccess()">删除</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="treegrid" class="mini-treegrid" style="width: 100%; height: 95%;" url="../AccessManage/LoadAllAccessDetail"
+                showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid" 
+                resultAsTree="false" allowResize="true" >
+                <div property="columns">
+                    <div type="indexcolumn"></div>
+                    <div name="taskname" field="Text" width="120" headeralign="center" allowsort="true">权限名称</div>
+                    <div field="" width="120" headeralign="center" allowsort="true">序号</div>
+                    <div field="Type" width="120" headeralign="center" allowsort="true">类型</div>
+                    <div header="门禁时间" headeralign="center">
+                        <div property="columns" >
+                            <div field="CreateUserID" width="120" headeralign="center" allowsort="true">控制器名称</div>
+                            <div field="CreateDate" width="120" headeralign="center" allowsort="true">门名称</div>
+                            <div field="CreateDate" width="120" headeralign="center" allowsort="true">时间段编号</div>
+                            <div field="startTime" width="120" headeralign="center" allowsort="true">开始时间</div>
+                            <div field="endTime" width="120" headeralign="center" allowsort="true">截止时间</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!----设备信息栏--->
-            <div showCollapseButton="true">
-                <div class="mini-fit">
-                    <div id="AccessDetail" class="mini-panel" title="门禁权限编辑" style="width: 100%; height: 100%;" showtoolbar="true">
-                        <div class="mini-toolbar" style="border-bottom: 0; padding: 0px;">
-                            <table style="width: 100%;">
-                                <tr>
-                                    <td style="width: 100%;">
-                                        <a class="mini-button" iconcls="icon-add" onclick="add()">增加</a>
-                                        <a class="mini-button" iconcls="icon-remove" onclick="remove()">删除</a>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-
-                        <div id="treegrid" class="mini-treegrid" style="width: 100%; height: 95%;"
-                            showTreeIcon="true" treeColumn="taskname" idField="id" parentField="pid" 
-                            resultAsTree="false" allowResize="true" expandOnLoad="true">
-                            <div property="columns">
-                                <div type="indexcolumn"></div>
-                                <div name="taskname" field="text" width="120" headeralign="center" allowsort="true">权限名称</div>
-                                <div field="UserID" width="120" headeralign="center" allowsort="true">序号</div>
-                                <div field="UserName" width="120" headeralign="center" allowsort="true">类型</div>
-                                <div header="门禁时间" headeralign="center">
-                                    <div property="columns" >
-                                        <div field="CreateUserID" width="120" headeralign="center" allowsort="true">控制器名称</div>
-                                        <div field="CreateDate" width="120" headeralign="center" allowsort="true">门名称</div>
-                                        <div field="CreateDate" width="120" headeralign="center" allowsort="true">时间段编号</div>
-                                        <div field="CodifyUserID" width="120" headeralign="center" allowsort="true">开始时间</div>
-                                        <div field="CodifyDate" width="120" headeralign="center" allowsort="true">截止时间</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
             
-                    </div>
-        
-                </div>
-            </div>        
-        </div>
+        </div>      
 
 
 </div>
     <script type="text/javascript">
         var TREE_ID = 'accessList';
 
-        function onAddAccess(e) {
-            var tree = mini.get(TREE_ID);
+        function onAccessCreate(type) {
+            var tree = mini.get("#treegrid");
             var node = tree.getSelectedNode();
-            var name = "未命名";
-            $.ajax({
-                url: "../AccessManage/AddAccess",
-                type: 'post',
-                data: { data: name },
-                cache: false,
-                success: function (json) {
-                    var rsp = mini.decode(json);
-                    alert(rsp.Obj.AccessID);
-                    if (rsp.ErrorCode == "Success") {
-                        //通过Ajax获得一个新的Access节点内容
-                        //方法：NewAccess
-                        var newNode = {id:rsp.Obj.AccessID , text: name };
-                        tree.addNode(newNode, "after", node);
-                    }
-                    else {
-                        alert(text);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
+            if ((node) && (node.Pid == "0")) {
+                if (type == "Edit") {
+                    var titleName = "编辑名称";
                 }
-            });
-            
-        }
+                else if (type == "Add") {
+                    var titleName = "新增权限";
+                }
+                mini.open({
+                    url: "../AccessManage/AccessCreate",
+                    title: titleName, width: 350, height: 350,
+                    onload: function () {
+                        var iframe = this.getIFrameEl();
+                        var data = { action: type, id: node.ValueID };
+                        iframe.contentWindow.Show(data);
 
-        function onEditAccess(e) {
-            var tree = mini.get(TREE_ID);
-            var node = tree.getSelectedNode();
-            if (node) {
-                tree.beginEdit(node);
+                    },
+                    ondestroy: function (action) {
+
+                        if (action == "ok")     //关闭窗口时点击的是确定
+                        {
+                            tree.load("../AccessManage/LoadAllAccessDetail");
+                        }
+
+
+                    }
+                });
             }
             else {
-                alert("请选中一个节点");
+                alert("请选中一个根节点");
             }
-            
         }
-
-        function afterEditAccess() {       
-            var tree = mini.get(TREE_ID);
+        //为选中的门禁权限增加权限
+        function addAccessOfAccess() {
+            var tree = mini.get("#treegrid");
             var node = tree.getSelectedNode();
-            //通过Ajax改变节点名称
-            //方法：EditAccessName
-            var json = mini.encode(node);
-            $.ajax({
-                url: "../AccessManage/EditAccessName",
-                type: 'post',
-                data: { data: json },
-                cache: false,
-                success: function (text) {
+            if ((node)&&(node.Pid == "0")) {
+                mini.open({
+                    url: "../AccessManage/AccessEdit",
+                    title: "新增权限", width: 1024, height: 600,
+                    onload: function () {
+                        var iframe = this.getIFrameEl();
+                        var data = { id: node.ValueID };
+                        iframe.contentWindow.Show(data);
 
-                    if (text == "Success") {
-
+                    },
+                    ondestroy: function (action) {
+                        //grid.reload();
+                        tree.load("../AccessManage/LoadAllAccessDetail");
                     }
-                    else {
-                        alert(text);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                }
-            });
+                });
+            }
+            else {
+                alert("请选中一个根节点");
+            }
         }
-
+        //删除权限
         function onRemoveAccess(e) {
-            var tree = mini.get(TREE_ID);
+            var tree = mini.get("#treegrid");
             var node = tree.getSelectedNode();
-            var value = tree.getValue();
-            if (node) {
+            var json = mini.encode(node);
+            if ((node)&&((node._level==0)||(node._level==1))) {
                 if (confirm("确定删除选中门禁权限?")) {
                     //通过Ajax删除节点
                     //方法：removeAccess
-                    var json = mini.encode(node);
                     $.ajax({
                         url: "../AccessManage/DeleteAccess",
                         type: 'post',
-                        data: { data: value },
+                        data: { data: json },
                         cache: false,
                         success: function (text) {
 
@@ -191,55 +160,10 @@
                 }
             }
             else {
-                alert("请选中一个节点");
+                alert("请选中一个根节点或一级节点");
             }
         }
-
-        ///选中权限,加载权限明细页面
-        function selectAccess() {
-            var tree = mini.get(TREE_ID);
-            var node = tree.getSelectedNode();
-            var treeGrid = mini.get("#treegrid");
-            treeGrid.load("LoadAccessDetail?accessID="+node.id);
-        }
-        function add() {
-            mini.open({
-                url: "../AccessManage/AccessEdit",
-                title: "新增权限", width: 1024, height: 600,
-                onload: function () {
-
-                },
-                ondestroy: function (action) {
-                    grid.reload();
-                }
-            });
-        }
-        function remove() {
-
-            var rows = grid.getSelecteds();
-
-            if (rows.length > 0) {
-                if (confirm("确定删除选中记录？")) {
-                    var ids = [];
-                    for (var i = 0, l = rows.length; i < l; i++) {
-                        var r = rows[i];
-                        ids.push(r.UserID);
-                    }
-                    var id = ids.join(',');
-                    grid.loading("操作中，请稍后......");
-                    $.ajax({
-                        url: "../AccessManage/RemoveAccessDetail?AccessDetailID=" + id,
-                        success: function (text) {
-                            grid.reload();
-                        },
-                        error: function () {
-                        }
-                    });
-                }
-            } else {
-                alert("请选中一条记录");
-            }
-        }
+        
     </script>
         
     </body>

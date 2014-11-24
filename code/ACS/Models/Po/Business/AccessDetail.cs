@@ -7,15 +7,32 @@ namespace ACS.Models.Po.Business
 {
     public class AccessDetail
     {
-        public const String SPLIT = "_";
+        public const char SPLIT = '_';
         public const String ACCESS_TYPE = "ACCESS";
         public const String DOORTIME_TYPE = "DOORTIME";
         public const String CONTROL_TYPE = "CONTROL";
         public const String DOOR_TYPE = "DOOR";
+        public const String ROOT_ACCESS_ID = "ACCESS_0";
+        public const String ROOT_ID = "0";
         private int accessDetailID; //门禁权限详细信息ID
         private int accessID;       //门禁权限ID
+        private String accessName;  //规则名称
         private int valueID;         //门ID
         private string type;        //类型 Access/DoorTime
+        private int createUserID;
+        private DateTime createDate;
+
+        public virtual int CreateUserID
+        {
+            get { return createUserID; }
+            set { createUserID = value; }
+        }
+
+        public virtual DateTime CreateDate
+        {
+            get { return createDate; }
+            set { createDate = value; }
+        }
 
         public virtual int AccessDetailID
         {
@@ -27,6 +44,12 @@ namespace ACS.Models.Po.Business
         {
             get { return accessID; }
             set { accessID = value; }
+        }
+
+        public virtual String AccessName
+        {
+            get { return accessName; }
+            set { accessName = value; }
         }
 
         public virtual int ValueID

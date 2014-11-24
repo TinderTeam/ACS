@@ -206,6 +206,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model\AccessModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Models\Model\ControllerModel.cs" />
     <Compile Include="Models\Model\DeviceModel.cs" />
     <Compile Include="Models\Model\DoorModel.cs" />
@@ -219,7 +222,6 @@
     <Compile Include="Models\Model\PswdModel.cs" />
     <Compile Include="Models\Model\HolidayModel.cs" />
     <Compile Include="Models\Model\DeptModel.cs" />
-    <Compile Include="Models\Model\AccessModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
     <Compile Include="Models\Model\TreeGridModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
@@ -229,6 +231,7 @@
     <Compile Include="Models\Po\Business\DoorTime.cs" />
     <Compile Include="Models\Po\Business\EventRecordView.cs" />
     <Compile Include="Models\Po\Business\AccessDetailView.cs" />
+    <Compile Include="Models\Po\Business\DoorTimeView.cs" />
     <Compile Include="Models\Po\CF\Privilege.cs" />
     <Compile Include="Models\Po\CF\Role.cs" />
     <Compile Include="Models\Po\CF\UserRole.cs" />
@@ -404,6 +407,9 @@
     <EmbeddedResource Include="Models\Po\Business\AccessDetailView.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\DoorTimeView.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
     <Content Include="Scripts\core.js" />
@@ -1686,9 +1692,9 @@
     <Content Include="Views\EmployeeManage\Card.cshtml" />
     <Content Include="Views\DeviceManage\DeviceView.cshtml" />
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
-    <Content Include="Views\AccessManage\AccessDetail.cshtml" />
     <Content Include="Views\UserManage\DevicePrivilege.cshtml" />
     <Content Include="Views\DeptManage\DeptEdit.cshtml" />
+    <Content Include="Views\AccessManage\AccessCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

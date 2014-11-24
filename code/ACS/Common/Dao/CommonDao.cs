@@ -13,6 +13,8 @@ namespace ACS.Common.Dao
 		
         void update(E obj);
 
+        void update(List<E> obj);
+
 	    void delete(QueryCondition condition);
 
         void delete(List<QueryCondition> conditionList);

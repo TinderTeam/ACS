@@ -9,13 +9,16 @@ namespace ACS.Models.Po.Business
     {
         //AccessDetail表中获取
         public const String ID = "AccessID";
+        public const String USER_ID = "CreateUserID";
+        public const String VALUE_ID_NAME = "ValueID";
+        public const String TYPE_NAME = "Type";
         private int accessDetailID;         //门禁权限详细信息ID
         private int accessID;               //门禁权限ID
+        private String accessName;          //父门禁权限名称
         private int valueID;                //子AccessID或者DoorTime ID
         private string type;                //类型 Access/DoorTime
-
-        //父Access表中获取
-        private String accessName;          //父门禁权限名称
+        private int createUserID;           //创建人ID
+        private DateTime createDate;        //创建时间
 
         //Control表中获取
         private int controlID;              //控制器ID
@@ -52,6 +55,18 @@ namespace ACS.Models.Po.Business
         {
             get { return type; }
             set { type = value; }
+        }
+
+        public virtual int CreateUserID
+        {
+            get { return createUserID; }
+            set { createUserID = value; }
+        }
+
+        public virtual DateTime CreateDate
+        {
+            get { return createDate; }
+            set { createDate = value; }
         }
 
         public virtual String AccessName
