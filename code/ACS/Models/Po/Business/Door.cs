@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ACS.Common.Constant;
 
 namespace ACS.Models.Po.Business
 {
@@ -14,8 +15,8 @@ namespace ACS.Models.Po.Business
         private String doorName;//
         private String doorSerial;//
         private String doorAddress;//
-        private DateTime openTime;//
-        private DateTime closeOutTime;//
+        private DateTime openTime=DefaltValueConstant.getDefaltDateTime();//
+        private DateTime closeOutTime = DefaltValueConstant.getDefaltDateTime();//
         private long doorAlerm2Long;//
         private String passBack;//
         private String doorEnable;//
@@ -27,7 +28,7 @@ namespace ACS.Models.Po.Business
         private String isKQ;//
         private String isRepast;//
         private String alarmMast;//
-        private DateTime alarmTime;//
+        private DateTime alarmTime = DefaltValueConstant.getDefaltDateTime();//
         private String isMainDoor;//
         private String readerIn;//
         private String readerOut;//

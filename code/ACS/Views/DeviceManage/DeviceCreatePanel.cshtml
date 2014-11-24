@@ -53,45 +53,48 @@
 
         var form = new mini.Form("#form");
 
-        function SaveData() {
-            var o = form.getData();
-            var json = mini.encode(o);
-            var type = $('#tpyeSelect').val();
-            var url = "/DeviceManage/DeviceAdd?type=" + type;
-            alert(json);
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: { data: json },
-                cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("修改成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-                        alert(text);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-    }
+       
     function GetData() {
         var o = form.getData();
         return o;
     }
     function CloseWindow(action) {
-        window.close();
+        if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+        else window.close();
     }
     function onOk(e) {
-        SaveData();
+        SaveData();    
     }
-    function onCancel(e) {
-        CloseWindow("cancel");
+    function onCancel() {
+        window.CloseOwnerWindow("close");
+    }
+
+    function SaveData() {
+        var o = form.getData();
+        var json = mini.encode(o);
+        var type = $('#tpyeSelect').val();
+        var url = "/DeviceManage/DeviceAdd?type=" + type;
+        var messageid = mini.loading("正在新建控制器及配置信息...");
+        setTimeout(function () {
+            mini.hideMessageBox(messageid);
+        }, 30000);
+
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: { data: json },
+            cache: false,
+            success: function (text) {
+                mini.hideMessageBox(messageid);
+                mini.alert("修改成功！");
+                window.CloseOwnerWindow("close");
+                
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(jqXHR.responseText);
+                CloseWindow();
+            }
+        });
     }
     </script>
 </body>

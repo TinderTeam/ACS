@@ -8,6 +8,8 @@ using ACS.Models.Po.CF;
 using ACS.Models.Po.Sys;
 
 using ACS.Common.Util;
+using ACS.Common.Dao;
+using ACS.Common.Constant;
 namespace ACS.Service
 {
     public class ModelConventService
@@ -371,6 +373,37 @@ namespace ACS.Service
             control.ControlID = m.ControlID;
             control.Ip = m.Ip;
             return control;
+        }
+
+        internal static List<QueryCondition> getAccessIDConditionByViewList(List<AccessDetailView> viewList)
+        {
+            List<QueryCondition> list = new List<QueryCondition>();
+            foreach (AccessDetailView view in viewList)
+            {
+                QueryCondition condition = new QueryCondition(
+                       ConditionTypeEnum.EQUAL,
+                           Access.ID,
+                           view.AccessID.ToString()
+                   );
+                list.Add(condition);
+            }
+            return list;
+
+        }
+
+        internal static List<QueryCondition> getAccessDetailIDConditionByViewList(List<AccessDetailView> viewList)
+        {
+            List<QueryCondition> list = new List<QueryCondition>();
+            foreach (AccessDetailView view in viewList)
+            {
+                QueryCondition condition = new QueryCondition(
+                       ConditionTypeEnum.EQUAL,
+                           AccessDetail.ACCESS_DETAIL_ID,
+                           view.AccessDetailID.ToString()
+                   );
+                list.Add(condition);
+            }
+            return list;
         }
     }
 }

@@ -121,40 +121,42 @@
             var id = node.id;
             if (node.id.indexOf("C") != -1) {
                 id = node.id.replace("C", "");
-                $.ajax({
-                    url: "../DeviceManage/delete?id=" + id,
-                    type: 'post',
-                    data: "",
-                    cache: false,
-                    success: function (json) {
-                        var rsp = mini.decode(json);
-                        if (rsp.ErrorCode == "Success") {
-                            treeUpdate();
-                            alert("操作成功");
+                if (confirm("将更新与该控制器有关的权限信息，是否继续？")) {
+                    var messageid = mini.loading("正在删除控制器及配置信息...");
+                    setTimeout(function () {
+                        mini.hideMessageBox(messageid);
+                    }, 30000);
+
+                    $.ajax({
+                        url: "../DeviceManage/delete?id=" + id,
+                        type: 'post',
+                        data: "",
+                        cache: false,
+                        success: function (json) {
+                            var rsp = mini.decode(json);
+                            if (rsp.ErrorCode == "Success") {
+                                treeUpdate();
+                                mini.hideMessageBox(messageid);
+                                alert("操作成功");
+
+                            }
+                            else {
+                                alert(text);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(jqXHR.responseText);
                         }
-                        else {
-                            alert(text);
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(jqXHR.responseText);
-                    }
-                });
+                    });
+                }
+
+               
+            } else {
+                alert('不可以对门进行删除操作...');
             }
             
         }
-        function add() {
-            mini.open({
-                url: "../UserManage/UserCreate",
-                title: "新增用户", width: 600, height: 300,
-                onload: function () {
 
-                },
-                ondestroy: function (action) {
-                    grid.reload();
-                }
-            });
-        }
         function onAddDevice(e) {
             mini.open({
                 url: "../DeviceManage/DeviceCreatePanel",
@@ -163,7 +165,7 @@
 
                 },
                 ondestroy: function (action) {
-                    grid.reload();
+                   treeUpdate();
                 }
             });
         }

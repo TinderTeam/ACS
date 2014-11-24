@@ -22,6 +22,8 @@ namespace ACS.Controllers
         // GET: /Device/
         DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
         UserService userService = ServiceContext.getInstance().getUserService();
+        PrivilegeService privilegeService = ServiceContext.getInstance().getPrivilegeService();
+
         /// <summary>
         /// 显示设备控制界面
         /// </summary>
@@ -139,8 +141,9 @@ namespace ACS.Controllers
                 c.Type = type;
                 //校验成功
                 Control control = deviceService.addControl(c);
-                //Rsp.Obj = control;
-
+                //新增当前用户权限
+                UserModel loginUser = (UserModel)Session["SystemUser"];
+                privilegeService.addDomainPrivilege(loginUser.UserID.ToString(), control.ControlID.ToString());
             }
             catch (FuegoException e)
             {
@@ -166,9 +169,7 @@ namespace ACS.Controllers
         //删除控制器
         public override void basicDelete(string id)
         {
-            deviceService.deleteControlById(id);
-   
-
+            deviceService.deleteControlById(id);   
         }
     }
 }

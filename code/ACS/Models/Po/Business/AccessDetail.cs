@@ -14,6 +14,7 @@ namespace ACS.Models.Po.Business
         public const String DOOR_TYPE = "DOOR";
         public const String ROOT_ACCESS_ID = "ACCESS_0";
         public const String ROOT_ID = "0";
+		public const String ACCESS_DETAIL_ID = "AccessDetailID";  
         private int accessDetailID; //门禁权限详细信息ID
         private int accessID;       //门禁权限ID
         private String accessName;  //规则名称

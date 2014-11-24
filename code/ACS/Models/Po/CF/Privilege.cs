@@ -17,7 +17,7 @@ namespace ACS.Models.Po.CF
         public const String MASTER_VALUE = "PrivilegeMasterValue";
         public const String MASTER = "PrivilegeMaster";
         public const String ACCESS = "PrivilegeAccess";
-
+        public const String ACCESS_VALUE = "PrivilegeAccessValue";
         public virtual int PrivilegeID
         {
             get { return privilegeID; }

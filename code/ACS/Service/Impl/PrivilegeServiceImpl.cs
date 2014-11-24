@@ -10,11 +10,15 @@ using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
 using ACS.Common.Constant;
 using ACS.Service.Constant;
+using ACS.Models.Po.CF;
 namespace ACS.Service.Impl
 {
     public class PrivilegeServiceImpl : PrivilegeService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
+        private CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
         //CommonDao<Employee> employeeDao = DaoContext.getInstance().getEmployeeDao();
 
         /*public AbstractDataSource<Employee> getEmployeeList(Employee filter)
@@ -84,5 +88,27 @@ namespace ACS.Service.Impl
             Employee employee = ModelConventService.toEmployee(orignalEmployee, employeeModel);
             employeeDao.update(employee);
         }*/
+
+
+
+
+        #region PrivilegeService 成员
+        /// <summary>
+        /// 新增一个用户的某个控制器域权限
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="controlID"></param>
+        public void addDomainPrivilege(string userID, string controlID)
+        {
+            Privilege newPrivilege = new Privilege();
+            newPrivilege.PrivilegeAccess = ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN;
+            newPrivilege.PrivilegeAccessValue = controlID;
+            newPrivilege.PrivilegeMaster = ServiceConstant.SYS_MASTER_TYPE_USER;
+            newPrivilege.PrivilegeMasterValue = userID;
+            newPrivilege.PrivilegeOperation = ServiceConstant.SYS_OPRATION_VALUE_VISIBLE;
+            privilegeDao.create(newPrivilege);
+        }
+
+        #endregion
     }
 }

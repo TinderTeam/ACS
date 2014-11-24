@@ -115,7 +115,8 @@ namespace ACS.Service
     }
     public interface PrivilegeService
     {
-        
+
+        void addDomainPrivilege(string userID, string controlID);
     }
     public interface LoginService
     {

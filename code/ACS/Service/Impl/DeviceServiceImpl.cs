@@ -10,6 +10,7 @@ using ACS.Models.Model;
 using ACS.Models.Po.Business;
 using ACS.Service.Constant;
 using System.Xml;
+using ACS.Models.Po.CF;
 namespace ACS.Service.Impl
 {
     public class DeviceServiceImpl:DeviceService
@@ -20,6 +21,12 @@ namespace ACS.Service.Impl
         CommonDao<Door> doorDao = DaoContext.getInstance().getDoorDao();
         CommonDao<DoorTime> doorTimeDao = DaoContext.getInstance().getDoorTimeDao();
         ViewDao<AccessDetailView> accessDetailViewDao = DaoContext.getInstance().getAccessDetailViewDao();
+        CommonDao<AccessDetail> accessDetailDao = DaoContext.getInstance().getAccessDetailDao();
+        CommonDao<Access> accessDao = DaoContext.getInstance().getAccessDao();
+        CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
+
+
+
         #region DeviceService 成员
 
         public Common.Dao.datasource.AbstractDataSource<Models.Po.Business.Control> getDeviceList(Models.Po.Business.Control filter)
@@ -160,24 +167,68 @@ namespace ACS.Service.Impl
 
         public void deleteControlById(string id)
         {
-            if (ControlDeleteCheck(id))
+
+            //删除该控制器相关门禁权限
+            deleteAccessByControlID(id);
+
+            //删除该控制器的域管理权限
+            deleteDomainPrivilegeByControlID(id);
+
+            //删除控制器
+            QueryCondition condition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                    Control.CONTROL_ID,
+                    id
+            );
+            controlDao.delete(condition);
+            //删除控制器所属的门的时间段
+            deleteDooTimeByControlId(id);
+            //删除控制器所属的门
+            deleteDoorByControlId(id);
+                 
+        }
+
+        private void deleteDomainPrivilegeByControlID(string id)
+        {
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            conditionList.Add(
+                new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                    Privilege.ACCESS,
+                    ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN
+                )   
+            );
+            conditionList.Add(
+                new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                    Privilege.ACCESS_VALUE,
+                    id
+                )
+            );
+            privilegeDao.delete(conditionList);
+        }
+
+        /// <summary>
+        /// 根据控制器ID删除Access 中与其相关的信息
+        /// </summary>
+        /// <param name="id"></param>
+        private void deleteAccessByControlID(string id)
+        {
+            //获取AccessDetail列表控制器
+            QueryCondition condition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                    Control.CONTROL_ID,
+                    id
+            );
+            List<AccessDetailView> viewList =accessDetailViewDao.getAll(condition);
+            List<QueryCondition> accessDetialIDList = ModelConventService.getAccessDetailIDConditionByViewList(viewList);
+            //删除AccessDetailList
+            if (accessDetialIDList.Count != 0)
             {
-                //删除控制器
-                QueryCondition condition = new QueryCondition(
-                    ConditionTypeEnum.EQUAL,
-                      Control.CONTROL_ID,
-                      id
-                );
-                controlDao.delete(condition);
-                //删除控制器所属的门的时间段
-                deleteDooTimeByControlId(id);
-                //删除控制器所属的门
-                deleteDoorByControlId(id);
+                accessDetailDao.delete(accessDetialIDList);
             }
-            else
-            {
-                throw new SystemException(ExceptionMsg.DELETE_CONTROL_ERR);
-            }         
+   
+
         }
 
      
@@ -328,6 +379,7 @@ namespace ACS.Service.Impl
             {
                 Door door = new Door();
                 door.ControlID = c.ControlID;
+                door.DoorName = i.ToString();
                 doorDao.create(door);
 
                 for (int j = 0; j < doorTimeNum; j++)

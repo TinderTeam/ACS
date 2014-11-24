@@ -222,6 +222,7 @@
     <Compile Include="Models\Model\PswdModel.cs" />
     <Compile Include="Models\Model\HolidayModel.cs" />
     <Compile Include="Models\Model\DeptModel.cs" />
+    <Compile Include="Models\Model\AccessModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
     <Compile Include="Models\Model\TreeGridModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
@@ -1672,7 +1673,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\DeviceManage\DeviceManage.cshtml" />
-    <Content Include="Views\DeviceManage\DeviceEdit.cshtml" />
+    <Content Include="Views\DeviceManage\DeviceCreatePanel.cshtml" />
     <Content Include="Views\AccessManage\AccessManage.cshtml" />
     <Content Include="Views\AccessManage\AccessEdit.cshtml" />
     <Content Include="Views\OrgnizationManage\OrgnizationManage.cshtml" />
