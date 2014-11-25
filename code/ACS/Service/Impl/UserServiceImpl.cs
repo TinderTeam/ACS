@@ -26,13 +26,16 @@ namespace ACS.Service.Impl
         CommonDao<Door> doorDao = DaoContext.getInstance().getDoorDao();
 
 
-        public AbstractDataSource<User> getUserList(User filter)
-        {   List<QueryCondition> conditionList = new List<QueryCondition>();
-            if (filter == null)
+        public AbstractDataSource<User> getUserList(string userName)
+        {   
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            if (userName != null)
             {
-                ;
+                QueryCondition condition = new QueryCondition(ConditionTypeEnum.INCLUDLE, User.NAME, userName);
+                conditionList.Add(condition);
             }         
-            AbstractDataSource<User> dataSource = new DatabaseSourceImpl<User>(conditionList);  
+            AbstractDataSource<User> dataSource = new DatabaseSourceImpl<User>(conditionList);
+  
 		    return dataSource;
         }
         //创建新用户

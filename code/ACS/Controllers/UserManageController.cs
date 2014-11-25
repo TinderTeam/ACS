@@ -45,13 +45,21 @@ namespace ACM.Controllers
         }
 
 
-        public ActionResult Load(TableForm tableForm, User filter)
+        public ActionResult Load(TableForm tableForm, string data)
         {
+            UserModel searchCondition = JsonConvert.JsonToObject<UserModel>(data);
             log.Debug("Load Data...");
             //数据库操作：使用查询条件、分页、排序等参数进行查询
             TableDataModel<User> userModelTable = new TableDataModel<User>();
             userModelTable.setPage(tableForm.getPage());
-            userModelTable.setDataSource(userService.getUserList(filter));
+            if (searchCondition == null)
+            {
+                userModelTable.setDataSource(userService.getUserList(null));
+            }
+            else
+            {
+                userModelTable.setDataSource(userService.getUserList(searchCondition.UserName));
+            }
 
             log.Debug("pageIndex = " + tableForm.PageIndex + ";pageSize=" + tableForm.PageSize);
             Response.Write(userModelTable.getMiniUIJson());

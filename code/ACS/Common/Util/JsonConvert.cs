@@ -16,7 +16,10 @@ namespace ACS.Common.Util
         // 从一个Json串生成对象信息
         public static E JsonToObject<E>(string jsonString)
         {
-
+            if (ValidatorUtil.isEmpty(jsonString))
+            {
+                return default(E);
+            }
             return (E)jsonSerialize.Deserialize(jsonString, typeof(E));
         }
     }

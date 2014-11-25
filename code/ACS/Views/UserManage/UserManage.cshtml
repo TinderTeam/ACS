@@ -26,8 +26,10 @@
                         <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>       
                     </td>
                     <td style="white-space:nowrap;">
-                        <input id="key" class="mini-textbox" emptyText="请输入姓名" style="width:150px;" onenter="onKeyEnter"/>   
+                        <form id="searchForm" method="post">
+                        <input name="UserName" class="mini-textbox" emptyText="请输入姓名" style="width:150px;" onenter="onKeyEnter" value=""/>   
                         <a class="mini-button" onclick="search()">查询</a>
+                        </form>
                     </td>
                 </tr>
             </table>           
@@ -165,31 +167,20 @@
                 alert("请选中一条记录");
             }
         }
-
+        //比如key={name:"asd",age:"123"};
+        //gird.load(key);
+        //后台string key1 = Request["name"];
+        //string key2 = Request["age"];
+        //这样获取
         function search() {
-            var key = mini.get("key").getValue();
-            grid.load({ key: key });
+            var form = new mini.Form("#searchForm");
+            var searchData = form.getData();
+            var json = mini.encode(searchData);
+            grid.load({data:json});
+           
         }
         function onKeyEnter(e) {
             search();
-        }
-        /////////////////////////////////////////////////
-        function onBirthdayRenderer(e) {
-            var value = e.value;
-            if (value) return mini.formatDate(value, 'yyyy-MM-dd');
-            return "";
-        }
-        function onMarriedRenderer(e) {
-            if (e.value == 1) return "是";
-            else return "否";
-        }
-        var Genders = [{ id: 1, text: '男' }, { id: 2, text: '女'}];        
-        function onGenderRenderer(e) {
-            for (var i = 0, l = Genders.length; i < l; i++) {
-                var g = Genders[i];
-                if (g.id == e.value) return g.text;
-            }
-            return "";
         }
     </script>
 </body>

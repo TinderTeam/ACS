@@ -7,6 +7,9 @@ namespace ACS.Models.Po.CF
 {
     public class User
     {
+        public const String ID = "UserID";
+        public const String NAME = "UserName";
+
         private int userID;//用户ID
         private String userName;//用户名称
         private String userDesc;//用户描述
@@ -16,7 +19,6 @@ namespace ACS.Models.Po.CF
         private int modifyUserID;//最后编辑用户
         private DateTime modifyDate;//最后编辑时间
 
-		public const String ID="UserID";
         public virtual int UserID
         {
             get { return userID; }

@@ -186,7 +186,7 @@ namespace ACS.Service.Impl
                     //如果要删除的节点不是根节点，仅删除其本身即可
                     List<QueryCondition> conditionList = new List<QueryCondition>();
                     conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.VALUE_ID_NAME, accessInfo[1]));
-                    conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
+                    conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, accessInfo[0]));
                     conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, parentInfo[1]));
 
                     if (null == accessDetailDao.getUniRecord(conditionList))

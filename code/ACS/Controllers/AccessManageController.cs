@@ -77,6 +77,7 @@ namespace ACS.Controllers
                         control = new TreeGirdItem(parentID, getCurTreeID());
                         control.ValueID = controlID;
                         control.Text = accessDetailView.ControlName;
+                        control.Type = AccessDetail.CONTROL_TYPE;
                         control.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
                         accessMap.Add(control.ValueID, control);
                     }
@@ -93,9 +94,9 @@ namespace ACS.Controllers
                     { 
                         door = new TreeGirdItem(control.Id, getCurTreeID());
                         door.ValueID = doorID;
-                       
                         door.Text = accessDetailView.DoorName;
-                        door.AccessID = control.ValueID;
+                        door.Type = AccessDetail.DOOR_TYPE;
+                        door.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
                         accessMap.Add(door.ValueID, door);
                     }
                     else
@@ -106,7 +107,7 @@ namespace ACS.Controllers
                     TreeGirdItem doorTime = new TreeGirdItem(door.Id, getCurTreeID());
                     doorTime.ValueID = AccessDetail.DOORTIME_TYPE + AccessDetail.SPLIT + accessDetailView.ValueID.ToString();
                     doorTime.Text = accessDetailView.DoorTimeName;
-                    doorTime.AccessID = door.ValueID;
+                    doorTime.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
                     doorTime.Type = AccessDetail.DOORTIME_TYPE;
                     doorTime.StartTime = accessDetailView.StartTime;
                     doorTime.EndTime = accessDetailView.EndTime;
