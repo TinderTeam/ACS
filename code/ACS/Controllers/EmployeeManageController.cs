@@ -10,22 +10,40 @@ using ACS.Models.Po.Business;
 using System.Web.Script.Serialization;
 using ACS.Common.Util;
 using ACS.Controllers.Constant;
-namespace ACM.Controllers
+using ACS.Common;
+using ACS.Service.Constant;
+using ACS.Common.Dao;
+using ACS.Common.Constant;
+namespace ACS.Controllers
 {
-    public class EmployeeManageController : Controller
+    public class EmployeeManageController : MiniUITableController<Employee>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        EmployeeService employeeService = ServiceContext.getInstance().getEmployeeService();
+        private EmployeeService employeeService = ServiceContext.getInstance().getEmployeeService();
+
+
+        public override CommonService<Employee> getService()
+        {
+            return employeeService;
+        }
+
         public ActionResult EmployeeManage()
         {
             return View();
         }
+
+        public ActionResult Load(Employee filter)
+        {
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            return LoadTable(conditionList);
+        }
+
         public ActionResult EmployeeEdit(String id)
         {
             ViewBag.Type = "EDIT";
-            EmployeeModel employeeModel = employeeService.getEmployeeByID(id);
-            ViewBag.employee = employeeModel;
+            Employee employee = employeeService.Get(id);
+            ViewBag.employee = employee;
             return View();
         }
 
@@ -34,161 +52,58 @@ namespace ACM.Controllers
             ViewBag.Type = "CREATE";
             return View("EmployeeEdit");
         }
-        public ActionResult Load(TableForm tableForm, Employee filter)
-        {
-            log.Debug("Load Employee Data...");
-            //数据库操作：使用查询条件、分页、排序等参数进行查询
-            TableDataModel<Employee> employeeModelTable = new TableDataModel<Employee>();
-            employeeModelTable.setPage(tableForm.getPage());
-            employeeModelTable.setDataSource(employeeService.getEmployeeList(filter));
-          
-            log.Debug("pageIndex = " + tableForm.PageIndex + ";pageSize=" + tableForm.PageSize);
 
-            Response.Write(employeeModelTable.getMiniUIJson());
-            return null;
-        }
-        /// <summary>
-        /// 新增员工
-        /// 可以改成用Ajax调用的响应
-        /// </summary>
-        /// <returns></returns>
-        public string create(string data)
-        {
-            string text = null;
-            log.Debug("Create Employee...");
-            EmployeeModel employeeModel = JsonConvert.JsonToObject<EmployeeModel>(data);
-            employeeModel.TimeStamp = DateTime.Now;
-            employeeModel.TimeStampx = DateTime.Now;
-            employeeModel.LeaveDate = DateTime.Now;
-            if (ModelVerificationService.EmployeeVerification(employeeModel))
-            {
-                
-                try
-                {
-                    //校验成功
-                    employeeService.create(employeeModel);
-                }
-                catch (SystemException ex)
-                {
-                    text = ex.Message;
-                    Response.Write(text);
-                    return null;
-                }
-                text = "Success";
-                Response.Write(text);
-                return null;
-            }else{
-                //校验失败
-                //TODO: 
-            }
-            return null;
-        }
 
-        /// <summary>
-        /// 修改用户
-        /// Ajax调用
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Edit(string data)
-        {
-            string text = null;
-            log.Debug("Modify Employee...");
-            EmployeeModel employeeModel = JsonConvert.JsonToObject<EmployeeModel>(data);
 
-            if (ModelVerificationService.EmployeeVerification(employeeModel))
-            {
-                try
-                {
-                    //校验成功
-                    employeeService.update(employeeModel);
-                }
-                catch (SystemException ex)
-                {
-                    text = ex.Message;
-                    Response.Write(text);
-                    return null;
-                }
-                text = "Success";
-                Response.Write(text);
-                return null;
-
-            }
-            else
-            {
-                //校验失败
-                //TODO: 
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// 删除员工
-        /// Ajax调用
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Remove(String idstr)
-        {
-            List<int> idList = ModelConventService.toIDList(idstr);
-            log.Debug("Delete employee (id=" + idList + ") ...");
-            if (ModelVerificationService.EmployeeIDExist(idList))
-            {
-                //校验成功
-                employeeService.delete(idList);
-            }
-            else
-            {
-                //校验失败
-                //TODO: 
-            }
-            Response.Write("ok");
-            return null;
-        }
-
+ 
+       
         /// <summary>
         /// 注销用户
         /// </summary>
         /// <param name="idstr"></param>
         /// <returns></returns>
-        public ActionResult Cancel(String idstr)
+        public ActionResult Cancel(String idList)
         {
-            List<int> idList = ModelConventService.toIDList(idstr);
-            log.Debug("Cancel employee (id=" + idList + ") ...");
-            if (ModelVerificationService.EmployeeIDExist(idList))
+            try
             {
-                //校验成功
-                //TODO
-                employeeService.cancel(idList);
+                employeeService.cancel(getIDList(idList));
             }
-            else
+            catch (FuegoException e)
             {
-                //校验失败
-                //TODO: 
+                log.Error("cancel failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
             }
-            Response.Write("ok");
-            return null;
+            catch (SystemException e)
+            {
+                log.Error("cancel failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
         }
         /// <summary>
         /// 用户离职
         /// </summary>
         /// <param name="idstr"></param>
         /// <returns></returns>
-        public ActionResult Leave(String idstr)
+        public ActionResult Leave(String idList)
         {
-             List<int> idList = ModelConventService.toIDList(idstr);
-            log.Debug("Delete employee (id=" + idList + ") ...");
-            if (ModelVerificationService.EmployeeIDExist(idList))
+            try
             {
-                //校验成功
-                //TODO
-                employeeService.leave(idList);
-            }           
-            else
-            {
-                //校验失败
-                //TODO: 
+                employeeService.leave(getIDList(idList));
             }
-            Response.Write("ok");
-            return null;
+            catch (FuegoException e)
+            {
+                log.Error("leave failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (SystemException e)
+            {
+                log.Error("leave failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
         }
 
           /// <summary>
@@ -202,14 +117,13 @@ namespace ACM.Controllers
             return View();
         }
         //加载需要发卡的用户列表
-        public ActionResult distributeCardList(String idstr)
+        public ActionResult distributeCardList(String idList)
         {
-            List<string> idList = ModelConventService.toIDStrList(idstr);
-            log.Debug("Load Employee Data...");
-            //数据库操作：使用查询条件、分页、排序等参数进行查询
-            string data = employeeService.getEmployeeList(idList);
-            Response.Write(data);
-            return null;
+
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN,Employee.ID,getIDList(idList));
+            conditionList.Add(condition);
+            return LoadTable(conditionList);
         }
 
         /// <summary>
@@ -220,21 +134,26 @@ namespace ACM.Controllers
         {
             string text = null;
             log.Debug("Save Employee card...");
-            List<EmployeeModel> employeeModelList = JsonConvert.JsonToObject<List<EmployeeModel>>(data);
+            List<Employee> employeeList = JsonConvert.JsonToObject<List<Employee>>(data);
 
-                try
-                {
-                    //校验成功
-                    employeeService.saveEmployeeCard(employeeModelList);
-                }
-                catch (SystemException ex)
-                {
-                    text = ex.Message;
-                    Response.Write(text);
-                    return null;
-                }
-                Response.Write(AjaxConstant.AJAX_SUCCESS);
-                return null;
+            try
+            {
+                //校验成功
+                employeeService.saveEmployeeCard(employeeList);
+            }
+            catch (FuegoException e)
+            {
+                log.Error("leave failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (SystemException e)
+            {
+                log.Error("leave failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+ 
+            return ReturnJson(Rsp);
         }
+ 
     }
 }

@@ -29,6 +29,22 @@ namespace ACS.Common.Dao
             this.attrName = attrName;
             this.listValue = listValue;
         }
+        public QueryCondition(ConditionTypeEnum conditionType, String attrName, List<int> listValue)
+        {
+
+            this.conditionType = conditionType;
+            this.attrName = attrName;
+            List<String> strValueLIst = new List<String>();
+            if (null != listValue)
+            {
+                foreach(int i in listValue)
+                {
+                    strValueLIst.Add(i.ToString());
+                }
+            }
+ 
+            this.listValue = strValueLIst;
+        }
         /**
          * @param conditionType
          * @param attrName

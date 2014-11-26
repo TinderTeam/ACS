@@ -10,7 +10,7 @@ using ACS.Common;
 using ACS.Service.Constant;
 
 
-namespace ACM.Controllers
+namespace ACS.Controllers
 {
     public abstract class BaseController : Controller
     {
@@ -18,27 +18,11 @@ namespace ACM.Controllers
 
         private AjaxRspModel rsp = new AjaxRspModel();
 
-        public abstract void basicDelete(string id);
-
-        public String delete(String id)
+        public ActionResult ReturnJson(Object obj)
         {
-            try
-            {
-                basicDelete(id);
-            }
-            catch (FuegoException e)
-            {
-                Rsp.ErrorCode = e.GetErrorCode();
-                log.Error("add control failed", e);
-            }
-            catch (SystemException ex)
-            {
-                Rsp.ErrorCode = ExceptionMsg.FAIL;
-                log.Error("add control failed", ex);
-            }
-            Response.Write(getRspJson());
-            return null;
+            return Content(JsonConvert.ObjectToJson(obj));
         }
+ 
 
         public AjaxRspModel Rsp
         {

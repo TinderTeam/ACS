@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ACS.Common.Constant;
+using System.Reflection;
 
 namespace ACS.Common.Util
 {
@@ -32,5 +33,10 @@ namespace ACS.Common.Util
 		
 		return obj;
 	   }
+        public static void setObjetField(Object obj, String fieldName, String value)
+        {
+            PropertyInfo  field = obj.GetType().GetProperty(fieldName);
+            field.SetValue(obj,value,null);
+        }
     }
 }

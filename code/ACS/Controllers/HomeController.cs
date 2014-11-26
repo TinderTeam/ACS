@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using ACS.Models.Model;
 using ACS.Test;
-namespace ACM.Controllers
+namespace ACS.Controllers
 {
     public class HomeController : Controller
     {

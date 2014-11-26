@@ -165,11 +165,6 @@ namespace ACS.Controllers
             return json;
         }
 
-
-        //删除控制器
-        public override void basicDelete(string id)
-        {
-            deviceService.deleteControlById(id);   
-        }
+ 
     }
 }

@@ -14,7 +14,7 @@ namespace ACS.Dao
 {
     public class DaoContext
     {
-        static DaoContext daoContext;
+        private static DaoContext daoContext;
         private CommonDao<Privilege> privilegeDao;
         private CommonDao<Sys_Menu> sysMenuDao;
         private CommonDao<User> userDao;
@@ -38,6 +38,18 @@ namespace ACS.Dao
                 daoContext = new DaoContext();
             }
             return daoContext;
+        }
+
+        public CommonDao<E> getDao<E>()
+        {
+            CommonDao<E> dao = new CommonDaoImpl<E>();
+            return dao;
+        }
+
+        public ViewDao<E> getViewDao<E>()
+        {
+            ViewDao<E> dao = new ViewDaoCommonImpl<E>();
+            return dao;
         }
 
         public CommonDao<DoorTime> getDoorTimeDao()

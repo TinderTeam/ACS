@@ -111,8 +111,9 @@
                     var id = ids.join(',');
                     grid.loading("操作中，请稍后......");
                     $.ajax({
-                        url: "../EmployeeManage/Cancel?idstr=" + id,
-                        success: function (text) {
+                        url: "../EmployeeManage/Cancel?idList=" + id,
+                        type: 'post',
+                        success: function (json) {
                             grid.reload();
                         },
                         error: function () {
@@ -137,8 +138,9 @@
                     var id = ids.join(',');
                     grid.loading("操作中，请稍后......");
                     $.ajax({
-                        url: "../EmployeeManage/Leave?idstr=" + id,
-                        success: function (text) {
+                        url: "../EmployeeManage/Leave?idList=" + id,
+                        type: 'post',
+                        success: function (json) {
                             grid.reload();
                         },
                         error: function () {
@@ -161,7 +163,7 @@
                 var id = ids.join(',');
                 grid.loading("操作中，请稍后......");
                 mini.open({
-                    url: "../EmployeeManage/Card?idstr=" + id,
+                    url: "../EmployeeManage/Card?idList=" + id,
                     title: "员工发卡", width: 560, height: 500,
                     onload: function () {
                     },
@@ -224,11 +226,15 @@
                     var id = ids.join(',');
                     grid.loading("操作中，请稍后......");
                     $.ajax({
-                        url: "../EmployeeManage/Remove?idstr="+id,
-                        success: function (text) {                        
+                        url: "../EmployeeManage/Delete?idList=" + id,
+                        type: 'post',
+                        success: function (json) {
+                            var rsp = mini.decode(json);
+                            mini.alert(rsp.Message);
                             grid.reload();
                         },
-                        error: function () {
+                        error: function ()
+                        {
                         }
                     });
                 }

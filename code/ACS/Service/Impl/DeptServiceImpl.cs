@@ -14,6 +14,7 @@ using ACS.Service.Constant;
 using ACS.Common.Util;
 using ACS.Models.Po.Sys;
 using ACS.Models.Po.Business;
+using ACS.Common;
 namespace ACS.Service.Impl
 {
     public class DeptServiceImpl : DeptService
@@ -46,7 +47,7 @@ namespace ACS.Service.Impl
             if (null != deptDao.getUniRecord(condition))
             {
                 log.Error("create failed, the deptName has exist. user name is " + deptModel.DeptName);
-                throw new SystemException(ExceptionMsg.DEPTNAME_EXIST);
+                throw new FuegoException(ExceptionMsg.DEPTNAME_EXIST);
             }
             Dept newDept = new Dept();
             Dept dept = ModelConventService.toDept(newDept,deptModel);
@@ -60,7 +61,7 @@ namespace ACS.Service.Impl
             if (null != deptDao.getUniRecord(condition))
             {
                 log.Error("create failed, the deptName has exist. user name is " + deptModel.DeptName);
-                throw new SystemException(ExceptionMsg.DEPTNAME_EXIST);
+                throw new FuegoException(ExceptionMsg.DEPTNAME_EXIST);
             }
             QueryCondition IDcondition = new QueryCondition(ConditionTypeEnum.EQUAL, Dept.ID, deptModel.DeptID.ToString());
             Dept orignalDept = deptDao.getUniRecord(IDcondition);
@@ -78,7 +79,7 @@ namespace ACS.Service.Impl
             if (!ValidatorUtil.isEmpty<Dept>(childrenDeptList))
             {
                 log.Error("Delete failed, the Dept to be deleted has children Dept. Dept name is " + dept.DeptName);
-                throw new SystemException(ExceptionMsg.DEPT_HAS_CHILDREN);
+                throw new FuegoException(ExceptionMsg.DEPT_HAS_CHILDREN);
             }
 
             deptDao.delete(IDcondition);

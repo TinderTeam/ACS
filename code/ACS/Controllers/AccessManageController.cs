@@ -311,10 +311,6 @@ namespace ACS.Controllers
 
         }
         
-        
-        public override void basicDelete(string id)
-        {
-            throw new NotImplementedException();
-        }
+ 
     }
 }

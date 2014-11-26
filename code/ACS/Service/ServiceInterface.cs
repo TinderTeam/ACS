@@ -11,7 +11,25 @@ using AccessTcp;
 namespace ACS.Service
 {
 
+    public interface CommonService<E>
+    {
+        void Validator(E obj);
+        AbstractDataSource<E> GetDataSource();
+        void Create(E obj);
+        void Modify(E obj);
+        void Delete(String id);
+        void Delete(List<String> idList);
+        E Get(String id);
+        List<E> Get(List<String> idList);
+    }
 
+    public interface EmployeeService : CommonService<Employee>
+    {
+ 
+        void cancel(List<String> employeeIDList);
+        void leave(List<String> employeeIDList);
+        void saveEmployeeCard(List<Employee> employeeModelList);
+    }
     public interface DeviceOperatorService
     {
         TCPAcs getControllerTCP(string ip);
@@ -80,18 +98,7 @@ namespace ACS.Service
 
     }
 
-    public interface EmployeeService
-    {
-        AbstractDataSource<Employee> getEmployeeList(Employee filter);
-        void create(EmployeeModel employeeModel);
-        void delete(List<int> employeeIDList);
-        void cancel(List<int> employeeIDList);
-        void leave(List<int> employeeIDList);
-        EmployeeModel getEmployeeByID(string employeeID);
-        void update(EmployeeModel employeeModel);
-        string getEmployeeList(List<string> idList);
-        void saveEmployeeCard(List<EmployeeModel> employeeModelList);
-    }
+
     public interface EventRecordViewService
     {
         AbstractDataSource<EventRecordView> getEventRecordViewList(EventRecordView filter);

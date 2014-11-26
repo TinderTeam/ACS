@@ -9,7 +9,7 @@ using System.Resources;
 using ACS.Test;
 using ACS.Common.Util;
 using System.Web.Script.Serialization;
-namespace ACM.Controllers
+namespace ACS.Controllers
 
 {
     public class IndexController : BaseController
@@ -114,10 +114,6 @@ namespace ACM.Controllers
         }
 
 
-
-        public override void basicDelete(string id)
-        {
-            throw new NotImplementedException();
-        }
+ 
     }
 }

@@ -14,6 +14,7 @@ using ACS.Service.Constant;
 using ACS.Common.Util;
 using ACS.Models.Po.Sys;
 using ACS.Models.Po.Business;
+using ACS.Common;
 namespace ACS.Service.Impl
 {
     public class UserServiceImpl : UserService
@@ -45,7 +46,7 @@ namespace ACS.Service.Impl
             if (null != userDao.getUniRecord(condition))
             {
                 log.Error("create failed, the userName has exist. user name is " + userModel.UserName);
-                throw new SystemException(ExceptionMsg.USERNAME_EXIST);
+                throw new FuegoException(ExceptionMsg.USERNAME_EXIST);
             }
             User user = ModelConventService.toUser(userModel);
             user.CreateDate = DateTime.Now;
@@ -74,7 +75,7 @@ namespace ACS.Service.Impl
             if (null == user)
             {
                 log.Error("get user failed, the user is not exist. userID is " + userID);
-                throw new SystemException(ExceptionMsg.USER_NOT_EXISTED);
+                throw new FuegoException(ExceptionMsg.USER_NOT_EXISTED);
             }
             UserModel userModel = ModelConventService.toUserModel(user);
             return userModel;
@@ -87,7 +88,7 @@ namespace ACS.Service.Impl
             if (null == orignalUser)
             {
                 log.Error("modify user failed, the user is not exist. userID is " + userModel.UserID);
-                throw new SystemException(ExceptionMsg.USER_NOT_EXISTED);
+                throw new FuegoException(ExceptionMsg.USER_NOT_EXISTED);
             }
             User user = ModelConventService.toUser(userModel);
             user.UserID = orignalUser.UserID;

@@ -181,62 +181,8 @@ namespace ACS.Service
             userTreeModle.MenuTreeItemList = list;
             return userTreeModle;
         }
-
-        public static Employee toEmployee(Employee employee,EmployeeModel employeeModel)
-        {
-            //TODO: 实现转化 方法
-            employee.Birthday = employeeModel.Birthday;
-            employee.Car = employeeModel.Car;
-            employee.DeptID = employeeModel.DeptID;
-            employee.Email = employeeModel.Email;
-            employee.EmployeeCode = employeeModel.EmployeeCode;
-            employee.EmployeeName = employeeModel.EmployeeName;
-            employee.EndDate = employeeModel.EndDate;
-            employee.EnglishName = employeeModel.EnglishName;
-            employee.Home = employeeModel.Home;
-            employee.JobID = employeeModel.JobID;
-            employee.LeaveDate = employeeModel.LeaveDate;
-            employee.Note1 = employeeModel.Note1;
-            employee.Note2 = employeeModel.Note2;
-            employee.Note3 = employeeModel.Note3;
-            employee.Note4 = employeeModel.Note4;
-            employee.PersonCode = employeeModel.PersonCode;
-            employee.Phone = employeeModel.Phone;
-            employee.Photo = employeeModel.Photo;
-            employee.RegDate = employeeModel.RegDate;
-            employee.Sex = employeeModel.Sex;
-            employee.TimeStamp = employeeModel.TimeStamp;
-            employee.TimeStampx = employeeModel.TimeStampx;
-
-            return employee;
-        }
-        public static EmployeeModel toEmployeeModel(Employee employee)
-        {
-            //TODO: 实现转化 方法
-            EmployeeModel employeeModel = new EmployeeModel();
-            employeeModel.EmployeeID = employee.EmployeeID;
-            employeeModel.Birthday = employee.Birthday;
-            employeeModel.Car = employee.Car;
-            employeeModel.DeptID = employee.DeptID;
-            employeeModel.Email = employee.Email;
-            employeeModel.EmployeeCode = employee.EmployeeCode;
-            employeeModel.EmployeeName = employee.EmployeeName;
-            employeeModel.EndDate = employee.EndDate;
-            employeeModel.EnglishName = employee.EnglishName;
-            employeeModel.Home = employee.Home;
-            employeeModel.JobID = employee.JobID;
-            employeeModel.Note1 = employee.Note1;
-            employeeModel.Note2 = employee.Note2;
-            employeeModel.Note3 = employee.Note3;
-            employeeModel.Note4 = employee.Note4;
-            employeeModel.PersonCode = employee.PersonCode;
-            employeeModel.Phone = employee.Phone;
-            employeeModel.Photo = employee.Photo;
-            employeeModel.RegDate = employee.RegDate;
-            employeeModel.Sex = employee.Sex;
-
-            return employeeModel;
-        }
+ 
+        
         public static Holiday toHoliday(Holiday holiday, HolidayModel holidayModel)
         {
             //TODO: 实现转化 方法

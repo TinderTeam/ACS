@@ -23,12 +23,7 @@ namespace ACS.Service
             //TODO
             return true;
         }
-
-        public static bool EmployeeVerification(EmployeeModel employeeModel)
-        {
-            //TODO
-            return true;
-        }
+ 
 
         public static bool HolidayVerification(HolidayModel holidayModel)
         {

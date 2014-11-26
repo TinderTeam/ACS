@@ -10,6 +10,7 @@ using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
 using ACS.Common.Constant;
 using ACS.Service.Constant;
+using ACS.Common;
 namespace ACS.Service.Impl
 {
     public class HolidayServiceImpl : HolidayService
@@ -54,7 +55,7 @@ namespace ACS.Service.Impl
             if (null == holiday)
             {
                 log.Error("get holiday failed, the holiday is not exist. holidayID is " + holidayID);
-                throw new SystemException(ExceptionMsg.HOLIDAY_NOT_EXIST);
+                throw new FuegoException(ExceptionMsg.HOLIDAY_NOT_EXIST);
             }
             HolidayModel holidayModel = ModelConventService.toHolidayModel(holiday);
             return holidayModel;
@@ -67,7 +68,7 @@ namespace ACS.Service.Impl
             if (null == orignalHoliday)
             {
                 log.Error("modify holiday failed, the holiday is not exist. HolidayID is " + holidayModel.HolidayID);
-                throw new SystemException(ExceptionMsg.HOLIDAY_NOT_EXIST);
+                throw new FuegoException(ExceptionMsg.HOLIDAY_NOT_EXIST);
             }
             Holiday holiday = ModelConventService.toHoliday(orignalHoliday, holidayModel);
             holidayDao.update(holiday);

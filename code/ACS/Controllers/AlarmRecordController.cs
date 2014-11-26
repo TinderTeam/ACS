@@ -9,7 +9,7 @@ using ACS.Service;
 using ACS.Models.Po.Business;
 using System.Web.Script.Serialization;
 using ACS.Common.Util;
-namespace ACM.Controllers
+namespace ACS.Controllers
 {
     public class AlarmRecordController : Controller
     {

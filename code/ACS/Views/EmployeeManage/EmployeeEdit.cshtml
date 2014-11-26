@@ -311,17 +311,17 @@
             var o = form.getData();
             form.validate();
             if (form.isValid() == false) return;
-
             //获取操作类型（新建/修改）
             var type = $(".submit-type").val();
             var url;
-            if (type == 'CREATE') {
+            if (type == 'CREATE')
+            {
                 //新建
                 url = "/EmployeeManage/Create";
             }
-            else if (type == 'EDIT') {
-                //编辑
-                url = "/EmployeeManage/Edit";
+            else if (type == 'EDIT')
+            {   //编辑
+                url = "/EmployeeManage/Modify";
             }
             var json = mini.encode(o);
             $.ajax({
@@ -329,15 +329,14 @@
                 type: 'post',
                 data: { data: json },
                 cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("修改成功！");
+                success: function (json)
+                {
+                    var rsp = mini.decode(json);
+                    if (rsp.ErrorCode == "Success")
+                    {
                         CloseWindow("save");
                     }
-                    else {
-                        alert(text);
-                    }
+                    mini.alert(rsp.Message);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);

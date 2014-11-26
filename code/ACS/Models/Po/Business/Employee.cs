@@ -17,7 +17,7 @@ namespace ACS.Models.Po.Business
         private String pin;//密码开门
         private String empEnable;//是否注销
         private String sex;//
-        private DateTime birthday;//
+        private DateTime birthday = DateTime.Now;//
         private String personCode;//
         private String home;//
         private String phone;//
@@ -26,11 +26,11 @@ namespace ACS.Models.Po.Business
         private int jobID;//
         private int deptID;//
         private String photo;//
-        private DateTime regDate;//注册日期
-        private DateTime endDate;//有效期
+        private DateTime regDate = DateTime.Now;//注册日期
+        private DateTime endDate = DateTime.Now;//有效期
         private String deleted;//
         private String leave;//离职
-        private DateTime leaveDate;//
+        private DateTime leaveDate = DateTime.Now;//
         private String beKQ;//是否参与考勤
         private String pswd;//web密码
         private int mapID;//
@@ -41,14 +41,14 @@ namespace ACS.Models.Po.Business
         private int lastEventID;//最后一次刷卡
         private int event2EmoID;//最后一次刷卡
         private int status;//实时状态
-        private DateTime timeStamp;//修改时间
+        private DateTime timeStamp = DateTime.Now;//修改时间
         private String showCardNo;//
         private String note1;//
         private String note2;//
         private String note3;//
         private String note4;//
         private String note5;//
-        private DateTime timeStampx;//
+        private DateTime timeStampx = DateTime.Now;//
         private String isBlackCard;//
         private String ascString;//
 
