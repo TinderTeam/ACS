@@ -17,17 +17,38 @@ using System.Web.Script.Serialization;
 using ACS.Models.Po.CF;
 using ACS.Common.Util;
 using ACS.Controllers.Constant;
+using ACS.Controllers;
+using ACS.Common.Dao;
 namespace ACM.Controllers
 {
-    public class UserManageController : Controller
+    public class UserManageController : MiniUITableController<User>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
         UserService userService = ServiceContext.getInstance().getUserService();
 
+        public override CommonService<User> getService()
+        {
+            return userService;
+        }
+        
+        /// <summary>
+        /// UserManage IndexPage.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult UserManage()
         {
             return View();
+        }
+
+        /// <summary>
+        /// Load User Tabel
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public ActionResult Load(User filter)
+        {
+            return LoadTable(new List<QueryCondition>());
         }
 
         public ActionResult UserEdit(String id)
@@ -44,7 +65,7 @@ namespace ACM.Controllers
             return View("UserEdit");
         }
 
-
+        /*
         public ActionResult Load(TableForm tableForm, string data)
         {
             UserModel searchCondition = JsonConvert.JsonToObject<UserModel>(data);
@@ -65,6 +86,9 @@ namespace ACM.Controllers
             Response.Write(userModelTable.getMiniUIJson());
             return null;
         }
+         * 
+         */
+         
         /// <summary>
         /// 新增用户
         /// 可以改成用Ajax调用的响应

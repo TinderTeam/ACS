@@ -334,7 +334,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\Log4Net.config" />
-    <Content Include="applicationLog.log" />
     <EmbeddedResource Include="DeviceConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

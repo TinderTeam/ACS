@@ -83,7 +83,7 @@ namespace ACS.Service
         AbstractDataSource<Privilege> getPrivilegeList(Privilege filter);
         TreeModel getUserTree();
     }
-    public interface UserService
+    public interface UserService : CommonService<User>
     {
         AbstractDataSource<User> getUserList(string userName);
         void create(UserModel userModel);

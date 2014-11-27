@@ -17,7 +17,7 @@ using ACS.Models.Po.Business;
 using ACS.Common;
 namespace ACS.Service.Impl
 {
-    public class UserServiceImpl : UserService
+    public class UserServiceImpl : CommonServiceImpl<User>, UserService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         CommonDao<User> userDao = DaoContext.getInstance().getUserDao();
@@ -26,6 +26,10 @@ namespace ACS.Service.Impl
         CommonDao<Control> controlDao = DaoContext.getInstance().getControlDao();
         CommonDao<Door> doorDao = DaoContext.getInstance().getDoorDao();
 
+        public override String GetPrimaryName()
+        {
+            return User.ID;
+        }
 
         public AbstractDataSource<User> getUserList(string userName)
         {   

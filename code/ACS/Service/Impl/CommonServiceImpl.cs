@@ -106,6 +106,6 @@ namespace ACS.Service.Impl
             return DaoContext.getInstance().getDao<E>().getAll(condition);
         }
 
-        public virtual String GetPrimaryName();
+        public abstract String GetPrimaryName();
     }
 }
