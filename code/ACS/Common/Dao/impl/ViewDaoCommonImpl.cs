@@ -40,7 +40,7 @@ namespace ACS.Common.Dao.impl
             {
                 log.Error("getAll error", re);
 
-                throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
             }
             finally
             {
@@ -68,7 +68,7 @@ namespace ACS.Common.Dao.impl
             {
                 log.Error("getAll error", re);
 
-                throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
             }
             finally
             {
@@ -104,7 +104,7 @@ namespace ACS.Common.Dao.impl
             {
                 log.Error("getAll error", re);
 
-                throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
             }
             finally
             {
@@ -139,7 +139,7 @@ namespace ACS.Common.Dao.impl
             {
                 log.Error("getAll error", re);
 
-                throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
             }
             finally
             {
@@ -185,8 +185,7 @@ namespace ACS.Common.Dao.impl
             catch (System.Exception re)
             {
                 log.Error("get UniRecord error", re);
-
-                throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
             }
             finally
             {
@@ -216,7 +215,7 @@ namespace ACS.Common.Dao.impl
             {
                 log.Error("get UniRecord error", re);
 
-                throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
             }
             finally
             {

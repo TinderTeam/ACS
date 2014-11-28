@@ -20,6 +20,10 @@ namespace ACS.Controllers
 
         public ActionResult ReturnJson(Object obj)
         {
+            if (obj.GetType() == typeof(string) || obj.GetType() == typeof(String))
+            {
+                return Content(obj.ToString());
+            }
             return Content(JsonConvert.ObjectToJson(obj));
         }
  

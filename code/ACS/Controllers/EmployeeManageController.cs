@@ -33,11 +33,7 @@ namespace ACS.Controllers
             return View();
         }
 
-        public ActionResult Load(Employee filter)
-        {
-            List<QueryCondition> conditionList = new List<QueryCondition>();
-            return LoadTable(conditionList);
-        }
+ 
 
         public ActionResult EmployeeEdit(String id)
         {
@@ -123,6 +119,7 @@ namespace ACS.Controllers
             List<QueryCondition> conditionList = new List<QueryCondition>();
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN,Employee.ID,getIDList(idList));
             conditionList.Add(condition);
+ 
             return LoadTable(conditionList);
         }
 

@@ -78,8 +78,7 @@ namespace ACS.Service.Impl
             AbstractDataSource<E> dataSource = new DatabaseSourceImpl<E>();
             return dataSource;
         }
-
-        public virtual AbstractDataSource<E> getDataSource(List<QueryCondition> conditionList)
+        public virtual AbstractDataSource<E> GetDataSource(List<QueryCondition> conditionList)
         {
             AbstractDataSource<E> dataSource = new DatabaseSourceImpl<E>(conditionList);
             return dataSource;
@@ -107,5 +106,7 @@ namespace ACS.Service.Impl
         }
 
         public abstract String GetPrimaryName();
+
+
     }
 }

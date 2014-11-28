@@ -21,7 +21,6 @@ namespace ACS.Models.Model
         {
             get 
             {
-
                 return ExceptionMsg.getMessageByErrorCode(errorCode); 
             }
             set { message = value; }

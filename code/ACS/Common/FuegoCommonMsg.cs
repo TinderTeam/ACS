@@ -9,6 +9,10 @@ namespace ACS.Common
     {
         public const String SUCCESS = "Success";
         public const String FAIL = "Fail";
+
+        public const String DATABASE_FAIL = "DATABASE_FAIL";
+
+
  
         public static String getMessageByErrorCode(String errorCode)
         {

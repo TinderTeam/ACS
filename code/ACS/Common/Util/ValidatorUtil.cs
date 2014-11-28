@@ -16,7 +16,7 @@ namespace ACS.Common.Util
             }
             return false;
         }
-        public static bool isEmpty(string str)
+        public static bool isEmpty(String str)
         {
             if (null == str || str.Trim().Count() == 0)
             {

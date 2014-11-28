@@ -1673,8 +1673,8 @@
     <Content Include="Views\Monitor\Monitor.cshtml" />
     <Content Include="Views\EventRecord\EventRecord.cshtml" />
     <Content Include="Views\AlarmRecord\AlarmRecord.cshtml" />
-    <Content Include="Views\HolidayManage\HolidayManage.cshtml" />
-    <Content Include="Views\HolidayManage\HolidayEdit.cshtml" />
+    <Content Include="Views\HolidayManage\IndexPage.cshtml" />
+    <Content Include="Views\HolidayManage\HolidayShow.cshtml" />
     <Content Include="Views\UserManage\MenuPrivilege.cshtml" />
     <Content Include="Views\DeptManage\DeptManage.cshtml">
       <SubType>Code</SubType>

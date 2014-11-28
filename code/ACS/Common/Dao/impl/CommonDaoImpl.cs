@@ -40,7 +40,7 @@ namespace ACS.Common.Dao.impl
             {
 
                 log.Error("create object", ex);
-                throw ex;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, ex);
             }
             finally
             {
@@ -82,7 +82,7 @@ namespace ACS.Common.Dao.impl
             {
 
                 log.Error("create object", ex);
-                throw ex;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, ex);
             }
             finally
             {
@@ -108,7 +108,7 @@ namespace ACS.Common.Dao.impl
             catch (System.Exception re)
 		    {
 			    log.Error("update error",re);
-			    throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL,re);
 
 		    } 
             finally
@@ -145,7 +145,7 @@ namespace ACS.Common.Dao.impl
             catch (System.Exception re)
             {
                 log.Error("update error", re);
-                throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
 
             }
             finally
@@ -187,7 +187,7 @@ namespace ACS.Common.Dao.impl
             catch (System.Exception re)
 		    {
 			    log.Error("delete error",re);
-			    throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
 
 		    } finally
 		    {
@@ -224,7 +224,7 @@ namespace ACS.Common.Dao.impl
             catch (System.Exception re)
             {
                 log.Error("delete error", re);
-                throw re;
+                throw new FuegoException(FuegoCommonMsg.DATABASE_FAIL, re);
 
             }
             finally

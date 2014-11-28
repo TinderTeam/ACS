@@ -36,10 +36,11 @@ namespace ACS.Controllers
             return page;
         }
 
+         
         /**
          * 该方法绑定了MiniUI 表格选择id 数据提交
          */
-        public static List<String> getIDList(String str)
+        public List<String> getIDList(String str)
         {
             List<String> list = new List<String>();
             foreach (String i in str.Split(','))
@@ -49,31 +50,60 @@ namespace ACS.Controllers
             return list;
 
         }
-        public ActionResult LoadTable(List<QueryCondition> conditionList)
+
+        public virtual List<QueryCondition> GetFilterCondition(String json)
         {
+            return null;
+        }
+        //展示IndexPage页面
+        public virtual ActionResult IndexPage()
+        {
+            return View();
+        }
+        //展示编辑页面
+        public virtual ActionResult ShowPage()
+        {
+            return View();
+        }
+        public virtual ActionResult Load(String json)
+        {
+
             TableDataModel<E> table = new TableDataModel<E>();
             table.setPage(getPage());
-            table.setDataSource(getService().GetDataSource());
+            table.setDataSource(getService().GetDataSource(GetFilterCondition(json)));
             return ReturnJson(table.getMiniUIJson());
         }
 
-        public ActionResult LoadTable()
+        public ActionResult LoadTable(List<QueryCondition> conditionList)
         {
-            return LoadTable(null);
-        }
 
+            TableDataModel<E> table = new TableDataModel<E>();
+            table.setPage(getPage());
+            table.setDataSource(getService().GetDataSource(conditionList));
+            return ReturnJson(table.getMiniUIJson());
+        }
+ 
         public virtual ActionResult Show(String id)
         {
             try
             {
-                getService().Get(id);
+                if (ValidatorUtil.isEmpty(id))
+                {
+                    Rsp.Obj = System.Activator.CreateInstance<E>();
+                    log.Info("the id is empty,Creating......");
+                }
+                else 
+                {
+                    E e = getService().Get(id);
+                    Rsp.Obj = e;
+                }
             }
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
-            catch (SystemException e)
+            catch (Exception e)
             {
                 log.Error("create failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
@@ -84,9 +114,10 @@ namespace ACS.Controllers
 
         public virtual ActionResult Create(String data)
         {
-            E obj = JsonConvert.JsonToObject<E>(data);
+          
             try
-            {
+            {  
+                E obj = JsonConvert.JsonToObject<E>(data);
                 getService().Create(obj);
             }
             catch (FuegoException e)
@@ -94,7 +125,7 @@ namespace ACS.Controllers
                 log.Error("create failed", e);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
-            catch (SystemException e)
+            catch (Exception e)
             {
                 log.Error("create failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
@@ -103,11 +134,12 @@ namespace ACS.Controllers
             return ReturnJson(Rsp);
         }
 
-        public ActionResult Modify(String data)
+        public virtual ActionResult Modify(String data)
         {
-            E obj = JsonConvert.JsonToObject<E>(data);
+          
             try
-            {
+            { 
+                E obj = JsonConvert.JsonToObject<E>(data);
                 getService().Modify(obj);
             }
             catch (FuegoException e)
@@ -115,7 +147,7 @@ namespace ACS.Controllers
                 log.Error("create failed", e);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
-            catch (SystemException e)
+            catch (Exception e)
             {
                 log.Error("create failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
@@ -124,18 +156,19 @@ namespace ACS.Controllers
             return ReturnJson(Rsp);
         }
 
-        public ActionResult Delete(String idList)
+        public virtual ActionResult Delete(String data)
         {
             try
             {
-                getService().Delete(getIDList(idList));
+                List<String> idList = JsonConvert.JsonToObject<List<String>>(data);
+                getService().Delete(idList);
             }
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
-            catch (SystemException e)
+            catch (Exception e)
             {
                 log.Error("create failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;

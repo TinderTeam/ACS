@@ -8,6 +8,7 @@ using ACS.Models.Po.CF;
 using ACS.Models.Po.Business;
 using ACS.Common.Dao.datasource;
 using AccessTcp;
+using ACS.Common.Dao;
 namespace ACS.Service
 {
 
@@ -15,6 +16,7 @@ namespace ACS.Service
     {
         void Validator(E obj);
         AbstractDataSource<E> GetDataSource();
+        AbstractDataSource<E> GetDataSource(List<QueryCondition> conditionList);
         void Create(E obj);
         void Modify(E obj);
         void Delete(String id);
@@ -109,13 +111,9 @@ namespace ACS.Service
         AbstractDataSource<AlarmRecord> getAlarmRecordList(AlarmRecord filter);
 
     }
-    public interface HolidayService
+    public interface HolidayService : CommonService<Holiday>
     {
-        AbstractDataSource<Holiday> getHolidayList(Holiday filter);
-        void create(HolidayModel holidayModel);
-        HolidayModel getHolidayModelByID(string holidayID);
-        void update(HolidayModel holidayModel);
-        void delete(List<int> holidayIDList);
+
     }
     public interface MonitorService
     {
