@@ -12,17 +12,15 @@ using ACS.Common.Constant;
 using ACS.Service.Constant;
 namespace ACS.Service.Impl
 {
-    public class EventRecordViewServiceImpl : EventRecordViewService
+    public class EventRecordViewServiceImpl : CommonServiceImpl<EventRecordView>, EventRecordViewService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         CommonDao<EventRecordView> eventRecordViewDao = DaoContext.getInstance().getEventRecordViewDao();
 
-        public AbstractDataSource<EventRecordView> getEventRecordViewList(EventRecordView filter)
+        //获取对象主键
+        public override string GetPrimaryName()
         {
-            List<QueryCondition> conditionList = new List<QueryCondition>();
-            AbstractDataSource<EventRecordView> dataSource = new DatabaseSourceImpl<EventRecordView>(conditionList);
-            return dataSource;
+            return EventRecordView.ID;
         }
-        
     }
 }

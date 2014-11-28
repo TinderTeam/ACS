@@ -12,16 +12,15 @@ using ACS.Common.Constant;
 using ACS.Service.Constant;
 namespace ACS.Service.Impl
 {
-    public class AlarmRecordServiceImpl : AlarmRecordService
+    public class AlarmRecordServiceImpl : CommonServiceImpl<AlarmRecord>, AlarmRecordService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         CommonDao<AlarmRecord> alarmRecordDao = DaoContext.getInstance().getAlarmRecordDao();
 
-        public AbstractDataSource<AlarmRecord> getAlarmRecordList(AlarmRecord filter)
+        //获取对象主键
+        public override string GetPrimaryName()
         {
-            List<QueryCondition> conditionList = new List<QueryCondition>();
-            AbstractDataSource<AlarmRecord> dataSource = new DatabaseSourceImpl<AlarmRecord>(conditionList);
-            return dataSource;
+            return AlarmRecord.ID;
         }
         
     }

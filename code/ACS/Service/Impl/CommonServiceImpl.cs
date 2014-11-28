@@ -84,6 +84,12 @@ namespace ACS.Service.Impl
             return dataSource;
         }
 
+        public virtual AbstractDataSource<T> GetDataSource<T>(List<QueryCondition> conditionList)
+        {
+            AbstractDataSource<T> dataSource = new DatabaseSourceImpl<T>(conditionList);
+            return dataSource;
+        }
+
         public virtual E Get(String id)
         {
             if (ValidatorUtil.isEmpty(id))

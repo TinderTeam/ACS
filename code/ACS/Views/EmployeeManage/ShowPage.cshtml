@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>员工面板</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script src="../../Scripts/boot.js" type="text/javascript"></script>
+
+    <style type="text/css">
+    html, body
+    {
+        font-size:12px;
+        padding:0;
+        margin:0;
+        border:0;
+        height:100%;
+        overflow:hidden;
+    }
+    </style>
+</head>
+<body> 
+    <form id="employeeForm" method="post">
+
+            <div style="padding-left:25px;margin-top:10px;">
+                <table style="table-layout:fixed;">
+                    <div style="width:50%">
+                        <tr>
+                            <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Name")</td>
+                            <td style="width:150px;">    
+                                <input name="EmployeeName" class="mini-textbox" required="true"/>
+                                <input name ="EmployeeID" class="mini-textbox" style="display:none" value=""/>
+                            </td>
+                        </tr>                  
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_EnglishName")</td>
+                            <td >    
+                                <input name="EnglishName" class="mini-textbox"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Sex")</td>
+                            <td >    
+                                <select name="Sex" class="mini-radiobuttonlist">
+                                    <option value="Male">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Male")</option>
+                                    <option value="Female">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Female")</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Birthday")</td>
+                            <td >
+                                <input name="Birthday" class="mini-datepicker" required="true" emptyText="请选择日期"/>    
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Phone")</td>
+                                <td >    
+                                    <input name="Phone" class="mini-textbox"/>
+                                </td>    
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_PersonCode")</td>
+                                <td >    
+                                    <input name="PersonCode" class="mini-textbox"/>
+                                </td>
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Home")</td>
+                            <td >    
+                                <input name="Home" class="mini-textbox"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Car")</td>
+                                <td >    
+                                    <input name="Car" class="mini-textbox"/>
+                                </td>
+                        </tr>
+                    </div>                  
+                    <div style="float:right; margin-top:5px; margin-right:16%;" >
+			            <div style="margin-bottom:5px; width:120px; height:140px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+				            <div ><img id="ImgPr1" src ="user/ExpertManage!getPhotoImag.action?picid=${expertModel.expert.id}" height="140" width="120" alt="个人1寸照片" ></div>
+
+			            </div>
+			            <div >
+				            <s:file name="expertModel.exPhoto" id="up1"></s:file>
+			            </div>
+			
+		            </div>
+                </table>
+            </div>
+            <fieldset style="border:solid 1px #aaa;padding:3px;">
+                <legend >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_WorkInfo")</legend>
+                <div style="padding-left:25px;margin-top:10px;margin-bottom:10px;">
+                    <table>
+                        <tr >
+                            <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Code")</td>
+                            <td style="width:150px;">
+                                <input name="EmployeeCode" class="mini-textbox" required="true"  emptyText="请输入员工工号"/>
+                            </td>
+                            <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Email")</td>
+                            <td style="width:150px;">    
+                                <input name="Email" class="mini-textbox"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_DeptID")</td>
+                            <td >    
+                                <input name="DeptID" class="mini-combobox" valueField="id" textField="text" 
+                                url="../../Test/Dept.txt"
+                                onvaluechanged="onDeptChanged" required="true"
+                                    emptyText="请选择部门"
+                                />
+                            </td>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_JobID")</td>
+                            <td >
+                                <input name="JobID" class="mini-combobox" valueField="id" textField="text"
+                                url="../../Test/Job.txt" required="true" emptyText="请选择职位"
+                                />
+                            </td> 
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_RegDate")</td>
+                            <td >
+                                <input name="RegDate" class="mini-datepicker" required="true" emptyText="请选择日期"/>     
+                            </td>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_EndDate")</td>
+                            <td >
+                                <input name="EndDate" class="mini-datepicker" required="true" emptyText="请选择日期"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note1")</td>
+                            <td >    
+                                <input name="Note1" class="mini-textbox"/>
+                            </td>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note2")</td>
+                            <td >    
+                                <input name="Note2" class="mini-textbox"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note3")</td>
+                            <td >    
+                                <input name="Note3" class="mini-textbox"/>
+                            </td>
+                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note4")</td>
+                            <td >    
+                                <input name="Note4" class="mini-textbox"/>
+                            </td>
+                        </tr>
+                    </table>            
+                </div>
+            </fieldset>      
+        
+        <div style="text-align:center;padding:5px;">
+            <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">确定</a>               
+            <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">确定</a>                     
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
+        </div>  
+    </form>
+    <script type="text/javascript">
+        mini.parse();
+
+        var form = new mini.Form("#employeeForm");
+
+        ////////////////////
+        //加载窗口信息
+        function Show(data) {
+            //跨页面传递的数据对象，克隆后才可以安全使用
+            receiveData = mini.clone(data);
+            if (receiveData.action == "Modify") {
+
+                $("#Modify").attr('style', 'width:60px;margin-right:20px;');
+            }
+            else if (receiveData.action == "Create") {
+
+                $("#Create").attr('style', 'width:60px;margin-right:20px;');
+            }
+            $.ajax({
+                url: "../EmployeeManage/Show?data=" + data.id,
+                cache: false,
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
+                        form.setData(Rsp.Obj);
+                    } else {
+                        mini.alert(Rsp.Message);
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+
+        function onSaveData(type) {
+            var data = form.getData();
+            var json = mini.encode(data);
+
+            //获取操作类型（新建/修改）
+            var url;
+            if (type == 'Create')
+            {
+                //新建
+                url = "/EmployeeManage/Create";
+            }
+            else if (type == 'Modify')
+            {   //编辑
+                url = "/EmployeeManage/Modify";
+            }
+
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: { data: json },
+                cache: false,
+                success: function (json) {
+
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
+                        CloseWindow("save");
+                    } else {
+
+                        mini.alert(Rsp.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function CloseWindow(action) {
+            if (action == "close" && form.isChanged()) {
+                if (confirm("数据被修改了，是否先保存？")) {
+                    return false;
+                }
+            }
+            if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+            else window.close();
+        }
+
+    </script>
+</body>
+</html>

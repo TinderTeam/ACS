@@ -153,30 +153,6 @@ namespace ACS.Service
             userTreeModle.MenuTreeItemList = list;
             return userTreeModle;
         }
- 
-        
-        public static Holiday toHoliday(Holiday holiday, HolidayModel holidayModel)
-        {
-            //TODO: 实现转化 方法
-            holiday.HolidayName = holidayModel.HolidayName;
-            holiday.StartTime = holidayModel.StartTime;
-            holiday.EndTime = holidayModel.EndTime;
-            holiday.HolidayNote = holidayModel.HolidayNote;
-
-            return holiday;
-        }
-        public static HolidayModel toHolidayModel(Holiday holiday)
-        {
-            //TODO: 实现转化 方法
-            HolidayModel holidayModel = new HolidayModel();
-            holidayModel.HolidayID = holiday.HolidayID;
-            holidayModel.HolidayName = holiday.HolidayName;
-            holidayModel.StartTime = holiday.StartTime;
-            holidayModel.EndTime = holiday.EndTime;
-            holidayModel.HolidayNote = holiday.HolidayNote;
-
-            return holidayModel;
-        }
 
         /// <summary>
         /// 通过控制器获取控制器-树列表

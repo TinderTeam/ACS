@@ -7,6 +7,7 @@ namespace ACS.Models.Po.Business
 {
     public class AlarmRecord
     {
+        public const String ID = "AlarmID";
         private int alarmID;//时间ID
         private DateTime alarmTime;//时间时间
         private int doorID;//门ID

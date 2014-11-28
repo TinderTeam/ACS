@@ -28,11 +28,6 @@ namespace ACS.Controllers
         {
             return null;
         }
-
-        public ActionResult HolidayShow()
-        {
-            return View();
-        }
         
     }
 }

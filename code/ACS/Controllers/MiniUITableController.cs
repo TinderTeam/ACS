@@ -83,6 +83,15 @@ namespace ACS.Controllers
             return ReturnJson(table.getMiniUIJson());
         }
 
+		public ActionResult LoadTable<T>(List<QueryCondition> conditionList)
+        {
+
+            TableDataModel<T> table = new TableDataModel<T>();
+            table.setPage(getPage());
+            table.setDataSource(getService().GetDataSource<T>(conditionList));
+            return ReturnJson(table.getMiniUIJson());
+        }
+		
         public ActionResult LoadTree()
         {
             List<E> tree = this.getService().GetDataSource().getAllPageData();

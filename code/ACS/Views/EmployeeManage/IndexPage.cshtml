@@ -22,8 +22,8 @@
             <table style="width:100%;">
                 <tr>
                     <td style="width:100%;">
-                        <a class="mini-button" iconCls="icon-add" onclick="add()">增加</a>
-                        <a class="mini-button" iconCls="icon-edit" onclick="edit()">编辑</a>
+                        <a class="mini-button" iconCls="icon-add" onclick="onModifyRow('Create')">增加</a>
+                        <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow('Modify')">编辑</a>
                         <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>   
                         <a class="mini-button" iconCls="icon-user" onclick="leave()">离职</a> 
                         <a class="mini-button" iconCls="icon-goto" onclick="cancel()">注销</a> 
@@ -40,7 +40,6 @@
     <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
         url="Load"  idField="EmployeeID" multiSelect="true">
         <div property="columns">
-            <!--<div type="indexcolumn"></div>        -->
             <div type="checkcolumn" ></div>                  
             <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Code")</div>    
             <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Name")</div>    
@@ -175,42 +174,36 @@
                 alert("请选中一条记录");
             }
         }
-
-        function add() {
-            mini.open({
-                url:"../EmployeeManage/EmployeeCreate",
-                title: "新增员工", width: 560, height: 500,
-                onload: function () {
-
-                },
-                ondestroy: function (action) {           
-                    grid.reload();
-                }
-            });
-        }
-
-        function edit() {
+        //新增、编辑窗口页面
+        function onModifyRow(type) {
             var rows = grid.getSelecteds();
             var row = grid.getSelected();
-            if (rows.length == 1) {
-                var id = row.EmployeeID;
-                mini.open({
-                    url: "../EmployeeManage/EmployeeEdit?id=" + id,
-                    title: "编辑员工", width: 560, height: 500,
-                    onload: function () {
-                      
-                    },
-                    ondestroy: function (action) {
-                        grid.reload();
-                        
-                    }
-                });             
-            } else {
-                alert("请选中一条记录");
+            if (type == 'Modify') {
+                if (rows.length != 1) {
+                    mini.alert("请选中一条记录");
+                    return;
+                }
+                var titleName = "编辑员工";
+                var value = row.EmployeeID;
+            } else if (type == 'Create') {
+                var titleName = "新增员工";
+                var value = "";
             }
-            
-        }
+            mini.open({
+                url: "../EmployeeManage/ShowPage",
+                title: titleName, width: 560, height: 500,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = { action: type, id: value };
+                    iframe.contentWindow.Show(data);
+                },
+                ondestroy: function (action) {
+                    grid.reload();
 
+                }
+            });
+
+        }
         function remove() {
             
             var rows = grid.getSelecteds();
@@ -249,24 +242,6 @@
         }
         function onKeyEnter(e) {
             search();
-        }
-        /////////////////////////////////////////////////
-        function onBirthdayRenderer(e) {
-            var value = e.value;
-            if (value) return mini.formatDate(value, 'yyyy-MM-dd');
-            return "";
-        }
-        function onMarriedRenderer(e) {
-            if (e.value == 1) return "是";
-            else return "否";
-        }
-        var Genders = [{ id: 1, text: '男' }, { id: 2, text: '女'}];        
-        function onGenderRenderer(e) {
-            for (var i = 0, l = Genders.length; i < l; i++) {
-                var g = Genders[i];
-                if (g.id == e.value) return g.text;
-            }
-            return "";
         }
     </script>
 </body>

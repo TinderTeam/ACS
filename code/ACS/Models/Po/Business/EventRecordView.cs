@@ -7,7 +7,7 @@ namespace ACS.Models.Po.Business
 {
     public class EventRecordView
     {
-
+        public const String ID = "EventID";
         private int eventID;//事件ID
         private int employeeID;//员工ID
         private DateTime eventTime;//事件时间

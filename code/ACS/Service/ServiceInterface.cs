@@ -16,6 +16,9 @@ namespace ACS.Service
     {
         void Validator(E obj);
         AbstractDataSource<E> GetDataSource();
+
+        AbstractDataSource<T> GetDataSource<T>(List<QueryCondition> conditionList);
+
         AbstractDataSource<E> GetDataSource(List<QueryCondition> conditionList);
         void Create(E obj);
         void Modify(E obj);
@@ -97,14 +100,12 @@ namespace ACS.Service
     }
 
 
-    public interface EventRecordViewService
+    public interface EventRecordViewService : CommonService<EventRecordView>
     {
-        AbstractDataSource<EventRecordView> getEventRecordViewList(EventRecordView filter);
-
+        
     }
-    public interface AlarmRecordService
+    public interface AlarmRecordService : CommonService<AlarmRecord>
     {
-        AbstractDataSource<AlarmRecord> getAlarmRecordList(AlarmRecord filter);
 
     }
     public interface HolidayService : CommonService<Holiday>

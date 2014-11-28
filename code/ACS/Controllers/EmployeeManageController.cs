@@ -28,31 +28,6 @@ namespace ACS.Controllers
             return employeeService;
         }
 
-        public ActionResult EmployeeManage()
-        {
-            return View();
-        }
-
- 
-
-        public ActionResult EmployeeEdit(String id)
-        {
-            ViewBag.Type = "EDIT";
-            Employee employee = employeeService.Get(id);
-            ViewBag.employee = employee;
-            return View();
-        }
-
-        public ActionResult EmployeeCreate()
-        {
-            ViewBag.Type = "CREATE";
-            return View("EmployeeEdit");
-        }
-
-
-
- 
-       
         /// <summary>
         /// 注销用户
         /// </summary>
@@ -129,7 +104,6 @@ namespace ACS.Controllers
         /// <returns></returns>
         public ActionResult SaveCard(string data)
         {
-            string text = null;
             log.Debug("Save Employee card...");
             List<Employee> employeeList = JsonConvert.JsonToObject<List<Employee>>(data);
 

@@ -26,7 +26,7 @@ namespace ACS.Service.Impl
 
         public override void Validator(Employee obj)
         {
-            if(null != obj)
+            if(null == obj)
             {
                 log.Info("the obj is empty");
                 throw new FuegoException(ExceptionMsg.EMPLOYEE_NOT_EXIST);

@@ -81,7 +81,7 @@
             else {
             }
             $.ajax({
-                url: "../HolidayManage/Show?id="+data.id,
+                url: "../HolidayManage/Show?data="+data.id,
                 cache: false,
                 success: function (json) {
                     var Rsp = mini.decode(json);

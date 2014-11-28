@@ -9,30 +9,21 @@ using ACS.Service;
 using ACS.Models.Po.Business;
 using System.Web.Script.Serialization;
 using ACS.Common.Util;
+using ACS.Common.Dao;
 namespace ACS.Controllers
 {
-    public class EventRecordController : Controller
+    public class EventRecordController : MiniUITableController<EventRecordView>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         EventRecordViewService eventRecordViewService = ServiceContext.getInstance().getEventRecordViewService();
 
-        public ActionResult EventRecord()
+        public override CommonService<EventRecordView> getService()
         {
-            
-            return View();
+            return eventRecordViewService;
         }
-        
-        public ActionResult Load(TableForm tableForm, EventRecordView filter)
+        //用于实现条件查询功能
+        public override List<QueryCondition> GetFilterCondition(String json)
         {
-            log.Debug("Load Employee Data...");
-            //数据库操作：使用查询条件、分页、排序等参数进行查询
-            TableDataModel<EventRecordView> eventRecordViewModelTable = new TableDataModel<EventRecordView>();
-            eventRecordViewModelTable.setPage(tableForm.getPage());
-            eventRecordViewModelTable.setDataSource(eventRecordViewService.getEventRecordViewList(filter));
-          
-            log.Debug("pageIndex = " + tableForm.PageIndex + ";pageSize=" + tableForm.PageSize);
-
-            Response.Write(eventRecordViewModelTable.getMiniUIJson());
             return null;
         }
 
