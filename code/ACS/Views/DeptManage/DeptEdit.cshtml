@@ -73,23 +73,39 @@
         function Show(data) {
             //跨页面传递的数据对象，克隆后才可以安全使用
             receiveData = mini.clone(data);
+         
             if (receiveData.action == "Edit") {
-                var showUrl = "../DeptManage/ShowEditDept?deptId=" + data.id;
+              
                 $("#AddDept").attr('style', 'display:none');
+                var showUrl = "../DeptManage/Show?data=" + data.id;
             }
             else if (receiveData.action == "Add") {
-                var showUrl = "../DeptManage/ShowAddDept?fatherDeptID=" + data.id;
+              
                 $("#EditDept").attr('style', 'display:none');
+                var showUrl = "../DeptManage/Show?data=" + "";
             }
             else
             {
             }
+         
             $.ajax({
                 url: showUrl,
                 cache: false,
-                success: function (text) {
-                    var o = mini.decode(text);
-                    form.setData(o);
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+ 
+                    if (receiveData.action == "Add") {
+                        Rsp.Obj.FatherDeptName = data.DeptName;
+                    }
+                    else {
+                        Rsp.Obj.FatherDeptName = data.FatherDeptName;
+                    }
+                    Rsp.Obj.FatherDeptID = data.id;
+ 
+                    form.setData(Rsp.Obj);
+                    
+                    
+                    
                 }
             });
         }
@@ -100,17 +116,18 @@
             if (form.isValid() == false) return;
             var json = mini.encode(o);
             $.ajax({
-                url: "../DeptManage/AddDept",
+                url: "../DeptManage/Create",
                 type: 'post',
                 data: { data: json },
                 cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success")
+                    {
                         CloseWindow("ok");
                     }
                     else {
-                        alert(text);
+                        alert(Rsp.Message);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -126,17 +143,18 @@
             if (form.isValid() == false) return;
             var json = mini.encode(o);
             $.ajax({
-                url: "../DeptManage/EditDept",
+                url: "../DeptManage/Modify",
                 type: 'post',
                 data: { data: json },
                 cache: false,
-                success: function (text) {
+                success: function (json) {
 
-                    if (text == "Success") {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
                         CloseWindow("ok");
                     }
                     else {
-                        alert(text);
+                        alert(Rsp.Message);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

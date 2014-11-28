@@ -65,12 +65,12 @@ namespace ACS.Controllers
         {
             return View();
         }
-        public virtual ActionResult Load(String json)
+        public virtual ActionResult Load(String data)
         {
 
             TableDataModel<E> table = new TableDataModel<E>();
             table.setPage(getPage());
-            table.setDataSource(getService().GetDataSource(GetFilterCondition(json)));
+            table.setDataSource(getService().GetDataSource(GetFilterCondition(data)));
             return ReturnJson(table.getMiniUIJson());
         }
 
@@ -82,19 +82,25 @@ namespace ACS.Controllers
             table.setDataSource(getService().GetDataSource(conditionList));
             return ReturnJson(table.getMiniUIJson());
         }
+
+        public ActionResult LoadTree()
+        {
+            List<E> tree = this.getService().GetDataSource().getAllPageData();
+            return ReturnJson(tree);
+        }
  
-        public virtual ActionResult Show(String id)
+        public virtual ActionResult Show(String data)
         {
             try
             {
-                if (ValidatorUtil.isEmpty(id))
+                if (ValidatorUtil.isEmpty(data))
                 {
                     Rsp.Obj = System.Activator.CreateInstance<E>();
                     log.Info("the id is empty,Creating......");
                 }
                 else 
                 {
-                    E e = getService().Get(id);
+                    E e = getService().Get(data);
                     Rsp.Obj = e;
                 }
             }

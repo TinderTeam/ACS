@@ -48,13 +48,9 @@ namespace ACS.Service
         List<DoorTimeView> getDoorTimeViewList(string userID, string selectedAccessID);
         void addDeviceInAccess(int userID, string accessID, List<TreeGirdItem> treeItemList);
     }
-    public interface DeptService
+    public interface DeptService  : CommonService<Dept>
     {
-        TreeModel getDeptTree();
-        Dept getDeptByID(string deptID);
-        void addDept(DeptModel deptModel);
-        void editDept(DeptModel deptModel);
-        void deleteDept(string deptID);
+ 
     }
     public interface DeviceService
     {

@@ -23,34 +23,21 @@
         </div>                  
         <!--body-->
             <ul id="tree1" class="mini-tree" url="../DeptManage/LoadTree" style="width:100%;height:100%;padding:0px;" 
-                    showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"  
+                    showTreeIcon="true" textField="DeptName" idField="DeptID" parentField="FatherDeptID" resultAsTree="false"  
                     allowDrag="true" allowDrop="true" 
                     >
              </ul>
     </div>
 
 </div>
-     <!--<div class="mini-panel" title="部门管理" iconCls="icon-add" style="width:95%;height:80%;" 
-        showToolbar="true" showCollapseButton="true" showFooter="true">
-        <div property="toolbar" >
-            <input type="button" value="插入子部门" onclick="onEditNode('Add')" style='vertical-align:middle;'/>      
-            <input type="button" value="编辑部门" onclick="onEditNode('Edit')" style='vertical-align:middle;'/>
-            <input type="button" value="删除部门" onclick="onRemoveNode()" style='vertical-align:middle;'/>
-        </div>
-        <div style="margin-left: 30px;">
-            <ul id="tree1" class="mini-tree" url="../DeptManage/LoadTree" style="width:200px;padding:5px;" 
-                showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"  
-                allowDrag="true" allowDrop="true" 
-                >
-            </ul>
-        </div>
-    </div>-->
+ 
   
     <script type="text/javascript">
 
         function onEditNode(type) {
             var tree = mini.get("tree1");
             var node = tree.getSelectedNode();
+            var fatherNode = tree.getParentNode(node);
             var value = tree.getValue();
             if (node) {
                 if (type == "Edit") {
@@ -64,7 +51,7 @@
                     title: titleName, width: 350, height: 350,
                     onload: function () {
                         var iframe = this.getIFrameEl();
-                        var data = { action: type, id: value };
+                        var data = { action: type, id: value, FatherDeptName: fatherNode.DeptName, DeptName: node.DeptName };
                         iframe.contentWindow.Show(data);
 
                     },
@@ -77,11 +64,12 @@
                             data = mini.clone(data);
 
                             if (type == "Add") {
-                                var newNode = { text: data.DeptName };
+                                var newNode = { DeptName: data.DeptName };
                                 tree.addNode(newNode, "add", node);
                             }
                             else if (type == "Edit") {
-                                tree.updateNode(node, { text: data.DeptName });
+                          
+                                tree.updateNode(node, { DeptName: data.DeptName });
                                 //tree.load("../DeptManage/LoadTree");
                             }
                         }
@@ -95,21 +83,25 @@
             }
         }
         function onRemoveNode(e) {
+         
             var tree = mini.get("tree1");
             var value = tree.getValue();
+ 
             var node = tree.getSelectedNode();
-            
+            var ids = Array(value);
+            var json = mini.encode(ids);
+    
             if (node) {
                 if (confirm("确定删除选中节点?")) {
 
                     $.ajax({
-                        url: "../DeptManage/DeleteDept",
+                        url: "../DeptManage/Delete",
                         type: 'post',
-                        data: { data: value },
+                        data: { data: json },
                         cache: false,
-                        success: function (text) {
-
-                            if (text == "Success") {
+                        success: function (json) {
+                            var Rsp = mini.decode(json);
+                            if (Rsp.ErrorCode == "Success") {
                                 mini.alert("删除成功！");
                                 tree.removeNode(node);
                             }
