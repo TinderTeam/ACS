@@ -25,7 +25,7 @@
 
                 <div id="treegrid1" class="mini-treegrid" style="width: 100%; height: 95%;" 
                     showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid"
-                    resultAsTree="false" allowResize="true">
+                    resultAsTree="false" allowResize="true" showCheckBox="true" onbeforenodecheck="onBeforeNodeCheck">
                     <div property="columns">
                         <div type="indexcolumn"></div>
                         <div name="taskname" field="Text" width="120" headeralign="center" allowsort="true">权限名称</div>
@@ -53,7 +53,7 @@
             <div title="根据设备选择" iconcls="icon-cut">
                 <div id="devicetreegrid" class="mini-treegrid" style="width: 100%; height: 95%;" 
                     showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid"
-                    resultAsTree="false" allowResize="true" expandOnLoad="true" showCheckBox="true">
+                    resultAsTree="false" allowResize="true" showCheckBox="true">
                     <div property="columns">
                         <div type="indexcolumn"></div>
                         <div name="taskname" field="Text" width="120" headeralign="center" allowsort="true">权限名称</div>
@@ -83,7 +83,15 @@
 <script type="text/javascript">
 
     mini.parse();
-    ////////////////////
+    //增加权限时，只能选择根节点
+    function onBeforeNodeCheck(e) {
+        var text = mini.encode(e.node);
+        if (e.node._level != 0)
+        {
+            e.cancel = true;         
+            mini.alert("请选择一个根节点");
+        }
+    }
     //加载窗口信息
     function Show(data) {
         //跨页面传递的数据对象，克隆后才可以安全使用
@@ -105,7 +113,7 @@
             //新建
             url = "../AccessManage/AddAccessOfAccess?accessID=" + receiveData.id;
             treeGrid = mini.get("#treegrid1");
-            node = treeGrid.getSelectedNode();
+            node = treeGrid.getCheckedNodes();
             json = mini.encode(node);
         }
         else if (type == 'DeviceSubmit') {
@@ -115,8 +123,6 @@
             node = treeGrid.getCheckedNodes();
             json = mini.encode(node);
         }
-        if ((type == 'DeviceSubmit')||((node) && (node.Pid == "0"))) {
-            //var json = mini.encode(o);
             $.ajax({
                 url: url,
                 type: 'post',
@@ -137,10 +143,7 @@
                     CloseWindow();
                 }
             });
-        }
-        else {
-            alert("请选中一个根节点");
-        }
+
     }
 
     function CloseWindow(action) {

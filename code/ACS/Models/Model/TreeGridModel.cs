@@ -46,6 +46,9 @@ namespace ACS.Models.Model
         private String endTime;
         private bool checkNode;
         private String accessID;
+        private String valueID;
+        private List<TreeGirdItem> children;
+
         public TreeGirdItem()
         {
         }
@@ -54,14 +57,14 @@ namespace ACS.Models.Model
             get { return accessID; }
             set { accessID = value; }
         }
-        private String valueID;
+        
 
         public String ValueID
         {
             get { return valueID; }
             set { valueID = value; }
         }
-        private List<TreeGirdItem> children;
+        
 
         public TreeGirdItem(string pid,string id)
         {
@@ -134,6 +137,11 @@ namespace ACS.Models.Model
 
                 str = str + ", ControlName:\"" + controlName
                       + "\",StartTime:\"" + startTime + "\",EndTime:\"" + endTime+"\"";
+            }
+            if ((checkNode != false) && (!checkNode.Equals("")))
+            {
+
+                str = str + ", checked:\"" + checkNode + "\"";
             }
             return str + "}";
             

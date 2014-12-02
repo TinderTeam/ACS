@@ -30,8 +30,10 @@
                         <a class="mini-button" iconCls="icon-new" onclick="card()">发卡</a>       
                     </td>
                     <td style="white-space:nowrap;">
-                        <input id="key" class="mini-textbox" emptyText="请输入姓名" style="width:150px;" onenter="onKeyEnter"/>   
+                        <form id="searchForm" method="post">
+                        <input id="key" name="EmployeeName" class="mini-textbox" emptyText="请输入姓名" style="width:150px;" onenter="onKeyEnter"/>   
                         <a class="mini-button" onclick="search()">查询</a>
+                        </form>
                     </td>
                 </tr>
             </table>           
@@ -236,9 +238,18 @@
             }
         }
 
+        //比如key={name:"asd",age:"123"};
+        //gird.load(key);
+        //后台string key1 = Request["name"];
+        //string key2 = Request["age"];
+        //这样获取
         function search() {
-            var key = mini.get("key").getValue();
-            grid.load({ key: key });
+            var form = new mini.Form("#searchForm");
+            var searchData = form.getData();
+            var json = mini.encode(searchData);
+            alert(json);
+            grid.load({ data: json });
+
         }
         function onKeyEnter(e) {
             search();

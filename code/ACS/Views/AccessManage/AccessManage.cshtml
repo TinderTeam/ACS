@@ -138,38 +138,33 @@
             var tree = mini.get("#treegrid");
             var node = tree.getSelectedNode();
             var json = mini.encode(node);
-            if (node) {
-                if ((node._level == 0) || ((node._level == 1) && (node.Type == "ACCESS")) || ((node._level == 3) && (node.Type == "DOORTIME"))) {
-                    if (confirm("确定删除选中门禁权限?")) {
-                        //通过Ajax删除节点
-                        //方法：removeAccess
-                        $.ajax({
-                            url: "../AccessManage/DeleteAccess",
-                            type: 'post',
-                            data: { data: json },
-                            cache: false,
-                            success: function (text) {
+            if ((node)&&(node._level == 0)) {
+                if (confirm("确定删除选中门禁权限?")) {
+                    //通过Ajax删除节点
+                    //方法：removeAccess
+                    $.ajax({
+                        url: "../AccessManage/DeleteAccess",
+                        type: 'post',
+                        data: { data: json },
+                        cache: false,
+                        success: function (text) {
 
-                                if (text == "Success") {
-                                    //tree.removeNode(node);
-                                    tree.load("../AccessManage/LoadAllAccessDetail");
-                                }
-                                else {
-                                    alert(text);
-                                }
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                alert(jqXHR.responseText);
+                            if (text == "Success") {
+                                //tree.removeNode(node);
+                                tree.load("../AccessManage/LoadAllAccessDetail");
                             }
-                        });
-                    }
-                }
-                else {
-                    alert("请选择根权限直接包含的权限或时间段")
+                            else {
+                                alert(text);
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(jqXHR.responseText);
+                        }
+                    });
                 }
             }
             else {
-                alert("请选中一个节点");
+                alert("请选中一个根节点");
             }
         }
         

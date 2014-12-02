@@ -17,6 +17,11 @@ namespace ACS.Controllers
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         DeptService deptService = ServiceContext.getInstance().getDeptService();
 
+        public override CommonService<Dept> getService()
+        {
+            return this.deptService;
+        }
+
         // GET: /DeptManage/
         //加载部门管理页面
         public ActionResult DeptManage()
@@ -30,11 +35,6 @@ namespace ACS.Controllers
             return View();
         }
 
-  
 
-        public override CommonService<Dept> getService()
-        {
-            return this.deptService;
-        }
     }
 }

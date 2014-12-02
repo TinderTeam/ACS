@@ -45,11 +45,13 @@ namespace ACS.Service
         AccessDetail createAccessDetail(int creatUserID, string accessName);
         void deleteAccess(TreeGirdItem treeItem);
         List<AccessDetailView> getAccessDetailViewList(string userID,string parentID);
-        void addAccessInAccess(string accessID, TreeGirdItem treeItem);
+        void addAccessInAccess(string accessID, List<TreeGirdItem> treeItem);
         AccessDetail getAccessDetailByAccessID(string accessID, string parentID);
         void editAccessName(AccessDetail accessDetail);
-        List<DoorTimeView> getDoorTimeViewList(string userID, string selectedAccessID);
+        List<AccessDetailView> getDoorTimeAccessByAccessID(string selectedAccessID);
+        List<DoorTimeView> getDoorTimeViewListByUserID(string userID);
         void addDeviceInAccess(int userID, string accessID, List<TreeGirdItem> treeItemList);
+        List<AccessDetail> getAccessDetailListByAccessID(string accessID);
     }
     public interface DeptService  : CommonService<Dept>
     {

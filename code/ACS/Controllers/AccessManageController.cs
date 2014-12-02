@@ -32,10 +32,10 @@ namespace ACS.Controllers
         public string LoadAllAccessDetail()
         {
 
-            List<TreeGirdItem> tree = LoadAccessDetailListByID("0", "0", "0");
-
+            List<TreeGirdItem> treeGridItemList = LoadAccessDetailListByID("0", "0", "0");
+           
             TreeGridModel treeModel = new TreeGridModel();
-            treeModel.TreeGridItemList = tree;
+            treeModel.TreeGridItemList = treeGridItemList;
             return treeModel.ToJsonStr();
         }
 
@@ -125,13 +125,11 @@ namespace ACS.Controllers
                     {
                         //被选中的Access在增加权限的List中不显示
                     }
-                    else
+                    else 
                     {
                         accessMap.Add(item.ValueID, item);
                         rspTreeList.AddRange(LoadAccessDetailListByID(item.Id, accessDetailView.ValueID.ToString(), "0"));
                     }
-
-
                 }
 
             }
@@ -206,9 +204,22 @@ namespace ACS.Controllers
         public string LoadAddAccessDetail(string selectedID)
         {
             //被选中的Access不再增加权限列表中显示
-            List<TreeGirdItem> tree = LoadAccessDetailListByID("0", "0", selectedID);
+            List<TreeGirdItem> treeGridItemList = LoadAccessDetailListByID("0", "0", selectedID);
+            //原权限中包含的权限打勾
+            List<AccessDetail> accessDetilList = accessService.getAccessDetailListByAccessID(selectedID);
+            foreach (AccessDetail accessDetail in accessDetilList)
+            {
+                string valueID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetail.ValueID.ToString();
+                foreach (TreeGirdItem treeGridItem in treeGridItemList)
+                {
+                    if ((valueID == treeGridItem.ValueID) && (treeGridItem.AccessID == AccessDetail.ROOT_ACCESS_ID))
+                    {
+                        treeGridItem.CheckNode = true;
+                    }
+                }
+            }
             TreeGridModel treeModel = new TreeGridModel();
-            treeModel.TreeGridItemList = tree;
+            treeModel.TreeGridItemList = treeGridItemList;
             return treeModel.ToJsonStr();
         }
         // 编辑门禁权限中的子权限，数据提交
@@ -216,9 +227,9 @@ namespace ACS.Controllers
         {
             //accessID是正在编辑的AccessID,data是编辑后提交上来的ID列表
 
-            TreeGirdItem treeItem = JsonConvert.JsonToObject<TreeGirdItem>(data);
+            List<TreeGirdItem> treeItemList = JsonConvert.JsonToObject<List<TreeGirdItem>>(data);
 
-            accessService.addAccessInAccess(accessID, treeItem);
+            accessService.addAccessInAccess(accessID, treeItemList);
             Response.Write(AjaxConstant.AJAX_SUCCESS);
             return null;
         }
@@ -228,8 +239,8 @@ namespace ACS.Controllers
         {
             log.Info("LoadDeviceTreeList" +  ",selected id is :" + selectedID);
             UserModel loginUser = (UserModel)Session["SystemUser"];
-            List<DoorTimeView> doorTimeViewList = accessService.getDoorTimeViewList(loginUser.UserID.ToString(),selectedID);
-
+            List<DoorTimeView> doorTimeViewList = accessService.getDoorTimeViewListByUserID(loginUser.UserID.ToString());
+            List<AccessDetailView> selectedDoorTimeList = accessService.getDoorTimeAccessByAccessID(selectedID);
             List<TreeGirdItem> rspTreeList = new List<TreeGirdItem>();
             if (ValidatorUtil.isEmpty<DoorTimeView>(doorTimeViewList))
             {
@@ -269,6 +280,13 @@ namespace ACS.Controllers
                 TreeGirdItem doorTime = new TreeGirdItem(doorTimeParentID, doorTimeID);
                 doorTime.Text = doorTimeView.DoorTimeName;
                 doorTime.Type = AccessDetail.DOORTIME_TYPE;
+                foreach (AccessDetailView doorTimeAccess in selectedDoorTimeList)
+                {
+                    if (doorTimeView.DoorTimeID == doorTimeAccess.ValueID)
+                    {
+                        doorTime.CheckNode = true;
+                    }
+                }
                 doorTimeMap.Add(doorTime.Id, doorTime);
 
             }
