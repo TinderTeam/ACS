@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>新增门禁权限</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link href="../../script/demo.css" rel="stylesheet" type="text/css" />
+    <script src="../../scripts/boot.js" type="text/javascript"></script>
+</head>
+<body>
+<style type="text/css">
+    html, body{
+        margin:0px;padding:0;border:0;width:100%;height:100%;overflow:hidden;
+    }    
+</style>
+<div class="mini-fit" >
+    <div class="mini-panel" title="职位管理" style="width:100%;height:100%;" showToolbar="true">
+         <!--toolbar-->
+        <div property="toolbar">
+            <a class="mini-button" iconCls="icon-addfolder" onclick="onEditNode('Create')" plain="true">增加</a>
+            <a class="mini-button" iconCls="icon-edit" onclick="onEditNode('Modify')" plain="true">修改</a>
+            <a class="mini-button" iconCls="icon-remove" onclick="onRemoveNode()" plain="true">删除</a>
+        </div>                  
+        <!--body-->
+        <ul id="jobTree" class="mini-tree" url="../JobManage/LoadTree" style="width:100%;height:100%;padding:0px;" 
+            showTreeIcon="true" textField="JobName" idField="JobID" resultAsTree="false"  
+            allowDrag="true" allowDrop="true" 
+            >
+        </ul>
+    </div>
+</div>
+ 
+  
+<script type="text/javascript">
+
+    //新增、编辑职位
+    function onEditNode(type) {
+        var tree = mini.get("jobTree");
+        var node = tree.getSelectedNode();
+        var titleName;
+        var name;
+        var value;
+        if ((type == "Create") || ((node) && (type == "Modify"))) {
+            if (type == "Modify") {
+                titleName = "编辑职位";
+                value = tree.getValue();
+                name = node.JobName;
+            }
+            else if (type == "Create") {
+                titleName = "新增职位";
+                value = null;
+                name = null;
+            }
+            mini.open({
+                url: "../JobManage/ShowPage",
+                title: titleName, width: 350, height: 350,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = { action: type, id: value, JobName: name };
+                    iframe.contentWindow.Show(data);
+
+                },
+                ondestroy: function (action) {
+
+                    if (action == "ok")     //关闭窗口时点击的是确定
+                    {
+                        tree.load("../JobManage/LoadTree");
+                    }
+                }
+            });
+        }
+        else {
+            alert("请选中一个节点");
+        }
+    }
+    //删除职位
+    function onRemoveNode(e) {
+         
+        var tree = mini.get("jobTree");
+        var value = tree.getValue();
+ 
+        var node = tree.getSelectedNode();
+        var ids = Array(value);
+        var json = mini.encode(ids);
+    
+        if (node) {
+            if (confirm("确定删除选中节点?")) {
+
+                $.ajax({
+                    url: "../JobManage/Delete",
+                    type: 'post',
+                    data: { data: json },
+                    cache: false,
+                    success: function (json) {
+                        var Rsp = mini.decode(json);
+                        if (Rsp.ErrorCode == "Success") {
+                            mini.alert("删除成功！");
+                            tree.removeNode(node);
+                        }
+                        else {
+                            alert(text);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    }
+                });
+            }
+        }
+        else {
+            alert("请选中一个节点");
+        }
+    }
+    </script>
+</body>
+</html>

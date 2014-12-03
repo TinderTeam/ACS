@@ -12,14 +12,15 @@ using ACS.Test;
 
 namespace ACS.Controllers
 {
-    public class DeptManageController : MiniUITableController<Dept>
+    public class JobManageController : MiniUITableController<Job>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        DeptService deptService = ServiceContext.getInstance().getDeptService();
+        JobService jobService = ServiceContext.getInstance().getJobService();
 
-        public override CommonService<Dept> getService()
+        public override CommonService<Job> getService()
         {
-            return this.deptService;
+            return this.jobService;
         }
+ 
     }
 }

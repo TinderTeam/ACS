@@ -80,13 +80,12 @@
                     </div>                  
                     <div style="float:right; margin-top:5px; margin-right:16%;" >
 			            <div style="margin-bottom:5px; width:120px; height:140px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
-				            <div ><img id="ImgPr1" src ="user/ExpertManage!getPhotoImag.action?picid=${expertModel.expert.id}" height="140" width="120" alt="个人1寸照片" ></div>
+				            <div ><img id="ImgPr1" src="../../Scripts/themes/default/images/login_logo.png" height="140" width="120" alt="个人1寸照片" ></div>
 
 			            </div>
-			            <div >
-				            <s:file name="expertModel.exPhoto" id="up1"></s:file>
+			            <div>
+				            <input type ="file"  name="expertModel.exPhoto" id="up1"/>
 			            </div>
-			
 		            </div>
                 </table>
             </div>
@@ -107,16 +106,15 @@
                         <tr>
                             <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_DeptID")</td>
                             <td >    
-                                <input name="DeptID" class="mini-combobox" valueField="id" textField="text" 
-                                url="../../Test/Dept.txt"
-                                onvaluechanged="onDeptChanged" required="true"
-                                    emptyText="请选择部门"
+                                <input name="DeptID" class="mini-combobox" valueField="DeptID" textField="DeptName" 
+                                url="../DeptManage/LoadTree" onvaluechanged="onDeptChanged" required="true"
+                                emptyText="请选择部门"
                                 />
                             </td>
                             <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_JobID")</td>
                             <td >
-                                <input name="JobID" class="mini-combobox" valueField="id" textField="text"
-                                url="../../Test/Job.txt" required="true" emptyText="请选择职位"
+                                <input name="JobID" class="mini-combobox" valueField="JobID" textField="JobName"
+                                url="../JobManage/LoadTree" required="true" emptyText="请选择职位"
                                 />
                             </td> 
                         </tr>

@@ -38,7 +38,7 @@ namespace ACS.Common.Util
 		}
 		else if(fieldClass == typeof(DateTime))
 		{
-           // obj = DateUtil.stringToDate(value);
+            obj = DateUtil.StringToDateTime(value);
 		}
 		else
 		{

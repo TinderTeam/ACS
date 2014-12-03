@@ -12,5 +12,19 @@ namespace ACS.Common.Util
             string dateString = dateTime.ToString("yyyy-MM-dd hh:mm:ss");
             return dateString;
         }
+        public static DateTime StringToDateTime(String str)
+        {
+            DateTime dateTime = Convert.ToDateTime(str);
+            return dateTime;
+        }
+        public static bool DateTimeIsEmpty(DateTime dateTime)
+        {
+            if (dateTime.Ticks == 0)
+            {
+                return true;
+            }
+            return false;
+ 
+        }
     }
 }

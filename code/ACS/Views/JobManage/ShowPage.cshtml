@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>员工面板</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script src="../../Scripts/boot.js" type="text/javascript"></script>
+
+    <style type="text/css">
+    html, body
+    {
+        font-size:12px;
+        padding:0;
+        margin:0;
+        border:0;
+        height:100%;
+        overflow:hidden;
+    }
+    </style>
+</head>
+<body> 
+    <form id="jobForm" method="post">
+        
+            <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
+                <table style="table-layout:fixed;">
+                    <tr style ="height:35px">
+                        <td >部门名称：</td>
+                        <td >    
+                            <input name="JobName" class="mini-textbox" value=""/>
+                            <input name="JobID" class="mini-textbox" style="display:none" value=""/>
+                        </td>
+                    </tr>        
+                </table>
+            </div>    
+
+                  
+        <div style="text-align:center;padding:5px;">
+            <a id="Create" class="mini-button"  onclick="onCreateOk" style="width:60px;margin-right:20px;">确定</a>               
+            <a id="Modify" class="mini-button" onclick="onModifyOk" style="width:60px;margin-right:20px;">确定</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
+        </div>  
+    </form>
+    <script type="text/javascript">
+        mini.parse();
+
+        var form = new mini.Form("#jobForm");
+
+        ////////////////////
+        //加载窗口信息
+        function Show(data) {
+            //跨页面传递的数据对象，克隆后才可以安全使用
+            receiveData = mini.clone(data);
+            if (receiveData.action == "Modify") {
+              
+                $("#Create").attr('style', 'display:none');
+                var showUrl = "../JobManage/Show?data=" + receiveData.id;
+            }
+            else if (receiveData.action == "Create") {
+              
+                $("#Modify").attr('style', 'display:none');
+                var showUrl = "../JobManage/Show?data=" + "";
+            }
+            $.ajax({
+                url: showUrl,
+                cache: false,
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    var text = mini.encode(Rsp.Obj);
+                    form.setData(Rsp.Obj); 
+                }
+            });
+        }
+        //增加职位
+        function onCreateOk() {
+            var o = form.getData();
+            form.validate();
+            if (form.isValid() == false) return;
+            var json = mini.encode(o);
+            $.ajax({
+                url: "../JobManage/Create",
+                type: 'post',
+                data: { data: json },
+                cache: false,
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success")
+                    {
+                        CloseWindow("ok");
+                    }
+                    else {
+                        alert(Rsp.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        //编辑职位
+        function onModifyOk() {
+            var o = form.getData();
+            form.validate();
+            if (form.isValid() == false) return;
+            var json = mini.encode(o);
+            $.ajax({
+                url: "../JobManage/Modify",
+                type: 'post',
+                data: { data: json },
+                cache: false,
+                success: function (json) {
+
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
+                        CloseWindow("ok");
+                    }
+                    else {
+                        alert(Rsp.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function CloseWindow(action) {
+            if (action == "close" && form.isChanged()) {
+                if (confirm("数据被修改了，是否先保存？")) {
+                    return false;
+                }
+            }
+            if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+            else window.close();
+        }
+    </script>
+</body>
+</html>

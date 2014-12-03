@@ -21,6 +21,7 @@ namespace ACS.Service
         private DeviceService deviceService;
         private AccessService accessService;
         private DeptService deptService;
+        private JobService jobService;
 
         public static ServiceContext getInstance()
         {
@@ -141,6 +142,15 @@ namespace ACS.Service
                 deptService = new DeptServiceImpl();
             }
             return deptService;
+        }
+        public JobService getJobService()
+        {
+
+            if (jobService == null)
+            {
+                jobService = new JobServiceImpl();
+            }
+            return jobService;
         }
 
     }
