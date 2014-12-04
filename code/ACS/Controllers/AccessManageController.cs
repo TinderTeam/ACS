@@ -15,28 +15,24 @@ using ACS.Common;
 
 namespace ACS.Controllers
 {
-    public class AccessManageController : BaseController
+    public class AccessManageController : MiniUITableController<AccessDetail>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private AccessService accessService = ServiceContext.getInstance().getAccessService();
+        private AccessDetailService accessService = ServiceContext.getInstance().getAccessDetailService();
 
         private int currentAccessID = 1;        //前台显示树时，作为唯一标识ID
-        //
-        // 加载门禁权限窗口
 
-        public ActionResult AccessManage()
+        public override CommonService<AccessDetail> getService()
         {
-            return View();
+            return accessService;
         }
+
         // 加载所有门禁权限List
-        public string LoadAllAccessDetail()
+        public ActionResult LoadAllAccessDetail()
         {
 
-            List<TreeGirdItem> treeGridItemList = LoadAccessDetailListByID("0", "0", "0");
-           
-            TreeGridModel treeModel = new TreeGridModel();
-            treeModel.TreeGridItemList = treeGridItemList;
-            return treeModel.ToJsonStr();
+            List<AccessDetailModel> accessDetailModelList = LoadAccessDetailListByID("0", "0", "0");
+            return ReturnJson(accessDetailModelList);
         }
 
         /// <summary>
@@ -45,11 +41,11 @@ namespace ACS.Controllers
         // parentID前台显示树时的父本ID，第一级树parentID为0；第一级树ID由getCurTreeID自动生成，第二级树的parentID为第一级树的ID
         // accessID用户查询数据库中子节点使用
         //selectedID，在添加权限时，被选中的ID在新弹出的窗口中不显示
-        public List<TreeGirdItem> LoadAccessDetailListByID(string parentID, string accessID, string selectedID)
+        public List<AccessDetailModel> LoadAccessDetailListByID(string parentID, string accessID, string selectedID)
         {
             log.Info("LoadAccessDetailListByID" + "the parent id is " + parentID + ",selected id is :" + selectedID);
             UserModel loginUser = (UserModel)Session["SystemUser"];
-            List<TreeGirdItem> rspTreeList = new List<TreeGirdItem>();
+            List<AccessDetailModel> rspTreeList = new List<AccessDetailModel>();
 
             List<AccessDetailView> accessDetailViewList = accessService.getAccessDetailViewList(loginUser.UserID.ToString(), accessID);
 
@@ -59,8 +55,8 @@ namespace ACS.Controllers
                 return rspTreeList;
             }
 
-            TreeGridModel accessDetailViewTreeModel = new TreeGridModel();
-            Dictionary<String, TreeGirdItem> accessMap = new Dictionary<String, TreeGirdItem>();
+            Dictionary<String, AccessDetailModel> controlMap = new Dictionary<String, AccessDetailModel>();
+            Dictionary<String, AccessDetailModel> doorMap = new Dictionary<String, AccessDetailModel>();
 
             foreach (AccessDetailView accessDetailView in accessDetailViewList)
             {
@@ -68,72 +64,71 @@ namespace ACS.Controllers
                 if (accessDetailView.Type == AccessDetail.DOORTIME_TYPE)
                 {
 
-                    TreeGirdItem control = null;
+                    AccessDetailModel control = null;
 
-                    string controlID = AccessDetail.CONTROL_TYPE + AccessDetail.SPLIT + accessDetailView.ControlID.ToString();
-
-                    if (!accessMap.ContainsKey(controlID))
+                    if (!controlMap.ContainsKey(accessDetailView.ControlID.ToString()))
                     {
-                        control = new TreeGirdItem(parentID, getCurTreeID());
-                        control.ValueID = controlID;
-                        control.Text = accessDetailView.ControlName;
+                        control = new AccessDetailModel(parentID, getCurTreeID());
+                        control.ValueID = accessDetailView.ControlID;
+                        control.NodeName = accessDetailView.ControlName;
                         control.Type = AccessDetail.CONTROL_TYPE;
-                        control.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
-                        accessMap.Add(control.ValueID, control);
+                        control.AccessID = accessDetailView.AccessID;
+                        controlMap.Add(accessDetailView.ControlID.ToString(), control);
                     }
                     else
                     {
-                        control = accessMap[controlID];
+                        control = controlMap[accessDetailView.ControlID.ToString()];
                     }
 
 
-                    TreeGirdItem door = null;
-                    string doorID = AccessDetail.DOOR_TYPE + AccessDetail.SPLIT + accessDetailView.DoorID.ToString();
+                    AccessDetailModel door = null;
 
-                    if (!accessMap.ContainsKey(doorID))
+                    if (!doorMap.ContainsKey(accessDetailView.DoorID.ToString()))
                     { 
-                        door = new TreeGirdItem(control.Id, getCurTreeID());
-                        door.ValueID = doorID;
-                        door.Text = accessDetailView.DoorName;
+                        door = new AccessDetailModel(control.Id, getCurTreeID());
+                        door.ValueID = accessDetailView.DoorID;
+                        door.NodeName = accessDetailView.DoorName;
                         door.Type = AccessDetail.DOOR_TYPE;
-                        door.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
-                        accessMap.Add(door.ValueID, door);
+                        door.AccessID = accessDetailView.AccessID;
+                        doorMap.Add(accessDetailView.DoorID.ToString(), door);
                     }
                     else
                     {
-                        door = accessMap[doorID];
+                        door = doorMap[accessDetailView.DoorID.ToString()];
                     }
 
-                    TreeGirdItem doorTime = new TreeGirdItem(door.Id, getCurTreeID());
-                    doorTime.ValueID = AccessDetail.DOORTIME_TYPE + AccessDetail.SPLIT + accessDetailView.ValueID.ToString();
-                    doorTime.Text = accessDetailView.DoorTimeName;
-                    doorTime.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
+                    AccessDetailModel doorTime = new AccessDetailModel(door.Id, getCurTreeID());
+                    doorTime.ValueID = accessDetailView.ValueID;
+                    doorTime.NodeName = accessDetailView.DoorTimeName;
+                    doorTime.AccessID = accessDetailView.AccessID;
                     doorTime.Type = AccessDetail.DOORTIME_TYPE;
                     doorTime.StartTime = accessDetailView.StartTime;
                     doorTime.EndTime = accessDetailView.EndTime;
-                    accessMap.Add(doorTime.ValueID, doorTime);
+                    rspTreeList.Add(doorTime);
 
                 }
                 else if (accessDetailView.Type == AccessDetail.ACCESS_TYPE)
                 {
-                    TreeGirdItem item = new TreeGirdItem(parentID, getCurTreeID());
-                    item.ValueID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.ValueID.ToString();
-                    item.Text = accessDetailView.AccessName;
-                    item.AccessID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetailView.AccessID.ToString();
+                    AccessDetailModel item = new AccessDetailModel(parentID, getCurTreeID());
+                    item.AccessDetailID = accessDetailView.AccessDetailID;
+                    item.ValueID = accessDetailView.ValueID;
+                    item.NodeName = accessDetailView.AccessName;
+                    item.AccessID = accessDetailView.AccessID;
                     item.Type = AccessDetail.ACCESS_TYPE;
-                    if ((accessDetailView.AccessID == 0) && (selectedID == item.ValueID))
+                    if ((accessDetailView.AccessID == 0) && (selectedID == item.ValueID.ToString()))
                     {
                         //被选中的Access在增加权限的List中不显示
                     }
                     else 
                     {
-                        accessMap.Add(item.ValueID, item);
+                        rspTreeList.Add(item);
                         rspTreeList.AddRange(LoadAccessDetailListByID(item.Id, accessDetailView.ValueID.ToString(), "0"));
                     }
                 }
 
             }
-            rspTreeList.AddRange(accessMap.Values.ToList<TreeGirdItem>());
+            rspTreeList.AddRange(controlMap.Values.ToList<AccessDetailModel>());
+            rspTreeList.AddRange(doorMap.Values.ToList<AccessDetailModel>());
 
             return rspTreeList;
         }
@@ -142,144 +137,110 @@ namespace ACS.Controllers
         {
             return (currentAccessID++).ToString();
         }
-        //编辑门禁权限名称，打开编辑窗口
-        public ActionResult AccessCreate()
-        {
-            return View();
-        }
-        //加载编辑权限名称信息
-        public string ShowEditAccessName(string accessID)
-        {
-            //获取编辑的目标权限
-            AccessDetail fatherAccessDetail = accessService.getAccessDetailByAccessID(accessID, AccessDetail.ROOT_ID);
-            string accessDetailJson = JsonConvert.ObjectToJson(fatherAccessDetail);
-            Response.Write(accessDetailJson);
-            return null;
-
-        }
-        //提交新增的门禁权限
-        public string CreateAccess(string data, string accessName)
-        {
-
-            log.Debug("Create Access...");
-            UserModel loginUser = (UserModel)Session["SystemUser"];
-            try
-            {
-                //校验成功
-                AccessDetail newAccessDetail = accessService.createAccessDetail(loginUser.UserID, accessName);
-
-            }
-            catch (FuegoException e)
-            {
-                Rsp.ErrorCode = e.GetErrorCode();
-                log.Error("add accesss failed", e);
-            }
-            catch (SystemException ex)
-            {
-                Rsp.ErrorCode = ExceptionMsg.FAIL;
-                log.Error("add accesss failed", ex);
-            }
-
-
-            Response.Write(AjaxConstant.AJAX_SUCCESS);
-            return null;
-        }
-        //提交编辑门禁权限名称
-        public string EditAccessName(string data)
-        {
-
-            log.Debug("Edit access name...");
-            AccessDetail accessDetail = JsonConvert.JsonToObject<AccessDetail>(data);
-            accessService.editAccessName(accessDetail);
-            Response.Write(AjaxConstant.AJAX_SUCCESS);
-            return null;
-
-        }
         //打开编辑门禁权限内容窗口
         public ActionResult AccessEdit()
         {
             return View();
         }
         // 加载增加门禁权限列表
-        public string LoadAddAccessDetail(string selectedID)
+        public ActionResult LoadAddAccessDetail(string selectedID)
         {
             //被选中的Access不再增加权限列表中显示
-            List<TreeGirdItem> treeGridItemList = LoadAccessDetailListByID("0", "0", selectedID);
+            List<AccessDetailModel> treeGridItemList = LoadAccessDetailListByID("0", "0", selectedID);
             //原权限中包含的权限打勾
             List<AccessDetail> accessDetilList = accessService.getAccessDetailListByAccessID(selectedID);
             foreach (AccessDetail accessDetail in accessDetilList)
             {
-                string valueID = AccessDetail.ACCESS_TYPE + AccessDetail.SPLIT + accessDetail.ValueID.ToString();
-                foreach (TreeGirdItem treeGridItem in treeGridItemList)
+                int valueID = accessDetail.ValueID;
+                foreach (AccessDetailModel treeGridItem in treeGridItemList)
                 {
-                    if ((valueID == treeGridItem.ValueID) && (treeGridItem.AccessID == AccessDetail.ROOT_ACCESS_ID))
+                    if ((valueID == treeGridItem.ValueID) && (treeGridItem.AccessID == 0))
                     {
                         treeGridItem.CheckNode = true;
                     }
                 }
             }
-            TreeGridModel treeModel = new TreeGridModel();
-            treeModel.TreeGridItemList = treeGridItemList;
-            return treeModel.ToJsonStr();
+            return ReturnJson(treeGridItemList);
         }
         // 编辑门禁权限中的子权限，数据提交
-        public string AddAccessOfAccess(string accessID, string data)
+        public ActionResult AddAccessOfAccess(string accessID, string data)
         {
             //accessID是正在编辑的AccessID,data是编辑后提交上来的ID列表
+            try
+            {
+                List<AccessDetailModel> treeItemList = JsonConvert.JsonToObject<List<AccessDetailModel>>(data);
+                accessService.addAccessInAccess(accessID, treeItemList);
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
 
-            List<TreeGirdItem> treeItemList = JsonConvert.JsonToObject<List<TreeGirdItem>>(data);
-
-            accessService.addAccessInAccess(accessID, treeItemList);
-            Response.Write(AjaxConstant.AJAX_SUCCESS);
-            return null;
+            return ReturnJson(Rsp);
         }
         /// <summary>
         /// 根据DeviceID获取设备树列表
-        public string LoadDeviceTreeList(string selectedID)
+        public ActionResult LoadDeviceTreeList(string selectedID)
         {
             log.Info("LoadDeviceTreeList" +  ",selected id is :" + selectedID);
             UserModel loginUser = (UserModel)Session["SystemUser"];
             List<DoorTimeView> doorTimeViewList = accessService.getDoorTimeViewListByUserID(loginUser.UserID.ToString());
             List<AccessDetailView> selectedDoorTimeList = accessService.getDoorTimeAccessByAccessID(selectedID);
-            List<TreeGirdItem> rspTreeList = new List<TreeGirdItem>();
+            List<AccessDetailModel> rspTreeList = new List<AccessDetailModel>();
+
             if (ValidatorUtil.isEmpty<DoorTimeView>(doorTimeViewList))
             {
                 log.Warn("can not find  doortime of the user. the user id is " + loginUser.UserID.ToString());
                 return null;
             }
-            TreeGridModel accessDetailViewTreeModel = new TreeGridModel();
-            Dictionary<String, TreeGirdItem> doorTimeMap = new Dictionary<String, TreeGirdItem>();
 
+            Dictionary<String, AccessDetailModel> controlMap = new Dictionary<String, AccessDetailModel>();
+            Dictionary<String, AccessDetailModel> doorMap = new Dictionary<String, AccessDetailModel>();
             foreach (DoorTimeView doorTimeView in doorTimeViewList)
             {
                 //加入Control
-                string controlParentID = AccessDetail.CONTROL_TYPE + AccessDetail.SPLIT + AccessDetail.ROOT_ID;
-                string controlID = AccessDetail.CONTROL_TYPE + AccessDetail.SPLIT + doorTimeView.ControlID.ToString();
-                TreeGirdItem control = new TreeGirdItem(controlParentID, controlID);
-                control.Text = doorTimeView.ControlName;
-                control.Type = AccessDetail.CONTROL_TYPE;
-                if (!doorTimeMap.ContainsKey(control.Id))
+                AccessDetailModel control = null;
+                if (!controlMap.ContainsKey(doorTimeView.ControlID.ToString()))
                 {
-                    doorTimeMap.Add(control.Id, control);
+                    control = new AccessDetailModel(AccessDetail.ROOT_ID, getCurTreeID());
+                    control.NodeName = doorTimeView.ControlName;
+                    control.Type = AccessDetail.CONTROL_TYPE;
+                    controlMap.Add(doorTimeView.ControlID.ToString(), control);
+                }
+                else
+                {
+                    control = controlMap[doorTimeView.ControlID.ToString()];
                 }
 
                 //加入Door
-                string doorParentID = AccessDetail.CONTROL_TYPE + AccessDetail.SPLIT + doorTimeView.ControlID.ToString();
-                string doorID = AccessDetail.DOOR_TYPE + AccessDetail.SPLIT + doorTimeView.DoorID.ToString();
-                TreeGirdItem door = new TreeGirdItem(doorParentID, doorID);
-                door.Text = doorTimeView.DoorName;
-                door.Type = AccessDetail.DOOR_TYPE;
-                if (!doorTimeMap.ContainsKey(door.Id))
+                AccessDetailModel door = null;
+                if (!doorMap.ContainsKey(doorTimeView.DoorID.ToString()))
                 {
-                    doorTimeMap.Add(door.Id, door);
+                    door = new AccessDetailModel(control.Id, getCurTreeID());
+                    door.NodeName = doorTimeView.DoorName;
+                    door.Type = AccessDetail.DOOR_TYPE;
+                    doorMap.Add(doorTimeView.DoorID.ToString(), door);
+                }
+                else
+                {
+                    door = doorMap[doorTimeView.DoorID.ToString()];
                 }
 
+                
                 //加入Doortime
-                string doorTimeParentID = AccessDetail.DOOR_TYPE + AccessDetail.SPLIT + doorTimeView.DoorID.ToString();
-                string doorTimeID = AccessDetail.DOORTIME_TYPE + AccessDetail.SPLIT + doorTimeView.DoorTimeID.ToString();
-                TreeGirdItem doorTime = new TreeGirdItem(doorTimeParentID, doorTimeID);
-                doorTime.Text = doorTimeView.DoorTimeName;
+                AccessDetailModel doorTime = new AccessDetailModel(door.Id, getCurTreeID());
+                doorTime.NodeName = doorTimeView.DoorTimeName;
                 doorTime.Type = AccessDetail.DOORTIME_TYPE;
+                doorTime.StartTime = doorTimeView.StartTime;
+                doorTime.EndTime = doorTimeView.EndTime;
+                doorTime.ValueID = doorTimeView.DoorTimeID;
+
                 foreach (AccessDetailView doorTimeAccess in selectedDoorTimeList)
                 {
                     if (doorTimeView.DoorTimeID == doorTimeAccess.ValueID)
@@ -287,48 +248,37 @@ namespace ACS.Controllers
                         doorTime.CheckNode = true;
                     }
                 }
-                doorTimeMap.Add(doorTime.Id, doorTime);
+                rspTreeList.Add(doorTime);
 
             }
-            rspTreeList.AddRange(doorTimeMap.Values.ToList<TreeGirdItem>());
-            List<TreeGirdItem> doorTimeTreeList = rspTreeList;
-            TreeGridModel treeModel = new TreeGridModel();
-            treeModel.TreeGridItemList = doorTimeTreeList;
-            string text = treeModel.ToJsonStr();
-            return text;
+            rspTreeList.AddRange(doorMap.Values.ToList<AccessDetailModel>());
+            rspTreeList.AddRange(controlMap.Values.ToList<AccessDetailModel>());
+            List<AccessDetailModel> doorTimeTreeList = rspTreeList;
+            return ReturnJson(doorTimeTreeList);
         }  
         // 编辑门禁权限中的子权限，数据提交
-        public string AddDeviceOfAccess(string accessID, string data)
+        public ActionResult AddDeviceOfAccess(string accessID, string data)
         {
             //accessID是正在编辑的AccessID,data是编辑后提交上来的ID列表
             UserModel loginUser = (UserModel)Session["SystemUser"];
-            List<TreeGirdItem> treeItemList = JsonConvert.JsonToObject<List<TreeGirdItem>>(data);
-            accessService.addDeviceInAccess(loginUser.UserID, accessID, treeItemList);
-            Response.Write(AjaxConstant.AJAX_SUCCESS);
-            return null;
-        }
-        //删除门禁权限
-        public string DeleteAccess(string data)
-        {
-            string text = null;
-            log.Debug("Delete Access...");
-            TreeGirdItem treeItem = JsonConvert.JsonToObject<TreeGirdItem>(data);
             try
             {
-                //校验成功
-                accessService.deleteAccess(treeItem);
+                List<AccessDetailModel> treeItemList = JsonConvert.JsonToObject<List<AccessDetailModel>>(data);
+                accessService.addDeviceInAccess(loginUser.UserID, accessID, treeItemList);
             }
-            catch (SystemException ex)
+            catch (FuegoException e)
             {
-                text = ex.Message;
-                Response.Write(text);
-                return null;
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
             }
-            Response.Write(AjaxConstant.AJAX_SUCCESS);
-            return null;
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
 
+            return ReturnJson(Rsp);
         }
-        
- 
+
     }
 }

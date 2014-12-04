@@ -28,22 +28,17 @@
                     <td style="width:90px;">权限名称：</td>
                     <td style="width:150px;">
                         <input name="AccessName" class="mini-textbox"  value=""/>
+                        <input name="ValueID" class="mini-textbox" style="display:none" value=""/>
                     </td>
                     
-                </tr>
-                <tr style ="height:35px">
-                    <td >权限ID：</td>
-                    <td >    
-                        <input name="ValueID" class="mini-textbox" readonly="readonly" value=""/>
-                    </td>
-                </tr>         
+                </tr>      
             </table>
             </div>    
 
                   
         <div style="text-align:center;padding:5px;">
-            <a id="AddAccess" class="mini-button"  onclick="onAddOk" style="width:60px;margin-right:20px;">确定</a>               
-            <a id="EditAccess" class="mini-button" onclick="onEditOk" style="width:60px;margin-right:20px;">确定</a>       
+            <a id="Create" class="mini-button"  onclick="onCreateOk" style="display:none">确定</a>               
+            <a id="Modify" class="mini-button" onclick="onModifyOk" style="display:none">确定</a>       
             <a class="mini-button" onclick="onCancel" style="width:60px;">取消</a>       
         </div>  
     </form>
@@ -57,45 +52,51 @@
         function Show(data) {
             //跨页面传递的数据对象，克隆后才可以安全使用
             receiveData = mini.clone(data);
-            if (receiveData.action == "Edit") {
-                var showUrl = "../AccessManage/ShowEditAccessName?accessID=" + data.id;
-                $("#AddAccess").attr('style', 'display:none');
+            if (receiveData.action == "Modify") {
+                var showUrl = "../AccessManage/Show?data=" + data.id;
+                $("#Modify").attr('style', 'width:60px;margin-right:20px;');
             }
-            else if (receiveData.action == "Add") {
+            else if (receiveData.action == "Create") {
                 //数据库中不存在valueID="0"的权限，这样就不会查到任何信息
-                var showUrl = "../AccessManage/ShowEditAccessName?accessID=" + "ACCESS_0";
-                $("#EditAccess").attr('style', 'display:none');
-            }
-            else
-            {
+                var showUrl = "../AccessManage/Show?data=";
+                $("#Create").attr('style', 'width:60px;margin-right:20px;');
             }
             $.ajax({
                 url: showUrl,
                 cache: false,
-                success: function (text) {
-                    var accessDetailObj = mini.decode(text);
-                    form.setData(accessDetailObj);
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
+                        form.setData(Rsp.Obj);
+                    } else {
+                        mini.alert(Rsp.Message);
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
                 }
             });
         }
         //新建权限
-        function onAddOk() {
+        function onCreateOk() {
             var accessObj = form.getData();
             form.validate();
             if (form.isValid() == false) return;
-            var json = null;
+            var json = mini.encode(accessObj);
             $.ajax({
-                url: "../AccessManage/CreateAccess?accessName=" + accessObj.AccessName,
+                url: "../AccessManage/Create",
                 type: 'post',
                 data: { data: json },
                 cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
                         CloseWindow("ok");
                     }
                     else {
-                        alert(text);
+                        alert(Rsp.Message);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -105,23 +106,23 @@
             });
         }
         //编辑权限
-        function onEditOk() {
+        function onModifyOk() {
             var o = form.getData();
             form.validate();
             if (form.isValid() == false) return;
             var json = mini.encode(o);
             $.ajax({
-                url: "../AccessManage/EditAccessName",
+                url: "../AccessManage/Modify",
                 type: 'post',
                 data: { data: json },
                 cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
                         CloseWindow("ok");
                     }
                     else {
-                        alert(text);
+                        alert(Rsp.Message);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

@@ -15,13 +15,18 @@ using ACS.Models.Po.CF;
 
 namespace ACS.Service.Impl
 {
-    public class AccessServiceImpl:AccessService
+    public class AccessDetailServiceImpl : CommonServiceImpl<AccessDetail>, AccessDetailService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         CommonDao<AccessDetail> accessDetailDao = DaoContext.getInstance().getAccessDetailDao();
         ViewDao<AccessDetailView> accessDetailViewDao = DaoContext.getInstance().getAccessDetailViewDao();
         CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
         ViewDao<DoorTimeView> doorTimeViewDao = DaoContext.getInstance().getDoorTimeViewDao();
+
+        public override String GetPrimaryName()
+        {
+            return AccessDetail.ACCESS_DETAIL_ID;
+        }
 
         //门禁权限管理
         //获取门禁权限详情List
@@ -37,24 +42,23 @@ namespace ACS.Service.Impl
         
         //门禁权限管理
         //新增门禁权限
-        public AccessDetail createAccessDetail(int creatUserID, string accessName)
+        public override void Create(int creatUserID, AccessDetail accessDetail)
         {
             //新增门禁权限树列表
             AccessDetail newAccessDetail = new AccessDetail();
             newAccessDetail.AccessID = 0;
-            newAccessDetail.AccessName = accessName;
+            newAccessDetail.AccessName = accessDetail.AccessName;
             newAccessDetail.CreateUserID = creatUserID;
             newAccessDetail.CreateDate = DateTime.Now;
             newAccessDetail.Type = AccessDetail.ACCESS_TYPE;
             accessDetailDao.create(newAccessDetail);
             newAccessDetail.ValueID = newAccessDetail.AccessDetailID;
             accessDetailDao.update(newAccessDetail);
-            return newAccessDetail;
 
         }
         //门禁权限管理
         //编辑门禁权限名称
-        public void editAccessName(AccessDetail accessDetail)
+        public override void Modify(AccessDetail accessDetail)
         {
             //如果删除的节点是根节点，还需要删除所有包含此节点的权限
             //删除所有以该根节点为子节点的记录
@@ -70,53 +74,49 @@ namespace ACS.Service.Impl
         }
         //门禁权限管理
         //增加门禁权限中包含的权限
-        public void addAccessInAccess(string accessID, List<TreeGirdItem> treeItemList)
+        public void addAccessInAccess(string accessID, List<AccessDetailModel> treeItemList)
         {
             //获取编辑的目标权限
             AccessDetail fatherAccessDetail = getAccessDetailByAccessID(accessID, AccessDetail.ROOT_ID);
             //删除所有以该节点为根节点的Access记录
-            string[] accessInfo = accessID.Split(AccessDetail.SPLIT);
-            if (accessInfo.Length == 2)
-            {
-                List<QueryCondition> parentConditionList = new List<QueryCondition>();
-                parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessInfo[1]));
-                parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
-                accessDetailDao.delete(parentConditionList);
-            }
+            List<QueryCondition> parentConditionList = new List<QueryCondition>();
+            parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessID));
+            parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
+            accessDetailDao.delete(parentConditionList);
             //取出所有根节点和根节点为accessID的权限
-            List<AccessDetail> accessDetailList = new List<AccessDetail>();
-            foreach (TreeGirdItem treeGridItem in treeItemList)
+            if (!ValidatorUtil.isEmpty<AccessDetailModel>(treeItemList))
             {
-                if (((treeGridItem.AccessID == AccessDetail.ROOT_ACCESS_ID) && (treeGridItem.ValueID != accessID)) || (treeGridItem.AccessID == accessID))
+                List<AccessDetail> accessDetailList = new List<AccessDetail>();
+                foreach (AccessDetailModel treeGridItem in treeItemList)
                 {
-                    AccessDetail accessDetail = new AccessDetail();
-                    AccessDetail childrenAccessDetail = getAccessDetailByAccessID(treeGridItem.ValueID, AccessDetail.ROOT_ID);
-                    accessDetail.AccessID = fatherAccessDetail.ValueID;
-                    accessDetail.AccessName = childrenAccessDetail.AccessName;
-                    accessDetail.Type = AccessDetail.ACCESS_TYPE;
-                    accessDetail.ValueID = childrenAccessDetail.ValueID;
-                    accessDetail.CreateUserID = childrenAccessDetail.CreateUserID;
-                    accessDetail.CreateDate = childrenAccessDetail.CreateDate;
-                    accessDetailList.Add(accessDetail);
+                    if (((treeGridItem.AccessID == 0) && (treeGridItem.ValueID.ToString() != accessID)) || (treeGridItem.AccessID.ToString() == accessID))
+                    {
+                        AccessDetail accessDetail = new AccessDetail();
+                        AccessDetail childrenAccessDetail = getAccessDetailByAccessID(treeGridItem.ValueID.ToString(), AccessDetail.ROOT_ID);
+                        accessDetail.AccessID = fatherAccessDetail.ValueID;
+                        accessDetail.AccessName = childrenAccessDetail.AccessName;
+                        accessDetail.Type = AccessDetail.ACCESS_TYPE;
+                        accessDetail.ValueID = childrenAccessDetail.ValueID;
+                        accessDetail.CreateUserID = childrenAccessDetail.CreateUserID;
+                        accessDetail.CreateDate = childrenAccessDetail.CreateDate;
+                        accessDetailList.Add(accessDetail);
+                    }
                 }
+                accessDetailDao.create(accessDetailList);
             }
-            accessDetailDao.create(accessDetailList);
-
         }
         //门禁权限管理
         //获取用户DoorTimeList
         public List<AccessDetailView> getDoorTimeAccessByAccessID(string selectedAccessID)
         {
             List<AccessDetailView> selectedDoorTimeList = new List<AccessDetailView>();
-            string[] accessInfo = selectedAccessID.Split(AccessDetail.SPLIT);
-            if (accessInfo.Length == 2)
-            {
-                //获取选取的权限本身包含的DoorTime列表
-                List<QueryCondition> accessConditionList = new List<QueryCondition>();
-                accessConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessInfo[1]));
-                accessConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.DOORTIME_TYPE));
-                selectedDoorTimeList = accessDetailViewDao.getAll(accessConditionList);
-            }
+
+            //获取选取的权限本身包含的DoorTime列表
+            List<QueryCondition> accessConditionList = new List<QueryCondition>();
+            accessConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, selectedAccessID));
+            accessConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.DOORTIME_TYPE));
+            selectedDoorTimeList = accessDetailViewDao.getAll(accessConditionList);
+
             return selectedDoorTimeList;
         }
         //门禁权限管理
@@ -151,97 +151,82 @@ namespace ACS.Service.Impl
         }
         //门禁权限管理
         //增加门禁权限中包含的DoorTime
-        public void addDeviceInAccess(int userID, string accessID, List<TreeGirdItem> treeItemList)
+        public void addDeviceInAccess(int userID, string accessID, List<AccessDetailModel> treeItemList)
         {
             
-            List<AccessDetail> accessDetailList = new List<AccessDetail>();
-            string[] accessInfo = accessID.Split(AccessDetail.SPLIT);
-            if (accessInfo.Length == 2)
-            {
-                //删除所有以该节点为根节点的DoorTime记录
-                List<QueryCondition> conditionList = new List<QueryCondition>();
-                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessInfo[1]));
-                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.DOORTIME_TYPE));
-                accessDetailDao.delete(conditionList);
+            //删除所有以该节点为根节点的DoorTime记录
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessID));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.DOORTIME_TYPE));
+            accessDetailDao.delete(conditionList);
 
-                foreach (TreeGirdItem treeGridItem in treeItemList)
+            //添加提交上来的DoorTime到权限列表中
+            if (!ValidatorUtil.isEmpty<AccessDetailModel>(treeItemList))
+            {
+                foreach (AccessDetailModel treeGridItem in treeItemList)
                 {
                     if (treeGridItem.Type == AccessDetail.DOORTIME_TYPE)
                     {
-                        string[] treeItemInfo = treeGridItem.Id.Split(AccessDetail.SPLIT);
                         AccessDetail accessDetail = new AccessDetail();
-                        accessDetail.AccessID = Convert.ToInt32(accessInfo[1]);
-                        accessDetail.AccessName = treeGridItem.Text;
+                        accessDetail.AccessID = Convert.ToInt32(accessID);
+                        accessDetail.AccessName = treeGridItem.NodeName;
                         accessDetail.Type = AccessDetail.DOORTIME_TYPE;
-                        accessDetail.ValueID = Convert.ToInt32(treeItemInfo[1]);
+                        accessDetail.ValueID = treeGridItem.ValueID;
                         accessDetail.CreateDate = DateTime.Now;
                         accessDetail.CreateUserID = userID;
-                        accessDetailList.Add(accessDetail);
+                        accessDetailDao.create(accessDetail);
                     }
-                    
+
                 }
             }
-            accessDetailDao.create(accessDetailList);
-
         }
         //门禁权限管理
         //删除门禁权限
-        public void deleteAccess(TreeGirdItem treeItem)
+        public override void Delete(List<String> idList)
         {
-
-            string[] accessInfo = treeItem.ValueID.Split(AccessDetail.SPLIT);
-            string[] parentInfo = treeItem.AccessID.Split(AccessDetail.SPLIT);
-            if ((accessInfo.Length == 2)&&(parentInfo.Length == 2))
+            foreach (String id in idList)
             {
-                if (parentInfo[1] == AccessDetail.ROOT_ID)
-                {
-                    //如果删除的节点是根节点，还需要删除所有包含此节点的权限
-                    //删除所有以该根节点为子节点的记录
-                    List<QueryCondition> conditionList = new List<QueryCondition>();
-                    conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.VALUE_ID_NAME, accessInfo[1]));
-                    conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
-                    accessDetailDao.delete(conditionList);
-                    //删除所有以该根节点为根节点的记录
-                    List<QueryCondition> parentConditionList = new List<QueryCondition>();
-                    parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessInfo[1]));
-                    parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
-                    accessDetailDao.delete(parentConditionList);
-                }
-            }  
+                //如果删除的节点是根节点，还需要删除所有包含此节点的权限
+                //删除所有以该根节点为子节点的记录
+                List<QueryCondition> conditionList = new List<QueryCondition>();
+                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.VALUE_ID_NAME, id));
+                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
+                accessDetailDao.delete(conditionList);
+                //删除所有以该根节点为根节点的记录
+                List<QueryCondition> parentConditionList = new List<QueryCondition>();
+                parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, id));
+                parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
+                accessDetailDao.delete(parentConditionList);
+            }
+             
         }
         
         
         //门禁权限管理
-        //根据拼接好的AccessID和其父本ID获取AccessDetail记录，parentID是没有拼接的ID
+        //根据AccessID和其父本ID获取AccessDetail记录，parentID是没有拼接的ID
         public AccessDetail getAccessDetailByAccessID(string accessID, string parentID)
         {
             AccessDetail accessDetail = new AccessDetail();
-            //拆分AccessID
-            string[] accessInfo = accessID.Split(AccessDetail.SPLIT);
-            if (accessInfo.Length == 2)
-            {
-                List<QueryCondition> conditionList = new List<QueryCondition>();
-                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.VALUE_ID_NAME, accessInfo[1]));
-                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
-                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, parentID));
-                accessDetail = accessDetailDao.getUniRecord(conditionList);
-            }
+
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.VALUE_ID_NAME, accessID));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, parentID));
+            accessDetail = accessDetailDao.getUniRecord(conditionList);
+
             return accessDetail;
         }
         //门禁权限管理
-        //根据拼接好的AccessID获取其子项列表
+        //根据AccessID获取其子权限列表
         public List<AccessDetail> getAccessDetailListByAccessID(string accessID)
         {
             List<AccessDetail> accessDetailList = new List<AccessDetail>();
-            //拆分AccessID
-            string[] accessInfo = accessID.Split(AccessDetail.SPLIT);
-            if (accessInfo.Length == 2)
-            {
-                List<QueryCondition> conditionList = new List<QueryCondition>();
-                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessInfo[1]));
-                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
-                accessDetailList = accessDetailDao.getAll(conditionList);
-            }
+
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessID));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
+            accessDetailList = accessDetailDao.getAll(conditionList);
+
             return accessDetailList;
         }
 

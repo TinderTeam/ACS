@@ -218,8 +218,9 @@
     <Compile Include="Models\Model\PswdModel.cs" />
     <Compile Include="Models\Model\DeptModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
-    <Compile Include="Models\Model\TreeGridModel.cs" />
+    <Compile Include="Models\Model\AccessDetailModel.cs" />
     <Compile Include="Models\Model\AlarmRecordFilterModel.cs" />
+    <Compile Include="Models\Model\EventRecordFilterModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\AccessDetail.cs" />
@@ -1678,7 +1679,7 @@
     </Content>
     <Content Include="Views\DeviceManage\DeviceManage.cshtml" />
     <Content Include="Views\DeviceManage\DeviceCreatePanel.cshtml" />
-    <Content Include="Views\AccessManage\AccessManage.cshtml" />
+    <Content Include="Views\AccessManage\IndexPage.cshtml" />
     <Content Include="Views\AccessManage\AccessEdit.cshtml" />
     <Content Include="Views\EmployeeManage\IndexPage.cshtml" />
     <Content Include="Views\EmployeeManage\ShowPage.cshtml" />
@@ -1697,7 +1698,7 @@
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
     <Content Include="Views\UserManage\DevicePrivilege.cshtml" />
     <Content Include="Views\DeptManage\ShowPage.cshtml" />
-    <Content Include="Views\AccessManage\AccessCreate.cshtml" />
+    <Content Include="Views\AccessManage\ShowPage.cshtml" />
     <Content Include="Views\JobManage\IndexPage.cshtml" />
     <Content Include="Views\JobManage\ShowPage.cshtml" />
   </ItemGroup>

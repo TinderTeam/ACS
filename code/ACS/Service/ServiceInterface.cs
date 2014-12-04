@@ -20,7 +20,8 @@ namespace ACS.Service
         AbstractDataSource<T> GetDataSource<T>(List<QueryCondition> conditionList);
 
         AbstractDataSource<E> GetDataSource(List<QueryCondition> conditionList);
-        void Create(E obj);
+        void Create(E obj); 
+        void Create(int userID,E obj);
         void Modify(E obj);
         void Delete(String id);
         void Delete(List<String> idList);
@@ -42,17 +43,14 @@ namespace ACS.Service
         bool closeDoor(String ip, byte doorStatus);
     }
 
-    public interface AccessService
+    public interface AccessDetailService : CommonService<AccessDetail>
     {
-        AccessDetail createAccessDetail(int creatUserID, string accessName);
-        void deleteAccess(TreeGirdItem treeItem);
         List<AccessDetailView> getAccessDetailViewList(string userID,string parentID);
-        void addAccessInAccess(string accessID, List<TreeGirdItem> treeItem);
+        void addAccessInAccess(string accessID, List<AccessDetailModel> treeItem);
         AccessDetail getAccessDetailByAccessID(string accessID, string parentID);
-        void editAccessName(AccessDetail accessDetail);
         List<AccessDetailView> getDoorTimeAccessByAccessID(string selectedAccessID);
         List<DoorTimeView> getDoorTimeViewListByUserID(string userID);
-        void addDeviceInAccess(int userID, string accessID, List<TreeGirdItem> treeItemList);
+        void addDeviceInAccess(int userID, string accessID, List<AccessDetailModel> treeItemList);
         List<AccessDetail> getAccessDetailListByAccessID(string accessID);
     }
     public interface DeptService  : CommonService<Dept>

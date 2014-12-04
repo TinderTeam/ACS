@@ -131,9 +131,10 @@ namespace ACS.Controllers
         {
           
             try
-            {  
+            {   
+				this.getSession();
                 E obj = JsonConvert.JsonToObject<E>(data);
-                getService().Create(obj);
+                getService().Create(this.getSession().UserID,obj);
             }
             catch (FuegoException e)
             {

@@ -4,7 +4,7 @@
   <class name="ACS.Models.Po.Business.EventRecordView,ACS" table="t_event_record_view"  >
 
     <id name="EventID" column ="EVENT_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
     <property name="EmployeeID" type="int">
@@ -30,9 +30,17 @@
     <property name="Modify" type="string">
       <column name="MODIFY" length="255"/>
     </property>
+
+    <property name="DoorName" type="string">
+      <column name="DOOR_NAME" length="255"/>
+    </property>
+
+    <property name="ControlName" type="string">
+      <column name="CONTROL_NAME" length="255"/>
+    </property>
     
     <property name="EmployeeName" type="string">
-      <column name="EMPLOYEE_NAME" length="255" unique="true"/>
+      <column name="EMPLOYEE_NAME" length="255"/>
     </property>
 
     <property name="EmployeeCode" type="string">
@@ -79,12 +87,12 @@
       <column name="CAR" length="255"/>
     </property>
 
-    <property name="JobID" type="int">
-      <column name="JOB_ID"/>
+    <property name="JobName" type="string">
+      <column name="JOB_NAME" length="255"/>
     </property>
 
-    <property name="DeptID" type="int">
-      <column name="DEPT_ID"/>
+    <property name="DeptName" type="string">
+      <column name="DEPT_Name" length="255"/>
     </property>
 
     <property name="RegDate" type="DateTime">

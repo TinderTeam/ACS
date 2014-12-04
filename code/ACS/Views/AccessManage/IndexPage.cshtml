@@ -36,8 +36,8 @@
                 <table style="width: 100%;">
                     <tr>
                         <td style="width: 100%;">
-                            <a class="mini-button" iconcls="icon-add" onclick="onAccessCreate('Add')">新建权限</a>
-                            <a class="mini-button" iconcls="icon-edit" onclick="onAccessCreate('Edit')">编辑名称</a>
+                            <a class="mini-button" iconcls="icon-add" onclick="onModifyNode('Create')">新建权限</a>
+                            <a class="mini-button" iconcls="icon-edit" onclick="onModifyNode('Modify')">编辑名称</a>
                             <a class="mini-button" iconcls="icon-add" onclick="addAccessOfAccess()">编辑权限</a>
                             <a class="mini-button" iconcls="icon-remove" onclick="onRemoveAccess()">删除</a>
                         </td>
@@ -46,11 +46,11 @@
             </div>
 
             <div id="treegrid" class="mini-treegrid" style="width: 100%; height: 95%;" url="../AccessManage/LoadAllAccessDetail"
-                showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid" 
+                showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid"
                 resultAsTree="false" allowResize="true" >
                 <div property="columns">
                     <div type="indexcolumn"></div>
-                    <div name="taskname" field="Text" width="120" headeralign="center" allowsort="true">权限名称</div>
+                    <div name="taskname" field="NodeName" width="120" headeralign="center" allowsort="true">权限名称</div>
                     <div field="" width="120" headeralign="center" allowsort="true">序号</div>
                     <div field="Type" width="120" headeralign="center" allowsort="true">类型</div>
                     <div header="门禁时间" headeralign="center">
@@ -72,42 +72,45 @@
     <script type="text/javascript">
         var TREE_ID = 'accessList';
 
-        function onAccessCreate(type) {
+        function onModifyNode(type) {
+
             var tree = mini.get("#treegrid");
-            var node = tree.getSelectedNode();
-            var accessID;
-            if ((type == "Add") || ((node) && (node.Pid == "0"))) {
-                if (type == "Edit") {
+            if (type == "Modify")
+            {
+                var node = tree.getSelectedNode();
+                if ((!node) || (node.Pid != "0")) {
+                    alert("请选中一个根节点");
+                    return;
+                }
+                else {
                     var titleName = "编辑名称";
-                    accessID = node.ValueID;
+                    var accessID = node.AccessDetailID;
                 }
-                else if (type == "Add") {
-                    var titleName = "新增权限";
-                    accessID = 0;
-                }
-                mini.open({
-                    url: "../AccessManage/AccessCreate",
-                    title: titleName, width: 350, height: 350,
-                    onload: function () {
-                        var iframe = this.getIFrameEl();
-                        var data = { action: type, id: accessID };
-                        iframe.contentWindow.Show(data);
-
-                    },
-                    ondestroy: function (action) {
-
-                        if (action == "ok")     //关闭窗口时点击的是确定
-                        {
-                            tree.load("../AccessManage/LoadAllAccessDetail");
-                        }
-
-
-                    }
-                });
             }
-            else {
-                alert("请选中一个根节点");
-           }
+            else if(type == "Create")
+            {
+                var titleName = "新增权限";
+            }
+            mini.open({
+                url: "../AccessManage/ShowPage",
+                title: titleName, width: 350, height: 200,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = { action: type, id: accessID };
+                    iframe.contentWindow.Show(data);
+
+                },
+                ondestroy: function (action) {
+
+                    if (action == "ok")     //关闭窗口时点击的是确定
+                    {
+                        tree.load("../AccessManage/LoadAllAccessDetail");
+                    }
+
+
+                }
+            });
+
         }
         //为选中的门禁权限增加权限
         function addAccessOfAccess() {
@@ -137,29 +140,31 @@
         function onRemoveAccess(e) {
             var tree = mini.get("#treegrid");
             var node = tree.getSelectedNode();
-            var json = mini.encode(node);
             if ((node)&&(node._level == 0)) {
                 if (confirm("确定删除选中门禁权限?")) {
                     //通过Ajax删除节点
                     //方法：removeAccess
+                    var ids = Array(node.ValueID.toString());
+                    var json = mini.encode(ids);
+                    alert(mini.decode(json));    
                     $.ajax({
-                        url: "../AccessManage/DeleteAccess",
+                        url: "../AccessManage/Delete",
                         type: 'post',
                         data: { data: json },
                         cache: false,
-                        success: function (text) {
-
-                            if (text == "Success") {
-                                //tree.removeNode(node);
-                                tree.load("../AccessManage/LoadAllAccessDetail");
-                            }
-                            else {
-                                alert(text);
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(jqXHR.responseText);
+                        success: function (json) {
+                        var Rsp = mini.decode(json);
+                        if (Rsp.ErrorCode == "Success") {
+                            mini.alert("删除成功！");
+                            tree.load("../AccessManage/LoadAllAccessDetail");
                         }
+                        else {
+                            alert(text);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                    }
                     });
                 }
             }

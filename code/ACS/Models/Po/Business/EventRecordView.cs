@@ -8,6 +8,14 @@ namespace ACS.Models.Po.Business
     public class EventRecordView
     {
         public const String ID = "EventID";
+        public const String DEPTNAME = "DeptName";
+        public const String JOBNAME = "JobName";
+        public const String DOORNAME = "DoorName";
+        public const String EVNETTIME = "EventTime";
+        public const String CARDNO = "CardNo";
+        public const String EMPLOYEENAME = "EmployeeName";
+        public const String EMPLOYEECODE = "EmployeeCode";
+        public const String EVENTTYPE = "EventType";
         private int eventID;//事件ID
         private int employeeID;//员工ID
         private DateTime eventTime;//事件时间
@@ -16,14 +24,18 @@ namespace ACS.Models.Po.Business
         private String eventType;//事件类型
         private String modify;//是否修改过
 
+        private String doorName;
+
+        private String controlName;
+
         private String employeeCode;//工号
         private String employeeName;//员工名称
         private String englishName;//英文名称
         private String cardNo;//卡号
         private String empEnable;//是否注销
         private String sex;//
-        private int jobID;//
-        private int deptID;//
+        private String jobName;//
+        private String deptName;//
         private String leave;//离职
         private DateTime leaveDate;//
         private String beKQ;//是否参与考勤
@@ -74,6 +86,20 @@ namespace ACS.Models.Po.Business
             get { return modify; }
             set { modify = value; }
         }
+
+
+        public virtual String DoorName
+        {
+            get { return doorName; }
+            set { doorName = value; }
+        }
+
+        public virtual String ControlName
+        {
+            get { return controlName; }
+            set { controlName = value; }
+        }
+
         public virtual String EmployeeName
         {
             get { return employeeName; }
@@ -143,16 +169,16 @@ namespace ACS.Models.Po.Business
             set { car = value; }
         }
 
-        public virtual int JobID
+        public virtual String JobName
         {
-            get { return jobID; }
-            set { jobID = value; }
+            get { return jobName; }
+            set { jobName = value; }
         }
 
-        public virtual int DeptID
+        public virtual String DeptName
         {
-            get { return deptID; }
-            set { deptID = value; }
+            get { return deptName; }
+            set { deptName = value; }
         }
 
         public virtual DateTime RegDate

@@ -7,13 +7,13 @@ namespace ACS.Models.Po.Business
 {
     public class EventRecord
     {
-        private int eventID;//时间ID
-        private DateTime eventTime;//时间时间
-        private int employeeID;//员工ID
-        private int doorID;//门ID
-        private String eventType;//事件类型
-        private int controlID;//控制器ID
-        private String modify;//是否修改过
+        private int eventID;                //事件ID
+        private DateTime eventTime;         //事件时间
+        private int employeeID;             //员工ID
+        private int doorID;                 //门ID
+        private String eventType;           //事件类型
+        private int controlID;              //控制器ID
+        private String modify;              //是否修改过
 
         public virtual int EventID
         {

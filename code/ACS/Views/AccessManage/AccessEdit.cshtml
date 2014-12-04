@@ -24,11 +24,11 @@
             <div title="根据权限选择">
 
                 <div id="treegrid1" class="mini-treegrid" style="width: 100%; height: 95%;" 
-                    showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid"
+                    showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid" checkedField="CheckNode"
                     resultAsTree="false" allowResize="true" showCheckBox="true" onbeforenodecheck="onBeforeNodeCheck">
                     <div property="columns">
                         <div type="indexcolumn"></div>
-                        <div name="taskname" field="Text" width="120" headeralign="center" allowsort="true">权限名称</div>
+                        <div name="taskname" field="NodeName" width="120" headeralign="center" allowsort="true">权限名称</div>
                         <div field="" width="120" headeralign="center" allowsort="true">序号</div>
                         <div field="Type" width="120" headeralign="center" allowsort="true">类型</div>
                         <div header="门禁时间" headeralign="center">
@@ -45,18 +45,18 @@
 
                 <div style="text-align: center; padding: 5px;">
                     <a class="mini-button" onclick="SaveAccessData('AccessSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
-                    <a class="mini-button" onclick="onCancel" style="width: 60px;">取消</a>
+                    <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">取消</a>
                 </div>
 
             </div>
 
             <div title="根据设备选择" iconcls="icon-cut">
                 <div id="devicetreegrid" class="mini-treegrid" style="width: 100%; height: 95%;" 
-                    showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid"
+                    showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid" checkedField="CheckNode"
                     resultAsTree="false" allowResize="true" showCheckBox="true">
                     <div property="columns">
                         <div type="indexcolumn"></div>
-                        <div name="taskname" field="Text" width="120" headeralign="center" allowsort="true">权限名称</div>
+                        <div name="taskname" field="NodeName" width="120" headeralign="center" allowsort="true">权限名称</div>
                         <div field="" width="120" headeralign="center" allowsort="true">序号</div>
                         <div field="Type" width="120" headeralign="center" allowsort="true">类型</div>
                         <div header="门禁时间" headeralign="center">
@@ -73,7 +73,7 @@
 
                 <div style="text-align: center; padding: 5px;">
                     <a class="mini-button" onclick="SaveAccessData('DeviceSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
-                    <a class="mini-button" onclick="onCancel" style="width: 60px;">取消</a>
+                    <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">取消</a>
                 </div>
             </div>
 
@@ -83,15 +83,7 @@
 <script type="text/javascript">
 
     mini.parse();
-    //增加权限时，只能选择根节点
-    function onBeforeNodeCheck(e) {
-        var text = mini.encode(e.node);
-        if (e.node._level != 0)
-        {
-            e.cancel = true;         
-            mini.alert("请选择一个根节点");
-        }
-    }
+    
     //加载窗口信息
     function Show(data) {
         //跨页面传递的数据对象，克隆后才可以安全使用
@@ -102,6 +94,14 @@
 
         var devicetreeGrid = mini.get("#devicetreegrid");
         devicetreeGrid.load("LoadDeviceTreeList?selectedID=" + receiveData.id);
+    }
+    //增加权限时，只能选择根节点，或者选中权限的子节点
+    function onBeforeNodeCheck(e) {
+        var text = mini.encode(e.node);
+        if (e.node._level != 0) {
+            e.cancel = true;
+            mini.alert("请选择一个根节点");
+        }
     }
     function SaveAccessData(type) {
         //获取操作类型（新建/修改）
@@ -128,14 +128,13 @@
                 type: 'post',
                 data: { data: json },
                 cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("修改成功！");
-                        CloseWindow("save");
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
+                        CloseWindow("ok");
                     }
                     else {
-                        alert(text);
+                        alert(Rsp.Message);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -149,10 +148,6 @@
     function CloseWindow(action) {
         if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
         else window.close();
-    }
-
-    function onCancel(e) {
-        CloseWindow("cancel");
     }
 </script>
 

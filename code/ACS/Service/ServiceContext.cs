@@ -20,9 +20,10 @@ namespace ACS.Service
         private PrivilegeService privilegeService;
         private DeviceService deviceService;
        	private DeviceOperatorService  deviceOperatorService;
-		private JobService  jobService;
-		private AccessService accessService;
-		private DeptService deptService;
+        private AccessDetailService accessDetailService;
+        private DeptService deptService;
+        private JobService jobService;
+
         public static ServiceContext getInstance()
         {
             if (serviceContext == null)
@@ -40,16 +41,14 @@ namespace ACS.Service
             }
             return deviceOperatorService;
         }
-
-
-        public AccessService getAccessService()
+        public AccessDetailService getAccessDetailService()
         {
 
-            if (accessService == null)
+            if (accessDetailService == null)
             {
-                accessService = new AccessServiceImpl();
+                accessDetailService = new AccessDetailServiceImpl();
             }
-            return accessService;
+            return accessDetailService;
         }
 
          public DeviceService getDeviceService()

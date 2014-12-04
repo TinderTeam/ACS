@@ -51,6 +51,12 @@ namespace ACS.Controllers
             //然后验证写这里就有效啦，什么session 什么 RouteData 都能获取到了。谢谢大家，希望对后人又所帮助。
         }
 
+        public UserModel getSession()
+        {
+            UserModel userModel = (UserModel)Session["SystemUser"];
+            return userModel;
+        }
+
         public String getRspJson()
         {
            return  JsonConvert.ObjectToJson(rsp);

@@ -23,7 +23,11 @@ namespace ACS.Service.Impl
             Validator(obj);
             DaoContext.getInstance().getDao<E>().create(obj);
         }
-
+        public virtual void Create(int userID,E obj)
+        {
+            Validator(obj);
+            DaoContext.getInstance().getDao<E>().create(obj);
+        }
         public virtual void Delete(String id)
         {
             if (ValidatorUtil.isEmpty(id))
