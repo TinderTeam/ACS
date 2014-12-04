@@ -7,8 +7,8 @@ using ACS.Models.Model;
 using ACS.Models.Po.CF;
 using ACS.Models.Po.Business;
 using ACS.Common.Dao.datasource;
-using AccessTcp;
 using ACS.Common.Dao;
+using TcpipIntface;
 namespace ACS.Service
 {
 
@@ -37,7 +37,9 @@ namespace ACS.Service
     }
     public interface DeviceOperatorService
     {
-        TCPAcs getControllerTCP(string ip);
+        bool openDoor(String ip, byte doorStatus);
+        bool reset(String ip);
+        bool closeDoor(String ip, byte doorStatus);
     }
 
     public interface AccessService

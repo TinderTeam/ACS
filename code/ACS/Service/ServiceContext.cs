@@ -21,6 +21,7 @@ namespace ACS.Service
         private DeviceService deviceService;
         private AccessService accessService;
         private DeptService deptService;
+        private DeviceOperatorService deviceOperatorService;
 
         public static ServiceContext getInstance()
         {
@@ -30,6 +31,16 @@ namespace ACS.Service
             }
             return serviceContext;
         }
+        public DeviceOperatorService getDeviceOperatorService()
+        {
+
+            if (deviceOperatorService == null)
+            {
+                deviceOperatorService = new DeviceOperatorServiceImpl();
+            }
+            return deviceOperatorService;
+        }
+
 
         public AccessService getAccessService()
         {

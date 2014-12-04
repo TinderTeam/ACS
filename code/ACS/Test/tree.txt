@@ -3,8 +3,8 @@
 	
 	{id: "ajax", text: "Ajax", pid: "base"},
 	{id: "json", text: "JSON", pid: "base"},
-	{id: "date", text: "Date", pid: "base", checked: true},
-	{id: "control", text: "Control", pid: "base"},
+	{id: "date", text: "Date", pid: "base", testtype:"son"},
+	{id: "control", text: "Control", pid: "base",checkedField: false},
 
 	{id: "forms", text: "Forms", pid: "base"},
 	

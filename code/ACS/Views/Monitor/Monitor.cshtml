@@ -30,65 +30,121 @@
 </style>
 
 <div class="mini-fit" >
-    <div class="mini-panel" title="设备监控" iconCls="icon-add" style="width:100%;height:100%;" 
-    showToolbar="false" showCloseButton="false" showFooter="true">
-       
-        
+    <div class="mini-panel" title="设备监控" iconCls="icon-add" 
+        style="width:100%;height:100%;"showToolbar="false"
+        showCloseButton="false" showFooter="true">
+
         <!--body-->
-
-         <div class="mini-splitter" style="width:100%;height:100%;">
-            <div size="200px" showCollapseButton="true">
-                <!----设备树--->
-                <div class="mini-splitter" style="width:100%;height:100%;" handlerSize="1" vertical="true" allowResize="false">
-                    <div size="70px" showCollapseButton="false" style="height:100%;">
-                        <!----设备搜索--->
-                        <table class="form-table" border="0" cellpadding="1" cellspacing="1" style="width:100%;height:inherit">
-                            <tr>
-                                <td class="form-label">设备编号查询：</td>
-                                
-                            </tr>
-                            <tr>
-                                <td >
-                                    <input name="deviceID" class="mini-textbox" />
-                                </td>
-                                <td >
-                                   <a class="mini-button" onclick="onClick" >搜索</a>
-                                </td>
-                            </tr>
-                        </table>             
-                    </div>
-                    <div showCollapseButton="false">
+        <div class="mini-splitter" style="width:100%;height:inherit" vertical="true">
+            <div class="mini-fit">
+                <div class="mini-splitter" style="width:100%;height:100%;">
+                  
+                    <div size="200px" showCollapseButton="true">
                         <!----设备树--->
-                        <ul id="deviceTree" class="mini-tree" url="DeviceTree" style="width:inherit;padding:3px;" 
-                            showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false">
-                        </ul>
-                    </div>        
-                </div>
-            </div>
-            <!----设备信息栏--->
-
-            <div class="mini-fit" >
-                <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
-                    url="Load"  idField="HolidayID" multiSelect="true">
-                    <div property="columns">
-                        <div type="checkcolumn" ></div>                  
-                        <div field="ControlName" width="70" headerAlign="center" allowSort="true">控制器名称</div>    
-                        <div field="FireTime" width="70" headerAlign="center" allowSort="true">火警时间</div>    
-                        <div field="AlarmTime" width="70" headerAlign="center" allowSort="true">报警时间</div>
-                        <div field="TimeTamp" width="70" headerAlign="center" allowSort="true">时间</div>   
-                        <div field="OpenTime" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("HolidayManage_HolidayNote")</div>
-                           
+                        <div class="mini-splitter" style="width:100%;height:100%;" handlerSize="1" vertical="true" allowResize="false">
+                            <div size="70px" showCollapseButton="false" style="height:100%;">
+                                <!----设备搜索--->
+                                <table class="form-table" border="0" cellpadding="1" cellspacing="1" style="width:100%;height:inherit">
+                                    <tr>
+                                        <td class="form-label">设备编号查询：</td>
+                                
+                                    </tr>
+                                    <tr>
+                                        <td >
+                                            <input name="deviceID" class="mini-textbox" />
+                                        </td>
+                                        <td >
+                                           <a class="mini-button" onclick="onClick" >搜索</a>
+                                        </td>
+                                    </tr>
+                                </table>             
+                            </div>
+                            <div showCollapseButton="false">
+                                <!----设备树--->
+                                <ul id="deviceTree" class="mini-tree" url="DeviceTree" style="width:inherit;padding:3px;" 
+                                    showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false">
+                                </ul>
+                            </div>        
+                        </div>
                     </div>
-                </div> 
-            </div>        
-        </div>
-        <!--footer-->
-        <div property="footer">
-            <input type='button' value='立刻刷新'/>
+                    <!----设备信息栏--->
+
+                    <div class="mini-fit" >
+                         <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td style="width:100%;">
+                                        <a class="mini-button" iconCls="icon-add" onclick="openDoor()">开门</a>
+                                        <a class="mini-button" iconCls="icon-edit" onclick="closeDoor()">关门</a>
+                                        <a class="mini-button" iconCls="icon-user" onclick="lockDoor()">锁门</a>
+                                        <a class="mini-button" iconCls="icon-user" onclick="unlockDoor()">解锁</a>
+                                        <a class="mini-button" iconCls="icon-remove" onclick="fireAlarm()">火警</a> 
+                                        <a class="mini-button" iconCls="icon-remove" onclick="removeFireAlarm()">火警解除</a>  
+                                        <a class="mini-button" iconCls="icon-remove" onclick="alarm()">报警</a> 
+                                        <a class="mini-button" iconCls="icon-remove" onclick="removeAlarm()">报警解除</a>      
+                                    </td>
+                                </tr>
+                            </table>           
+                        </div>
+                        <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
+                            url="Load"  idField="HolidayID" multiSelect="true">
+                            <div property="columns">              
+                                <div field="ControlName" width="70" headerAlign="center" allowSort="true">时间    </div>    
+                                <div field="FireTime" width="70" headerAlign="center" allowSort="true">卡号</div>    
+                                <div field="AlarmTime" width="70" headerAlign="center" allowSort="true">姓名</div>
+                                <div field="TimeTamp" width="70" headerAlign="center" allowSort="true">门</div>   
+                                <div field="OpenTime" width="70" headerAlign="center" allowSort="true">事件</div>
+                           
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>         
+            <div size="200px" showCollapseButton="true">
+                 <div class="mini-panel" title="事件" iconCls="icon-add" style="width:100%;height:100%;"
+                     showToolbar="false" showCloseButton="false" showFooter="true">
+
+                     <table style="height:90%;">
+                         <tr>
+                             <td>
+                                <div id="eventCard1" class="mini-panel"
+                                    title="最新事件" style="width:300px;height:100%; visibility:hidden" 
+                                    bodyStyle="padding:5;">
+
+                                </div>    
+                             </td>
+                             <td>
+                                  <div id="eventCard2" class="mini-panel" 
+                                    title="最新事件" style="width:300px;height:100%;visibility:hidden"
+                                    bodyStyle="padding:5;">
+
+                                </div>   
+                             </td>
+                             <td>
+                                <div id="eventCard3" class="mini-panel" 
+                                    title="最新事件" style="width:300px;height:100%;visibility:hidden"
+                                    bodyStyle="padding:5;">
+
+                                </div>    
+                             </td>
+                             <td>
+                                <div id="eventCard4" class="mini-panel" 
+                                    title="最新事件" style="width:300px;height:100%;visibility:hidden" 
+                                    bodyStyle="padding:5;">
+                                </div>   
+                             </td>
+                         </tr>
+                     </table>
+                            
+                 </div>
+            </div>
         </div>
     </div>
 </div>
     <script type="text/javascript">
+        
+
+
         mini.parse();
         var grid = mini.get("#datagrid1");
         grid.load();
@@ -114,6 +170,209 @@
                 if (c.removeCls) c.removeCls("asLabel");
             }
             mini.repaint(document.body);
+        }
+
+
+        function openDoor() {
+
+            url = "/Monitor/OpenDoor?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+
+        function closeDoor() {
+
+            url = "/Monitor/CloseDoor?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function lockDoor() {
+
+            url = "/Monitor/Lock?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function unlockDoor() {
+
+            url = "/Monitor/unLock?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function alarm() {
+
+            url = "/Monitor/Alarm?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function removeAlarm() {
+
+            url = "/Monitor/AlarmCancel?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function removeFireAlarm() {
+
+            url = "/Monitor/FireAlarmCancel?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function fireAlarm() {
+
+            url = "/Monitor/FireAlarm?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
         }
     </script>
         

@@ -46,10 +46,10 @@ namespace ACM.Controllers
         /// </summary>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public ActionResult Load(User filter)
-        {
-            return LoadTable(new List<QueryCondition>());
-        }
+        //public ActionResult Load(User filter)
+       // {
+       //     return LoadTable(new List<QueryCondition>());
+      //  }
 
         public ActionResult UserEdit(String id)
         {
@@ -58,36 +58,13 @@ namespace ACM.Controllers
             ViewBag.user = userModel;
             return View();
         }
-
         public ActionResult UserCreate()
         {
             ViewBag.Type = "CREATE";
             return View("UserEdit");
         }
 
-        /*
-        public ActionResult Load(TableForm tableForm, string data)
-        {
-            UserModel searchCondition = JsonConvert.JsonToObject<UserModel>(data);
-            log.Debug("Load Data...");
-            //数据库操作：使用查询条件、分页、排序等参数进行查询
-            TableDataModel<User> userModelTable = new TableDataModel<User>();
-            userModelTable.setPage(tableForm.getPage());
-            if (searchCondition == null)
-            {
-                userModelTable.setDataSource(userService.getUserList(null));
-            }
-            else
-            {
-                userModelTable.setDataSource(userService.getUserList(searchCondition.UserName));
-            }
-
-            log.Debug("pageIndex = " + tableForm.PageIndex + ";pageSize=" + tableForm.PageSize);
-            Response.Write(userModelTable.getMiniUIJson());
-            return null;
-        }
-         * 
-         */
+  
          
         /// <summary>
         /// 新增用户
@@ -232,5 +209,9 @@ namespace ACM.Controllers
             Response.Write("ok");
             return null;
         }
+
+       
     }
+
+
 }

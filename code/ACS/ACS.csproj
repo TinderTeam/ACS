@@ -249,6 +249,7 @@
     <Compile Include="Service\Impl\DeviceOperatorServiceImpl.cs" />
     <Compile Include="Service\Impl\DeviceServiceImpl.cs" />
     <Compile Include="Service\Impl\EmployeeServiceImpl.cs" />
+    <Compile Include="Service\Impl\TcpipClass.cs" />
     <Compile Include="Service\Impl\UserServiceImpl.cs" />
     <Compile Include="Service\Impl\LoginServiceImpl.cs" />
     <Compile Include="Service\Impl\EventRecordViewServiceImpl.cs" />
@@ -326,7 +327,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Interop.AccessTcp.dll" />
     <Content Include="Log4Net.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
