@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.AlarmRecordView,ACS" table="t_alarm_record_view"  >
+
+    <id name="AlarmID" column ="ALARM_ID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="AlarmTime" type="DateTime">
+      <column name="ALARM_TIME"/>
+    </property>
+
+    <property name="ControlID" type="int">
+      <column name="CONTROL_ID"/>
+    </property>
+
+    <property name="DoorID" type="int">
+      <column name="DOOR_ID"/>
+    </property>
+
+    <property name="AlarmType" type="string">
+      <column name="ALARM_TYPE" length="255"/>
+    </property>
+    
+    <property name="ControlName" type="string">
+      <column name="CONTROL_NAME" length="255"/>
+    </property>
+
+    <property name="DoorName" type="string">
+      <column name="DOOR_NAME" length="255"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>

@@ -201,6 +201,7 @@
     <Compile Include="Controllers\EventRecordController.cs" />
     <Compile Include="Controllers\AlarmRecordController.cs" />
     <Compile Include="Controllers\HolidayManageController.cs" />
+    <Compile Include="Controllers\JobManageController.cs" />
     <Compile Include="Dao\DaoContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -218,6 +219,7 @@
     <Compile Include="Models\Model\DeptModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
     <Compile Include="Models\Model\TreeGridModel.cs" />
+    <Compile Include="Models\Model\AlarmRecordFilterModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\AccessDetail.cs" />
@@ -225,6 +227,9 @@
     <Compile Include="Models\Po\Business\EventRecordView.cs" />
     <Compile Include="Models\Po\Business\AccessDetailView.cs" />
     <Compile Include="Models\Po\Business\DoorTimeView.cs" />
+    <Compile Include="Models\Po\Business\Job.cs" />
+    <Compile Include="Models\Po\Business\EmployeeView.cs" />
+    <Compile Include="Models\Po\Business\AlarmRecordView.cs" />
     <Compile Include="Models\Po\CF\Privilege.cs" />
     <Compile Include="Models\Po\CF\Role.cs" />
     <Compile Include="Models\Po\CF\UserRole.cs" />
@@ -258,6 +263,7 @@
     <Compile Include="Service\Impl\MonitorServiceImpl.cs" />
     <Compile Include="Service\Impl\PrivilegeServiceImpl.cs" />
     <Compile Include="Service\Impl\DeptServiceImpl.cs" />
+    <Compile Include="Service\Impl\JobServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />
     <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
     <Compile Include="Service\ModelVerificationService.cs" />
@@ -399,6 +405,15 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\DoorTimeView.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\Job.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\EmployeeView.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\AlarmRecordView.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
@@ -1674,15 +1689,17 @@
     <Content Include="Views\HolidayManage\IndexPage.cshtml" />
     <Content Include="Views\HolidayManage\ShowPage.cshtml" />
     <Content Include="Views\UserManage\MenuPrivilege.cshtml" />
-    <Content Include="Views\DeptManage\DeptManage.cshtml">
+    <Content Include="Views\DeptManage\IndexPage.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\EmployeeManage\Card.cshtml" />
     <Content Include="Views\DeviceManage\DeviceView.cshtml" />
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
     <Content Include="Views\UserManage\DevicePrivilege.cshtml" />
-    <Content Include="Views\DeptManage\DeptEdit.cshtml" />
+    <Content Include="Views\DeptManage\ShowPage.cshtml" />
     <Content Include="Views\AccessManage\AccessCreate.cshtml" />
+    <Content Include="Views\JobManage\IndexPage.cshtml" />
+    <Content Include="Views\JobManage\ShowPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

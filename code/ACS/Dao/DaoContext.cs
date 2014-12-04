@@ -30,6 +30,7 @@ namespace ACS.Dao
         private CommonDao<AccessDetail> accessDetailDao;
         private ViewDao<AccessDetailView> accessDetailViewDao;
         private ViewDao<DoorTimeView> doorTimeViewDao;
+        private CommonDao<Job> jobDao;
 
         public static DaoContext getInstance()
         {
@@ -179,6 +180,14 @@ namespace ACS.Dao
                 doorTimeViewDao = new CommonDaoImpl<DoorTimeView>();
             }
             return doorTimeViewDao;
+        }
+        public CommonDao<Job> getJobDao()
+        {
+            if (jobDao == null)
+            {
+                jobDao = new CommonDaoImpl<Job>();
+            }
+            return jobDao;
         }
     }
 }

@@ -27,7 +27,27 @@ namespace ACS.Controllers
         {
             return employeeService;
         }
-
+        //加载用户首页用户信息列表
+        public override ActionResult Load(String data)
+        {
+            return LoadTable<EmployeeView>(GetFilterCondition(data));
+        }
+        //用于实现条件查询功能
+        public override List<QueryCondition> GetFilterCondition(String json)
+        {
+            
+            List<QueryCondition> filterCondition = new List<QueryCondition>();
+            EmployeeView employeeFilter = JsonConvert.JsonToObject<EmployeeView>(json);
+            if (null != employeeFilter)
+            {
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.EMPLOYEENAME, employeeFilter.EmployeeName));
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.EMPLOYEECODE, employeeFilter.EmployeeCode));
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.DEPTNAME, employeeFilter.DeptName));
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.JOBNAME, employeeFilter.JobName));
+            }
+            
+            return filterCondition;
+        }
         /// <summary>
         /// 注销用户
         /// </summary>

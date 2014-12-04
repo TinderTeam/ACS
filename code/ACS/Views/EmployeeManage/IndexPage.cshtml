@@ -1,7 +1,4 @@
-﻿@{
-    ViewBag.Title = "EmployeeManage";
-}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,28 +13,54 @@
         margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
     }    
 </style>
-    <h1>员工管理</h1>      
-
-        <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+    <fieldset style="width:96%;border:solid 1px #aaa;margin-top:0px;position:relative;">
+        <legend>员工查询</legend>
+        <div id="editForm1" style="padding:0px;">
+            <input class="mini-hidden" name="id"/>
+            <form id="searchForm" method="post">
             <table style="width:100%;">
                 <tr>
-                    <td style="width:100%;">
-                        <a class="mini-button" iconCls="icon-add" onclick="onModifyRow('Create')">增加</a>
-                        <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow('Modify')">编辑</a>
-                        <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>   
-                        <a class="mini-button" iconCls="icon-user" onclick="leave()">离职</a> 
-                        <a class="mini-button" iconCls="icon-goto" onclick="cancel()">注销</a> 
-                        <a class="mini-button" iconCls="icon-new" onclick="card()">发卡</a>       
+                    <td style="width:40px;">部门：</td>
+                    <td style="width:130px;"><input name="DeptName" class="mini-textbox" /></td>
+                    <td style="width:40px;">职位：</td>
+                    <td style="width:130px;"><input name="JobName" class="mini-textbox"></td>
+                    <td style="width:40px;">姓名：</td>
+                    <td style="width:130px;">
+                        <input name="EmployeeName" class="mini-textbox" />
                     </td>
-                    <td style="white-space:nowrap;">
-                        <form id="searchForm" method="post">
-                        <input id="key" name="EmployeeName" class="mini-textbox" emptyText="请输入姓名" style="width:150px;" onenter="onKeyEnter"/>   
-                        <a class="mini-button" onclick="search()">查询</a>
-                        </form>
+                    <td style="width:40px;">工号：</td>
+                    <td style="width:150px;">
+                        <input name="EmployeeCode" class="mini-textbox" />
                     </td>
+                    <td style="width:150px;">
+                        <a class="mini-button " iconCls="icon-search" onclick="search()">查询</a>
+                    </td>  
                 </tr>
-            </table>           
+            </table>
+            </form>
         </div>
+    </fieldset>          
+    <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+            
+        <table style="width:100%;">
+            <tr>
+                <td style="width:100%;">
+                    <a class="mini-button" iconCls="icon-add" onclick="onModifyRow('Create')">增加</a>
+                    <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow('Modify')">编辑</a>
+                    <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>   
+                    <a class="mini-button" iconCls="icon-user" onclick="leave()">离职</a> 
+                    <a class="mini-button" iconCls="icon-goto" onclick="cancel()">注销</a> 
+                    <a class="mini-button" iconCls="icon-new" onclick="card()">发卡</a>       
+                </td>
+                @*<td style="white-space:nowrap;">
+                    <form id="searchForm" method="post">
+                        <input id="key" name="EmployeeName"  class="mini-textbox" emptyText="请输入姓名" style="width:150px;"/>   
+                        <a class="mini-button" onclick="search()">查询</a>
+                    </form>
+                </td>*@
+            </tr>
+        </table>           
+    </div>
 <div class="mini-fit" >
     <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
         url="Load"  idField="EmployeeID" multiSelect="true">
@@ -50,8 +73,8 @@
             <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_CardNo")</div>
             <div field="EmpEnable" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EmpEnable")</div>
             <div field="EndDate" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EndDate")</div> 
-            <div field="DeptID" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_DeptID")</div>    
-            <div field="JobID" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_JobID")</div>    
+            <div field="DeptName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_DeptID")</div>    
+            <div field="JobName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_JobID")</div>    
             <div field="Leave" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Leave")</div>
 
             <div field="PersonCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_PersonCode")</div>   
@@ -193,7 +216,7 @@
             }
             mini.open({
                 url: "../EmployeeManage/ShowPage",
-                title: titleName, width: 560, height: 500,
+                title: titleName, width: 560, height: 520,
                 onload: function () {
                     var iframe = this.getIFrameEl();
                     var data = { action: type, id: value };
@@ -244,16 +267,20 @@
         //string key2 = Request["age"];
         //这样获取
         function search() {
+            
             var form = new mini.Form("#searchForm");
             var searchData = form.getData();
             var json = mini.encode(searchData);
-            alert(json);
             grid.load({ data: json });
 
         }
-        function onKeyEnter(e) {
-            search();
-        }
+        $("#key").bind("keydown", function (e) {
+            
+            if (e.keyCode == 13) {
+                return false;
+                
+            }
+        });
     </script>
 </body>
 </html>

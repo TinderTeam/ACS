@@ -59,6 +59,10 @@ namespace ACS.Service
     {
  
     }
+    public interface JobService : CommonService<Job>
+    {
+
+    }
     public interface DeviceService
     {
         AbstractDataSource<Control> getDeviceList(Control filter);
