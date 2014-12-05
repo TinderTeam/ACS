@@ -19,7 +19,10 @@
          width: 200px;
          text-align:left;
      }
-
+     .Hide
+     {
+        visibility:hidden;    
+     }
      </style>
     </head>
 <body> 
@@ -74,6 +77,7 @@
                             <table style="width:100%;">
                                 <tr>
                                     <td style="width:100%;">
+                                         <a class="mini-button" iconCls="icon-add" onclick="connect()">连接</a>
                                         <a class="mini-button" iconCls="icon-add" onclick="openDoor()">开门</a>
                                         <a class="mini-button" iconCls="icon-edit" onclick="closeDoor()">关门</a>
                                         <a class="mini-button" iconCls="icon-user" onclick="lockDoor()">锁门</a>
@@ -82,6 +86,8 @@
                                         <a class="mini-button" iconCls="icon-remove" onclick="removeFireAlarm()">火警解除</a>  
                                         <a class="mini-button" iconCls="icon-remove" onclick="alarm()">报警</a> 
                                         <a class="mini-button" iconCls="icon-remove" onclick="removeAlarm()">报警解除</a>      
+                                        <a class="mini-button" iconCls="icon-remove" onclick="newEvent()">新事件(Test)</a> 
+                                          
                                     </td>
                                 </tr>
                             </table>           
@@ -94,56 +100,161 @@
                                 <div field="AlarmTime" width="70" headerAlign="center" allowSort="true">姓名</div>
                                 <div field="TimeTamp" width="70" headerAlign="center" allowSort="true">门</div>   
                                 <div field="OpenTime" width="70" headerAlign="center" allowSort="true">事件</div>
-                           
+
                             </div>
                         </div> 
                     </div>
                 </div>
-            </div>         
+            </div>        
+
             <div size="200px" showCollapseButton="true">
                  <div class="mini-panel" title="事件" iconCls="icon-add" style="width:100%;height:100%;"
                      showToolbar="false" showCloseButton="false" showFooter="true">
-
-                     <table style="height:90%;">
-                         <tr>
+                     <table style="height:100%;">
                              <td>
                                 <div id="eventCard1" class="mini-panel"
-                                    title="最新事件" style="width:300px;height:100%; visibility:hidden" 
-                                    bodyStyle="padding:5;">
-
+                                    title="最新事件" style="width:300px;height:150px;" 
+                                   >
+                                    <!---事件卡片--->
+                                    <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
+                                        <div size="80px" showCollapseButton="false">
+                                            <img id="cardImg1"  width="80px" src="~/Test/test.jpg">
+                                        </div>
+                                        <div class="mini-fit">
+                                            <table>
+                                                <tr>
+                                                    <td>事件：</td>
+                                                    <td id="cardEventName1">进门</td>
+                                                </tr> 
+                                                 <tr>
+                                                    <td>姓名：</td>
+                                                    <td id="cardEmployeeName1">某妹子</td>
+                                                </tr>  
+                                                <tr>
+                                                    <td>控制器：</td>
+                                                    <td id="cardDevice1">某某控制器</td>
+                                                </tr>
+                                                 <tr>
+                                                    <td>事件时间：</td>
+                                                    <td id="cardTime1">2014-12-5 10:00:16</td>
+                                                </tr>                                   
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>    
                              </td>
                              <td>
-                                  <div id="eventCard2" class="mini-panel" 
-                                    title="最新事件" style="width:300px;height:100%;visibility:hidden"
+                                  <div id="eventCard2" class="mini-panel Hide" 
+                                    title="最新事件" style="width:300px;height:100%;"
                                     bodyStyle="padding:5;">
-
+                                       <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
+                                        <div size="80px" showCollapseButton="false">
+                                            <img id="cardImg2"  width="80px" src="~/Test/test.jpg">
+                                        </div>
+                                        <div class="mini-fit">
+                                            <table>
+                                               
+                                                <tr>
+                                                    <td>事件：</td>
+                                                    <td id="cardEventName2">进门</td>
+                                                </tr> 
+                                                 <tr>
+                                                    <td>姓名：</td>
+                                                    <td id="cardEmployeeName2">某妹子</td>
+                                                </tr>  
+                                                <tr>
+                                                    <td>控制器：</td>
+                                                    <td id="cardDevice2">某某控制器</td>
+                                                </tr>
+                                                 <tr>
+                                                    <td>事件时间：</td>
+                                                    <td id="cardTime2">2014-12-5 10:00:16</td>
+                                                </tr>                                   
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>   
                              </td>
                              <td>
-                                <div id="eventCard3" class="mini-panel" 
-                                    title="最新事件" style="width:300px;height:100%;visibility:hidden"
-                                    bodyStyle="padding:5;">
-
+                                <div id="eventCard3" class="mini-panel Hide" 
+                                    title="最新事件" style="width:300px;height:100%;"
+                                     <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
+                                        <div size="80px" showCollapseButton="false">
+                                            <img id="cardImg3"  width="80px" src="~/Test/test.jpg">
+                                        </div>
+                                        <div class="mini-fit">
+                                            <table>
+                                               
+                                                <tr>
+                                                    <td>事件：</td>
+                                                    <td id="cardEventName3">进门</td>
+                                                </tr> 
+                                                 <tr>
+                                                    <td>姓名：</td>
+                                                    <td id="cardEmployeeName3">某妹子</td>
+                                                </tr>  
+                                                <tr>
+                                                    <td>控制器：</td>
+                                                    <td id="cardDevice3">某某控制器</td>
+                                                </tr>
+                                                 <tr>
+                                                    <td>事件时间：</td>
+                                                    <td id="cardTime3">2014-12-5 10:00:16</td>
+                                                </tr>                                   
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>    
                              </td>
                              <td>
                                 <div id="eventCard4" class="mini-panel" 
                                     title="最新事件" style="width:300px;height:100%;visibility:hidden" 
                                     bodyStyle="padding:5;">
+                                     <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
+                                        <div size="80px" showCollapseButton="false">
+                                            <img id="cardImg4"  width="80px" src="~/Test/test.jpg">
+                                        </div>
+                                        <div class="mini-fit">
+                                            <table>
+                                               
+                                                <tr>
+                                                    <td>事件：</td>
+                                                    <td id="cardEventName4">进门</td>
+                                                </tr> 
+                                                 <tr>
+                                                    <td>姓名：</td>
+                                                    <td id="cardEmployeeName4">某妹子</td>
+                                                </tr>  
+                                                <tr>
+                                                    <td>控制器：</td>
+                                                    <td id="cardDevice4">某某控制器</td>
+                                                </tr>
+                                                 <tr>
+                                                    <td>事件时间：</td>
+                                                    <td id="cardTime4">2014-12-5 10:00:16</td>
+                                                </tr>                                   
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>   
                              </td>
-                         </tr>
-                     </table>
-                            
+            
+                     </table>     
                  </div>
             </div>
         </div>
     </div>
 </div>
     <script type="text/javascript">
-        
+        var cardShowNum=0;
+        function newEvent(){
+            alert("test");
+        }
 
+        function addEvent(src, name, type, time) {
+            cardShowNum=cardShowNum+1;
+            $("3" + cardShowNum).attr("");
+        }
 
         mini.parse();
         var grid = mini.get("#datagrid1");
@@ -170,6 +281,33 @@
                 if (c.removeCls) c.removeCls("asLabel");
             }
             mini.repaint(document.body);
+        }
+        
+
+        function connect() {
+
+            url = "/Monitor/Connect?ID=13";
+            $.ajax({
+                url: url,
+                type: 'post',
+                data: "",
+                cache: false,
+                success: function (text) {
+
+                    if (text == "Success") {
+                        mini.alert("操作成功！");
+                        CloseWindow("save");
+                    }
+                    else {
+
+                        alert("操作失败!");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
         }
 
 

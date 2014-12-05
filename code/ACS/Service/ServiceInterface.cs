@@ -38,9 +38,8 @@ namespace ACS.Service
     }
     public interface DeviceOperatorService
     {
-        bool openDoor(String ip, byte doorStatus);
-        bool reset(String ip);
-        bool closeDoor(String ip, byte doorStatus);
+        bool openDoor(String doorID);
+        bool closeDoor(String doorID);
     }
 
     public interface AccessDetailService : CommonService<AccessDetail>

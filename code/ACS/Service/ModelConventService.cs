@@ -252,5 +252,15 @@ namespace ACS.Service
             }
             return list;
         }
+
+        /// <summary>
+        /// 根据门获得门序号
+        /// </summary>
+        /// <param name="door"></param>
+        /// <returns></returns>
+        internal static byte toDoorIndex(Door door)
+        {
+            return 1;
+        }
     }
 }

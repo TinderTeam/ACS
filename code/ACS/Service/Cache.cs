@@ -1,16 +1,14 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using ACS.Models.Po;
-using ACS.Models.Po.Sys;
-using ACS.Models.Po.CF;
+using ACS.Common.Cache;
 using ACS.Common.Constant;
-using ACS.Service;
-using ACS.Models.Model;
-using ACS.Dao;
-using ACS.Test;
 using ACS.Common.Dao;
+using ACS.Dao;
+using ACS.Models.Model;
+using ACS.Models.Po.Business;
+using ACS.Models.Po.CF;
+using ACS.Models.Po.Sys;
 namespace ACS.Service
 {
     public class PrivilegeCache
@@ -21,7 +19,7 @@ namespace ACS.Service
         private static Dictionary<int,List<UserRole>> userRoleMap=null;
         private static Dictionary<int, PrivilegeSet> userPrivilegeMap = null;
         private static Dictionary<int, List<Sys_Menu>> userMenuMap = null;
-        
+
         public static List<UserRole> getUserRoleListByID(int userid){
            
             if (userRoleMap == null)
@@ -128,8 +126,9 @@ namespace ACS.Service
             userPrivilegeMap.Add(userid,set);
 
             //获取应用权限列表
-            List<Privilege> list = set.Values.ToList<Privilege>(); 
-        
+            List<Privilege> list = new List<Privilege>(set.Values); 
+
+            
             //通过应用权限列表获取菜单列表
             List<String> appIDList =  getAppPrivilegeList(list);
             log.Debug("appIDList of userID = " + appIDList);
@@ -194,5 +193,21 @@ namespace ACS.Service
             }
             return id; 
         }
+    }
+
+    public class DeviceCache : BasicCache<Control>
+    {
+        #region BasicCache 抽象方法实现
+        public  override string getKey(Control t)
+        {
+            return t.ControlID.ToString();
+        }
+
+        public override List<Control> initCache()
+        {
+            List<Control> list = DaoContext.getInstance().getControlDao().getAll();
+            return list;
+        }
+        #endregion
     }
 }

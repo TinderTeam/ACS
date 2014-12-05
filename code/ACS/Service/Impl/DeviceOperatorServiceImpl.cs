@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ACS.Models.Po.Business;
 using TcpipIntface;
 
 namespace ACS.Service.Impl
@@ -9,29 +10,17 @@ namespace ACS.Service.Impl
     public class DeviceOperatorServiceImpl : DeviceOperatorService
     {
        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-       public  Dictionary<string, TcpipClass> tcpMap = new Dictionary<string, TcpipClass>();
-        /// <summary>
-        /// 事物处理方法
-        /// </summary>
-        /// <param name="EType"></param>
-        /// <param name="second"></param>
-        /// <param name="minute"></param>
-        /// <param name="hour"></param>
-        /// <param name="day"></param>
-        /// <param name="Month"></param>
-        /// <param name="Year"></param>
-        /// <param name="DoorStatus"></param>
-        /// <param name="Ver"></param>
-        /// <param name="FuntionByte"></param>
-        /// <param name="Online"></param>
-        /// <param name="CardsofPackage"></param>
-        /// <param name="CardNo"></param>
-        /// <param name="Door"></param>
-        /// <param name="EventType"></param>
-        /// <param name="CardIndex"></param>
-        /// <param name="CardStatus"></param>
-        /// <param name="Reader"></param>
-        /// <param name="Ack"></param>
+       public Dictionary<string, TcpipClass> deviceConnectorMap = new Dictionary<string, TcpipClass>();
+       public Dictionary<string, Control> deviceCache = new Dictionary<string, Control>();
+       public DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
+       public DeviceOperatorServiceImpl()
+       {
+           #region Devcie cache init
+
+           #endregion
+       }
+       public Dictionary<string, TcpipClass> tcpMap = new Dictionary<string, TcpipClass>();
+
         void EventHandler(byte EType, byte Second, byte Minute, byte Hour, byte Day, byte Month, int Year, byte DoorStatus,
              byte Ver, byte FuntionByte, Boolean Online, byte CardsofPackage, UInt64 CardNo, out byte Door, byte EventType,
              UInt16 CardIndex, byte CardStatus, byte reader, out Boolean OpenDoor, out Boolean Ack)
@@ -42,8 +31,14 @@ namespace ACS.Service.Impl
             switch (EType)
             {
                  
-                case 0: ShowMsg(EType.ToString() + "控制器状态 " + DoorStatus.ToString()); 
-                break;
+                case 0: 
+                    //控制器状态处理
+                    log.Info("EType:" + EType.ToString());
+                    log.Info("DoorStatus:" + DoorStatus.ToString());
+                    log.Info("EventType:" + EventType.ToString());
+                    ShowMsg(EType.ToString() + "控制器状态 " + DoorStatus.ToString()); 
+
+                    break;
                 case 1: ShowMsg(EType.ToString() + "刷卡 " + CardNo.ToString() + " " + EventType.ToString()); 
                 break; // card event
                 case 2: ShowMsg(EType.ToString() + "报警" + EventType.ToString()); 
@@ -57,87 +52,64 @@ namespace ACS.Service.Impl
             listBox1.BeginUpdate();
             listBox1.Items.Insert(0, buffRX);
             listBox1.EndUpdate();
-        
             */
-            log.Info("TCPMsg:"+buffRX);
-        }
-            
-        
-        public TcpipClass getControllerTCP(string ip)
-        {
-
-           TcpipClass acsTcp;
-           if(tcpMap.ContainsKey(ip)){
-                acsTcp = tcpMap[ip];
-           }else{
-                acsTcp = new TcpipClass();
-                acsTcp.RxDataEvent += ShowMsg;
-               acsTcp.OnEventHandler += EventHandler;
-               tcpMap[ip] = acsTcp;
-               return acsTcp;
-           }
-         
-           return acsTcp;
+            log.Info("data:" + buffRX);
         }
 
-        public bool openDoor(String ip,byte doorStatus)
+        public TcpipClass getConnector(string deviceID)
         {
-            TcpipClass tcpControl = getControllerTCP(ip);
-            if (cennectDevice(ip))
+            TcpipClass connector;
+            if (deviceConnectorMap.ContainsKey(deviceID))
             {
-                if (tcpControl.Opendoor(doorStatus))
-                {
-                    log.Info("Open successful...");
-                    return true ;
-                }
-                log.Info("Can not open the door:" + tcpControl.TCPLastError);             
+                connector = tcpMap[deviceID];
             }
-            return false ;
+            else
+            {
+                connector = new TcpipClass();
+                connector.RxDataEvent += ShowMsg;
+                connector.OnEventHandler += EventHandler;
+                //建立连接
+                if(!connector.OpenIP(DeviceCache.getValue(deviceID).Ip, 8000)){
+                    log.Warn("Connection error: DeviceID=" + deviceID);
+                };
+                deviceConnectorMap.Add(deviceID, connector);
+            }
+            return connector;
         }
 
-        public bool closeDoor(String ip, byte doorStatus)
+        #region DeviceOperatorService 成员
+
+        public bool openDoor(string doorID)
         {
-            TcpipClass tcpControl = getControllerTCP(ip);
-            if (cennectDevice(ip))
+            Door door = deviceService.getDoorByID(doorID).Door;
+            String deviceID = door.ControlID.ToString();
+            TcpipClass connector = getConnector(deviceID);
+            if (connector.Opendoor(ModelConventService.toDoorIndex(door)))
             {
-                if (tcpControl.Closedoor(doorStatus))
-                {
-                    log.Info("Close successful...");
-                    return true;
-                }
-                log.Info("Can not close the door:" + tcpControl.TCPLastError);
+                log.Info("Open successful...");
+
+                return true;
             }
+            log.Info("Can not open the door! Error:" + connector.TCPLastError);
+
             return false;
         }
 
-        public bool reset(String ip)
+        public bool closeDoor(string doorID)
         {
-            TcpipClass tcpControl = getControllerTCP(ip);
-            if (cennectDevice(ip))
+            Door door = deviceService.getDoorByID(doorID).Door;
+            String deviceID = door.ControlID.ToString();
+            TcpipClass connector = getConnector(deviceID);
+
+            if (connector.Closedoor(ModelConventService.toDoorIndex(door)))
             {
-                if (tcpControl.Reset())
-                {
-                    log.Info("Reset successful...");
-                    return true;
-                }
-                log.Info("Can not Reset the door:" + tcpControl.TCPLastError);
+                log.Info("Close successful...");
+                return true;
             }
+            log.Info("Can not close the door:" + connector.TCPLastError);
             return false;
         }
 
-      
-
-        private bool cennectDevice(String ip)
-        {
-            //Connect
-            if (!getControllerTCP(ip).OpenIP(ip, 8000))
-            {
-                log.Info("Can not connect the device on : " + ip + ":" + getControllerTCP(ip).TCPLastError);
-                return false;
-            }
-            log.Info("Connect successful on : " + ip);
-            return true;
-        }
-
+        #endregion
     }
 }

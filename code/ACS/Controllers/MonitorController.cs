@@ -45,27 +45,15 @@ namespace ACS.Controllers
 
         public String OpenDoor(String ID)
         {
-            if (!tcpService.openDoor("163.125.218.203", 1))
-            {
-                Response.Write("false");
-            }
-            else
-            {
-                Response.Write("true");
-            }     
+            tcpService.openDoor("10");
+            Response.Write("true");
             return null;
         }
 
         public String CloseDoor(String ID)
         {
-            if (!tcpService.closeDoor("163.125.218.203", 1))
-            {
-                Response.Write("false");
-            }
-            else
-            {
-                Response.Write("true");
-            }
+            tcpService.closeDoor("10");
+            Response.Write("true");
             return null;
         }
         /*
