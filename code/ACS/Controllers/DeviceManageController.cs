@@ -14,157 +14,115 @@ using NHibernate.Mapping;
 using ACM.Controllers;
 using ACS.Common;
 using ACS.Service.Constant;
+using ACS.Models.Po.CF;
+using ACS.Common.Dao;
+using ACS.Common.Constant;
 namespace ACS.Controllers
 {
-    public class DeviceManageController : BaseController
+    public class DeviceManageController : MiniUITableController<Control>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        // GET: /Device/
         DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
-        UserService userService = ServiceContext.getInstance().getUserService();
-        PrivilegeService privilegeService = ServiceContext.getInstance().getPrivilegeService();
 
-        /// <summary>
-        /// 显示设备控制界面
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult DeviceManage()
+        public override CommonService<Control> getService()
         {
-            return View();
+            return deviceService;
         }
 
- 
-
-        public ActionResult DeviceCreatePanel()
+        // 加载设备-门树
+        public override ActionResult LoadTree()
         {
-            List<String> list = deviceService.getDeviceTypeList();
-            ViewBag.TypeList = list;
-            return View();
+            List<TreeModel> deviceTreeList = deviceService.getDeviceTreeByID(this.getSession().UserID.ToString());
+            return ReturnJson(deviceTreeList);
         }
-
-
-        /// <summary>
-        /// 加载设备-门树
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public String DeviceTree(String key)
+        //加载控制器类型列表
+        public ActionResult LoadTypeList()
         {
-            //获取当前登录用户
-            UserModel loginUser = (UserModel)Session["SystemUser"];
-            //根据用户获取权限门树
-            TreeModel tree = userService.getUserDevicePrivilegeTree(loginUser.UserID.ToString());
-            String str = tree.ToJsonStr();
-            return str;
+            List<DeviceTypeModel> typeList = DeviceTypeCache.GetInstance().TypeList;
+            return ReturnJson(typeList);
         }
-        
-       /// <summary>
-       /// 选择设备
-       /// </summary>
-       /// <param name="key">传回设备ID</param>
-       /// <returns></returns>
-        public ActionResult DeviceView(String DeviceID)
+        //根据DoorID加载DoorTimeList
+        public ActionResult LoadDoorTimeList(String data)
         {
-            ViewBag.deviceID = DeviceID;
-            return View();
-        }
-
-        /// <summary>
-        /// 选择门
-        /// </summary>
-        /// <param name="key">传回设备ID</param>
-        /// <returns></returns>
-        public ActionResult DoorView(String DoorID)
-        {
-            DoorModel dmodel;
-            //dmodel   = service.getDoorByID(DoorID);
-
-            dmodel = Test.Stub.getDoor();
-            ViewBag.DoorID = DoorID;
-            return View();
-        }
-
-        public String  LoadDoorTime(String DoorID)
-        {
-            log.Debug("Load Data...");
-            //数据库操作：使用查询条件、分页、排序等参数进行查询
-            List<DoorTime> doorTimeList=deviceService.getDoorTimeListByDoorID(DoorID);
-            return JsonConvert.ObjectToJson(doorTimeList);
-        }
-
-
-        public String  DoorTimeSave(String data)
-        {
-
-            List<DoorTimeModel> modelList = JsonConvert.JsonToObject<List<DoorTimeModel>>(data);
-            deviceService.updateDoorTimeList(ModelConventService.toDoorTimeList(modelList));
-            Response.Write(data);
-            return null;
-
-        }
-
-        /// <summary>
-        /// 设备信息变更
-        /// </summary>
-        /// <returns></returns>
-        public String DeviceInfoEdit(String submitData)
-        {
-            ControllerModel controller = JsonConvert.JsonToObject<ControllerModel>(submitData);
-            Control control = ModelConventService.toControl(controller);
-            if (ModelVerificationService.ControllerVerification(control))
+            List<QueryCondition> filterCondition = new List<QueryCondition>();
+            if (ValidatorUtil.isEmpty(data))
             {
-                deviceService.updateControl(control);
+                log.Warn("the DoorID is empty");
+                return null;
             }
-            Response.Write(submitData);
-            return null;
+            else
+            {
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, DoorTime.DOOR_ID, data));
+                return LoadTable<DoorTime>(filterCondition);
+            }
+        
         }
-
-        /// <summary>
-        /// 设备信息变更
-        /// </summary>
-        /// <returns></returns>
-        public String DeviceEdit(String DeviceID)
+        //打开门编辑窗口
+        public ActionResult DoorPage()
         {
-            return null;
+            return View();
         }
-
-        /// <summary>
-        /// 设备新增
-        /// </summary>
-        /// <returns></returns>
-        public String DeviceAdd(String type,String data)
+        //加载门信息
+        public ActionResult ShowDoor(String data)
         {
+           return base.Show<Door>(Door.DOOR_ID,data);
+        }
+        //更新DoorTime编辑后的信息
+        public ActionResult ModifyDoor(String data)
+        {
+
             try
             {
-
-                Control c= JsonConvert.JsonToObject<Control>(data);
-                c.Type = type;
-                //校验成功
-                Control control = deviceService.addControl(c);
-                //新增当前用户权限
-                UserModel loginUser = (UserModel)Session["SystemUser"];
-                privilegeService.addDomainPrivilege(loginUser.UserID.ToString(), control.ControlID.ToString());
+                this.getSession();
+                Door door = JsonConvert.JsonToObject<Door>(data);
+                deviceService.ModifyDoor(this.getSession().UserID, door);
             }
             catch (FuegoException e)
             {
+                log.Error("create failed", e);
                 Rsp.ErrorCode = e.GetErrorCode();
-                log.Error("add control failed", e);
             }
-            catch (SystemException ex)
+            catch (Exception e)
             {
+                log.Error("create failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
-                log.Error("add control failed", ex);
             }
-            Response.Write(getRspJson());
-            return null;
+
+            return ReturnJson(Rsp);
         }
-        //加载控制器的参数
-        public String LoadControllerInfo(String controllerID){
-            DeviceModel deviceModel = deviceService.getDeviceByID(controllerID);
-            String json = JsonConvert.ObjectToJson(deviceModel.Control);         
-            return json;
+        //打开时间段编辑窗口
+        public ActionResult DoorTimePage()
+        {
+            return View();
+        }
+        //加载时间段信息
+        public ActionResult ShowDoorTime(String data)
+        {
+            return base.Show<DoorTime>(DoorTime.DOOR_TIME_ID, data);
+        }
+        //更新DoorTime编辑后的信息
+        public ActionResult ModifyDoorTime(String data)
+        {
+
+            try
+            {
+                this.getSession();
+                DoorTime doorTime = JsonConvert.JsonToObject<DoorTime>(data);
+                deviceService.ModifyDoorTime(this.getSession().UserID, doorTime);
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
         }
 
- 
     }
 }

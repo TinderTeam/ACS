@@ -72,7 +72,7 @@
             <div field="Sex" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Sex")</div>   
             <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_CardNo")</div>
             <div field="EmpEnable" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EmpEnable")</div>
-            <div field="EndDate" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EndDate")</div> 
+            <div field="EndDate" width="70" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EndDate")</div> 
             <div field="DeptName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_DeptID")</div>    
             <div field="JobName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_JobID")</div>    
             <div field="Leave" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Leave")</div>
@@ -261,11 +261,7 @@
             }
         }
 
-        //比如key={name:"asd",age:"123"};
-        //gird.load(key);
-        //后台string key1 = Request["name"];
-        //string key2 = Request["age"];
-        //这样获取
+        //员工搜索
         function search() {
             
             var form = new mini.Form("#searchForm");

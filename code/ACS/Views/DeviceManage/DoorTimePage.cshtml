@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>控制器面板</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+    <script src="../../Scripts/boot.js" type="text/javascript"></script>
+
+    <style type="text/css">
+    html, body
+    {
+        font-size:12px;
+        padding:0;
+        margin:0;
+        border:0;
+        height:100%;
+        overflow:hidden;
+    }
+    </style>
+</head>
+<body> 
+    <form id="DoorTimeForm" method="post">
+
+            <div style="margin-top:20px;margin-bottom:20px;margin-left:40px;">
+                <table style="table-layout:fixed;">
+                    <tr style ="height:35px">
+                        <td style="width:90px;">时间段名称：</td>
+                        <td style="width:150px;">
+                            <input name="DoorTimeName" class="mini-textbox"  value=""/>
+                            <input name ="DoorTimeID" class="mini-textbox" style="display:none" value=""/>
+                        </td>
+                        <td style="width:90px;">启用：</td>
+                        <td style="width:150px;">
+                            <select name="Enable" class="mini-radiobuttonlist">
+                                <option value="Enable">启用</option>
+                                <option value="Disable">禁用</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >起始时间：</td>
+                        <td >
+                            <input name="StartTime" class="mini-timespinner"  format="H:mm:ss" />
+                        </td>
+                        <td >结束时间：</td>
+                        <td >
+                            <input name="EndTime" class="mini-timespinner"  format="H:mm:ss" />
+                        </td>
+                    </tr>           
+                </table>
+            </div>
+        <fieldset style="border:solid 1px #aaa;padding:3px;margin-left:40px;margin-right:40px;">
+                <legend >日期范围</legend>
+                <div style="padding-left:25px;margin-top:10px;margin-bottom:10px;">
+                    <table>
+                        <tr style ="height:35px">
+                            <td style="width:90px;">
+                                <input name="Monday" class="mini-checkbox" text="星期一" trueValue="true" falseValue="false" />
+                            </td>
+                            <td style="width:90px;">
+                                <input name="Tuesday" class="mini-checkbox" text="星期二" trueValue="true" falseValue="false" />
+                            </td>
+                            <td style="width:90px;">
+                                <input name="Wednesday" class="mini-checkbox" text="星期三" trueValue="true" falseValue="false" />
+                            </td>
+                            <td style="width:90px;">
+                                <input name="Thursday" class="mini-checkbox" text="星期四" trueValue="true" falseValue="false" />
+                            </td>
+                        </tr>
+                        <tr style ="height:35px">
+                            <td style="width:90px;">
+                                <input name="Friday" class="mini-checkbox" text="星期五" trueValue="true" falseValue="false" />
+                            </td>
+                            <td style="width:90px;">
+                                <input name="Saturday" class="mini-checkbox" text="星期六" trueValue="true" falseValue="false" />
+                            </td>
+                            <td style="width:90px;">
+                                <input name="Sunday" class="mini-checkbox" text="星期日" trueValue="true" falseValue="false" />
+                            </td>
+                            <td style="width:90px;">
+                                <input name="Holiday" class="mini-checkbox" text="假日" trueValue="true" falseValue="false" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>
+                        
+      
+        <div style="text-align:center;padding:5px;">                            
+            <a id="Modify" class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">确定</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>        
+        </div>  
+    </form>
+    <script type="text/javascript">
+        mini.parse();
+
+        var form = new mini.Form("#DoorTimeForm");
+
+        //加载窗口信息
+        function Show(data) {
+            //跨页面传递的数据对象，克隆后才可以安全使用
+            receiveData = mini.clone(data);
+            $.ajax({
+                url: "../DeviceManage/ShowDoorTime?data=" + receiveData.id,
+                cache: false,
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
+                        form.setData(Rsp.Obj);
+                    } else {
+                        mini.alert(Rsp.Message);
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        //保存数据
+        function onSaveData() {
+            var o = form.getData();
+            var json = mini.encode(o);
+            form.validate();
+            if (form.isValid() == false) return;
+            $.ajax({
+                url: "../DeviceManage/ModifyDoorTime",
+                type: 'post',
+                data: { data: json },
+                cache: false,
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
+                        CloseWindow("ok");
+                    }
+                    else {
+                        alert(Rsp.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        function CloseWindow(action) {
+            if (action == "close" && form.isChanged()) {
+                if (confirm("数据被修改了，是否先保存？")) {
+                    return false;
+                }
+            }
+            if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+            else window.close();
+        }
+    </script>
+</body>
+</html>

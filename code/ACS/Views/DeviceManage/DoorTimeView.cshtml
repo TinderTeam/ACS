@@ -1,0 +1,56 @@
+﻿<div class="mini-toolbar" style="border-bottom:0;padding:0px;">       
+    <table style="width:100%;">
+        <tr>
+            <td style="width:100%;">
+                <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow()">编辑</a>     
+            </td>
+        </tr>
+    </table>           
+</div>
+<div class = "mini-fit">
+    <div id ="doorTimeGird" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
+            url="LoadDoorTimeList"  idField="DoorTimeID" multiSelect="true">
+            <div property="columns">
+                <div type="checkcolumn" ></div>                  
+                <div field="Enable" width="30" headerAlign="center" allowSort="true">启用</div>
+                <div field="DoorTimeName" width="50" headerAlign="center" allowSort="true" >时间段名称</div>
+                <div field="StartTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">开始时间</div>
+                <div field="EndTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">截止时间</div>
+                <div field="Monday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期一</div>
+                <div field="Tuesday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期二</div>
+                <div field="Wednesday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期三</div>
+                <div field="Thursday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期四</div>
+                <div field="Friday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期五</div>
+                <div field="Saturday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期六</div>
+                <div field="Sunday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期日</div>
+                <div field="Holiday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">假期</div>
+            </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //新增、编辑窗口页面
+    function onModifyRow() {
+        var rows = grid.getSelecteds();
+        var row = grid.getSelected();
+        if (rows.length != 1) {
+            mini.alert("请选中一条记录");
+            return;
+        }
+        var value = row.DoorTimeID;
+        mini.open({
+            url: "../DeviceManage/DoorTimePage",
+            title: "编辑时间段", width: 560, height: 350,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                var data = { id: value };
+                iframe.contentWindow.Show(data);
+            },
+            ondestroy: function (action) {
+                grid.reload();
+
+            }
+        });
+
+    }
+</script>

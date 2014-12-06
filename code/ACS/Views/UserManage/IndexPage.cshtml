@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>用户管理</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link href="../../Script/demo.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/boot.js" type="text/javascript"></script>
+</head>
+<body>
+<style type="text/css">
+    html, body{
+        margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
+    }    
+</style>
+    <h1>用户管理</h1>      
+    <div style="width:100%;">
+        <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:100%;">
+                        <a class="mini-button" iconCls="icon-add" onclick="onModifyRow('Create')">增加</a>
+                        <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow('Modify')">编辑</a>
+                        <a class="mini-button" iconCls="icon-user" onclick="PrivilegeTree('Menu')">菜单权限</a>
+                        <a class="mini-button" iconCls="icon-user" onclick="PrivilegeTree('Device')">设备权限</a>
+                        <a class="mini-button" iconCls="icon-remove" onclick="onRemoveRow()">删除</a>       
+                    </td>
+                    <td style="white-space:nowrap;">
+                        <form id="searchForm" method="post">
+                        <input id ="key" name="UserName" class="mini-textbox" emptyText="请输入姓名" style="width:150px;"/>   
+                        <a class="mini-button" onclick="search()">查询</a>
+                        </form>
+                    </td>
+                </tr>
+            </table>           
+        </div>
+    </div>
+<div class="mini-fit" >
+    <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
+        url="Load"  idField="UserID" multiSelect="true">
+        <div property="columns">
+            <!--<div type="indexcolumn"></div>        -->
+            <div type="checkcolumn" ></div>                  
+            <div field="UserID" width="80" headerAlign="center" allowSort="true">用户系统ID</div>    
+            <div field="UserName" width="120" headerAlign="center" allowSort="true">用户名</div>    
+            <div field="UserDesc" width="120" headerAlign="center" allowSort="true">用户描述</div>
+            <div header="日志" style="text-align:center">
+                <div property="columns">
+                    <div field="CreateUserID" width="80" headerAlign="center" allowSort="true">创建者ID</div>   
+                    <div field="CreateDate" width="120" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">创建时间</div>
+                    <div field="ModifyUserID" width="80" headerAlign="center" allowSort="true">最后编辑者ID</div>
+                    <div field="ModifyDate" width="120" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">最后编辑时间</div> 
+                </div>
+            </div>                            
+        </div>
+    </div>
+</div>    
+
+    <script type="text/javascript">
+        mini.parse();
+        var grid = mini.get("#datagrid1");
+        grid.load();
+
+        //新增、编辑用户
+        function onModifyRow(type) {
+
+            if (type == "Modify") {
+                var rows = grid.getSelecteds();
+                var row = grid.getSelected();
+                if (rows.length != 1) {
+                    mini.alert("请选中一条记录");
+                    return;
+                }
+                else {
+                    var titleName = "编辑用户";
+                    var userID = row.UserID;
+                }
+            }
+            else if (type == "Create") {
+                var titleName = "新增用户";
+            }
+            mini.open({
+                url: "../UserManage/ShowPage",
+                title: titleName, width: 350, height: 250,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = { action: type, id: userID };
+                    iframe.contentWindow.Show(data);
+
+                },
+                ondestroy: function (action) {
+
+                    if (action == "ok")     //关闭窗口时点击的是确定
+                    {
+                        grid.reload();
+                    }
+
+
+                }
+            });
+
+        }
+        //加载用户权限树
+        function PrivilegeTree(type) {
+            var rows = grid.getSelecteds();
+            var row = grid.getSelected();
+            if (rows.length == 1) {
+                var id = row.UserID;
+                mini.open({
+                    url: "../UserManage/ShowPrivilege",
+                    title: "菜单权限", width: 400, height: 600,
+                    onload: function () {
+                        var iframe = this.getIFrameEl();
+                        var data = { action: type, id: row.UserID };
+                        iframe.contentWindow.Show(data);
+
+                    },
+                    ondestroy: function (action) {
+                        grid.reload();
+
+                    }
+                });
+            } else {
+                mini.alert("请选中一条记录");
+            }
+
+        }
+        //删除用户
+        function onRemoveRow(e) {
+            
+            var rows = grid.getSelecteds();
+
+            if (rows.length > 0) {
+                if (confirm("确定删除选中记录？")) {
+           
+                    var ids = [];
+                    for (var i = 0, l = rows.length; i < l; i++) {
+                        var r = rows[i];
+                        ids.push(r.UserID);
+                    }
+                    var json = mini.encode(ids);
+                    $.ajax({
+                        url: "../UserManage/Delete",
+                        type: 'post',
+                        data: { data: json },
+                        cache: false,
+                        success: function (json) {
+                            var Rsp = mini.decode(json);
+                            if (Rsp.ErrorCode == "Success") {
+                                mini.alert("删除成功！");
+                                grid.reload();
+                            }
+                            else {
+                                mini.alert(text);
+                            }
+                        },
+                        error: function () {
+                        }
+                    });
+                }
+            } else {
+                mini.alert("请选中一条记录");
+            }
+        }
+        //用户搜索
+        function search() {
+
+            var form = new mini.Form("#searchForm");
+            var searchData = form.getData();
+            var json = mini.encode(searchData);
+            grid.load({ data: json });
+
+        }
+        $("#key").bind("keydown", function (e) {
+
+            if (e.keyCode == 13) {
+                return false;
+
+            }
+        });
+    </script>
+</body>
+</html>

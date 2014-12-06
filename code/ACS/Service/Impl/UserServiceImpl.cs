@@ -17,10 +17,9 @@ using ACS.Models.Po.Business;
 using ACS.Common;
 namespace ACS.Service.Impl
 {
-    public class UserServiceImpl : CommonServiceImpl<User>, UserService
+    public class UserServiceImpl : CommonServiceImpl<SystemUser>, UserService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        CommonDao<User> userDao = DaoContext.getInstance().getUserDao();
         CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
         CommonDao<Sys_Menu> sysMenuDao = DaoContext.getInstance().getSysMenuDao();
         CommonDao<Control> controlDao = DaoContext.getInstance().getControlDao();
@@ -28,96 +27,49 @@ namespace ACS.Service.Impl
 
         public override String GetPrimaryName()
         {
-            return User.ID;
-        }
-
-        public AbstractDataSource<User> getUserList(string userName)
-        {   
-            List<QueryCondition> conditionList = new List<QueryCondition>();
-            if (userName != null)
-            {
-                QueryCondition condition = new QueryCondition(ConditionTypeEnum.INCLUDLE, User.NAME, userName);
-                conditionList.Add(condition);
-            }         
-            AbstractDataSource<User> dataSource = new DatabaseSourceImpl<User>(conditionList);
-  
-		    return dataSource;
+            return SystemUser.ID;
         }
         //创建新用户
-        public void create(UserModel userModel)
+        public override void Create(int createUserID, SystemUser user)
         {
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserName", userModel.UserName);
-            if (null != userDao.getUniRecord(condition))
-            {
-                log.Error("create failed, the userName has exist. user name is " + userModel.UserName);
-                throw new FuegoException(ExceptionMsg.USERNAME_EXIST);
-            }
-            User user = ModelConventService.toUser(userModel);
-            user.CreateDate = DateTime.Now;
-            user.ModifyDate = DateTime.Now;
-            userDao.create(user);
-            log.Info("create success. username="+userModel.UserName);
+            SystemUser newUser = new SystemUser();
+            newUser.UserName = user.UserName;
+            newUser.CreateDate = DateTime.Now;
+            newUser.CreateUserID = createUserID;
+            newUser.ModifyDate = DateTime.Now;
+            newUser.ModifyUserID = createUserID;
+            newUser.UserDesc = user.UserDesc;
+            newUser.Pswd = "888888";            //创建用户默认密码为6个8
+            base.Create(createUserID,newUser);
         }
-        public void delete(List<int> userIDList)
+        //编辑用户信息
+        public override void Modify(int modifyUserID,SystemUser user)
         {
-            foreach (int i in userIDList)
-            {
-                userDao.delete(
-               new QueryCondition(
-                  ConditionTypeEnum.EQUAL,
-                  User.ID,
-                  i.ToString()
-               )
-           );
-            }
-           
-        }
-        public UserModel getUserByID(string userID)
-        {
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserID", userID);
-            User user = userDao.getUniRecord(condition);
-            if (null == user)
-            {
-                log.Error("get user failed, the user is not exist. userID is " + userID);
-                throw new FuegoException(ExceptionMsg.USER_NOT_EXISTED);
-            }
-            UserModel userModel = ModelConventService.toUserModel(user);
-            return userModel;
-        }
-        public void update(UserModel userModel)
-        {
-            //判断用户是否存在
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserID", userModel.UserID.ToString());
-            User orignalUser = userDao.getUniRecord(condition);
-            if (null == orignalUser)
-            {
-                log.Error("modify user failed, the user is not exist. userID is " + userModel.UserID);
-                throw new FuegoException(ExceptionMsg.USER_NOT_EXISTED);
-            }
-            User user = ModelConventService.toUser(userModel);
-            user.UserID = orignalUser.UserID;
-            user.Pswd = orignalUser.Pswd;
-            user.UserName = orignalUser.UserName;
-            user.CreateDate = orignalUser.CreateDate;
-            user.ModifyDate = DateTime.Now;
-            userDao.update(user);
+
+            SystemUser orignalUser = this.Get(user.UserID.ToString());
+            orignalUser.UserName = user.UserName;
+            orignalUser.UserDesc = user.UserDesc;
+            orignalUser.ModifyDate = DateTime.Now;
+            orignalUser.ModifyUserID = modifyUserID;
+            base.Modify(orignalUser);
+
         }
         //用户权限管理
         //获取用户菜单权限树
-        public TreeModel getPrivilegeMenuTree(string userID)
+        public List<TreeModel> getMenuPrivilegeTree(string userID)
         {
             //获取所有权限树列表
             List<Sys_Menu> menuList = sysMenuDao.getAll();
-            TreeModel allTree = ModelConventService.toMenuTreeModel(menuList);
+            List<TreeModel> menuTreeList = ModelConventService.toMenuTreeModelList(menuList);
             //获取所选用户对应的权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_APP));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_APP));
             List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
             //对用户存在的权限菜单打勾
             foreach (Privilege i in userPrivilegeList)
             {
-                foreach (TreeItem j in allTree.MenuTreeItemList)
+                foreach (TreeModel j in menuTreeList)
                 {
                     if (i.PrivilegeAccessValue.Equals(j.Id))
                     {
@@ -125,15 +77,15 @@ namespace ACS.Service.Impl
                     }
                 }
             }
-            return allTree;
+            return menuTreeList;
         }
         //更改用户菜单权限
-        public void updateMenuPrivilege(string userID,List<string> menuIDList)
+        public void saveMenuPrivilege(string userID,List<string> menuIDList)
         {
             //获取所选用户对应的权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_APP));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_APP));
             privilegeDao.delete(conditionList); //删除原有菜单权限列表
 
             if (ValidatorUtil.isEmpty<string>(menuIDList))
@@ -162,72 +114,39 @@ namespace ACS.Service.Impl
         }
         //用户权限管理
         //获取用户设备权限树（全部+勾选）
-        public TreeModel getDevicePrivilegeTree(string userID)
+        public List<TreeModel> getDevicePrivilegeTree(string userID)
         {
-            TreeModel allTree = ModelConventService.toDeviceTree(new DatabaseSourceImpl<Control>(new List<QueryCondition>()));        
+            //获取所有权限树列表
+            List<Control> controlList = controlDao.getAll();
+            List<TreeModel> DeviceTreeList = ModelConventService.toDeviceTreeModel(controlList);        
             //获取所选用户对应的权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
             List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
-            TreeModel controlTree = new TreeModel();
+
             //对用户存在的权限菜单打勾
-           
-            foreach (TreeItem j in allTree.MenuTreeItemList)
+            foreach (TreeModel j in DeviceTreeList)
             {
-                if (j.Id.StartsWith("C"))
-                {
-                    controlTree.MenuTreeItemList.Add(j);
-                }
                 foreach (Privilege i in userPrivilegeList)
                 {
-                    if (("C" + i.PrivilegeAccessValue).Equals(j.Id))
+                    if ((i.PrivilegeAccessValue).Equals(j.Id))
                     {
                         j.CheckNode = true;
                        
                     }
                 }
             }
-            return controlTree;
+            return DeviceTreeList;
         }
 
-        //加载某个用户的设备权限树（只显示有权限的）
-        public TreeModel getUserDevicePrivilegeTree(string userID)
-        {
-            TreeModel allTree = ModelConventService.toDeviceTree(new DatabaseSourceImpl<Control>(new List<QueryCondition>()));
-            //获取所选用户对应的权限
-            List<QueryCondition> conditionList = new List<QueryCondition>();
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
-            List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
-            TreeModel userTree = new TreeModel();
-            //对用户存在的权限菜单打勾
-            foreach (Privilege i in userPrivilegeList)
-            {
-                foreach (TreeItem j in allTree.MenuTreeItemList)
-                {
-                    if (("C" + i.PrivilegeAccessValue).Equals(j.Id))
-                    {
-                        userTree.MenuTreeItemList.Add(j);
-                        foreach(TreeItem k in allTree.MenuTreeItemList){
-                            if(k.Pid==j.Id){
-                                userTree.MenuTreeItemList.Add( k);
-                            }
-                        }
-                    }
-                }
-            }
-            return userTree;
-        }
-
-
-        //更改用户设备权限
-        public void updateDevicePrivilege(string userID, List<string> deviceIDList)
+        ////更改用户设备权限
+        public void saveDevicePrivilege(string userID, List<string> deviceIDList)
         {
             //获取所选用户对应的权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
             privilegeDao.delete(conditionList); //删除原有菜单权限列表
 
             if (ValidatorUtil.isEmpty<string>(deviceIDList))
@@ -245,7 +164,7 @@ namespace ACS.Service.Impl
                 privilege.PrivilegeMaster = ServiceConstant.SYS_MASTER_TYPE_USER;
                 privilege.PrivilegeMasterValue = userID;
                 privilege.PrivilegeAccess = ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN;
-                privilege.PrivilegeAccessValue = str.Replace("C","");
+                privilege.PrivilegeAccessValue = str;
                 privilege.PrivilegeOperation = ServiceConstant.SYS_OPRATION_VALUE_VISIBLE;
 
                 privilegeList.Add(privilege);

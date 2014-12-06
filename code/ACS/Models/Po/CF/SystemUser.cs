@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ACS.Models.Po.CF
 {
-    public class User
+    public class SystemUser
     {
         public const String ID = "UserID";
         public const String NAME = "UserName";

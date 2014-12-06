@@ -4,7 +4,7 @@
   <class name="ACS.Models.Po.Business.Control,ACS" table="t_control"  >
 
     <id name="ControlID" column ="CONTROL_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
     <property name="NetID" type="string">

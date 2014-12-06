@@ -23,10 +23,12 @@ namespace ACS.Service
         void Create(E obj); 
         void Create(int userID,E obj);
         void Modify(E obj);
+        void Modify(int userID, E obj);
         void Delete(String id);
         void Delete(List<String> idList);
         E Get(String id);
         List<E> Get(List<String> idList);
+        T Get<T>(String key, String value);
     }
 
     public interface EmployeeService : CommonService<Employee>
@@ -60,47 +62,24 @@ namespace ACS.Service
     {
 
     }
-    public interface DeviceService
+    public interface DeviceService : CommonService<Control>
     {
-        AbstractDataSource<Control> getDeviceList(Control filter);
-        AbstractDataSource<Door> getDoorList(Door filter);
-
-        DeviceModel getDeviceByID(string DeviceID);
-
+        List<TreeModel> getDeviceTreeByID(String userID);
+        void ModifyDoorTime(int userID, DoorTime doorTime);
+        void ModifyDoor(int userID, Door door);
         DoorModel getDoorByID(string DoorID);
-
-        List<DoorTime> getDoorTimeListByDoorID(string DoorID);
-
-        void updateDoorTimeList(List<DoorTime> list);
-
-        void updateControl(Control control);
-
-        void deleteControlById(string id);
-        int getTimeNumberByDeviceType(string type);
-        int getDoorNumberByDeviceType(string type);
-        List<String> getDeviceTypeList();
-
-        Control addControl(Control c);
     }
 
     public interface PlatFormService
     {
-        TreeModel getMenuTreeByUserID(int userid);
         AbstractDataSource<Privilege> getPrivilegeList(Privilege filter);
-        TreeModel getUserTree();
     }
-    public interface UserService : CommonService<User>
+    public interface UserService : CommonService<SystemUser>
     {
-        AbstractDataSource<User> getUserList(string userName);
-        void create(UserModel userModel);
-        void delete(List<int> userIDList);
-        UserModel getUserByID(string userID);
-        void update(UserModel userModel);
-        TreeModel getPrivilegeMenuTree(string userID);
-        void updateMenuPrivilege(string userID,List<string> menuIDList);
-        TreeModel getDevicePrivilegeTree(string userID);
-        TreeModel getUserDevicePrivilegeTree(string userID);
-        void updateDevicePrivilege(string userID, List<string> deviceIDList);
+        List<TreeModel> getMenuPrivilegeTree(string userID);
+        void saveMenuPrivilege(string userID, List<string> menuIDList);
+        List<TreeModel> getDevicePrivilegeTree(string userID);
+        void saveDevicePrivilege(string userID, List<string> deviceIDList);
 
     }
 
@@ -123,8 +102,8 @@ namespace ACS.Service
     }
     public interface PrivilegeService
     {
-
-        void addDomainPrivilege(string userID, string controlID);
+        List<String> getPrivilegeValueList(string userID, string PrivilegeType);
+        void CreateDomainPrivilege(string userID, string controlID);
     }
     public interface LoginService
     {

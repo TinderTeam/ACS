@@ -14,6 +14,14 @@ namespace ACS.Service.Impl
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        public CommonDao<E> GetDao()
+        {
+            return DaoContext.getInstance().getDao<E>();
+        }
+        public CommonDao<T> GetDao<T>()
+        {
+            return DaoContext.getInstance().getDao<T>();
+        }
         public virtual void Validator(E obj)
         {
             log.Debug("the validator is empty ");
@@ -52,6 +60,11 @@ namespace ACS.Service.Impl
         }
 
         public virtual void Modify(E obj)
+        {
+            Validator(obj);
+            DaoContext.getInstance().getDao<E>().update(obj);
+        }
+        public virtual void Modify(int userID ,E obj)
         {
             Validator(obj);
             DaoContext.getInstance().getDao<E>().update(obj);
@@ -113,6 +126,23 @@ namespace ACS.Service.Impl
             }
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN, GetPrimaryName(), idList);
             return DaoContext.getInstance().getDao<E>().getAll(condition);
+        }
+
+        public virtual T Get<T>(String key,String value)
+        {
+            log.Info("the object is " + typeof(T) +",the key is " + key + ",the value " + value);
+            if (ValidatorUtil.isEmpty(key))
+            {
+                log.Error("the key is empty");
+                return default(T);
+            }
+            if (ValidatorUtil.isEmpty(value))
+            {
+                log.Error("the value is empty");
+                return default(T);
+            }
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, key, value);
+            return DaoContext.getInstance().getDao<T>().getUniRecord(condition);
         }
 
         public abstract String GetPrimaryName();

@@ -1,16 +1,76 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
-using ACS.Common.Cache;
-using ACS.Common.Constant;
-using ACS.Common.Dao;
-using ACS.Dao;
-using ACS.Models.Model;
-using ACS.Models.Po.Business;
-using ACS.Models.Po.CF;
+using System.Linq;
+using System.Web;
+using ACS.Models.Po;
 using ACS.Models.Po.Sys;
+using ACS.Models.Po.CF;
+using ACS.Common.Constant;
+using ACS.Service;
+using ACS.Models.Model;
+using ACS.Dao;
+using ACS.Test;
+using ACS.Common.Dao;
+using System.Xml;
+using ACS.Service.Constant;
+using ACS.Models.Po.Business;
+using ACS.Common.Cache;
 namespace ACS.Service
 {
+
+    public class DeviceTypeCache
+    {
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static DeviceTypeCache instance = new DeviceTypeCache();
+
+        public List<DeviceTypeModel> TypeList = new List<DeviceTypeModel>();
+
+        public static DeviceTypeCache GetInstance()
+        {
+            if (null == instance)
+            {
+                instance = new DeviceTypeCache();
+            }
+            return instance;
+        }
+        private DeviceTypeCache()
+        {
+            load();
+        }
+
+
+        private void load()
+        {
+           
+            XmlDocument xml = new XmlDocument();
+            xml.Load(ServiceConfigConstants.getDeviceConfigXmlPath());
+            XmlNode root = xml.SelectSingleNode("/root");
+            XmlNodeList xnl = root.ChildNodes;
+            for (int i = 0; i < xnl.Count; i++)
+            {
+                XmlElement e = (XmlElement)xnl.Item(i);
+       
+                DeviceTypeModel type = new DeviceTypeModel();
+                type.Type = e.GetAttribute("type");
+                type.DoorNum = Convert.ToInt32(e.GetAttribute("door_num"));
+                type.TimeNum =  Convert.ToInt32(e.GetAttribute("time_num"));
+                TypeList.Add(type);
+            }
+          
+        }
+        public DeviceTypeModel GetDeviceType(string deviceType)
+        {
+            foreach (DeviceTypeModel e in TypeList)
+            {
+                if (e.Type == deviceType)
+                {
+                    return e;
+                }
+            }
+            log.Warn("can not find device type. the type is "+deviceType);
+            return null;
+        }
+    }
     public class PrivilegeCache
     {
 
@@ -19,7 +79,7 @@ namespace ACS.Service
         private static Dictionary<int,List<UserRole>> userRoleMap=null;
         private static Dictionary<int, PrivilegeSet> userPrivilegeMap = null;
         private static Dictionary<int, List<Sys_Menu>> userMenuMap = null;
-
+        
         public static List<UserRole> getUserRoleListByID(int userid){
            
             if (userRoleMap == null)
@@ -92,7 +152,7 @@ namespace ACS.Service
             );
             conditionList.Add(new QueryCondition(
                   ConditionTypeEnum.EQUAL,
-                  Privilege.MASTER,
+                  Privilege.MASTER_TYPE,
                   ServiceConstant.SYS_MASTER_TYPE_USER
                   )
             );
@@ -115,7 +175,7 @@ namespace ACS.Service
                 );
                 privilegeConditionList.Add(new QueryCondition(
                       ConditionTypeEnum.EQUAL,
-                      Privilege.MASTER,
+                      Privilege.MASTER_TYPE,
                       ServiceConstant.SYS_MASTER_TYPE_ROLE
                       )
                 );

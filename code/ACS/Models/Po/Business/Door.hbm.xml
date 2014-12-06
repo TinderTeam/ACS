@@ -4,7 +4,7 @@
   <class name="ACS.Models.Po.Business.Door,ACS" table="t_door"  >
 
     <id name="DoorID" column ="DOOR_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
     <property name="ControlID" type="int">
@@ -23,11 +23,11 @@
       <column name="DOOR_ADDRESS" length="255"/>
     </property>
 
-    <property name="OpenTime" type="DateTime">
+    <property name="OpenTime" type ="int">
       <column name="OPEN_TIME"/>
     </property>
 
-    <property name="CloseOutTime" type="DateTime">
+    <property name="CloseOutTime" type ="int">
       <column name="CLOSE_OUT_TIME"/>
     </property>
     
@@ -75,7 +75,7 @@
       <column name="ALARM_MAST" length="255"/>
     </property>
 
-    <property name="AlarmTime" type="DateTime">
+    <property name="AlarmTime">
       <column name="ALARM_TIME"/>
     </property>
 

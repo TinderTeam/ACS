@@ -19,197 +19,94 @@ using ACS.Common.Util;
 using ACS.Controllers.Constant;
 using ACS.Controllers;
 using ACS.Common.Dao;
+using ACS.Common;
+using ACS.Service.Constant;
+using ACS.Common.Constant;
 namespace ACM.Controllers
 {
-    public class UserManageController : MiniUITableController<User>
+    public class UserManageController : MiniUITableController<SystemUser>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
         UserService userService = ServiceContext.getInstance().getUserService();
 
-        public override CommonService<User> getService()
+        public override CommonService<SystemUser> getService()
         {
             return userService;
         }
-        
-        /// <summary>
-        /// UserManage IndexPage.
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult UserManage()
+        //用于实现条件查询功能
+        public override List<QueryCondition> GetFilterCondition(String json)
         {
-            return View();
-        }
 
-        /// <summary>
-        /// Load User Tabel
-        /// </summary>
-        /// <param name="filter"></param>
-        /// <returns></returns>
-        //public ActionResult Load(User filter)
-       // {
-       //     return LoadTable(new List<QueryCondition>());
-      //  }
-
-        public ActionResult UserEdit(String id)
-        {
-            ViewBag.Type = "EDIT";
-            UserModel userModel = userService.getUserByID(id);
-            ViewBag.user = userModel;
-            return View();
-        }
-        public ActionResult UserCreate()
-        {
-            ViewBag.Type = "CREATE";
-            return View("UserEdit");
-        }
-
-  
-         
-        /// <summary>
-        /// 新增用户
-        /// 可以改成用Ajax调用的响应
-        /// </summary>
-        /// <returns></returns>
-        public string create(string data)
-        {
-            string text = null;
-            log.Debug("Create User...");
-            UserModel userModel = JsonConvert.JsonToObject<UserModel>(data);
-            UserModel model = (UserModel) Session["SystemUser"];
-            userModel.CreateUserID =model.UserID;
-
-            if (ModelVerificationService.UserVerification(userModel))
+            List<QueryCondition> filterCondition = new List<QueryCondition>();
+            SystemUser userFilter = JsonConvert.JsonToObject<SystemUser>(json);
+            if (null != userFilter)
             {
-                try
-                {
-                    //校验成功
-                    userService.create(userModel);
-                }
-                catch (SystemException ex)
-                {
-                    text = ex.Message;
-                    Response.Write(text);
-                    return null;    
-                }
-                text = "Success";
-                Response.Write(text);
-                return null;
-
-            }else{
-                //校验失败
-                //TODO: 
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, SystemUser.NAME, userFilter.UserName));
             }
-            return null;
+
+            return filterCondition;
         }
-
-        /// <summary>
-        /// 修改用户
-        /// Ajax调用
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Edit(string data)
+        //显示菜单、设备权限编辑页面
+        public ActionResult ShowPrivilege()
         {
-            string text = null;
-            log.Debug("Modify User...");
-            UserModel userModel = JsonConvert.JsonToObject<UserModel>(data);
-            UserModel model = (UserModel)Session["SystemUser"];
-            userModel.ModifyUserID = model.UserID;
-
-            if (ModelVerificationService.UserVerification(userModel))
-            {
-                try
-                {
-                    //校验成功
-                    userService.update(userModel);
-                }
-                catch (SystemException ex)
-                {
-                    text = ex.Message;
-                    Response.Write(text);
-                    return null;
-                }
-                text = "Success";
-                Response.Write(text);
-                return null;
-                
-            }
-            else
-            {
-                //校验失败
-                //TODO: 
-            }
-            return null;
-        }
-        //显示菜单权限编辑页面
-        public ActionResult MenuPrivilege(String userID)
-        {
-
-            ViewBag.userID = userID;
             return View();
         }
         //加载用户对应的菜单树列表
-        public String MenuPrivilegeTree(string userID)
+        public ActionResult LoadMenuPrivilegeTree(string userID)
         {
-
-            //Test
-            TreeModel tree = userService.getPrivilegeMenuTree(userID);
-            return tree.ToJsonStr();
+            List<TreeModel> MenuTreeList = userService.getMenuPrivilegeTree(userID);
+            return ReturnJson(MenuTreeList);
         }
         //提交修改后的用户菜单权限列表
-        public string MenuEdit(string userID,string data)
+        public ActionResult SaveMenuPrivilege(string userID, string data)
         {
-            List<string> menuIDList = JsonConvert.JsonToObject<List<string>>(data);
-            userService.updateMenuPrivilege(userID,menuIDList);
-            Response.Write(AjaxConstant.AJAX_SUCCESS);
-            return null;
-        }
-        //显示设备权限编辑页面
-        public ActionResult DevicePrivilege(String userID)
-        {
-            ViewBag.userID = userID;
-            return View();
+            try
+            {
+                List<string> menuIDList = JsonConvert.JsonToObject<List<string>>(data);
+                userService.saveMenuPrivilege(userID, menuIDList);
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
         }
         //显示设备权限编辑树
-        public String DevicePrivilegeTree(String userID)
+        public ActionResult LoadDevicePrivilegeTree(String userID)
         {
-            TreeModel tree = userService.getDevicePrivilegeTree(userID);
-            String json = tree.ToJsonStr();
-            return json;
+            List<TreeModel> MenuTreeList = userService.getDevicePrivilegeTree(userID);
+            return ReturnJson(MenuTreeList);
         }
 
         //提交修改后的用户设备权限列表
-        public string DeviceEdit(string userID, string data)
+        public ActionResult SaveDevicePrivilege(string userID, string data)
         {
-            List<string> deviceIDList = JsonConvert.JsonToObject<List<string>>(data);
-            userService.updateDevicePrivilege(userID, deviceIDList);
-            Response.Write(AjaxConstant.AJAX_SUCCESS);
-            return null;
-        }
-        
-        /// <summary>
-        /// 删除用户
-        /// Ajax调用
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Remove(String idstr)
-        {
-            List<int> idList=ModelConventService.toIDList(idstr);
-            log.Debug("Delete User (id=" + idList + ") ...");
-            if (ModelVerificationService.UserIDExist(idList))
+            try
             {
-                //校验成功
-                userService.delete(idList);
+                List<string> deviceIDList = JsonConvert.JsonToObject<List<string>>(data);
+                userService.saveDevicePrivilege(userID, deviceIDList);
             }
-            else
+            catch (FuegoException e)
             {
-                //校验失败
-                //TODO: 
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
             }
-            Response.Write("ok");
-            return null;
-        }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
 
+            return ReturnJson(Rsp);
+        }
        
     }
 

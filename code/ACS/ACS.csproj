@@ -209,11 +209,12 @@
     </Compile>
     <Compile Include="Models\Model\ControllerModel.cs" />
     <Compile Include="Models\Model\DeviceModel.cs" />
+    <Compile Include="Models\Model\DeviceTypeModel.cs" />
     <Compile Include="Models\Model\DoorModel.cs" />
     <Compile Include="Models\Model\DoorTimeModel.cs" />
     <Compile Include="Models\Model\FormColumn.cs" />
     <Compile Include="Models\Model\ColumnModel.cs" />
-    <Compile Include="Models\Model\MenuTreeModel.cs" />
+    <Compile Include="Models\Model\TreeModel.cs" />
     <Compile Include="Models\Model\PrivilegeSet.cs" />
     <Compile Include="Models\Model\UserModel.cs" />
     <Compile Include="Models\Model\PswdModel.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="Models\Model\AccessDetailModel.cs" />
     <Compile Include="Models\Model\AlarmRecordFilterModel.cs" />
     <Compile Include="Models\Model\EventRecordFilterModel.cs" />
+    <Compile Include="Models\Model\AttributeModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\AccessDetail.cs" />
@@ -235,7 +237,7 @@
     <Compile Include="Models\Po\CF\Privilege.cs" />
     <Compile Include="Models\Po\CF\Role.cs" />
     <Compile Include="Models\Po\CF\UserRole.cs" />
-    <Compile Include="Models\Po\CF\User.cs" />
+    <Compile Include="Models\Po\CF\SystemUser.cs" />
     <Compile Include="Models\Po\Business\Dept.cs" />
     <Compile Include="Models\Po\Business\Control.cs" />
     <Compile Include="Models\Po\Business\Door.cs" />
@@ -354,7 +356,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="log4net.dll" />
-    <EmbeddedResource Include="Models\Po\CF\User.hbm.xml">
+    <EmbeddedResource Include="Models\Po\CF\SystemUser.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\CF\Privilege.hbm.xml">
@@ -1675,12 +1677,11 @@
     <Content Include="Views\Public\_TitleLink.cshtml" />
     <Content Include="Views\Index\Overview.cshtml" />
     <Content Include="Views\Public\_EditTable.cshtml" />
-    <Content Include="Views\UserManage\UserManage.cshtml" />
-    <Content Include="Views\UserManage\UserEdit.cshtml">
+    <Content Include="Views\UserManage\IndexPage.cshtml" />
+    <Content Include="Views\UserManage\ShowPage.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\DeviceManage\DeviceManage.cshtml" />
-    <Content Include="Views\DeviceManage\DeviceCreatePanel.cshtml" />
+    <Content Include="Views\DeviceManage\IndexPage.cshtml" />
     <Content Include="Views\AccessManage\IndexPage.cshtml" />
     <Content Include="Views\AccessManage\AccessEdit.cshtml" />
     <Content Include="Views\EmployeeManage\IndexPage.cshtml" />
@@ -1691,18 +1692,20 @@
     <Content Include="Views\AlarmRecord\IndexPage.cshtml" />
     <Content Include="Views\HolidayManage\IndexPage.cshtml" />
     <Content Include="Views\HolidayManage\ShowPage.cshtml" />
-    <Content Include="Views\UserManage\MenuPrivilege.cshtml" />
+    <Content Include="Views\UserManage\ShowPrivilege.cshtml" />
     <Content Include="Views\DeptManage\IndexPage.cshtml">
       <SubType>Code</SubType>
     </Content>
     <Content Include="Views\EmployeeManage\Card.cshtml" />
     <Content Include="Views\DeviceManage\DeviceView.cshtml" />
-    <Content Include="Views\DeviceManage\DoorView.cshtml" />
-    <Content Include="Views\UserManage\DevicePrivilege.cshtml" />
+    <Content Include="Views\DeviceManage\DoorTimeView.cshtml" />
     <Content Include="Views\DeptManage\ShowPage.cshtml" />
     <Content Include="Views\AccessManage\ShowPage.cshtml" />
     <Content Include="Views\JobManage\IndexPage.cshtml" />
     <Content Include="Views\JobManage\ShowPage.cshtml" />
+    <Content Include="Views\DeviceManage\ShowPage.cshtml" />
+    <Content Include="Views\DeviceManage\DoorPage.cshtml" />
+    <Content Include="Views\DeviceManage\DoorTimePage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

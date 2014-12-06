@@ -93,7 +93,7 @@
             <div size="180" maxSize="250" minSize="100" showCollapseButton="true" style="border:0;">
                 <!--OutlookTree-->
                 <div id="leftTree" class="mini-outlooktree" url="Index/MenuTree" onnodeclick="onNodeSelect"
-                    textField="text" idField="id" parentField="pid"             
+                    textField="MenuName" idField="Id" parentField="Pid"             
                 >
                 </div>
                 
@@ -106,12 +106,6 @@
                     
 					<div title="首页" showCloseButton="true" url="/Index/Overview" >        
                     </div>
-                    <!--<div title="子页面关闭" url="../tabs/pages/page1.html" >        
-                    </div>
-                    <div title="弹出面板" url="../datagrid/datagrid.html" >        
-                    </div>
-                    <div title="弹出面板" url="../datagrid/fixedcolumns.html" >        
-                    </div> -->
                 </div>
             </div>        
         </div>
@@ -123,104 +117,58 @@
 
     var tree = mini.get("leftTree");
 
-    function showTab(node) {
-        var tabs = mini.get("mainTabs");
-
-        var id = "tab$" + node.id;
-        var tab = tabs.getTab(id);
-        if (!tab) {
-            tab = {};
-
-            tab.name = id;
-            tab.title = node.text;
-            tab.showCloseButton = true;
-
-            tab.url = node.url;
-
-            tabs.addTab(tab);
-        }
-        tabs.activeTab(tab);
-    }
-
+    //弹出新标签页
     function onNodeSelect(e) {
         var node = e.node;
         var isLeaf = e.isLeaf;
 
         if (isLeaf) {
-            showTab(node);
-        }
-    }
 
-    function onClick(e) {
-        var text = this.getText();
-        alert(text);
-    }
-    function onQuickClick(e) {
-        tree.expandPath("datagrid");
-        tree.selectNode("datagrid");
-    }
+            var tabs = mini.get("mainTabs");
+            var id = "tab$" + node.Id;
+            var tab = tabs.getTab(id);
+            if (!tab) {
+                tab = {};
 
-    function onTabsActiveChanged(e) {
-        var tabs = e.sender;
-        var tab = tabs.getActiveTab();
-        if (tab && tab._nodeid) {
+                tab.name = id;
+                tab.title = node.MenuName;
+                tab.showCloseButton = true;
 
-            var node = tree.getNode(tab._nodeid);
-            if (node && !tree.isSelectedNode(node)) {
-                tree.selectNode(node);
+                tab.url = node.Url;
+
+                tabs.addTab(tab);
             }
+            tabs.activeTab(tab);
         }
     }
-
-    </script>
-	<script>
-	    function personalManage() {
-	        mini.open({
-	            url: "PersonalManage/PersonalManage",
-	            title: document.getElementById("PersonalInfo").innerHTML, width: 600, height: 360,
-	            onload: function () {
-	                var iframe = this.getIFrameEl();
-	                var data = { action: "new" };
-	                iframe.contentWindow.SetData(data);
-	            },
-	            ondestroy: function (action) {
-	            }
-	        });
-	    }
-	    function pswdManage() {
-	        mini.open({
-	            url: "PersonalManage/PswdManage",
-	            title: document.getElementById("ModifyPswd").innerHTML, width: 400, height: 240,
-	            onload: function () {
-	                var iframe = this.getIFrameEl();
-	                var data = { action: "new" };
-	                iframe.contentWindow.SetData(data);
-	            },
-	            ondestroy: function (action) {
-	            }
-	        });
-	    }
-	</script>
-    </body>
-</html>
-<script type="text/javascript">
-    mini.parse();
-    function onBeforeExpand(e) {
-        var tree = e.sender;
-        var nowNode = e.node;
-        var level = tree.getLevel(nowNode);
-
-        var root = tree.getRootNode();
-        tree.cascadeChild(root, function (node) {
-            if (tree.isExpandedNode(node)) {
-                var level2 = tree.getLevel(node);
-                if (node != nowNode && !tree.isAncestor(node, nowNode) && level == level2) {
-                    tree.collapseNode(node, true);
-                }
+    //个人信息
+    function personalManage() {
+        mini.open({
+            url: "PersonalManage/PersonalManage",
+            title: document.getElementById("PersonalInfo").innerHTML, width: 600, height: 360,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                var data = { action: "new" };
+                iframe.contentWindow.SetData(data);
+            },
+            ondestroy: function (action) {
             }
         });
-
+    }
+    //修改密码
+    function pswdManage() {
+        mini.open({
+            url: "PersonalManage/PswdManage",
+            title: document.getElementById("ModifyPswd").innerHTML, width: 400, height: 240,
+            onload: function () {
+                var iframe = this.getIFrameEl();
+                var data = { action: "new" };
+                iframe.contentWindow.SetData(data);
+            },
+            ondestroy: function (action) {
+            }
+        });
     }
 </script>
-
-<script src="../../scripts/tongji.js" type="text/javascript"></script>
+    </body>
+</html>

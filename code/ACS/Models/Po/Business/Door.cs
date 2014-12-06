@@ -15,8 +15,8 @@ namespace ACS.Models.Po.Business
         private String doorName;//
         private String doorSerial;//
         private String doorAddress;//
-        private DateTime openTime=DefaltValueConstant.getDefaltDateTime();//
-        private DateTime closeOutTime = DefaltValueConstant.getDefaltDateTime();//
+        private int openTime;           //开门时长，单位为秒
+        private int closeOutTime;       //开门超时时长，单位为秒
         private long doorAlerm2Long;//
         private String passBack;//
         private String doorEnable;//
@@ -65,13 +65,13 @@ namespace ACS.Models.Po.Business
             set { doorAddress = value; }
         }
 
-        public virtual DateTime OpenTime
+        public virtual int OpenTime
         {
             get { return openTime; }
             set { openTime = value; }
         }
 
-        public virtual DateTime CloseOutTime
+        public virtual int CloseOutTime
         {
             get { return closeOutTime; }
             set { closeOutTime = value; }

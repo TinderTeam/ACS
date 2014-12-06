@@ -83,7 +83,7 @@ namespace ACS.Controllers
             return ReturnJson(table.getMiniUIJson());
         }
 
-		public ActionResult LoadTable<T>(List<QueryCondition> conditionList)
+		protected ActionResult LoadTable<T>(List<QueryCondition> conditionList)
         {
 
             TableDataModel<T> table = new TableDataModel<T>();
@@ -91,8 +91,8 @@ namespace ACS.Controllers
             table.setDataSource(getService().GetDataSource<T>(conditionList));
             return ReturnJson(table.getMiniUIJson());
         }
-		
-        public ActionResult LoadTree()
+
+        public virtual ActionResult LoadTree()
         {
             List<E> tree = this.getService().GetDataSource().getAllPageData();
             return ReturnJson(tree);
@@ -105,7 +105,7 @@ namespace ACS.Controllers
                 if (ValidatorUtil.isEmpty(data))
                 {
                     Rsp.Obj = System.Activator.CreateInstance<E>();
-                    log.Info("the id is empty,Creating......");
+                    log.Info("the id is empty,return a defualt object");
                 }
                 else 
                 {
@@ -127,6 +127,40 @@ namespace ACS.Controllers
             return ReturnJson(Rsp);
         }
 
+        protected virtual ActionResult Show<T>(String key,String value)
+        {
+            try
+            {
+                if (ValidatorUtil.isEmpty(key)||ValidatorUtil.isEmpty(value))
+                {
+                    Rsp.Obj = System.Activator.CreateInstance<T>();
+                    log.Info("the key or value is empty,return a defualt object");
+                }
+                else
+                {
+                    T e = getService().Get<T>(key, value);
+                    if (null == e)
+                    {
+                        log.Error("can not find the object by key is " + key + "value is " + value);
+                    }
+                    Rsp.Obj = e;
+                }
+
+                
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
+        }
         public virtual ActionResult Create(String data)
         {
           
@@ -154,9 +188,10 @@ namespace ACS.Controllers
         {
           
             try
-            { 
+            {
+                this.getSession();
                 E obj = JsonConvert.JsonToObject<E>(data);
-                getService().Modify(obj);
+                getService().Modify(this.getSession().UserID, obj);
             }
             catch (FuegoException e)
             {

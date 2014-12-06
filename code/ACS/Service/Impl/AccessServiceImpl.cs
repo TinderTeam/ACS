@@ -129,7 +129,7 @@ namespace ACS.Service.Impl
             //获取所选用户对应的权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
             List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
             //显示用户可以增加的DoorTimeTree
             if (!ValidatorUtil.isEmpty<DoorTimeView>(allDoorTimeViewList))

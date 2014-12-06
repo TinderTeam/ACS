@@ -36,8 +36,8 @@
 
                   
         <div style="text-align:center;padding:5px;">
-            <a id="Create" class="mini-button"  onclick="onCreateOk" style="width:60px;margin-right:20px;">确定</a>               
-            <a id="Modify" class="mini-button" onclick="onModifyOk" style="width:60px;margin-right:20px;">确定</a>       
+            <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">确定</a>               
+            <a id="Modify" class="mini-button" onclick="onSaveData(Modify)" style="display:none">确定</a>       
             <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
         </div>  
     </form>
@@ -53,12 +53,12 @@
             receiveData = mini.clone(data);
             if (receiveData.action == "Modify") {
               
-                $("#Create").attr('style', 'display:none');
+                $("#Modify").attr('style', 'width:60px;margin-right:20px;');
                 var showUrl = "../JobManage/Show?data=" + receiveData.id;
             }
             else if (receiveData.action == "Create") {
               
-                $("#Modify").attr('style', 'display:none');
+                $("#Create").attr('style', 'width:60px;margin-right:20px;');
                 var showUrl = "../JobManage/Show?data=" + "";
             }
             $.ajax({
@@ -71,14 +71,23 @@
                 }
             });
         }
-        //增加职位
-        function onCreateOk() {
+        //保存数据
+        function onSaveData(type) {
             var o = form.getData();
             form.validate();
             if (form.isValid() == false) return;
             var json = mini.encode(o);
+            var url;
+            if (type == "Create")
+            {
+                url = "../JobManage/Create";
+            }
+            else if(type == "Modify")
+            {
+                url = "../JobManage/Modify";
+            }
             $.ajax({
-                url: "../JobManage/Create",
+                url: url,
                 type: 'post',
                 data: { data: json },
                 cache: false,
@@ -86,33 +95,6 @@
                     var Rsp = mini.decode(json);
                     if (Rsp.ErrorCode == "Success")
                     {
-                        CloseWindow("ok");
-                    }
-                    else {
-                        alert(Rsp.Message);
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-        //编辑职位
-        function onModifyOk() {
-            var o = form.getData();
-            form.validate();
-            if (form.isValid() == false) return;
-            var json = mini.encode(o);
-            $.ajax({
-                url: "../JobManage/Modify",
-                type: 'post',
-                data: { data: json },
-                cache: false,
-                success: function (json) {
-
-                    var Rsp = mini.decode(json);
-                    if (Rsp.ErrorCode == "Success") {
                         CloseWindow("ok");
                     }
                     else {

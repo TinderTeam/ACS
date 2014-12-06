@@ -4,7 +4,7 @@
   <class name="ACS.Models.Po.Business.DoorTimeView,ACS" table="t_door_time_view"  >
 
     <id name="DoorTimeID" column ="DOOR_TIME_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
     <property name="DoorID" type="int">

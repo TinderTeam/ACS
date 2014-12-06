@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>员工面板</title>
+    <title>控制器面板</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     
     <script src="../../Scripts/boot.js" type="text/javascript"></script>
@@ -20,48 +20,48 @@
     </style>
 </head>
 <body> 
-    <form id="accessForm" method="post">
-        
+    <form id="DoorForm" method="post">
+
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
-                <tr style ="height:35px">
-                    <td style="width:90px;">权限名称：</td>
-                    <td style="width:150px;">
-                        <input name="AccessName" class="mini-textbox"  value=""/>
-                        <input name="ValueID" class="mini-textbox" style="display:none" value=""/>
-                    </td>
-                    
-                </tr>      
-            </table>
+                    <tr style ="height:35px">
+                        <td style="width:90px;">门名称：</td>
+                        <td style="width:150px;">
+                            <input name="DoorName" class="mini-textbox"  value=""/>
+                            <input name ="DoorID" class="mini-textbox" style="display:none" value=""/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >开门时间(S)：</td>
+                        <td>    
+                            <input name="OpenTime" class="mini-textbox" dateFormat="yyyy-MM-dd HH:mm:ss" value=""/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >开门超时(S)：</td>
+                        <td>    
+                            <input name="CloseOutTime" class="mini-textbox" dateFormat="yyyy-MM-dd HH:mm:ss" value=""/>
+                        </td>
+                    </tr>             
+                </table>
             </div>    
-
-                  
-        <div style="text-align:center;padding:5px;">
-            <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">确定</a>               
-            <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">确定</a>       
-            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
+      
+        <div style="text-align:center;padding:5px;">                            
+            <a id="Modify" class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">确定</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>        
         </div>  
     </form>
     <script type="text/javascript">
         mini.parse();
 
-        var form = new mini.Form("#accessForm");
+        var form = new mini.Form("#DoorForm");
 
         //加载窗口信息
         function Show(data) {
             //跨页面传递的数据对象，克隆后才可以安全使用
             receiveData = mini.clone(data);
-            if (receiveData.action == "Modify") {
-                var showUrl = "../AccessManage/Show?data=" + data.id;
-                $("#Modify").attr('style', 'width:60px;margin-right:20px;');
-            }
-            else if (receiveData.action == "Create") {
-                //数据库中不存在valueID="0"的权限，这样就不会查到任何信息
-                var showUrl = "../AccessManage/Show?data=";
-                $("#Create").attr('style', 'width:60px;margin-right:20px;');
-            }
             $.ajax({
-                url: showUrl,
+                url: "../DeviceManage/ShowDoor?data=" + receiveData.id,
                 cache: false,
                 success: function (json) {
                     var Rsp = mini.decode(json);
@@ -79,22 +79,13 @@
             });
         }
         //保存数据
-        function onSaveData(type) {
-            var accessObj = form.getData();
+        function onSaveData() {
+            var o = form.getData();
+            var json = mini.encode(o);
             form.validate();
             if (form.isValid() == false) return;
-            var json = mini.encode(accessObj);
-            var url;
-            if (type == "Create")
-            {
-                url = "../AccessManage/Create";
-            }
-            else if (type == "Modify")
-            {
-                url = "../AccessManage/Modify";
-            }
             $.ajax({
-                url: url,
+                url: "../DeviceManage/ModifyDoor",
                 type: 'post',
                 data: { data: json },
                 cache: false,

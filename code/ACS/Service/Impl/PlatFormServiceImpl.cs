@@ -19,32 +19,19 @@ namespace ACS.Service.Impl
     {
         CommonDao<Sys_Menu> sysMenuDao = DaoContext.getInstance().getSysMenuDao();
         CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
-        CommonDao< User > userDao = DaoContext.getInstance().getUserDao();
+        CommonDao< SystemUser > userDao = DaoContext.getInstance().getUserDao();
 
         /// <summary>
         /// 根据用户ID获取 主菜单
         /// </summary>
         /// <param name="userid"></param>
         /// <returns></returns>
-       public  TreeModel getMenuTreeByUserID(int userid)
-        {          
-            List<Sys_Menu> menuList=PrivilegeCache.getSysMenuListByID(userid);
-            TreeModel tree = ModelConventService.toMenuTreeModel(menuList);            
-            return tree;
-        }
 
        public AbstractDataSource<Privilege> getPrivilegeList(Privilege filter)
        {
            List<QueryCondition> conditionList = new List<QueryCondition>();
            AbstractDataSource<Privilege> dataSource = new DatabaseSourceImpl<Privilege>(conditionList);
            return dataSource;
-       }
-
-       public TreeModel getUserTree()
-       {
-           List<User> userList = userDao.getAll();
-           TreeModel tree = ModelConventService.toUserTreeModel(userList);
-           return tree;
        }
 
     }

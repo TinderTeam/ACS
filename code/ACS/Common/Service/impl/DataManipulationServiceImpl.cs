@@ -12,7 +12,7 @@ namespace ACS.Common.Service.impl
 {
     public class DataManipulationServiceImpl<T>:DataManipulationService<T>
     {
-        DataManipulationService<User> service = new DataManipulationServiceImpl<User>();
+        DataManipulationService<SystemUser> service = new DataManipulationServiceImpl<SystemUser>();
         private DataManipulationAdapter addAdapter;
 
         CommonDao<T> dao = new CommonDaoImpl<T>();

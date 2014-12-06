@@ -17,7 +17,7 @@ namespace ACS.Dao
         private static DaoContext daoContext;
         private CommonDao<Privilege> privilegeDao;
         private CommonDao<Sys_Menu> sysMenuDao;
-        private CommonDao<User> userDao;
+        private CommonDao<SystemUser> userDao;
         private CommonDao<Employee> employeeDao;
         private CommonDao<UserRole> userRoleDao;
         private CommonDao<EventRecordView> eventRecordViewDao;
@@ -99,11 +99,11 @@ namespace ACS.Dao
              }
              return privilegeDao;
          }
-         public CommonDao<User> getUserDao()
+         public CommonDao<SystemUser> getUserDao()
          {
              if (userDao == null)
              {
-                 userDao = new CommonDaoImpl<User>();
+                 userDao = new CommonDaoImpl<SystemUser>();
              }
              return userDao;
          }

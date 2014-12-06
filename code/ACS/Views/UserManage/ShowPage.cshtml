@@ -20,88 +20,61 @@
     </style>
 </head>
 <body> 
-    <form id="deptForm" method="post">
-        
+    <form id="userForm" method="post">
+
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
-                <tr style ="height:35px">
-                    <td style="width:90px;">上级部门：</td>
-                    <td style="width:150px;">
-                        <input name="FatherDeptName" class="mini-textbox" readonly="readonly" value=""/>
-                        <input name="FatherDeptID" class="mini-textbox" style="display:none" value=""/>
-                    </td>
-                    
-                </tr>
-                <tr style ="height:35px">
-                    <td >部门名称：</td>
-                    <td >    
-                        <input name="DeptName" class="mini-textbox" value=""/>
-                        <input name="DeptID" class="mini-textbox" style="display:none" value=""/>
-                    </td>
-                </tr>
-                <tr style ="height:35px">
-                    
-                    <td >部门编号：</td>
-                    <td >    
-                        <input name ="DeptCode" class="mini-textbox" value=""/>
-                    </td>
-                </tr>
-                <tr style ="height:35px">
-                    <td >备注：</td>
-                    <td >    
-                        <input name ="Note" class="mini-textbox" value=""/>
-                    </td>
-                    
-                </tr>            
-            </table>
+                    <tr style ="height:35px">
+                        <td style="width:90px;">用户名称：</td>
+                        <td style="width:150px;">
+                            <input name="UserName" class="mini-textbox" emptyText="请输入用户名" value=""/>
+                            <input name ="UserID" class="mini-textbox" style="display:none" value=""/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >备注：</td>
+                        <td>    
+                            <input name="UserDesc" class="mini-textbox" value=""/>
+                        </td>
+                    </tr>             
+                </table>
             </div>    
-
-                  
-        <div style="text-align:center;padding:5px;">
+      
+        <div style="text-align:center;padding:5px;">               
             <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">确定</a>               
             <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">确定</a>       
-            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>        
         </div>  
     </form>
     <script type="text/javascript">
         mini.parse();
 
-        var form = new mini.Form("#deptForm");
-
+        var form = new mini.Form("#userForm");
+        ////////////////////
         //加载窗口信息
         function Show(data) {
             //跨页面传递的数据对象，克隆后才可以安全使用
             receiveData = mini.clone(data);
-         
             if (receiveData.action == "Modify") {
-              
+                var showUrl = "../UserManage/Show?data=" + data.id;
                 $("#Modify").attr('style', 'width:60px;margin-right:20px;');
-                var showUrl = "../DeptManage/Show?data=" + data.id;
             }
             else if (receiveData.action == "Create") {
-              
+                //数据库中不存在valueID="0"的权限，这样就不会查到任何信息
+                var showUrl = "../UserManage/Show?data=";
                 $("#Create").attr('style', 'width:60px;margin-right:20px;');
-                var showUrl = "../DeptManage/Show?data=" + "";
             }
-            else
-            {
-            }
-         
             $.ajax({
                 url: showUrl,
                 cache: false,
                 success: function (json) {
                     var Rsp = mini.decode(json);
- 
-                    if (receiveData.action == "Create") {
-                        Rsp.Obj.FatherDeptName = data.DeptName;
+                    if (Rsp.ErrorCode == "Success") {
+                        form.setData(Rsp.Obj);
+                    } else {
+                        mini.alert(Rsp.Message);
                     }
-                    else {
-                        Rsp.Obj.FatherDeptName = data.FatherDeptName;
-                    }
-                    Rsp.Obj.FatherDeptID = data.id;
- 
-                    form.setData(Rsp.Obj);  
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
@@ -109,18 +82,20 @@
                 }
             });
         }
-        //保存数据
+        //
         function onSaveData(type) {
             var o = form.getData();
+            var json = mini.encode(o);
             form.validate();
             if (form.isValid() == false) return;
-            var json = mini.encode(o);
             var url;
-            if (type == "Create") {
-                url = "../DeptManage/Create";
+            if (type == "Create")
+            {
+                url = "../UserManage/Create";
             }
-            else if (type == "Modify") {
-                url = "../DeptManage/Modify";
+            else if (type == "Modify")
+            {
+                url = "../UserManage/Modify";
             }
             $.ajax({
                 url: url,
@@ -128,9 +103,9 @@
                 data: { data: json },
                 cache: false,
                 success: function (json) {
+
                     var Rsp = mini.decode(json);
-                    if (Rsp.ErrorCode == "Success")
-                    {
+                    if (Rsp.ErrorCode == "Success") {
                         CloseWindow("ok");
                     }
                     else {
@@ -142,11 +117,6 @@
                     CloseWindow();
                 }
             });
-        }
-        //IndexPage页面更新数据需要调用
-        function GetData() {
-            var o = form.getData();
-            return o;
         }
         function CloseWindow(action) {
             if (action == "close" && form.isChanged()) {

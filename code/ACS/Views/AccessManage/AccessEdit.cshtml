@@ -44,7 +44,7 @@
                 </div>
 
                 <div style="text-align: center; padding: 5px;">
-                    <a class="mini-button" onclick="SaveAccessData('AccessSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
+                    <a class="mini-button" onclick="onSaveData('AccessSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
                     <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">取消</a>
                 </div>
 
@@ -72,7 +72,7 @@
                 </div>
 
                 <div style="text-align: center; padding: 5px;">
-                    <a class="mini-button" onclick="SaveAccessData('DeviceSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
+                    <a class="mini-button" onclick="onSaveData('DeviceSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
                     <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">取消</a>
                 </div>
             </div>
@@ -103,7 +103,7 @@
             mini.alert("请选择一个根节点");
         }
     }
-    function SaveAccessData(type) {
+    function onSaveData(type) {
         //获取操作类型（新建/修改）
         var url;
         var treeGrid;

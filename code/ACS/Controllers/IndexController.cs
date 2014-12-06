@@ -9,6 +9,7 @@ using System.Resources;
 using ACS.Test;
 using ACS.Common.Util;
 using System.Web.Script.Serialization;
+using ACS.Models.Po.Sys;
 namespace ACS.Controllers
 
 {
@@ -96,24 +97,24 @@ namespace ACS.Controllers
             //return new RedirectResult("Index/Login");
             return RedirectToAction("Login", "Index");
         }
-       
-        public String MenuTree()
+        //加载左侧边栏，MenuTree
+        public ActionResult MenuTree()
         {
-            UserModel loginUser = (UserModel)Session["SystemUser"];
-            
-            //Test
-            TreeModel tree=platFormService.getMenuTreeByUserID(loginUser.UserID);
-            
+            UserModel loginUser = (UserModel)Session["SystemUser"];            
+            List<Sys_Menu> sysMenuList = PrivilegeCache.getSysMenuListByID(loginUser.UserID);
+            //判断menu列表是否为空
+            if (ValidatorUtil.isEmpty<Sys_Menu>(sysMenuList))
+            {
+                log.Warn("There is no Menu of this user. the user id is " + loginUser.UserID);
+                return null;
+            }
+            List<TreeModel> menuTreeList = ModelConventService.toMenuTreeModelList(sysMenuList);
 
-            //TreeModel tree = Stub.getTestTree();
-			return  tree.ToJsonStr();
+            return ReturnJson(menuTreeList);
         }
         public ActionResult Default()
         {
             return View();
         }
-
-
- 
     }
 }

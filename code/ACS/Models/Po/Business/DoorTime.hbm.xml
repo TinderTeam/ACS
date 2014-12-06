@@ -4,7 +4,7 @@
   <class name="ACS.Models.Po.Business.DoorTime,ACS" table="t_door_time"  >
 
     <id name="DoorTimeID" column ="DOOR_TIME_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
     <property name="DoorID" type="int">
@@ -27,5 +27,37 @@
       <column name="END_TIME"/>
     </property>
 
+    <property name="Monday">
+      <column name="MONDAY"/>
+    </property>
+    
+    <property name="Tuesday">
+      <column name="TUESDAY"/>
+    </property>
+    
+    <property name="Wednesday">
+      <column name="WEDNESDAY"/>
+    </property>
+    
+    <property name="Thursday">
+      <column name="THURSDAY"/>
+    </property>
+
+    <property name="Friday">
+      <column name="FRIDAY"/>
+    </property>
+
+    <property name="Saturday">
+      <column name="SATURDAY"/>
+    </property>
+
+    <property name="Sunday">
+      <column name="SUNDAY"/>
+    </property>
+
+    <property name="Holiday">
+      <column name="HOLIDAY"/>
+    </property>
+    
   </class>
 </hibernate-mapping>

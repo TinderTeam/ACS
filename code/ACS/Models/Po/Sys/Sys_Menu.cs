@@ -7,15 +7,15 @@ namespace ACS.Models.Po.Sys
 {
     public class Sys_Menu
     {
-        private int menuID;//菜单ID  
-        private String menuNo;//菜单编号  
-        private String applicationCode;//应用编号      
-        private String menuParentNo;//父菜单编号     
-        private String menuName;//菜单名称      
-        private String menuIcon;//菜单按钮       
-        private String isVisible;//显示        
-        private String isLeaf;//是否有子节点
-        private String menuURL; //菜单链接地址
+        private int menuID;                     //菜单ID  
+        private String menuNo;                  //菜单编号  
+        private String applicationCode;         //应用编号      
+        private String menuParentNo;            //父菜单编号     
+        private String menuName;                //菜单名称      
+        private String menuIcon;                //菜单按钮       
+        private String isVisible;               //显示        
+        private String isLeaf;                  //是否有子节点
+        private String menuURL;                 //菜单链接地址
 
         public const string APP_ID = "ApplicationCode";
         public const string MEMU_ID = "MenuID";

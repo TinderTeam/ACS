@@ -23,8 +23,8 @@
 <body>
     <div class="mini-fit">
         
-        <ul id="tree1" class="mini-tree" style="width:100%;height:100%;" url="../UserManage/DevicePrivilegeTree?userID=@ViewBag.userID" 
-            showTreeIcon="true" textField="text" idField="id" parentField="pid" resultAsTree="false"  
+        <ul id="tree1" class="mini-tree" style="width:100%;height:100%;" checkedField="CheckNode"
+            showTreeIcon="true" textField="MenuName" idField="Id" parentField="Pid" resultAsTree="false"  
             showCheckBox="true" checkRecursive="true"
             expandOnLoad="true" allowSelect="false" enableHotTrack="false" 
             >
@@ -33,9 +33,9 @@
     </div>                
     <div class="mini-toolbar" style="text-align:center;padding-top:8px;padding-bottom:8px;" 
         borderStyle="border-left:0;border-bottom:0;border-right:0;">
-        <a class="mini-button" style="width:60px;" onclick="onOk()">确定</a>
+        <a class="mini-button" style="width:60px;" onclick="onSaveData()">确定</a>
         <span style="display:inline-block;width:25px;"></span>
-        <a class="mini-button" style="width:60px;" onclick="onCancel()">取消</a>
+        <a class="mini-button" style="width:60px;" onclick="CloseWindow('cancel')">取消</a>
     </div>
 
 </body>
@@ -44,25 +44,47 @@
     mini.parse();
     var tree = mini.get("tree1");
 
-    function onOk() {
+    //加载窗口信息
+    function Show(data) {
+        //跨页面传递的数据对象，克隆后才可以安全使用
+        receiveData = mini.clone(data);
+        if (receiveData.action == "Menu"){
+
+            tree.load("LoadMenuPrivilegeTree?userID=" + receiveData.id);
+        }
+        else if (receiveData.action == "Device") {
+            tree.load("LoadDevicePrivilegeTree?userID=" + receiveData.id);
+        }
+    }
+    //提交数据
+    function onSaveData() {
 
         var value = tree.getValue();
-        var array = value.split(",");
+        var array = [];
+        if (value != "") {
+            array = value.split(",");
+        }
         var json = mini.encode(array);
-
+        var url;
+        if (receiveData.action == "Menu") {
+            url = "../UserManage/SaveMenuPrivilege?userID=" + receiveData.id;
+        }
+        else if (receiveData.action == "Device") {
+            url = "../UserManage/SaveDevicePrivilege?userID=" + receiveData.id;
+        }
         $.ajax({
-            url: "../UserManage/DeviceEdit?userID=@ViewBag.userID",
+            url: url,
             type: 'post',
             data: { data: json },
             cache: false,
-            success: function (text) {
+            success: function (json) {
 
-                if (text == "Success") {
-                    mini.alert("修改成功！");
+                var Rsp = mini.decode(json);
+                if (Rsp.ErrorCode == "Success") {
                     CloseWindow("ok");
                 }
                 else {
-                    alert(text);
+                    alert(Rsp.Message);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -74,8 +96,5 @@
     function CloseWindow(action) {
         if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
         else window.close();
-    }
-    function onCancel() {
-        CloseWindow("cancel");
     }
 </script>

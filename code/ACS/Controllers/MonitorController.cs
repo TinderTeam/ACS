@@ -9,6 +9,7 @@ using ACS.Models.Po.Business;
 using ACS.Service;
 using ACS.Test;
 using TcpipIntface;
+using ACS.Common.Util;
 namespace ACS.Controllers
 {
     public class MonitorController : Controller
@@ -26,8 +27,8 @@ namespace ACS.Controllers
 
         public String DeviceTree(String key)
         {
-            TreeModel tree = Stub.getTestDeviceTree();
-            String str = tree.ToJsonStr();
+            List<TreeModel> tree = Stub.getTestDeviceTree();
+            String str = JsonConvert.ObjectToJson(tree);
             return str;
         }
 

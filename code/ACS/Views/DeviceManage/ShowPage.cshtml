@@ -2,7 +2,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>员工面板</title>
+    <title>控制器面板</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     
     <script src="../../Scripts/boot.js" type="text/javascript"></script>
@@ -20,88 +20,76 @@
     </style>
 </head>
 <body> 
-    <form id="deptForm" method="post">
-        
+    <form id="controlForm" method="post">
+
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
-                <tr style ="height:35px">
-                    <td style="width:90px;">上级部门：</td>
-                    <td style="width:150px;">
-                        <input name="FatherDeptName" class="mini-textbox" readonly="readonly" value=""/>
-                        <input name="FatherDeptID" class="mini-textbox" style="display:none" value=""/>
-                    </td>
-                    
-                </tr>
-                <tr style ="height:35px">
-                    <td >部门名称：</td>
-                    <td >    
-                        <input name="DeptName" class="mini-textbox" value=""/>
-                        <input name="DeptID" class="mini-textbox" style="display:none" value=""/>
-                    </td>
-                </tr>
-                <tr style ="height:35px">
-                    
-                    <td >部门编号：</td>
-                    <td >    
-                        <input name ="DeptCode" class="mini-textbox" value=""/>
-                    </td>
-                </tr>
-                <tr style ="height:35px">
-                    <td >备注：</td>
-                    <td >    
-                        <input name ="Note" class="mini-textbox" value=""/>
-                    </td>
-                    
-                </tr>            
-            </table>
+                    <tr style ="height:35px">
+                        <td style="width:90px;">控制器名称：</td>
+                        <td style="width:150px;">
+                            <input name="ControlName" class="mini-textbox"  value=""/>
+                            <input name ="ControlID" class="mini-textbox" style="display:none" value=""/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >控制器类型：</td>
+                        <td>    
+                            <input name="Type" class="mini-combobox" valueField="Type" textField="Type" 
+                                url="../DeviceManage/LoadTypeList" onvaluechanged="onDeptChanged" required="true"
+                                emptyText="请选择类型"
+                                />
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >控制器状态：</td>
+                        <td>    
+                            <input name="Enable" class="mini-textbox" value=""/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >控制器IP：</td>
+                        <td>    
+                            <input name="Ip" class="mini-textbox" value=""/>
+                        </td>
+                    </tr>               
+                </table>
             </div>    
-
-                  
-        <div style="text-align:center;padding:5px;">
+      
+        <div style="text-align:center;padding:5px;">               
             <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">确定</a>               
             <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">确定</a>       
-            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>        
         </div>  
     </form>
     <script type="text/javascript">
         mini.parse();
 
-        var form = new mini.Form("#deptForm");
-
+        var form = new mini.Form("#controlForm");
+        ////////////////////
         //加载窗口信息
         function Show(data) {
             //跨页面传递的数据对象，克隆后才可以安全使用
             receiveData = mini.clone(data);
-         
             if (receiveData.action == "Modify") {
-              
+                var showUrl = "../DeviceManage/Show?data=" + receiveData.id;
                 $("#Modify").attr('style', 'width:60px;margin-right:20px;');
-                var showUrl = "../DeptManage/Show?data=" + data.id;
             }
             else if (receiveData.action == "Create") {
-              
+                //数据库中不存在valueID="0"的权限，这样就不会查到任何信息
+                var showUrl = "../DeviceManage/Show?data=";
                 $("#Create").attr('style', 'width:60px;margin-right:20px;');
-                var showUrl = "../DeptManage/Show?data=" + "";
             }
-            else
-            {
-            }
-         
             $.ajax({
                 url: showUrl,
                 cache: false,
                 success: function (json) {
                     var Rsp = mini.decode(json);
- 
-                    if (receiveData.action == "Create") {
-                        Rsp.Obj.FatherDeptName = data.DeptName;
+                    if (Rsp.ErrorCode == "Success") {
+                        form.setData(Rsp.Obj);
+                    } else {
+                        mini.alert(Rsp.Message);
                     }
-                    else {
-                        Rsp.Obj.FatherDeptName = data.FatherDeptName;
-                    }
-                    Rsp.Obj.FatherDeptID = data.id;
- 
-                    form.setData(Rsp.Obj);  
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
@@ -112,15 +100,17 @@
         //保存数据
         function onSaveData(type) {
             var o = form.getData();
+            var json = mini.encode(o);
             form.validate();
             if (form.isValid() == false) return;
-            var json = mini.encode(o);
             var url;
-            if (type == "Create") {
-                url = "../DeptManage/Create";
+            if (type == "Create")
+            {
+                url = "../DeviceManage/Create";
             }
-            else if (type == "Modify") {
-                url = "../DeptManage/Modify";
+            else if (type == "Modify")
+            {
+                url = "../DeviceManage/Modify";
             }
             $.ajax({
                 url: url,
@@ -129,8 +119,7 @@
                 cache: false,
                 success: function (json) {
                     var Rsp = mini.decode(json);
-                    if (Rsp.ErrorCode == "Success")
-                    {
+                    if (Rsp.ErrorCode == "Success") {
                         CloseWindow("ok");
                     }
                     else {
@@ -142,11 +131,6 @@
                     CloseWindow();
                 }
             });
-        }
-        //IndexPage页面更新数据需要调用
-        function GetData() {
-            var o = form.getData();
-            return o;
         }
         function CloseWindow(action) {
             if (action == "close" && form.isChanged()) {

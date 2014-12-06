@@ -28,29 +28,29 @@ namespace ACS.Controllers
             return View();
         }
         //载入用户列表
-        public String UserTree()
-        {
-            //UserTree
-            TreeModel userTree = platFormService.getUserTree();
+        //public String UserTree()
+        //{
+        //    //UserTree
+        //    TreeModel userTree = platFormService.getUserTree();
 
-            //TreeModel tree = Stub.getTestTree();
-            return userTree.ToJsonStr();
-        }
-        public string EditMenu(string data)
-        {
-            return null;
-        }
-        public String MenuTree()
-        {
-            UserModel loginUser = (UserModel)Session["SystemUser"];
+        //    //TreeModel tree = Stub.getTestTree();
+        //    return userTree.ToJsonStr();
+        //}
+        //public string EditMenu(string data)
+        //{
+        //    return null;
+        //}
+        //public String MenuTree()
+        //{
+        //    UserModel loginUser = (UserModel)Session["SystemUser"];
 
-            //Test
-            //TreeModel tree = platFormService.getMenuTreeByUserID(loginUser.UserID);
+        //    //Test
+        //    //TreeModel tree = platFormService.getMenuTreeByUserID(loginUser.UserID);
 
 
-            TreeModel tree = Stub.getTestTree();
-            return tree.ToJsonStr();
-        }
+        //    TreeModel tree = Stub.getTestTree();
+        //    return tree.ToJsonStr();
+        //}
         public ActionResult Load(TableForm tableForm, Privilege filter)
         {
             log.Debug("Load Data...");

@@ -17,7 +17,7 @@ namespace ACS.Service.Impl
     public class LoginServiceImpl : LoginService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        CommonDao<User> userDao = DaoContext.getInstance().getUserDao();
+        CommonDao<SystemUser> userDao = DaoContext.getInstance().getUserDao();
 
         /// <summary>
         /// 用户登陆
@@ -29,7 +29,7 @@ namespace ACS.Service.Impl
         {
 
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserName", userName);
-            User user = userDao.getUniRecord(condition);
+            SystemUser user = userDao.getUniRecord(condition);
 
             if (null == user)
             {
@@ -58,7 +58,7 @@ namespace ACS.Service.Impl
         {
 
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserName", userName);
-            User user = userDao.getUniRecord(condition);
+            SystemUser user = userDao.getUniRecord(condition);
             
             if (null == user)
             {
