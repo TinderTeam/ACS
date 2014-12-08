@@ -71,26 +71,6 @@ namespace ACS.Service
             //TODO: 实现转化 方法
             return user;
         }
-        ///// <summary>
-        ///// 转化为DeptTreemodel
-        ///// </summary>
-        //public static TreeModel toDeptTreeModel(List<Dept> deptList)
-        //{
-        //    TreeModel deptTreeModel = new TreeModel();
-        //    List<TreeItem> list = new List<TreeItem>();
-
-        //    foreach (Dept dept in deptList)
-        //    {
-        //        TreeItem item = new TreeItem();
-        //        item.Id = dept.DeptID.ToString();
-        //        item.Text = dept.DeptName;
-        //        item.Pid = dept.FatherDeptID;
-        //        list.Add(item);
-        //    }
-
-        //    deptTreeModel.MenuTreeItemList = list;
-        //    return deptTreeModel;
-        //}
  
         // <summary>
         // 转化为menuTreemodel
@@ -110,97 +90,7 @@ namespace ACS.Service
             }
             return menuTreeList;
         }
-        //public static TreeModel toMenuTreeModel(List<Sys_Menu> menuList)
-        //{
-        //    TreeModel menuTreeModle = new TreeModel();
-        //    List<TreeItem> list = new List<TreeItem>();
-        //    Dictionary<String, String> fathermap = new Dictionary<string, string>();
-        //    foreach (Sys_Menu sysMenu in menuList)
-        //    {
-        //        fathermap.Add(sysMenu.MenuID.ToString(), sysMenu.MenuNo);
-        //    }
-        //    foreach (Sys_Menu sysMenu in menuList)
-        //    {
-        //        if (sysMenu.IsVisible.Equals(ServiceConstant.SYS_VISIABLE))
-        //        {
-        //            //menu visiable 时
-        //            TreeItem item = new TreeItem();
-                  
-        //            try
-        //            {
-        //                if (sysMenu.MenuParentNo != null)
-        //                {
-        //                    item.Pid = sysMenu.MenuParentNo;
-        //                }
-        //                else
-        //                {
-        //                    item.Pid = null;
-        //                }
-                       
-        //            }
-        //            catch (KeyNotFoundException ex)
-        //            {
-        //                item.Pid = null;
-        //            }
-        //            item.Id = sysMenu.MenuID.ToString();
-        //            item.Url = sysMenu.MenuURL;
-        //            item.Text = sysMenu.MenuName;
-        //            list.Add(item);
-        //        }        
-        //    }
-        //    menuTreeModle.MenuTreeItemList = list;
-        //    return menuTreeModle;
-        //}
-   
 
-        //public static TreeModel toUserTreeModel(List<User> userList)
-        //{
-        //    TreeModel userTreeModle = new TreeModel();
-        //    List<TreeItem> list = new List<TreeItem>();
-        //    foreach (User user in userList)
-        //    {
-
-        //        TreeItem item = new TreeItem();
-        //        item.Id = user.UserID.ToString();
-        //        item.Text = user.UserName;    
-        //        list.Add(item);
-        //    }
-        //    userTreeModle.MenuTreeItemList = list;
-        //    return userTreeModle;
-        //}
-
-        /// <summary>
-        /// 通过控制器获取控制器-树列表
-        /// </summary>
-        /// <param name="datasource"></param>
-        /// <returns></returns>
-        //public static List<TreeModel> toDeviceTreeList(List<String> CList)
-        //{
-        //   //获取所有控制器
-        //    TreeModel tree = new TreeModel();
-        //    List<TreeItem> itemList = new List<TreeItem>();
-        //    List<Control> List = datasource.getAllPageData();
-        //    foreach (Control device in List)
-        //    {
-        //        TreeItem i = new TreeItem();
-        //        i.Id = "C"+device.ControlID.ToString();
-        //        i.Text = device.ControlName;
-        //        i.Pid = "";
-        //        itemList.Add(i);
-        //    }
-        //    //获取所有门
-        //    List<Door> doorList=ServiceContext.getInstance().getDeviceService().getDoorList(null).getAllPageData();
-        //    foreach (Door door in doorList)
-        //    {
-        //        TreeItem i = new TreeItem();
-        //        i.Id = "D"+door.DoorID.ToString();
-        //        i.Text = door.DoorName;
-        //        i.Pid = "C" + door.ControlID.ToString();
-        //        itemList.Add(i);
-        //    }
-        //    tree.MenuTreeItemList = itemList;
-        //    return tree;
-        //}
         //用户管理，设备域管理调用
         public static List<TreeModel> toDeviceTreeModel(List<Control> controlList)
         {
