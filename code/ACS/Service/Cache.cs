@@ -257,6 +257,17 @@ namespace ACS.Service
 
     public class DeviceCache : BasicCache<Control>
     {
+       static DeviceCache deviceCache;
+
+        public static DeviceCache getInstance()
+        {
+            if (deviceCache == null)
+            {
+                deviceCache = new DeviceCache();
+            }
+            return deviceCache;
+        }
+
         #region BasicCache 抽象方法实现
         public  override string getKey(Control t)
         {
@@ -270,4 +281,31 @@ namespace ACS.Service
         }
         #endregion
     }
+
+    public class StatusCache : BasicCache<EventModel>
+    {
+        static StatusCache statusCache;
+
+        public static StatusCache getInstance()
+        {
+            if (statusCache == null)
+            {
+                statusCache = new StatusCache();
+            }
+            return statusCache;
+        }
+
+        #region BasicCache 抽象方法实现
+        public override string getKey(EventModel t)
+        {
+            return t.Control.ControlID.ToString();
+        }
+
+        public override List<EventModel> initCache()
+        {
+            return new List<EventModel>();
+        }
+        #endregion
+    }
+
 }

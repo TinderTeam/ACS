@@ -274,5 +274,23 @@ namespace ACS.Service
         {
             return 1;
         }
+
+        
+        internal static AlarmRecord toAlarmRecord(EventMsg eventMsg)
+        {
+            AlarmRecord r = new AlarmRecord();
+            return r;
+        }
+
+        internal static EventRecord toEventRecord(EventMsg eventMsg)
+        {
+            EventRecord r = new EventRecord();
+            return r;
+        }
+
+        internal static EventModel toEventModel(EventMsg eventMsg)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

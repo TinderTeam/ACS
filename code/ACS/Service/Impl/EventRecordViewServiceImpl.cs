@@ -15,7 +15,7 @@ namespace ACS.Service.Impl
     public class EventRecordViewServiceImpl : CommonServiceImpl<EventRecordView>, EventRecordViewService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        CommonDao<EventRecordView> eventRecordViewDao = DaoContext.getInstance().getEventRecordViewDao();
+        ViewDao<EventRecordView> eventRecordViewDao = DaoContext.getInstance().getEventRecordViewDao();
 
         //获取对象主键
         public override string GetPrimaryName()

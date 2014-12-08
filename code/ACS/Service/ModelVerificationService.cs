@@ -43,5 +43,19 @@ namespace ACS.Service
             return true;
 
         }
+
+
+        internal static bool AlarmRecordVirification(AlarmRecord alarmRecord)
+        {
+            //TODO
+            return true;
+
+        }
+
+        internal static bool EventRecordVirification(EventRecord eventRecord)
+        {
+            //TODO
+            return true;
+        }
     }
 }

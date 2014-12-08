@@ -20,7 +20,8 @@ namespace ACS.Dao
         private CommonDao<SystemUser> userDao;
         private CommonDao<Employee> employeeDao;
         private CommonDao<UserRole> userRoleDao;
-        private CommonDao<EventRecordView> eventRecordViewDao;
+        private CommonDao<EventRecord> eventRecordDao;
+        private ViewDao<EventRecordView> eventRecordViewDao;
         private CommonDao<AlarmRecord> alarmRecordDao;
         private CommonDao<Holiday> holidayDao;
         private CommonDao<Control> controlDao;
@@ -51,6 +52,15 @@ namespace ACS.Dao
         {
             ViewDao<E> dao = new ViewDaoCommonImpl<E>();
             return dao;
+        }
+
+        public CommonDao<EventRecord> getEventRecordDao()
+        {
+            if (eventRecordDao == null)
+            {
+                eventRecordDao = new CommonDaoImpl<EventRecord>();
+            }
+            return eventRecordDao;
         }
 
         public CommonDao<DoorTime> getDoorTimeDao()
@@ -117,11 +127,11 @@ namespace ACS.Dao
              return employeeDao;
          }
 
-        public CommonDao<EventRecordView> getEventRecordViewDao()
+        public ViewDao<EventRecordView> getEventRecordViewDao()
         {
             if (eventRecordViewDao == null)
             {
-                eventRecordViewDao = new CommonDaoImpl<EventRecordView>();
+                eventRecordViewDao = new ViewDaoCommonImpl<EventRecordView>();
             }
             return eventRecordViewDao;
         }

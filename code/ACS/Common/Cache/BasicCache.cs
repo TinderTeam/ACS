@@ -8,7 +8,6 @@ namespace ACS.Common.Cache
     public abstract class BasicCache<T>
     {
         private static Dictionary<String, T> cache = new Dictionary<string, T>();
-
         #region 说明
         /*
          * 抽象方法：getKey(T t)的作用是向缓存提供一个确定key值的接口，这个方法在子类中实现。
@@ -21,15 +20,32 @@ namespace ACS.Common.Cache
             public abstract List<T> initCache();
         #endregion
 
-        /// <summary>
-        /// 从抽象初始化方法获得缓存初值
-        /// </summary>
-        public BasicCache()
-        {
-            foreach (T t in initCache())
+        #region 构造方法
+            /// <summary>
+            /// 从抽象初始化方法获得缓存初值
+            /// </summary>
+
+            public BasicCache()
             {
-                cache.Add(getKey(t),t);
+                load();
             }
+
+            private void load()
+            {
+                foreach (T t in initCache())
+                {
+                    cache.Add(getKey(t), t);
+                }
+            }
+        #endregion
+       
+
+        /// <summary>
+        /// 重新加载所有缓存
+        /// </summary>
+        public void reload()
+        {
+            load();
         }
 
         /// <summary>
@@ -37,7 +53,7 @@ namespace ACS.Common.Cache
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static T getValue(String key)
+        public T getValue(String key)
         {
             if (cache.ContainsKey(key))
             {
@@ -63,8 +79,13 @@ namespace ACS.Common.Cache
             }
         }
 
-        public void load(List<T> list){
-            
+        /// <summary>
+        /// 获取全部缓存
+        /// </summary>
+        /// <returns></returns>
+        public List<T> getAll()
+        {
+            return new List<T>(cache.Values);
         }
     }
 }
