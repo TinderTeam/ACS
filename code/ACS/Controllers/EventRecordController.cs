@@ -13,14 +13,14 @@ using ACS.Common.Dao;
 using ACS.Common.Constant;
 namespace ACS.Controllers
 {
-    public class EventRecordController : MiniUITableController<EventRecordView>
+    public class EventRecordController : MiniUITableController<EventRecord>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        EventRecordViewService eventRecordViewService = ServiceContext.getInstance().getEventRecordViewService();
+        EventRecordService eventRecordService = ServiceContext.getInstance().getEventRecordService();
 
-        public override CommonService<EventRecordView> getService()
+        public override CommonService<EventRecord> getService()
         {
-            return eventRecordViewService;
+            return eventRecordService;
         }
         //用于实现条件查询功能
         public override List<QueryCondition> GetFilterCondition(String json)

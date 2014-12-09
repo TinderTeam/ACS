@@ -13,6 +13,7 @@ using System.Xml;
 using ACS.Models.Po.CF;
 using ACS.Common.Util;
 using ACS.Common;
+using ACS.Service.device;
 namespace ACS.Service.Impl
 {
     public class DeviceServiceImpl : CommonServiceImpl<Control>, DeviceService
@@ -202,41 +203,47 @@ namespace ACS.Service.Impl
             model.DoorTimeList = doorTimeList;
             return model;
         }
-        ///// <summary>
-        ///// 检查是否具备控制器删除条件
-        ///// </summary>
-        ///// <returns></returns>
-        //private bool ControlDeleteCheck(string id)
-        //{
-        //    //1.检查是否含有时间段
-        //    List<Door> doorList=getDoorListByControlID(id);
-        //    foreach (Door door in doorList)
-        //    {
-        //        List<QueryCondition> conditionList = new List<QueryCondition>();
-        //        QueryCondition doorTimeCondition = new QueryCondition(
-        //        ConditionTypeEnum.EQUAL,
-        //        Door.DOOR_ID,
-        //        door.DoorID.ToString()
-        //        );
-        //        conditionList.Add(doorTimeCondition);
-        //        if (doorTimeDao.getCount(conditionList) > 0)
-        //        {
-        //            return false;
-        //        }
-        //    }
-        //    //2.检查是否有权限引用
-        //    List<QueryCondition> viewConditionList = new List<QueryCondition>();
-        //    QueryCondition ViewCondition = new QueryCondition(
-        //       ConditionTypeEnum.EQUAL,
-        //       Control.CONTROL_ID,
-        //       id
-        //       );
-        //    viewConditionList.Add(ViewCondition);
-        //    if (accessDetailViewDao.getCount(viewConditionList) > 0)
-        //    {
-        //        return false;
-        //    }
-        //    return true;
-        //}
+        
+
+        public void OpenDoor(String doorID)
+        {
+            Door door = Get<Door>(Door.DOOR_ID, doorID);
+            if(null == door)
+            {
+                log.Error("can not find the door by id, the door id is " + doorID);
+                throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
+            }
+            Control control = Get(door.ControlID.ToString());
+            if(null == control)
+            {
+                log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
+                throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
+            }
+            DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+            deviceOperator.OpenDoor(door);
+        }
+
+        public void StartMonitorAll()
+        {
+            List<Control> controlList = GetDao().getAll();
+            foreach (Control control in controlList)
+            {
+                DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+            }
+        }
+
+        public void StartMonitor(List<String> idList)
+        {
+            List<Control> controlList = base.Get(idList);
+            foreach (Control control in controlList)
+            {
+                log.Info("start monitor contorl,contorl ip is " + control.Ip);
+                DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+            }
+        }
+        public void CloseDoor(String doorID)
+        {
+        }
+ 
     }
 }

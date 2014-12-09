@@ -6,6 +6,11 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using ACS.Models.Model;
+using ACS.Models.Po.Business;
+using ACS.Service;
+using ACS.Service.Impl;
+using ACS.Test;
 
 namespace ACS
 {
@@ -17,11 +22,15 @@ namespace ACS
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-
+            ///初始化所有监控
+            ServiceContext.getInstance().getDeviceService().StartMonitorAll();
+            
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+
     }
 }

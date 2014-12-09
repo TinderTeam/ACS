@@ -71,6 +71,7 @@
                         </div>
                     </div>
                     <!----设备信息栏--->
+
                     <div class="mini-fit" >
                          <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
                             <table style="width:100%;">
@@ -283,36 +284,9 @@
         }
         
 
-        function connect() {
-
-            url = "/Monitor/Connect?ID=13";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-
-                        alert("操作失败!");
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-
-
         function openDoor() {
 
-            url = "/Monitor/OpenDoor?ID=13";
+            url = "/Monitor/OpenDoor?DoorID=9";
             $.ajax({
                 url: url,
                 type: 'post',
@@ -320,14 +294,7 @@
                 cache: false,
                 success: function (text) {
 
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-
-                        alert("操作失败!");
-                    }
+                    mini.alert("操作完成！");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);
@@ -338,22 +305,14 @@
 
         function closeDoor() {
 
-            url = "/Monitor/CloseDoor?ID=13";
+            url = "/Monitor/CloseDoor?DoorID=9";
             $.ajax({
                 url: url,
                 type: 'post',
                 data: "",
                 cache: false,
                 success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-
-                        alert("操作失败!");
-                    }
+                    mini.alert("操作完成！");
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(jqXHR.responseText);

@@ -7,6 +7,7 @@ namespace ACS.Common.Cache
 {
     public abstract class BasicCache<T>
     {
+        public static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static Dictionary<String, T> cache = new Dictionary<string, T>();
         #region 说明
         /*

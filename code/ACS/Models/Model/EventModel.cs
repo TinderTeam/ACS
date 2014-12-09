@@ -153,5 +153,11 @@ namespace ACS.Models.Model
           set { reader = value; }
         }
         #endregion
+
+        public string toStr()
+        {
+            String str = "eType=" + eType+";....";
+            return str;
+        }
     }
 }

@@ -68,6 +68,11 @@ namespace ACS.Service
         void ModifyDoorTime(int userID, DoorTime doorTime);
         void ModifyDoor(int userID, Door door);
         DoorModel getDoorByID(string DoorID);
+
+        void StartMonitorAll();
+        void StartMonitor(List<String> idList);
+        void OpenDoor(String doorID);
+        void CloseDoor(String doorID);
     }
 
     public interface PlatFormService
@@ -84,7 +89,7 @@ namespace ACS.Service
     }
 
 
-    public interface EventRecordViewService : CommonService<EventRecordView>
+    public interface EventRecordService : CommonService<EventRecord>
     {
         
     }

@@ -3,27 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ACS.Service.Impl;
+
+
+using ACS.Models.Po.Business;
 namespace ACS.Service
 {
     public class ServiceContext
     {
-        static ServiceContext serviceContext;
+        private static ServiceContext serviceContext;
 
         private PlatFormService platFormService;
         private UserService userService;
         private EmployeeService employeeService;
         private LoginService loginService;
-        private EventRecordViewService eventRecordViewService;
+        private EventRecordService eventRecordViewService;
         private AlarmRecordService alarmRecordService;
         private HolidayService holidayService;
         private MonitorService monitorService;
         private PrivilegeService privilegeService;
         private DeviceService deviceService;
-       	private DeviceOperatorService  deviceOperatorService;
+ 
         private AccessDetailService accessDetailService;
         private DeptService deptService;
         private JobService jobService;
 
+      
         public static ServiceContext getInstance()
         {
             if (serviceContext == null)
@@ -32,15 +36,7 @@ namespace ACS.Service
             }
             return serviceContext;
         }
-        public DeviceOperatorService getDeviceOperatorService()
-        {
 
-            if (deviceOperatorService == null)
-            {
-                deviceOperatorService = new DeviceOperatorServiceImpl();
-            }
-            return deviceOperatorService;
-        }
         public AccessDetailService getAccessDetailService()
         {
 
@@ -98,12 +94,12 @@ namespace ACS.Service
             }
             return loginService;
         }
-        public EventRecordViewService getEventRecordViewService()
+        public EventRecordService getEventRecordService()
         {
 
             if (eventRecordViewService == null)
             {
-                eventRecordViewService = new EventRecordViewServiceImpl();
+                eventRecordViewService = new EventRecordServiceImpl();
             }
             return eventRecordViewService;
         }

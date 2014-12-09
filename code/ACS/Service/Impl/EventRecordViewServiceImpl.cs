@@ -12,7 +12,7 @@ using ACS.Common.Constant;
 using ACS.Service.Constant;
 namespace ACS.Service.Impl
 {
-    public class EventRecordViewServiceImpl : CommonServiceImpl<EventRecordView>, EventRecordViewService
+    public class EventRecordServiceImpl : CommonServiceImpl<EventRecord>, EventRecordService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ViewDao<EventRecordView> eventRecordViewDao = DaoContext.getInstance().getEventRecordViewDao();

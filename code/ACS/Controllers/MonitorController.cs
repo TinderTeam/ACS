@@ -10,13 +10,14 @@ using ACS.Service;
 using ACS.Test;
 using TcpipIntface;
 using ACS.Common.Util;
+using ACS.Service.device;
 namespace ACS.Controllers
 {
     public class MonitorController : Controller
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         MonitorService monitorService = ServiceContext.getInstance().getMonitorService();
-        DeviceOperatorService tcpService = ServiceContext.getInstance().getDeviceOperatorService();
+        DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
         // GET: /Monitor/
 
         public ActionResult Monitor()
@@ -44,17 +45,16 @@ namespace ACS.Controllers
             return null;
         }
 
-        public String OpenDoor(String ID)
+
+        public String OpenDoor(String DoorID)
         {
-            tcpService.openDoor("10");
-            Response.Write("true");
+            deviceService.OpenDoor(DoorID);   
             return null;
         }
 
-        public String CloseDoor(String ID)
+        public String CloseDoor(String DoorID)
         {
-            tcpService.closeDoor("10");
-            Response.Write("true");
+            deviceService.CloseDoor(DoorID);
             return null;
         }
         /*
