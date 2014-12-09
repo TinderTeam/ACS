@@ -12,7 +12,7 @@ namespace ACS.Models.Po.Business
         public const String FatherID = "FatherDeptID";
         private int deptID;//部门ID
         private String deptName;//部门名称
-        private String fatherDeptID;//父部门ID
+        private int fatherDeptID;//父部门ID
         private String deptCode;//部门编号
         private String note;//备注
 
@@ -28,7 +28,7 @@ namespace ACS.Models.Po.Business
             set { deptName = value; }
         }
 
-        public virtual String FatherDeptID
+        public virtual int FatherDeptID
         {
             get { return fatherDeptID; }
             set { fatherDeptID = value; }

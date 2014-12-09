@@ -14,26 +14,26 @@ namespace ACS.Models.Po.Business
         private int controlID;//控制器编号
         private String doorName;//
         private String doorSerial;//
-        private String doorAddress;//
+        private int doorAddress;//
         private int openTime;           //开门时长，单位为秒
         private int closeOutTime;       //开门超时时长，单位为秒
-        private long doorAlerm2Long;//
-        private String passBack;//
-        private String doorEnable;//
-        private String doorVisible;//
+        private bool doorAlerm2Long;//
+        private bool passBack;//
+        private bool doorEnable;//
+        private bool doorVisible;//
         private int mapID;//
         private int xPoint;//
         private int yPoint;//
-        private String mapVisible;//
-        private String isKQ;//
-        private String isRepast;//
-        private String alarmMast;//
-        private DateTime alarmTime = DefaltValueConstant.getDefaltDateTime();//
-        private String isMainDoor;//
+        private bool mapVisible;//
+        private bool isKQ;//
+        private bool isRepast;//
+        private int alarmMast;//
+        private int alarmTime;//
+        private bool isMainDoor;//
         private String readerIn;//
         private String readerOut;//
-        private String mCardsOpen;//
-        private String mCardsOpenInOut;//
+        private int mCardsOpen;//
+        private int mCardsOpenInOut;//
 
         public virtual int DoorID
         {
@@ -59,7 +59,7 @@ namespace ACS.Models.Po.Business
             set { doorSerial = value; }
         }
 
-        public virtual String DoorAddress
+        public virtual int DoorAddress
         {
             get { return doorAddress; }
             set { doorAddress = value; }
@@ -77,25 +77,25 @@ namespace ACS.Models.Po.Business
             set { closeOutTime = value; }
         }
 
-        public virtual long DoorAlerm2Long
+        public virtual bool DoorAlerm2Long
         {
             get { return doorAlerm2Long; }
             set { doorAlerm2Long = value; }
         }
 
-        public virtual String PassBack
+        public virtual bool PassBack
         {
             get { return passBack; }
             set { passBack = value; }
         }
 
-        public virtual String DoorEnable
+        public virtual bool DoorEnable
         {
             get { return doorEnable; }
             set { doorEnable = value; }
         }
 
-        public virtual String DoorVisible
+        public virtual bool DoorVisible
         {
             get { return doorVisible; }
             set { doorVisible = value; }
@@ -119,37 +119,37 @@ namespace ACS.Models.Po.Business
             set { yPoint = value; }
         }
 
-        public virtual String MapVisible
+        public virtual bool MapVisible
         {
             get { return mapVisible; }
             set { mapVisible = value; }
         }
 
-        public virtual String IsKQ
+        public virtual bool IsKQ
         {
             get { return isKQ; }
             set { isKQ = value; }
         }
 
-        public virtual String IsRepast
+        public virtual bool IsRepast
         {
             get { return isRepast; }
             set { isRepast = value; }
         }
 
-        public virtual String AlarmMast
+        public virtual int AlarmMast
         {
             get { return alarmMast; }
             set { alarmMast = value; }
         }
 
-        public virtual DateTime AlarmTime
+        public virtual int AlarmTime
         {
             get { return alarmTime; }
             set { alarmTime = value; }
         }
 
-        public virtual String IsMainDoor
+        public virtual bool IsMainDoor
         {
             get { return isMainDoor; }
             set { isMainDoor = value; }
@@ -167,13 +167,13 @@ namespace ACS.Models.Po.Business
             set { readerOut = value; }
         }
 
-        public virtual String MCardsOpen
+        public virtual int MCardsOpen
         {
             get { return mCardsOpen; }
             set { mCardsOpen = value; }
         }
 
-        public virtual String MCardsOpenInOut
+        public virtual int MCardsOpenInOut
         {
             get { return mCardsOpenInOut; }
             set { mCardsOpenInOut = value; }

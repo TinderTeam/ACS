@@ -51,23 +51,24 @@ namespace ACS.Service
                 XmlElement e = (XmlElement)xnl.Item(i);
        
                 DeviceTypeModel type = new DeviceTypeModel();
-                type.Type = e.GetAttribute("type");
+                type.TypeID = Convert.ToInt32(e.GetAttribute("typeID"));
+                type.TypeName = e.GetAttribute("typeName");
                 type.DoorNum = Convert.ToInt32(e.GetAttribute("door_num"));
                 type.TimeNum =  Convert.ToInt32(e.GetAttribute("time_num"));
                 TypeList.Add(type);
             }
           
         }
-        public DeviceTypeModel GetDeviceType(string deviceType)
+        public DeviceTypeModel GetDeviceType(int deviceTypeID)
         {
             foreach (DeviceTypeModel e in TypeList)
             {
-                if (e.Type == deviceType)
+                if (e.TypeID == deviceTypeID)
                 {
                     return e;
                 }
             }
-            log.Warn("can not find device type. the type is "+deviceType);
+            log.Warn("can not find device type. the typeID is " + deviceTypeID);
             return null;
         }
     }

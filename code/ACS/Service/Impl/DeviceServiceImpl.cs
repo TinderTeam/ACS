@@ -61,10 +61,10 @@ namespace ACS.Service.Impl
             base.Create(userID, control);
 
             //根据控制器创建门
-            DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.Type);
+            DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
             if (null == deviceType)
             {
-                log.Error("Control create Failed,deviceType not exist, the type is " + control.Type);
+                log.Error("Control create Failed,deviceType not exist, the type is " + control.TypeID);
                 throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
             }
             List<DoorTime> doorTimeList = new List<DoorTime>();

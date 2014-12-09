@@ -7,8 +7,8 @@
       <generator class ="identity"/>
     </id>
 
-    <property name="JobName" type="string">
-      <column name="JOB_NAME" length="255"/>
+    <property name="JobName">
+      <column name="JOB_NAME" length="50"/>
     </property>
     
   </class>

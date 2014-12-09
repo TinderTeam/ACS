@@ -7,124 +7,124 @@
       <generator class ="identity"/>
     </id>
 
-    <property name="EmployeeID" type="int">
+    <property name="EmployeeID">
       <column name="EMPLOYEE_ID"/>
     </property>
     
-    <property name="EventTime" type="DateTime">
+    <property name="EventTime">
       <column name="EVENT_TIME"/>
     </property>
 
-    <property name="ControlID" type="int">
+    <property name="ControlID">
       <column name="CONTROL_ID"/>
     </property>
 
-    <property name="DoorID" type="int">
+    <property name="DoorID">
       <column name="DOOR_ID"/>
     </property>
 
-    <property name="EventType" type="string">
-      <column name="EVENT_TYPE" length="255"/>
+    <property name="EventType">
+      <column name="EVENT_TYPE"/>
     </property>
 
-    <property name="Modify" type="string">
-      <column name="MODIFY" length="255"/>
+    <property name="Modify">
+      <column name="MODIFY"/>
     </property>
 
-    <property name="DoorName" type="string">
-      <column name="DOOR_NAME" length="255"/>
+    <property name="DoorName">
+      <column name="DOOR_NAME" length="50"/>
     </property>
 
-    <property name="ControlName" type="string">
-      <column name="CONTROL_NAME" length="255"/>
+    <property name="ControlName">
+      <column name="CONTROL_NAME" length="50"/>
     </property>
     
-    <property name="EmployeeName" type="string">
-      <column name="EMPLOYEE_NAME" length="255"/>
+    <property name="EmployeeName">
+      <column name="EMPLOYEE_NAME" length="50"/>
     </property>
 
-    <property name="EmployeeCode" type="string">
-      <column name="EMPLOYEE_CODE" length="255"/>
+    <property name="EmployeeCode">
+      <column name="EMPLOYEE_CODE" length="24"/>
     </property>
     
-    <property name="EnglishName" type="string">
-      <column name="ENGLISH_NAME" length="255"/>
+    <property name="EnglishName">
+      <column name="ENGLISH_NAME" length="50"/>
     </property>
 
-    <property name="CardNo" type="string">
-      <column name="CARD_NO" length="255"/>
+    <property name="CardNo">
+      <column name="CARD_NO" length="11"/>
     </property>
 
-    <property name="EmpEnable" type="string">
-      <column name="EMP_ENABLE" length="255"/>
+    <property name="EmpEnable">
+      <column name="EMP_ENABLE"/>
     </property>
 
-    <property name="Sex" type="string">
-      <column name="SEX" length="255"/>
+    <property name="Sex">
+      <column name="SEX"/>
     </property>
 
     <property name="Birthday" type="DateTime">
       <column name="BIRTHDAY"/>
     </property>
 
-    <property name="PersonCode" type="string">
-      <column name="PERSON_CODE" length="255"/>
+    <property name="PersonCode">
+      <column name="PERSON_CODE" length="18"/>
     </property>
 
-    <property name="Home" type="string">
-      <column name="HOME" length="255"/>
+    <property name="Home">
+      <column name="HOME" length="60"/>
     </property>
 
-    <property name="Phone" type="string">
-      <column name="PHONE" length="255"/>
+    <property name="Phone">
+      <column name="PHONE" length="50"/>
     </property>
 
-    <property name="Email" type="string">
-      <column name="EMAIL" length="255"/>
+    <property name="Email">
+      <column name="EMAIL" length="50"/>
     </property>
 
-    <property name="Car" type="string">
-      <column name="CAR" length="255"/>
+    <property name="Car">
+      <column name="CAR" length="50"/>
     </property>
 
-    <property name="JobName" type="string">
-      <column name="JOB_NAME" length="255"/>
+    <property name="JobName">
+      <column name="JOB_NAME" length="50"/>
     </property>
 
-    <property name="DeptName" type="string">
-      <column name="DEPT_Name" length="255"/>
+    <property name="DeptName">
+      <column name="DEPT_Name" length="50"/>
     </property>
 
     <property name="RegDate" type="DateTime">
       <column name="REG_DATE"/>
     </property>
 
-    <property name="Leave" type="string">
-      <column name="LEAVE" length="255"/>
+    <property name="Leave">
+      <column name="LEAVE"/>
     </property>
 
-    <property name="LeaveDate" type="DateTime">
+    <property name="LeaveDate">
       <column name="LEAVE_DATE"/>
     </property>
 
-    <property name="BeKQ" type="string">
-      <column name="BE_KQ" length="255"/>
+    <property name="BeKQ">
+      <column name="BE_KQ"/>
     </property>
 
-    <property name="Note1" type="string">
-      <column name="NOTE1" length="255"/>
+    <property name="Note1">
+      <column name="NOTE1" length="50"/>
     </property>
 
-    <property name="Note2" type="string">
-      <column name="NOTE2" length="255"/>
+    <property name="Note2">
+      <column name="NOTE2" length="50"/>
     </property>
 
-    <property name="Note3" type="string">
-      <column name="NOTE3" length="255"/>
+    <property name="Note3">
+      <column name="NOTE3" length="50"/>
     </property>
 
-    <property name="Note4" type="string">
-      <column name="NOTE4" length="255"/>
+    <property name="Note4">
+      <column name="NOTE4" length="50"/>
     </property>
 
   </class>

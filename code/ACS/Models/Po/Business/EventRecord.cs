@@ -11,9 +11,9 @@ namespace ACS.Models.Po.Business
         private DateTime eventTime;         //事件时间
         private int employeeID;             //员工ID
         private int doorID;                 //门ID
-        private String eventType;           //事件类型
+        private int eventType;              //事件类型ID
         private int controlID;              //控制器ID
-        private String modify;              //是否修改过
+        private int modify;              //是否修改过
 
         public virtual int EventID
         {
@@ -40,12 +40,12 @@ namespace ACS.Models.Po.Business
             get { return doorID; }
             set { doorID = value; }
         }
-        public virtual String EventType
+        public virtual int EventType
         {
             get { return eventType; }
             set { eventType = value; }
         }
-        public virtual String Modify
+        public virtual int Modify
         {
             get { return modify; }
             set { modify = value; }

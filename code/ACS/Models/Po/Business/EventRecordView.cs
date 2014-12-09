@@ -21,8 +21,8 @@ namespace ACS.Models.Po.Business
         private DateTime eventTime;//事件时间
         private int controlID;//控制器ID
         private int doorID;//门ID
-        private String eventType;//事件类型
-        private String modify;//是否修改过
+        private int eventType;//事件类型
+        private int modify;//是否修改过
 
         private String doorName;
 
@@ -32,13 +32,13 @@ namespace ACS.Models.Po.Business
         private String employeeName;//员工名称
         private String englishName;//英文名称
         private String cardNo;//卡号
-        private String empEnable;//是否注销
-        private String sex;//
+        private bool empEnable;//是否注销
+        private bool sex;//
         private String jobName;//
         private String deptName;//
-        private String leave;//离职
+        private bool leave;//离职
         private DateTime leaveDate;//
-        private String beKQ;//是否参与考勤
+        private bool beKQ;//是否参与考勤
         private DateTime regDate;//注册日期
         private DateTime birthday;//
         private String personCode;//
@@ -76,12 +76,12 @@ namespace ACS.Models.Po.Business
             get { return doorID; }
             set { doorID = value; }
         }
-        public virtual String EventType
+        public virtual int EventType
         {
             get { return eventType; }
             set { eventType = value; }
         }
-        public virtual String Modify
+        public virtual int Modify
         {
             get { return modify; }
             set { modify = value; }
@@ -121,13 +121,13 @@ namespace ACS.Models.Po.Business
             get { return cardNo; }
             set { cardNo = value; }
         }
-        public virtual String EmpEnable
+        public virtual bool EmpEnable
         {
             get { return empEnable; }
             set { empEnable = value; }
         }
 
-        public virtual String Sex
+        public virtual bool Sex
         {
             get { return sex; }
             set { sex = value; }
@@ -187,7 +187,7 @@ namespace ACS.Models.Po.Business
             set { regDate = value; }
         }
 
-        public virtual String Leave
+        public virtual bool Leave
         {
             get { return leave; }
             set { leave = value; }
@@ -198,7 +198,7 @@ namespace ACS.Models.Po.Business
             get { return leaveDate; }
             set { leaveDate = value; }
         }
-        public virtual String BeKQ
+        public virtual bool BeKQ
         {
             get { return beKQ; }
             set { beKQ = value; }

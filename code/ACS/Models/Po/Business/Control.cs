@@ -12,46 +12,46 @@ namespace ACS.Models.Po.Business
         public const char SPLIT = '_';
         public const String CONTROL_TYPE = "C";
         public const String DOOR_TYPE = "D";
-        private int controlID;//编号
-        private String netID;//连接号即
-        private String code;//编号
-        private String controlName;//名称
-        private String address;//
-        private String serial;//控制器序列号
-        private String type;//控制器类型
-        private String enable;//状态
-        private String duressPin;//DuressPIN挟持密码（未用）
-        private int areaID;//BeDuress使用挟持（未用）
-        private String www;//
-        private String ip;//Ip地址用于网络型控制器
-        private int port;//通讯端口
-        private String byIP;//ByIP  使用TCPIP通讯（未用）
-        private String lockEach;//
-        private DateTime fireTime = DefaltValueConstant.getDefaltDateTime();//
-        private DateTime alarmTime = DefaltValueConstant.getDefaltDateTime();//
-        private String alarmMast;//
-        private String controlGroup;//
+        private int controlID;                              //控制器ID
+        private int netID;                                  //连接号即
+        private String code;                                //编号
+        private String controlName;                         //名称
+        private String address;                             //安装地址
+        private String serial;                              //控制器序列号
+        private int typeID;                                   //控制器类型
+        private bool enable;                                //状态
+        private String duressPin;                           //DuressPIN挟持密码（未用）
+        private int areaID;                                 //BeDuress使用挟持（未用）
+        private String www;                                 //
+        private String ip;                                  //Ip地址用于网络型控制器
+        private int port;                                   //通讯端口
+        private bool byIP;                                  //ByIP  使用TCPIP通讯（未用）
+        private int lockEach;                               //
+        private int fireTime;                               //
+        private int alarmTime;                              //
+        private int alarmMast;                              //
+        private int controlGroup;                           //
         private DateTime timeTamp = DefaltValueConstant.getDefaltDateTime();//
-        private String localSetup;//
-        private int mapID;//
-        private int xPoint;//
-        private int yPoint;//
-        private String mapVisible;//
-        private String online;//
-        private String doorOpen;//
-        private String functionMast;//
-        private String output;//
-        private String input;//
-        private String is16;//
-        private DateTime openTime = DefaltValueConstant.getDefaltDateTime();//
-        private DateTime closeTime = DefaltValueConstant.getDefaltDateTime();//
-        private String floorDelay;//
-        private String otherFuction;//
-        private String mxOutPort;//
-        private String aesPin;//
-        private String useAes;//
-        private String icAddress;//
-        private String icIsSt;//
+        private String localSetup;                          //
+        private int mapID;                                  //
+        private int xPoint;                                 //
+        private int yPoint;                                 //
+        private bool mapVisible;                            //
+        private bool online;                                //
+        private int doorOpen;                               //
+        private int functionMast;                           //
+        private String output;                              //
+        private String input;                               //
+        private bool is16;                                  //
+        private int openTime;                               //
+        private int closeTime;                              //
+        private int floorDelay;                             //
+        private int otherFuction;                           //
+        private int mxOutPort;                              //
+        private String aesPin;                              //
+        private bool useAes;                                //
+        private int icAddress;                              //
+        private bool icIsSt;                                //
 
 
         public virtual int ControlID
@@ -59,7 +59,7 @@ namespace ACS.Models.Po.Business
             get { return controlID; }
             set { controlID = value; }
         }
-        public virtual String NetID
+        public virtual int NetID
         {
             get { return netID; }
             set { netID = value; }
@@ -87,13 +87,13 @@ namespace ACS.Models.Po.Business
             set { serial = value; }
         }
 
-        public virtual String Type
+        public virtual int TypeID
         {
-            get { return type; }
-            set { type = value; }
+            get { return typeID; }
+            set { typeID = value; }
         }
 
-        public virtual String Enable
+        public virtual bool Enable
         {
             get { return enable; }
             set { enable = value; }
@@ -129,37 +129,37 @@ namespace ACS.Models.Po.Business
             set { port = value; }
         }
 
-        public virtual String ByIP
+        public virtual bool ByIP
         {
             get { return byIP; }
             set { byIP = value; }
         }
 
-        public virtual String LockEach
+        public virtual int LockEach
         {
             get { return lockEach; }
             set { lockEach = value; }
         }
 
-        public virtual DateTime FireTime
+        public virtual int FireTime
         {
             get { return fireTime; }
             set { fireTime = value; }
         }
 
-        public virtual DateTime AlarmTime
+        public virtual int AlarmTime
         {
             get { return alarmTime; }
             set { alarmTime = value; }
         }
 
-        public virtual String AlarmMast
+        public virtual int AlarmMast
         {
             get { return alarmMast; }
             set { alarmMast = value; }
         }
 
-        public virtual String ControlGroup
+        public virtual int ControlGroup
         {
             get { return controlGroup; }
             set { controlGroup = value; }
@@ -195,25 +195,25 @@ namespace ACS.Models.Po.Business
             set { yPoint = value; }
         }
 
-        public virtual String MapVisible
+        public virtual bool MapVisible
         {
             get { return mapVisible; }
             set { mapVisible = value; }
         }
 
-        public virtual String Online
+        public virtual bool Online
         {
             get { return online; }
             set { online = value; }
         }
 
-        public virtual String DoorOpen
+        public virtual int DoorOpen
         {
             get { return doorOpen; }
             set { doorOpen = value; }
         }
 
-        public virtual String FunctionMast
+        public virtual int FunctionMast
         {
             get { return functionMast; }
             set { functionMast = value; }
@@ -231,37 +231,37 @@ namespace ACS.Models.Po.Business
             set { input = value; }
         }
 
-        public virtual String Is16
+        public virtual bool Is16
         {
             get { return is16; }
             set { is16 = value; }
         }
 
-        public virtual DateTime OpenTime
+        public virtual int OpenTime
         {
             get { return openTime; }
             set { openTime = value; }
         }
 
-        public virtual DateTime CloseTime
+        public virtual int CloseTime
         {
             get { return closeTime; }
             set { closeTime = value; }
         }
 
-        public virtual String FloorDelay
+        public virtual int FloorDelay
         {
             get { return floorDelay; }
             set { floorDelay = value; }
         }
 
-        public virtual String OtherFuction
+        public virtual int OtherFuction
         {
             get { return otherFuction; }
             set { otherFuction = value; }
         }
 
-        public virtual String MxOutPort
+        public virtual int MxOutPort
         {
             get { return mxOutPort; }
             set { mxOutPort = value; }
@@ -273,19 +273,19 @@ namespace ACS.Models.Po.Business
             set { aesPin = value; }
         }
 
-        public virtual String UseAes
+        public virtual bool UseAes
         {
             get { return useAes; }
             set { useAes = value; }
         }
 
-        public virtual String IcAddress
+        public virtual int IcAddress
         {
             get { return icAddress; }
             set { icAddress = value; }
         }
 
-        public virtual String IcIsSt
+        public virtual bool IcIsSt
         {
             get { return icIsSt; }
             set { icIsSt = value; }

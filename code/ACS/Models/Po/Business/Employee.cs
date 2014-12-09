@@ -14,9 +14,9 @@ namespace ACS.Models.Po.Business
         private String employeeCode;//
         private String englishName;//
         private String cardNo;//卡号
-        private String pin;//密码开门
-        private String empEnable;//是否注销
-        private String sex;//
+        private int pin;//密码开门
+        private bool empEnable;//是否注销
+        private bool sex;//
         private DateTime birthday = DateTime.Now;//
         private String personCode;//
         private String home;//
@@ -25,31 +25,31 @@ namespace ACS.Models.Po.Business
         private String car;//
         private int jobID;//
         private int deptID;//
-        private String photo;//
+        private byte[] photo;//
         private DateTime regDate = DateTime.Now;//注册日期
         private DateTime endDate = DateTime.Now;//有效期
-        private String deleted;//
-        private String leave;//离职
+        private bool deleted;//
+        private bool leave;//离职
         private DateTime leaveDate = DateTime.Now;//
-        private String beKQ;//是否参与考勤
+        private bool beKQ;//是否参与考勤
         private String pswd;//web密码
         private int mapID;//
         private int xPoint;//
         private int yPoint;//
-        private String mapVisible;//
+        private bool mapVisible;//
         private int ownerDoor;//所属办公室门ID
         private int lastEventID;//最后一次刷卡
         private int event2EmoID;//最后一次刷卡
         private int status;//实时状态
         private DateTime timeStamp = DateTime.Now;//修改时间
-        private String showCardNo;//
+        private bool showCardNo;//
         private String note1;//
         private String note2;//
         private String note3;//
         private String note4;//
         private String note5;//
         private DateTime timeStampx = DateTime.Now;//
-        private String isBlackCard;//
+        private bool isBlackCard;//
         private String ascString;//
 
 
@@ -81,19 +81,19 @@ namespace ACS.Models.Po.Business
             set { cardNo = value; }
         }
 
-        public virtual String Pin
+        public virtual int Pin
         {
             get { return pin; }
             set { pin = value; }
         }
 
-        public virtual String EmpEnable
+        public virtual bool EmpEnable
         {
             get { return empEnable; }
             set { empEnable = value; }
         }
 
-        public virtual String Sex
+        public virtual bool Sex
         {
             get { return sex; }
             set { sex = value; }
@@ -147,7 +147,7 @@ namespace ACS.Models.Po.Business
             set { deptID = value; }
         }
 
-        public virtual String Photo
+        public virtual byte[] Photo
         {
             get { return photo; }
             set { photo = value; }
@@ -165,13 +165,13 @@ namespace ACS.Models.Po.Business
             set { endDate = value; }
         }
 
-        public virtual String Deleted
+        public virtual bool Deleted
         {
             get { return deleted; }
             set { deleted = value; }
         }
 
-        public virtual String Leave
+        public virtual bool Leave
         {
             get { return leave; }
             set { leave = value; }
@@ -182,7 +182,7 @@ namespace ACS.Models.Po.Business
             get { return leaveDate; }
             set { leaveDate = value; }
         }
-        public virtual String BeKQ
+        public virtual bool BeKQ
         {
             get { return beKQ; }
             set { beKQ = value; }
@@ -208,7 +208,7 @@ namespace ACS.Models.Po.Business
             set { yPoint = value; }
         }
 
-        public virtual String MapVisible
+        public virtual bool MapVisible
         {
             get { return mapVisible; }
             set { mapVisible = value; }
@@ -244,7 +244,7 @@ namespace ACS.Models.Po.Business
             set { timeStamp = value; }
         }
 
-        public virtual String ShowCardNo
+        public virtual bool ShowCardNo
         {
             get { return showCardNo; }
             set { showCardNo = value; }
@@ -286,7 +286,7 @@ namespace ACS.Models.Po.Business
             set { timeStampx = value; }
         }
 
-        public virtual String IsBlackCard
+        public virtual bool IsBlackCard
         {
             get { return isBlackCard; }
             set { isBlackCard = value; }

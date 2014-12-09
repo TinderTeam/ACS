@@ -4,7 +4,7 @@
   <class name="ACS.Models.Po.Business.AlarmRecord,ACS" table="t_alarm_record"  >
 
     <id name="AlarmID" column ="ALARM_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
     <property name="AlarmTime" type="DateTime">
@@ -20,7 +20,7 @@
     </property>
 
     <property name="AlarmType" type="string">
-      <column name="ALARM_TYPE" length="255"/>
+      <column name="ALARM_TYPE" length="50"/>
     </property>
     
   </class>

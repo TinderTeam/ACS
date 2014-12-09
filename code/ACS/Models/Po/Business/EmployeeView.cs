@@ -18,15 +18,15 @@ namespace ACS.Models.Po.Business
         private String employeeName;                    //员工名称
         private String employeeCode;                    //工号
         private String cardNo;                          //卡号
-        private String empEnable;                       //是否注销
-        private String sex;                             //性别
+        private bool empEnable;                       //是否注销
+        private bool sex;                             //性别
         private String personCode;                      //
         private String phone;                           //
         private int jobID;                              //
         private int deptID;                             //
-        private String photo;                           //
+        private byte[] photo;                           //
         private DateTime endDate = DateTime.Now;        //有效期
-        private String leave;                           //离职
+        private bool leave;                           //离职
         private int lastEventID;                        //最后一次刷卡
 
         //从Dept表中获得
@@ -70,13 +70,13 @@ namespace ACS.Models.Po.Business
         //    set { pin = value; }
         //}
 
-        public virtual String EmpEnable
+        public virtual bool EmpEnable
         {
             get { return empEnable; }
             set { empEnable = value; }
         }
 
-        public virtual String Sex
+        public virtual bool Sex
         {
             get { return sex; }
             set { sex = value; }
@@ -130,7 +130,7 @@ namespace ACS.Models.Po.Business
             set { deptID = value; }
         }
 
-        public virtual String Photo
+        public virtual byte[] Photo
         {
             get { return photo; }
             set { photo = value; }
@@ -154,7 +154,7 @@ namespace ACS.Models.Po.Business
         //    set { deleted = value; }
         //}
 
-        public virtual String Leave
+        public virtual bool Leave
         {
             get { return leave; }
             set { leave = value; }

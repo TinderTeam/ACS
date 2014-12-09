@@ -7,96 +7,96 @@
       <generator class ="identity"/>
     </id>
 
-    <property name="ControlID" type="int">
+    <property name="ControlID">
       <column name="CONTROL_ID"/>
     </property>
 
-    <property name="DoorName" type="string">
-      <column name="DOOR_NAME" length="255"/>
+    <property name="DoorName">
+      <column name="DOOR_NAME" length="50"/>
     </property>
     
-    <property name="DoorSerial" type="string">
-      <column name="DOOR_SERIAL" length="255"/>
+    <property name="DoorSerial">
+      <column name="DOOR_SERIAL" length="50"/>
     </property>
 
-    <property name="DoorAddress" type="string">
-      <column name="DOOR_ADDRESS" length="255"/>
+    <property name="DoorAddress">
+      <column name="DOOR_ADDRESS"/>
     </property>
 
-    <property name="OpenTime" type ="int">
+    <property name="OpenTime">
       <column name="OPEN_TIME"/>
     </property>
 
-    <property name="CloseOutTime" type ="int">
+    <property name="CloseOutTime">
       <column name="CLOSE_OUT_TIME"/>
     </property>
     
-    <property name="DoorAlerm2Long" type="long">
-      <column name="DOOR_ALERM2_LONG" />
+    <property name="DoorAlerm2Long">
+      <column name="DOOR_ALERM2_LONG"/>
     </property>
 
-    <property name="PassBack" type="string">
-      <column name="PASS_BACK" length="255"/>
+    <property name="PassBack">
+      <column name="PASS_BACK"/>
     </property>
 
-    <property name="DoorEnable" type="string">
-      <column name="DOOR_ENABLE" length="255"/>
+    <property name="DoorEnable">
+      <column name="DOOR_ENABLE"/>
     </property>
 
-    <property name="DoorVisible" type="string">
-      <column name="DOOR_VISIBLE" length="255"/>
+    <property name="DoorVisible">
+      <column name="DOOR_VISIBLE"/>
     </property>
 
-    <property name="MapID" type="int">
+    <property name="MapID">
       <column name="MAP_ID"/>
     </property>
 
-    <property name="XPoint" type="int">
+    <property name="XPoint">
       <column name="X_POINT"/>
     </property>
 
-    <property name="YPoint" type="int">
+    <property name="YPoint">
       <column name="Y_POINT"/>
     </property>
 
-    <property name="MapVisible" type="string">
-      <column name="MAP_VISIBLE" length="255"/>
+    <property name="MapVisible">
+      <column name="MAP_VISIBLE"/>
     </property>
 
-    <property name="IsKQ" type="string">
-      <column name="IS_KQ" length="255"/>
+    <property name="IsKQ">
+      <column name="IS_KQ"/>
     </property>
 
-    <property name="IsRepast" type="string">
-      <column name="IS_REPAST" length="255"/>
+    <property name="IsRepast">
+      <column name="IS_REPAST"/>
     </property>
 
-    <property name="AlarmMast" type="string">
-      <column name="ALARM_MAST" length="255"/>
+    <property name="AlarmMast">
+      <column name="ALARM_MAST"/>
     </property>
 
     <property name="AlarmTime">
       <column name="ALARM_TIME"/>
     </property>
 
-    <property name="IsMainDoor" type="string">
-      <column name="IS_MAIN_DOOR" length="255"/>
+    <property name="IsMainDoor">
+      <column name="IS_MAIN_DOOR"/>
     </property>
 
-    <property name="ReaderIn" type="string">
-      <column name="READER_IN" length="255"/>
+    <property name="ReaderIn">
+      <column name="READER_IN" length="50"/>
     </property>
 
-    <property name="ReaderOut" type="string">
-      <column name="READER_OUT" length="255"/>
+    <property name="ReaderOut">
+      <column name="READER_OUT" length="50"/>
     </property>
 
-    <property name="MCardsOpen" type="string">
-      <column name="M_CARDS_OPEN" length="255"/>
+    <property name="MCardsOpen">
+      <column name="M_CARDS_OPEN"/>
     </property>
 
-    <property name="MCardsOpenInOut" type="string">
-      <column name="M_CARDS_OPEN_IN_OUT" length="255"/>
+    <property name="MCardsOpenInOut">
+      <column name="M_CARDS_OPEN_IN_OUT"/>
     </property>
 
   </class>

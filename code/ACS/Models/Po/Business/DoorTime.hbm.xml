@@ -7,16 +7,16 @@
       <generator class ="identity"/>
     </id>
 
-    <property name="DoorID" type="int">
+    <property name="DoorID">
       <column name="DOOR_ID"/>
     </property>
 
-    <property name="DoorTimeName" type="string">
-      <column name="DOOR_TIME_NAME" length="255"/>
+    <property name="DoorTimeName">
+      <column name="DOOR_TIME_NAME" length="50"/>
     </property>
 
-    <property name="Enable" type="string">
-      <column name="ENABLE" length="25"/>
+    <property name="Enable">
+      <column name="ENABLE" length="10"/>
     </property>
     
     <property name="StartTime" >

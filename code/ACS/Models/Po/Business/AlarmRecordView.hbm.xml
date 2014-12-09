@@ -20,7 +20,7 @@
     </property>
 
     <property name="AlarmType" type="string">
-      <column name="ALARM_TYPE" length="255"/>
+      <column name="ALARM_TYPE" length="50"/>
     </property>
     
     <property name="ControlName" type="string">

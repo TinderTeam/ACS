@@ -4,31 +4,31 @@
   <class name="ACS.Models.Po.Business.EventRecord,ACS" table="t_event_record"  >
 
     <id name="EventID" column ="EVENT_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
-    <property name="EmployeeID" type="int">
+    <property name="EmployeeID">
       <column name="EMPLOYEE_ID"/>
     </property>
     
-    <property name="EventTime" type="DateTime">
+    <property name="EventTime">
       <column name="EVENT_TIME"/>
     </property>
 
-    <property name="ControlID" type="int">
+    <property name="ControlID">
       <column name="CONTROL_ID"/>
     </property>
 
-    <property name="DoorID" type="int">
+    <property name="DoorID">
       <column name="DOOR_ID"/>
     </property>
 
-    <property name="EventType" type="string">
-      <column name="EVENT_TYPE" length="255"/>
+    <property name="EventType">
+      <column name="EVENT_TYPE"/>
     </property>
 
-    <property name="Modify" type="string">
-      <column name="MODIFY" length="255"/>
+    <property name="Modify">
+      <column name="MODIFY"/>
     </property>
     
   </class>

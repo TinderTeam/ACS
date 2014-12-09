@@ -8,7 +8,8 @@ namespace ACS.Models.Model
 {
     public class DeviceTypeModel
     {
-        public String Type { get; set; }
+        public int TypeID { get; set; }
+        public String TypeName { get; set; }
         public int DoorNum { get; set; }
         public int TimeNum { get; set; }
     }

@@ -4,23 +4,23 @@
   <class name="ACS.Models.Po.Business.Dept,ACS" table="t_dept" >
 
     <id name="DeptID" column ="DEPT_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
-    <property name="DeptName" type="string">
-      <column name="DEPT_NAME" length="255"/>
+    <property name="DeptName">
+      <column name="DEPT_NAME" length="50"/>
     </property>
 
-    <property name="FatherDeptID" type="string">
-      <column name="FATHER_DEPT_ID" length="255"/>
+    <property name="FatherDeptID">
+      <column name="FATHER_DEPT_ID"/>
     </property>
     
-    <property name="DeptCode" type="string">
-      <column name="DEPT_CODE" length="255"/>
+    <property name="DeptCode">
+      <column name="DEPT_CODE" length="50"/>
     </property>
 
-    <property name="Note" type="string">
-      <column name="NOTE" length="255"/>
+    <property name="Note">
+      <column name="NOTE" length="50"/>
     </property>
 
   </class>

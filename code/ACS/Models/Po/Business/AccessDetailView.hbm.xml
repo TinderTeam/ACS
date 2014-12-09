@@ -4,22 +4,22 @@
   <class name="ACS.Models.Po.Business.AccessDetailView,ACS" table="t_access_detail_view"  >
     
     <id name="AccessDetailID" column ="ACCESS_DETAIL_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
     
-    <property name="AccessID" type="int">
+    <property name="AccessID">
       <column name="ACCESS_ID"/>
     </property>
     
-    <property name="ValueID" type="int">
+    <property name="ValueID">
       <column name="VALUE_ID"/>
     </property>
     
-    <property name="Type" type="string">
-      <column name="TYPE" length="255"/>
+    <property name="Type">
+      <column name="TYPE" length="20"/>
     </property>
 
-    <property name="CreateUserID" type="int">
+    <property name="CreateUserID">
       <column name="CREATE_USER_ID"/>
     </property>
     
@@ -27,28 +27,28 @@
       <column name="CREATE_DATE"/>
     </property>
     
-    <property name="AccessName" type="string">
-      <column name="ACCESS_NAME" length="255"/>
+    <property name="AccessName">
+      <column name="ACCESS_NAME" length="50"/>
     </property>
     
-    <property name="ControlID" type="int">
+    <property name="ControlID">
       <column name="CONTROL_ID"/>
     </property>
     
-    <property name="ControlName" type="string">
-      <column name="CONTROL_NAME" length="255"/>
+    <property name="ControlName">
+      <column name="CONTROL_NAME" length="50"/>
     </property>
 
-    <property name="DoorID" type="int">
+    <property name="DoorID">
       <column name="DOOR_ID"/>
     </property>
     
-    <property name="DoorName" type="string">
-      <column name="DOOR_NAME" length="255"/>
+    <property name="DoorName">
+      <column name="DOOR_NAME" length="50"/>
     </property>
 
-    <property name="DoorTimeName" type="string">
-      <column name="DOOR_TIME_NAME" length="255"/>
+    <property name="DoorTimeName">
+      <column name="DOOR_TIME_NAME" length="50"/>
     </property>
     
     <property name="StartTime">

@@ -7,36 +7,36 @@
       <generator class ="identity"/>
     </id>
 
-    <property name="NetID" type="string">
-      <column name="NET_ID" length="255"/>
+    <property name="NetID">
+      <column name="NET_ID"/>
     </property>
 
-    <property name="Code" type="string">
-      <column name="CODE" length="255"/>
+    <property name="Code">
+      <column name="CODE" length="50"/>
     </property>
     
-    <property name="ControlName" type="string">
-      <column name="CONTROL_NAME" length="255"/>
+    <property name="ControlName">
+      <column name="CONTROL_NAME" length="50"/>
     </property>
 
-    <property name="Address" type="string">
-      <column name="ADDRESS" length="255"/>
+    <property name="Address">
+      <column name="ADDRESS" length="50"/>
     </property>
 
-    <property name="Serial" type="string">
-      <column name="SERIAL" length="255"/>
+    <property name="Serial">
+      <column name="SERIAL" length="50"/>
     </property>
 
-    <property name="Type" type="string">
-      <column name="TYPE" length="255"/>
+    <property name="TypeID">
+      <column name="TYPE_ID"/>
     </property>
 
-    <property name="Enable" type="string">
-      <column name="ENABLE" length="255"/>
+    <property name="Enable">
+      <column name="ENABLE"/>
     </property>
 
     <property name="DuressPin" type="string">
-      <column name="DURESS_PIN" length="255"/>
+      <column name="DURESS_PIN" length="50"/>
     </property>
 
     <property name="AreaID" type="int">
@@ -55,36 +55,36 @@
       <column name="PORT"/>
     </property>
 
-    <property name="ByIP" type="string">
-      <column name="BY_IP" length="255"/>
+    <property name="ByIP">
+      <column name="BY_IP"/>
     </property>
 
-    <property name="LockEach" type="string">
-      <column name="LOCK_EACH" length="255"/>
+    <property name="LockEach">
+      <column name="LOCK_EACH"/>
     </property>
 
-    <property name="FireTime" type="DateTime">
+    <property name="FireTime">
       <column name="FIRE_TIME"/>
     </property>
 
-    <property name="AlarmTime" type="DateTime">
+    <property name="AlarmTime">
       <column name="ALARM_TIME"/>
     </property>
 
-    <property name="AlarmMast" type="string">
-      <column name="ALARM_MAST" length="255"/>
+    <property name="AlarmMast">
+      <column name="ALARM_MAST"/>
     </property>
 
-    <property name="ControlGroup" type="string">
-      <column name="CONTROL_GROUP" length="255"/>
+    <property name="ControlGroup">
+      <column name="CONTROL_GROUP"/>
     </property>
 
     <property name="TimeTamp" type="DateTime">
       <column name="TIME_TAMP"/>
     </property>
 
-    <property name="LocalSetup" type="string">
-      <column name="LOCAL_SETUP" length="255"/>
+    <property name="LocalSetup">
+      <column name="LOCAL_SETUP" length="50"/>
     </property>
 
     <property name="MapID" type="int">
@@ -99,68 +99,68 @@
       <column name="Y_POINT"/>
     </property>
 
-    <property name="MapVisible" type="string">
-      <column name="MAP_VISIBLE" length="255"/>
+    <property name="MapVisible">
+      <column name="MAP_VISIBLE"/>
     </property>
 
-    <property name="Online" type="string">
-      <column name="ONLINE" length="255"/>
+    <property name="Online">
+      <column name="ONLINE"/>
     </property>
 
-    <property name="DoorOpen" type="string">
-      <column name="DOOR_OPEN" length="255"/>
+    <property name="DoorOpen">
+      <column name="DOOR_OPEN"/>
     </property>
 
-    <property name="FunctionMast" type="string">
+    <property name="FunctionMast">
       <column name="FUNCTION_MAST"/>
     </property>
 
-    <property name="Output" type="string">
-      <column name="OUTPUT" length="255"/>
+    <property name="Output">
+      <column name="OUTPUT" length="50"/>
     </property>
 
-    <property name="Input" type="string">
-      <column name="INPUT" length="255"/>
+    <property name="Input">
+      <column name="INPUT" length="50"/>
     </property>
 
-    <property name="Is16" type="string">
-      <column name="IS16" length="255"/>
+    <property name="Is16">
+      <column name="IS16"/>
     </property>
 
-    <property name="OpenTime" type="DateTime">
+    <property name="OpenTime">
       <column name="OPEN_TIME"/>
     </property>
 
-    <property name="CloseTime" type="DateTime">
+    <property name="CloseTime">
       <column name="CLOSE_TIME"/>
     </property>
 
-    <property name="FloorDelay" type="string">
-      <column name="FLOOR_DELAY" length="255"/>
+    <property name="FloorDelay">
+      <column name="FLOOR_DELAY"/>
     </property>
 
-    <property name="OtherFuction" type="string">
-      <column name="OTHRE_FUNCTION" length="255"/>
+    <property name="OtherFuction">
+      <column name="OTHRE_FUNCTION"/>
     </property>
 
-    <property name="MxOutPort" type="string">
-      <column name="MX_OUT_PORT" length="255"/>
+    <property name="MxOutPort">
+      <column name="MX_OUT_PORT"/>
     </property>
 
-    <property name="AesPin" type="string">
-      <column name="AES_PIN" length="255"/>
+    <property name="AesPin">
+      <column name="AES_PIN" length="50"/>
     </property>
 
-    <property name="UseAes" type="string">
-      <column name="USE_AES" length="255"/>
+    <property name="UseAes">
+      <column name="USE_AES"/>
     </property>
 
-    <property name="IcAddress" type="string">
-      <column name="IC_ADDRESS" length="255"/>
+    <property name="IcAddress">
+      <column name="IC_ADDRESS"/>
     </property>
 
-    <property name="IcIsSt" type="string">
-      <column name="IC_IS_ST" length="255"/>
+    <property name="IcIsSt">
+      <column name="IC_IS_ST"/>
     </property>
 
   </class>

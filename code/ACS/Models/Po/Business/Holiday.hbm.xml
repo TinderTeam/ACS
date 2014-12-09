@@ -4,11 +4,11 @@
   <class name="ACS.Models.Po.Business.Holiday,ACS" table="t_holiday"  >
 
     <id name="HolidayID" column ="HOLIDAY_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
-    <property name="HolidayName" type="string">
-      <column name="HOLIDAY_NAME" length="255"/>
+    <property name="HolidayName">
+      <column name="HOLIDAY_NAME" length="50"/>
     </property>
     
     <property name="StartTime" type="DateTime">
@@ -19,8 +19,8 @@
       <column name="END_TIME"/>
     </property>
 
-    <property name="HolidayNote" type="string">
-      <column name="HOLIDAY_NOTE" length="255"/>
+    <property name="HolidayNote">
+      <column name="HOLIDAY_NOTE" length="100"/>
     </property>
     
   </class>
