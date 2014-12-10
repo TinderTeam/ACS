@@ -13,7 +13,13 @@ namespace ACS.Service.Constant
 
         public static String getDeviceConfigXmlPath()
         {
-            String path = HttpRuntime.AppDomainAppPath.ToString() + "DeviceConfig.xml";
+            String path = getAppPath() + "DeviceConfig.xml";
+            return path;
+        }
+
+        public static String getUploadPhotoPath()
+        {
+            String path = getAppPath() + "/upload/EmployeePhoto/";
             return path;
         }
 

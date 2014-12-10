@@ -4,7 +4,7 @@
 <head>
     <title>员工面板</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-    
+    <script src="../../Scripts/miniui/swfupload/swfupload.js" type="text/javascript"></script>
     <script src="../../Scripts/boot.js" type="text/javascript"></script>
 
     <style type="text/css">
@@ -20,7 +20,7 @@
     </style>
 </head>
 <body> 
-    <form id="employeeForm" method="post">
+    <form id="employeeForm" method="post" enctype="multipart/form-data" >
 
             <div style="padding-left:25px;margin-top:10px;">
                 <table style="table-layout:fixed;">
@@ -42,8 +42,8 @@
                             <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Sex")</td>
                             <td >    
                                 <select name="Sex" class="mini-radiobuttonlist">
-                                    <option value="Male">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Male")</option>
-                                    <option value="Female">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Female")</option>
+                                    <option value="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Male")</option>
+                                    <option value="false">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Female")</option>
                                 </select>
                             </td>
                         </tr>
@@ -74,19 +74,39 @@
                         <tr>
                             <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Car")</td>
                                 <td >    
-                                    <input name="Car" class="mini-textbox"/>
+                                    <input name ="Car" class ="mini-textbox"/>
                                 </td>
                         </tr>
+                    </div>
+                    <div style="float:right; margin-top:5px; margin-right:10%;width:46%;height:50%;"   class="mini-tabs" activeIndex="0">
+                        <div title="Photo1">
+			                <div style="margin-bottom:5px; width:170px; height:140px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+				                <div ><img id="ImgPr1" src="" height="140" width="170" alt="个人1寸照片" ></div>
+                                <input id="employeePhoto1"  name ="Photo1" class ="mini-textbox" style="display:none"/>
+			                </div>
+			                <div>
+				                <input id="fileupload1" class="mini-fileupload" name="Fdata" flashUrl="../../Scripts/miniui/swfupload/swfupload.swf"
+                                        uploadUrl="UploadPhoto?num=1" onuploadsuccess="onUploadSuccess" onuploaderror="onUploadError" onfileselect="onFileSelect"
+                                />
+                                <input type="button" value="上传" onclick="startUpload('1')"/>
+                           
+			                </div>
+                        </div>
+                        <div title="Photo2">
+                            <div style="margin-bottom:5px; width:170px; height:140px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
+				                <div ><img id="ImgPr2" src="" height="140" width="170" alt="个人1寸照片" ></div>
+                                <input id="employeePhoto2"  name ="Photo2" class ="mini-textbox" style="display:none"/>
+			                </div>
+			                <div>
+				                <input id="fileupload2" class="mini-fileupload" name="Fdata" flashUrl="../../Scripts/miniui/swfupload/swfupload.swf"
+                                        uploadUrl="UploadPhoto?num=2"; onuploadsuccess="onUploadSuccess" onuploaderror="onUploadError" onfileselect="onFileSelect"
+                                />
+                                <input type="button" value="上传" onclick="startUpload('2')"/>
+                           
+			                </div>
+                        </div>
                     </div>                  
-                    <div style="float:right; margin-top:5px; margin-right:16%;" >
-			            <div style="margin-bottom:5px; width:120px; height:140px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
-				            <div ><img id="ImgPr1" src="../../Scripts/themes/default/images/login_logo.png" height="140" width="120" alt="个人1寸照片" ></div>
-
-			            </div>
-			            <div>
-				            <input type ="file"  name="expertModel.exPhoto" id="up1"/>
-			            </div>
-		            </div>
+                    
                 </table>
             </div>
             <fieldset style="border:solid 1px #aaa;padding:3px;">
@@ -97,6 +117,7 @@
                             <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Code")</td>
                             <td style="width:150px;">
                                 <input name="EmployeeCode" class="mini-textbox" required="true"  emptyText="请输入员工工号"/>
+                                
                             </td>
                             <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Email")</td>
                             <td style="width:150px;">    
@@ -160,9 +181,27 @@
     </form>
     <script type="text/javascript">
         mini.parse();
-
         var form = new mini.Form("#employeeForm");
+        function onFileSelect(e) {
+            //alert("选择文件");
+        }
+        function onUploadSuccess(e) {
+            var Rsp = mini.decode(e.serverData);
+            //alert(mini.decode(Rsp));
+            //this.setText("");
+            var photoName = mini.get("employeePhoto" + Rsp.Obj[1]);
+            photoName.setValue(Rsp.Obj[0]);
+            $("#ImgPr" + Rsp.Obj[1]).attr('src', Rsp.Obj[0]);
+        }
+        function onUploadError(e) {
+            var Rsp = mini.decode(e.serverData);
+            mini.alert(Rsp.Message);
+        }
 
+        function startUpload(e) {
+            var fileupload = mini.get("fileupload"+e);
+            fileupload.startUpload();
+        }
         //加载窗口信息
         function Show(data) {
             //跨页面传递的数据对象，克隆后才可以安全使用
@@ -182,6 +221,12 @@
                     var Rsp = mini.decode(json);
                     if (Rsp.ErrorCode == "Success") {
                         form.setData(Rsp.Obj);
+                        //显示Photo1的图片
+                        var photoName = mini.get("employeePhoto1");
+                        $("#ImgPr1").attr('src', photoName.getValue());
+                        //显示Photo2的图片
+                        var photoName = mini.get("employeePhoto2");
+                        $("#ImgPr2").attr('src', photoName.getValue());
                     } else {
                         mini.alert(Rsp.Message);
                     }
@@ -197,7 +242,6 @@
         function onSaveData(type) {
             var data = form.getData();
             var json = mini.encode(data);
-
             //获取操作类型（新建/修改）
             var url;
             if (type == 'Create')

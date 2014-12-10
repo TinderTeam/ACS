@@ -24,7 +24,8 @@ namespace ACS.Models.Po.Business
         private String phone;                           //
         private int jobID;                              //
         private int deptID;                             //
-        private byte[] photo;                           //
+        private String photo1;                           //
+        private String photo2;
         private DateTime endDate = DateTime.Now;        //有效期
         private bool leave;                           //离职
         private int lastEventID;                        //最后一次刷卡
@@ -130,12 +131,17 @@ namespace ACS.Models.Po.Business
             set { deptID = value; }
         }
 
-        public virtual byte[] Photo
+        public virtual String Photo1
         {
-            get { return photo; }
-            set { photo = value; }
+            get { return photo1; }
+            set { photo1 = value; }
         }
 
+        public virtual String Photo2
+        {
+            get { return photo2; }
+            set { photo2 = value; }
+        }
         //public virtual DateTime RegDate
         //{
         //    get { return regDate; }

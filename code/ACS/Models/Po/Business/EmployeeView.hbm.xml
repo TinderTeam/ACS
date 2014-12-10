@@ -43,8 +43,12 @@
       <column name="DEPT_ID"/>
     </property>
 
-    <property name="Photo">
-      <column name="PHOTO"/>
+    <property name="Photo1">
+      <column name="PHOTO1" length="50"/>
+    </property>
+    
+    <property name="Photo2">
+      <column name="PHOTO2" length="50"/>
     </property>
 
     <property name="EndDate">

@@ -25,7 +25,8 @@ namespace ACS.Models.Po.Business
         private String car;//
         private int jobID;//
         private int deptID;//
-        private byte[] photo;//
+        private String photo1;//
+        private String photo2;//
         private DateTime regDate = DateTime.Now;//注册日期
         private DateTime endDate = DateTime.Now;//有效期
         private bool deleted;//
@@ -147,10 +148,16 @@ namespace ACS.Models.Po.Business
             set { deptID = value; }
         }
 
-        public virtual byte[] Photo
+        public virtual String Photo1
         {
-            get { return photo; }
-            set { photo = value; }
+            get { return photo1; }
+            set { photo1 = value; }
+        }
+
+        public virtual String Photo2
+        {
+            get { return photo2; }
+            set { photo2 = value; }
         }
 
         public virtual DateTime RegDate

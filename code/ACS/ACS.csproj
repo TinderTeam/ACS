@@ -177,6 +177,7 @@
     <Compile Include="Common\Dao\QueryCondition.cs" />
     <Compile Include="Common\Service\BasicServiceFrameWork.cs" />
     <Compile Include="Common\Service\exception\DataManipulationException.cs" />
+    <Compile Include="Common\Util\DataCreatUtil.cs" />
     <Compile Include="Common\Util\DataTypeConvert.cs" />
     <Compile Include="Common\Util\DateUtil.cs" />
     <Compile Include="Common\Util\JsonConvert.cs" />
@@ -449,6 +450,11 @@
     <Content Include="Scripts\miniui\locale\en_US.js" />
     <Content Include="Scripts\miniui\locale\zh_CN.js" />
     <Content Include="Scripts\miniui\miniui.js" />
+    <Content Include="Scripts\miniui\swfupload\swfupload.js" />
+    <Content Include="Scripts\miniui\swfupload\swfupload.swf" />
+    <Content Include="Scripts\miniui\swfupload\swfuploadbutton.swf" />
+    <Content Include="Scripts\miniui\swfupload\swfupload_f8.swf" />
+    <Content Include="Scripts\miniui\swfupload\swfupload_f9.swf" />
     <Content Include="Scripts\miniui\themes\blue2003\images\buttonedit\arrowbg.gif" />
     <Content Include="Scripts\miniui\themes\blue2003\images\buttonedit\btn-hover.gif" />
     <Content Include="Scripts\miniui\themes\blue2003\images\buttonedit\btn-pressed.gif" />
@@ -1665,6 +1671,9 @@
     <Content Include="Test\tasks.txt" />
     <Content Include="Test\test.jpg" />
     <Content Include="Test\tree.txt" />
+    <Content Include="upload\EmployeePhoto\80cb8773-5bd3-4043-84e6-b49c954914f9.jpg" />
+    <Content Include="upload\EmployeePhoto\abbbd6ac-944a-4e04-8b36-69e4caec8f15.jpg" />
+    <Content Include="upload\EmployeePhoto\f95b5673-ba54-41e6-a753-9e2a370017ff.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

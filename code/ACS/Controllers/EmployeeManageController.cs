@@ -48,6 +48,34 @@ namespace ACS.Controllers
             
             return filterCondition;
         }
+        //上传员工照片
+        public ActionResult UploadPhoto(HttpPostedFileBase Fdata,String num)
+        {
+            //string fileName = System.IO.Path.GetFileName(Fdata.FileName);
+            string fileName = DataCreatUtil.getUUID() + ".jpg";
+            string filePhysicalPath = ServiceConfigConstants.getUploadPhotoPath() + fileName;
+            string fileRelativePath = "/upload/EmployeePhoto/" + fileName;
+            List<String> photoObj = new List<string>();
+            try
+            {
+                Fdata.SaveAs(filePhysicalPath);
+                photoObj.Add(fileRelativePath);
+                photoObj.Add(num);                      //num用来标识上传的是Photo1还是Photo2
+                Rsp.Obj = photoObj;
+            }
+            catch (FuegoException e)
+            {
+                log.Error("cancel failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (SystemException e)
+            {
+                log.Error("cancel failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
+        }
         /// <summary>
         /// 注销用户
         /// </summary>

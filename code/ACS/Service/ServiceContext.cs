@@ -27,7 +27,6 @@ namespace ACS.Service
         private DeptService deptService;
         private JobService jobService;
 
-      
         public static ServiceContext getInstance()
         {
             if (serviceContext == null)

@@ -12,6 +12,7 @@ using ACS.Common.Constant;
 using ACS.Service.Constant;
 using ACS.Common.Util;
 using ACS.Common;
+using System.IO;
 namespace ACS.Service.Impl
 {
     public class EmployeeServiceImpl : CommonServiceImpl<Employee>, EmployeeService
@@ -33,14 +34,15 @@ namespace ACS.Service.Impl
             }
 
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "EmployeeCode", obj.EmployeeCode);
-            if (null != employeeDao.getUniRecord(condition))
+            Employee old = employeeDao.getUniRecord(condition);
+            if ((null != old) && (old.EmployeeID != obj.EmployeeID))
             {
                 log.Error("create failed, the employeeCode has exist. employeeCode is " + obj.EmployeeCode);
                 throw new FuegoException(ExceptionMsg.EMPLOYEE_CODE_EXIST);
             }
         }
  
-        public override void Modify(Employee newEmployee)
+        public override void Modify(int userID,Employee newEmployee)
         {
             Validator(newEmployee);
 
@@ -70,7 +72,26 @@ namespace ACS.Service.Impl
             oldEmployee.Note2 = newEmployee.Note2;
             oldEmployee.Note3 = newEmployee.Note3;
             oldEmployee.Note4 = newEmployee.Note4;
-            oldEmployee.Photo = newEmployee.Photo;
+            if (oldEmployee.Photo1 != newEmployee.Photo1)
+            {
+                //判断文件是不是存在
+                if (File.Exists(ServiceConfigConstants.getAppPath() + oldEmployee.Photo1))
+                {
+                    //如果存在则删除
+                    File.Delete(ServiceConfigConstants.getAppPath() + oldEmployee.Photo1);
+                }
+                oldEmployee.Photo1 = newEmployee.Photo1;
+            }
+            if (oldEmployee.Photo2 != newEmployee.Photo2)
+            {
+                //判断文件是不是存在
+                if (File.Exists(ServiceConfigConstants.getAppPath() + oldEmployee.Photo2))
+                {
+                    //如果存在则删除
+                    File.Delete(ServiceConfigConstants.getAppPath() + oldEmployee.Photo2);
+                }
+                oldEmployee.Photo2 = newEmployee.Photo2;
+            }
             employeeDao.update(oldEmployee);
  
              
