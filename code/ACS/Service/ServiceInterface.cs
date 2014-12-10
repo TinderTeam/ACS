@@ -67,8 +67,7 @@ namespace ACS.Service
         List<TreeModel> getDeviceTreeByID(String userID);
         void ModifyDoorTime(int userID, DoorTime doorTime);
         void ModifyDoor(int userID, Door door);
-        DoorModel getDoorByID(string DoorID);
-
+ 
         void StartMonitorAll();
         void StartMonitor(List<String> idList);
         void OpenDoor(String doorID);

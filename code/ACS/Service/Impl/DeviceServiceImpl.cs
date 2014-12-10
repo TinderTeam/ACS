@@ -14,6 +14,7 @@ using ACS.Models.Po.CF;
 using ACS.Common.Util;
 using ACS.Common;
 using ACS.Service.device;
+using System.Timers;
 namespace ACS.Service.Impl
 {
     public class DeviceServiceImpl : CommonServiceImpl<Control>, DeviceService
@@ -173,36 +174,7 @@ namespace ACS.Service.Impl
             orignalDoor.CloseOutTime = door.CloseOutTime;
             GetDao<Door>().update(orignalDoor);
         }
-        /// <summary>
-        /// 根据ID获取门信息
-        /// </summary>
-        /// <param name="DoorID"></param>
-        /// <returns></returns>
-        public DoorModel getDoorByID(string DoorID)
-        {
-            DoorModel model = new DoorModel();
-
-            //获取Control
-            QueryCondition condition = new QueryCondition(
-                  ConditionTypeEnum.EQUAL,
-                  Door.DOOR_ID,
-                  DoorID
-                );
-            Door door = GetDao<Door>().getUniRecord(condition);
-            model.Door = door;
-            //获取DoorTimeList
-            QueryCondition doorTimeCondition = new QueryCondition(
-                  ConditionTypeEnum.EQUAL,
-                 Door.DOOR_ID,
-                  DoorID
-                );
-            List<QueryCondition> DoorConditionList = new List<QueryCondition>();
-            DoorConditionList.Add(doorTimeCondition);
-
-            List<DoorTime> doorTimeList = new DatabaseSourceImpl<DoorTime>(DoorConditionList).getAllPageData();
-            model.DoorTimeList = doorTimeList;
-            return model;
-        }
+ 
         
 
         public void OpenDoor(String doorID)
@@ -225,11 +197,32 @@ namespace ACS.Service.Impl
 
         public void StartMonitorAll()
         {
+            log.Info("now start conncet all device");
             List<Control> controlList = GetDao().getAll();
             foreach (Control control in controlList)
             {
-                DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+                try
+                {
+                    DeviceOperatorFactory.getInstance().getDeviceOperator(control).Connect();
+                    control.Online = true;
+                }
+                catch (Exception e)
+                {
+                    log.Error("the control connect failed when started server",e);
+                    control.Online = false;
+                }
             }
+            GetDao().update(controlList);
+
+            log.Info("start the time to check device online or not ");
+            Timer timer = new System.Timers.Timer(OnlineDeviceCache.TIME_OUT);
+            timer.Elapsed += checkOnline;
+            timer.AutoReset = true;
+        }
+
+        private void checkOnline(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            OnlineDeviceCache.CheckOnline();
         }
 
         public void StartMonitor(List<String> idList)

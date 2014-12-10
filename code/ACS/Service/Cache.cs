@@ -15,18 +15,84 @@ using System.Xml;
 using ACS.Service.Constant;
 using ACS.Models.Po.Business;
 using ACS.Common.Cache;
+using ACS.Service.device;
 namespace ACS.Service
 {
     public class OnlineDeviceCache
     {
-        private static Dictionary<String, Control> cache = new Dictionary<string, Control>();
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static  void Online(Control control)
+        public const int TIME_OUT = 30*1000;
+        private static Dictionary<String, long> cache = new Dictionary<String, long>();
+        private static Dictionary<String, Control> controlCache = new Dictionary<String, Control>();
+
+        public static void RefreshControl(Control control)
         {
-            if(!cache.ContainsKey(control.Ip))
+            if (!controlCache.ContainsKey(control.Ip))
             {
-                cache[control.Ip] = control;
+                controlCache.Add(control.Ip, control);
             }
+            else
+            {
+                controlCache[control.Ip] = control;
+            }
+        }
+        public static void Online(Control control)
+        {
+            RefreshStatus(control);
+            RefreshControl(control);
+        }
+        public static  void RefreshStatus(Control control)
+        {
+            log.Info("refresh control status "+control.Ip);
+            if (!cache.ContainsKey(control.Ip))
+            {
+                cache.Add(control.Ip,DateTime.Now.Millisecond);
+            }
+            else
+            {
+                cache[control.Ip] = DateTime.Now.Millisecond;
+            }
+
+
+        }
+
+        public static void CheckOnline()
+        {
+            log.Info("now check device status. the time is " + DateTime.Now);
+            foreach (var item in controlCache)
+            {
+
+                bool status = checkOnline(item.Key);
+                if (!status)
+                {
+                    log.Warn("the control is off line. the control ip " + item.Key);
+                    try
+                    {
+                        DeviceOperatorFactory.getInstance().getDeviceOperator(item.Value).Connect();
+                    }
+                    catch(Exception e)
+                    {
+                        log.Error("connect failed,the control is " + item.Value.Ip ,e);
+                    }
+                    
+                }
+
+            }
+        }
+
+        public static bool checkOnline(String ip)
+        {
+            if (!cache.ContainsKey(ip))
+            {
+                return false;
+            }
+            long time = DateTime.Now.Millisecond - cache[ip];
+            if(time > TIME_OUT)
+            {
+                return false;
+            }
+            return true;
         }
 
     }
@@ -267,34 +333,5 @@ namespace ACS.Service
             return id; 
         }
     }
-    public class DeviceCache : BasicCache<Control>
-    {
-
-       static DeviceCache deviceCache;
-
-        public static DeviceCache getInstance()
-        {
-            if (deviceCache == null)
-            {
-                log.Info("init DeviceCache ...");
-                deviceCache = new DeviceCache();
-
-            }
-            return deviceCache;
-        }
-
-        #region BasicCache 抽象方法实现
-        public  override string getKey(Control t)
-        {
-            return t.ControlID.ToString();
-        }
-
-        public override List<Control> initCache()
-        {        
-            List<Control> list = DaoContext.getInstance().getControlDao().getAll();
-            log.Info("init DeviceCache from ControlList:" + list);
-            return list;
-        }
-        #endregion
-    }
+   
 }

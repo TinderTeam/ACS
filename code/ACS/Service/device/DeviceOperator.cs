@@ -10,6 +10,7 @@ namespace ACS.Service.device
     {
          void OpenDoor(Door door);
          void CloseDoor(Door door);
+         bool Connect();
  
     }
 }

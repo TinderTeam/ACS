@@ -38,15 +38,25 @@ namespace ACS.Service.device
         public void statusEventHandel(EventMsg eventMsg)
         {
             log.Info("[StatusEvent] Msg: ...");
-            OnlineDeviceCache.Online(control);
+            OnlineDeviceCache.RefreshStatus(control);
             
         }
         public void alarmEventHandel(EventMsg eventMsg)
         {
             log.Info("[AlarmEvent] msg:.....");
-            AlarmRecord alarmRecord = ModelConventService.toAlarmRecord(eventMsg);
+
+
             try
             {
+                AlarmRecord alarmRecord = new AlarmRecord();
+
+                alarmRecord.ControlID = this.control.ControlID;
+
+                alarmRecord.DoorID = 9;
+                alarmRecord.AlarmType = eventMsg.EventType.ToString();
+
+                alarmRecord.AlarmTime = new DateTime(eventMsg.Year, eventMsg.Month, eventMsg.Day, eventMsg.Hour, eventMsg.Minute, eventMsg.Second);
+ 
                 ServiceContext.getInstance().getAlarmRecordService().Create(alarmRecord);
             }
             catch (Exception e)
@@ -58,9 +68,17 @@ namespace ACS.Service.device
         public void cardEventHandel(EventMsg eventMsg)
         {
             log.Info("[CardEvent] msg:.....");
-            EventRecord eventRecord = ModelConventService.toEventRecord(eventMsg);
+
+                 
             try
             {
+                EventRecord eventRecord = new EventRecord();
+                eventRecord.ControlID = this.control.ControlID;
+                eventRecord.DoorID = 9;
+                eventRecord.EventTime = new DateTime(eventMsg.Year, eventMsg.Month, eventMsg.Day, eventMsg.Hour, eventMsg.Minute, eventMsg.Second);
+
+                eventRecord.EventType = eventMsg.EventType;
+                eventRecord.EmployeeID = (int)(eventMsg.CardNo);
                 ServiceContext.getInstance().getEventRecordService().Create(eventRecord);
             }
             catch (Exception e)

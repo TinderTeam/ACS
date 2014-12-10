@@ -30,24 +30,27 @@ namespace ACS.Service.Impl
            connector = new TcpipClass();
            connector.RxDataEvent += ShowMsg;
            connector.OnEventHandler += EventHandler;
-           Connect(control);
+          
        }
-
-        private void Connect(Control control)
+ 
+        public bool Connect()
         {
             log.Info("Start new Connect on devcie;" + control.ControlID);
 
             bool result = connector.OpenIP(control.Ip, 8000);
+            
 
             //建立连接
             if (!result)
             {
-                log.Warn("Connection error: IP=" + control.Ip);
+                log.Error("Connection error: IP=" + control.Ip);
             }
             else
             {
+                OnlineDeviceCache.Online(this.control);
                 log.Debug("Connect success:IP=" + control.Ip);
             }
+            return result;
 
         }
 

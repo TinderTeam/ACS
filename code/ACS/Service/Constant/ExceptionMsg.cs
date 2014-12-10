@@ -30,6 +30,8 @@ namespace ACS.Service.Constant
         public const String DELETE_CONTROL_ERR = "DELETE_CONTROL_ERR";              //删除控制器失败
 
 
+        public const String CONNECT_FAILED = "CONNECT_FAILED";              //设备连接失败
+
         public static string DOOR_NOT_EXIST { get; set; }
 
         public static string CONTROL_NOT_EXIST { get; set; }
