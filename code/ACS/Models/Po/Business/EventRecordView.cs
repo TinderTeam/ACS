@@ -16,13 +16,14 @@ namespace ACS.Models.Po.Business
         public const String EMPLOYEENAME = "EmployeeName";
         public const String EMPLOYEECODE = "EmployeeCode";
         public const String EVENTTYPE = "EventType";
-        private int eventID;//事件ID
-        private int employeeID;//员工ID
-        private DateTime eventTime;//事件时间
-        private int controlID;//控制器ID
-        private int doorID;//门ID
-        private int eventType;//事件类型
-        private int modify;//是否修改过
+
+        private int eventID;                        //事件ID
+        private DateTime eventTime;                 //事件时间
+        private String cardNo;                      //员工ID
+        private int controlID;                      //控制器ID
+        private int doorID;                         //门ID
+        private int eventTypeID;                      //事件类型
+        private int modify;                         //是否修改过
 
         private String doorName;
 
@@ -31,7 +32,6 @@ namespace ACS.Models.Po.Business
         private String employeeCode;//工号
         private String employeeName;//员工名称
         private String englishName;//英文名称
-        private String cardNo;//卡号
         private bool empEnable;//是否注销
         private bool sex;//
         private String jobName;//
@@ -56,10 +56,10 @@ namespace ACS.Models.Po.Business
             get { return eventID; }
             set { eventID = value; }
         }
-        public virtual int EmployeeID
+        public virtual String CardNo
         {
-            get { return employeeID; }
-            set { employeeID = value; }
+            get { return cardNo; }
+            set { cardNo = value; }
         }
         public virtual DateTime EventTime
         {
@@ -76,10 +76,10 @@ namespace ACS.Models.Po.Business
             get { return doorID; }
             set { doorID = value; }
         }
-        public virtual int EventType
+        public virtual int EventTypeID
         {
-            get { return eventType; }
-            set { eventType = value; }
+            get { return eventTypeID; }
+            set { eventTypeID = value; }
         }
         public virtual int Modify
         {
@@ -114,12 +114,6 @@ namespace ACS.Models.Po.Business
         {
             get { return englishName; }
             set { englishName = value; }
-        }
-
-        public virtual String CardNo
-        {
-            get { return cardNo; }
-            set { cardNo = value; }
         }
         public virtual bool EmpEnable
         {

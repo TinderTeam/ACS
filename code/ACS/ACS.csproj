@@ -201,6 +201,7 @@
     <Compile Include="Controllers\AlarmRecordController.cs" />
     <Compile Include="Controllers\HolidayManageController.cs" />
     <Compile Include="Controllers\JobManageController.cs" />
+    <Compile Include="Controllers\EventTypeManageController.cs" />
     <Compile Include="Dao\DaoContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -273,6 +274,7 @@
     <Compile Include="Service\Impl\PrivilegeServiceImpl.cs" />
     <Compile Include="Service\Impl\DeptServiceImpl.cs" />
     <Compile Include="Service\Impl\JobServiceImpl.cs" />
+    <Compile Include="Service\Impl\EventTypeServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />
     <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
     <Compile Include="Service\ModelVerificationService.cs" />
@@ -282,8 +284,8 @@
     <Compile Include="Test\Class1.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\hibernate.cfg.xml" />
-    <Content Include="bin\log4net.dll">
+    <Content Include="Common\bin\hibernate.cfg.xml" />
+    <Content Include="Common\bin\log4net.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -346,7 +348,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="bin\Log4Net.config" />
+    <Content Include="Common\bin\Log4Net.config" />
     <EmbeddedResource Include="DeviceConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1724,6 +1726,8 @@
     <Content Include="Views\DeviceManage\ShowPage.cshtml" />
     <Content Include="Views\DeviceManage\DoorPage.cshtml" />
     <Content Include="Views\DeviceManage\DoorTimePage.cshtml" />
+    <Content Include="Views\EventTypeManage\IndexPage.cshtml" />
+    <Content Include="Views\EventTypeManage\ShowPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

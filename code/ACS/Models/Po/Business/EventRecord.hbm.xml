@@ -7,8 +7,8 @@
       <generator class ="identity"/>
     </id>
 
-    <property name="EmployeeID">
-      <column name="EMPLOYEE_ID"/>
+    <property name="CardNo">
+      <column name="CARD_NO" length="11"/>
     </property>
     
     <property name="EventTime">
@@ -23,8 +23,8 @@
       <column name="DOOR_ID"/>
     </property>
 
-    <property name="EventType">
-      <column name="EVENT_TYPE"/>
+    <property name="EventTypeID">
+      <column name="EVENT_TYPE_ID"/>
     </property>
 
     <property name="Modify">

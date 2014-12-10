@@ -22,7 +22,7 @@ namespace ACS.Service
         private MonitorService monitorService;
         private PrivilegeService privilegeService;
         private DeviceService deviceService;
- 
+        private EventTypeService eventTypeService;
         private AccessDetailService accessDetailService;
         private DeptService deptService;
         private JobService jobService;
@@ -156,6 +156,14 @@ namespace ACS.Service
             }
             return jobService;
         }
+        public EventTypeService getEventTypeService()
+        {
 
+            if (eventTypeService == null)
+            {
+                eventTypeService = new EventTypeServiceImpl();
+            }
+            return eventTypeService;
+        }
     }
 }

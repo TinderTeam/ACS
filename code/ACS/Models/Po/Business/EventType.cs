@@ -7,6 +7,7 @@ namespace ACS.Models.Po.Business
 {
     public class EventType
     {
+        public const String ID = "EventTypeID";
         public virtual int EventTypeID { get; set; }                        //事件ID
         public virtual String EventTypeName { get; set; }                   //事件名称
         public virtual int Level { get; set; }                          //级别

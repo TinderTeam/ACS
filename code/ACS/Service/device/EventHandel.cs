@@ -77,8 +77,8 @@ namespace ACS.Service.device
                 eventRecord.DoorID = 9;
                 eventRecord.EventTime = new DateTime(eventMsg.Year, eventMsg.Month, eventMsg.Day, eventMsg.Hour, eventMsg.Minute, eventMsg.Second);
 
-                eventRecord.EventType = eventMsg.EventType;
-                eventRecord.EmployeeID = (int)(eventMsg.CardNo);
+                eventRecord.EventTypeID = eventMsg.EventType;
+                eventRecord.CardNo = eventMsg.CardNo.ToString();
                 ServiceContext.getInstance().getEventRecordService().Create(eventRecord);
             }
             catch (Exception e)

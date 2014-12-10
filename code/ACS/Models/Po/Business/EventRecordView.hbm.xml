@@ -7,10 +7,6 @@
       <generator class ="identity"/>
     </id>
 
-    <property name="EmployeeID">
-      <column name="EMPLOYEE_ID"/>
-    </property>
-    
     <property name="EventTime">
       <column name="EVENT_TIME"/>
     </property>
@@ -23,8 +19,8 @@
       <column name="DOOR_ID"/>
     </property>
 
-    <property name="EventType">
-      <column name="EVENT_TYPE"/>
+    <property name="EventTypeID">
+      <column name="EVENT_TYPE_ID"/>
     </property>
 
     <property name="Modify">

@@ -26,13 +26,6 @@ namespace ACS.Controllers
         }
 
 
-        public String DeviceTree(String key)
-        {
-            List<TreeModel> tree = Stub.getTestDeviceTree();
-            String str = JsonConvert.ObjectToJson(tree);
-            return str;
-        }
-
         public ActionResult Load(TableForm tableForm)
         {
             log.Debug("Load Control Data...");

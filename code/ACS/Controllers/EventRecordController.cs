@@ -22,6 +22,10 @@ namespace ACS.Controllers
         {
             return eventRecordService;
         }
+        public override ActionResult Load(String data)
+        {
+            return LoadTable<EventRecordView>(GetFilterCondition(data));
+        }
         //用于实现条件查询功能
         public override List<QueryCondition> GetFilterCondition(String json)
         {

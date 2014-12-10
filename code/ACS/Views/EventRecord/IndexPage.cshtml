@@ -59,7 +59,7 @@
     </fieldset>
 <div class="mini-fit" >
     <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
-        url="Load"  idField="EmployeeID" multiSelect="true">
+        url="Load"  idField="EventTypeID" multiSelect="true">
         <div property="columns">
             <div type="indexcolumn"></div>        
             <!--<div type="checkcolumn" ></div>-->                  
@@ -69,7 +69,7 @@
             <div field="EventTime" width="70" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventTime")</div>   
             <div field="ControlName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_ControlID")</div>
             <div field="DoorName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_DoorID")</div>
-            <div field="EventType" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventType")</div> 
+            <div field="EventTypeID" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventType")</div> 
             <div field="Modify" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Modify")</div>    
             <div field="EnglishName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EnglishName")</div>    
             <div field="Sex" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Sex")</div>
@@ -107,7 +107,6 @@
             var form = new mini.Form("#searchForm");
             var searchData = form.getData();
             var json = mini.encode(searchData);
-            alert(json);
             grid.load({ data: json });
 
         }

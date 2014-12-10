@@ -10,21 +10,21 @@ namespace ACS.Models.Po.Business
         public const String ID = "EventID";
         private int eventID;                //事件ID
         private DateTime eventTime;         //事件时间
-        private int employeeID;             //员工ID
+        private String cardNo;                 //员工ID
         private int doorID;                 //门ID
-        private int eventType;              //事件类型ID
+        private int eventTypeID;              //事件类型ID
         private int controlID;              //控制器ID
-        private int modify;              //是否修改过
+        private int modify;                 //是否修改过
 
         public virtual int EventID
         {
             get { return eventID; }
             set { eventID = value; }
         }
-        public virtual int EmployeeID
+        public virtual String CardNo
         {
-            get { return employeeID; }
-            set { employeeID = value; }
+            get { return cardNo; }
+            set { cardNo = value; }
         }
         public virtual DateTime EventTime
         {
@@ -41,10 +41,10 @@ namespace ACS.Models.Po.Business
             get { return doorID; }
             set { doorID = value; }
         }
-        public virtual int EventType
+        public virtual int EventTypeID
         {
-            get { return eventType; }
-            set { eventType = value; }
+            get { return eventTypeID; }
+            set { eventTypeID = value; }
         }
         public virtual int Modify
         {

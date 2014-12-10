@@ -92,6 +92,10 @@ namespace ACS.Service
     {
         
     }
+    public interface EventTypeService : CommonService<EventType>
+    {
+
+    }
     public interface AlarmRecordService : CommonService<AlarmRecord>
     {
 
