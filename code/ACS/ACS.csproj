@@ -278,7 +278,6 @@
     <Compile Include="Service\ServiceContext.cs" />
     <Compile Include="Service\ServiceInterface.cs" />
     <Compile Include="Test\Class1.cs" />
-    <Compile Include="Test\Stub.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\hibernate.cfg.xml" />

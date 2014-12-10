@@ -20,7 +20,24 @@ namespace ACS.Service.Impl
         //获取对象主键
         public override string GetPrimaryName()
         {
-            return EventRecordView.ID;
+            return EventRecord.ID;
+        }
+        public List<EventRecordView> GetCurAlarm(int indexID, int doorID)
+        {
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, "DoorID", doorID.ToString()));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.DESC_ORDER, EventRecordView.ID));
+            List<EventRecordView> alarmList;
+            if (indexID == 0)
+            {
+                alarmList = this.GetDao<EventRecordView>().getAll(conditionList, 0, 1);
+            }
+            else
+            {
+                conditionList.Add(new QueryCondition(ConditionTypeEnum.BIGER, EventRecordView.ID, indexID.ToString()));
+                alarmList = this.GetDao<EventRecordView>().getAll(conditionList);
+            }
+            return alarmList;
         }
     }
 }
