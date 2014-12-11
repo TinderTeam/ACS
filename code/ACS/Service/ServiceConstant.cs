@@ -14,5 +14,6 @@ namespace ACS.Service
         public static String SYS_ACCESS_TYPE_APP = "APP";
         public static String SYS_ACCESS_TYPE_DEVICE_DOMAIN = "DEVICE_DOMAIN";
         public static String SYS_OPRATION_VALUE_VISIBLE = "OP";
+        public static String ALARM_IMG_PATH = "../Content/img/alarm.png";
     }
 }

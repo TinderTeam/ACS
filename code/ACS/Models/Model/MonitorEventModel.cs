@@ -8,7 +8,7 @@ namespace ACS.Models.Model
     public class MonitorEventModel
     {
         public int Id { get; set; }
-        public DateTime EventTime { get; set; }
+        public String EventTime { get; set; }
         public String DoorName { get; set; }
         public int DoorID { get; set; }
         public String ControlName { get; set; }

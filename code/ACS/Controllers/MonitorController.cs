@@ -49,9 +49,6 @@ namespace ACS.Controllers
             List<AlarmRecordView> alarmEventList=ServiceContext.getInstance().getAlarmRecordService().GetCurAlarm(alarmID, doorID);
             List<EventRecordView> eventList = ServiceContext.getInstance().getEventRecordService().GetCurEvent(eventID, doorID);
 
-            //Stub
-            alarmEventList = Stub.getAlarmEventList();
-            eventList = Stub.getEventEventList();
 
             Result result = new Result();
             List<MonitorEventModel> modelList = new List<MonitorEventModel>();
@@ -62,10 +59,10 @@ namespace ACS.Controllers
                 model.ContorID = e.ControlID;
                 model.ControlName = e.ControlName;
                 model.DoorName = e.DoorName;
-                model.EventTime = e.AlarmTime;
+                model.EventTime = DateUtil.DateTimeToString(e.AlarmTime);
                 model.EventType = e.AlarmType;
                 model.Id = e.AlarmID;
-                model.Img = "alarm";
+                model.Img = ServiceConstant.ALARM_IMG_PATH;
                 modelList.Add(model);
                 result.AlarmIndex = e.AlarmID;
 
@@ -77,17 +74,15 @@ namespace ACS.Controllers
                 model.CardNo = e.CardNo;
                 model.ContorID = e.ControlID;
                 model.ControlName = e.ControlName;
+                model.EmployeeName = e.EmployeeName;
                 model.DoorName = e.DoorName;
-                model.EventTime = e.EventTime;
-                model.EventType = e.EventTypeID.ToString();
+                model.EventTime = DateUtil.DateTimeToString(e.EventTime);
+                model.EventType = ServiceContext.getInstance().getEventTypeService().Get(e.EventTypeID.ToString()).EventTypeName;
                 model.Id = e.EventID;
                 model.Img = e.Photo1;
                 modelList.Add(model);
                 result.EventIndex = e.EventID;
             }
-
-           
-         
             result.DataList = modelList;
             return ReturnJson(result);
         }

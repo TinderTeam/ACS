@@ -65,7 +65,7 @@
                             <div showCollapseButton="false">
                                 <!----设备树--->
                                 <ul id="deviceTree" class="mini-tree" url="../DeviceManage/LoadTree" style="width:inherit;padding:3px;" 
-                                    showTreeIcon="true" textField="MenuName" idField="Id" parentField="Pid" resultAsTree="false">
+                                    showTreeIcon="true" onNodeClick="onNodeClick()" textField="MenuName" idField="Id" parentField="Pid" resultAsTree="false">
                                 </ul>
                             </div>        
                         </div>
@@ -87,20 +87,19 @@
                                         <a class="mini-button" iconCls="icon-remove" onclick="alarm()">报警</a> 
                                         <a class="mini-button" iconCls="icon-remove" onclick="removeAlarm()">报警解除</a>      
                  
-                                          
+                                          <a class="mini-button" iconCls="icon-remove" onclick="test()">test</a>   
                                     </td>
                                 </tr>
                             </table>           
                         </div>
                         <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
-                            url="Load"  idField="HolidayID" multiSelect="true">
+                            idField="HolidayID" multiSelect="true">
                             <div property="columns">              
                                 <div field="EventTime" width="70" headerAlign="center" allowSort="true">时间    </div>    
                                 <div field="CardNo" width="70" headerAlign="center" allowSort="true">卡号</div>    
                                 <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">姓名</div>
                                 <div field="DoorID" width="70" headerAlign="center" allowSort="true">门</div>   
                                 <div field="EventType" width="70" headerAlign="center" allowSort="true">事件</div>
-
                             </div>
                         </div> 
                     </div>
@@ -124,19 +123,19 @@
                                             <table>
                                                 <tr>
                                                     <td>事件类别：</td>
-                                                    <td id="cardEventName1" data="进门">进门</td>
+                                                    <td id="cardEventName1" data=""></td>
                                                 </tr> 
                                                 <tr id="cardEmployeeNamelabel1">
                                                     <td>姓名：</td>
-                                                    <td id="cardEmployeeName1" data="某妹子">某妹子</td>
+                                                    <td id="cardEmployeeName1" data=""></td>
                                                 </tr>
                                                 <tr>
                                                     <td>控制器：</td>
-                                                    <td id="cardDevice1" data="控制器">控制器</td>
+                                                    <td id="cardDevice1" data=""></td>
                                                 </tr>
                                                  <tr>
                                                     <td>事件时间：</td>
-                                                    <td id="cardTime1" data="2014-12-5 10:00:16" >2014-12-5 10:00:16</td>
+                                                    <td id="cardTime1" data="" ></td>
                                                 </tr>                                   
                                             </table>
                                         </div>
@@ -160,7 +159,7 @@
                                                 </tr> 
                                                 <tr id="cardEmployeeNamelabel2">
                                                     <td>姓名：</td>
-                                                    <td id="cardEmployeeName2" data="">某妹子</td>
+                                                    <td id="cardEmployeeName2" data=""></td>
                                                 </tr>
                                                 <tr>
                                                     <td>控制器：</td>
@@ -188,11 +187,11 @@
                                                
                                                 <tr>
                                                     <td>事件：</td>
-                                                    <td id="cardEventName3 data=""></td>
+                                                    <td id="cardEventName3" data=""></td>
                                                 </tr> 
                                                 <tr id="cardEmployeeNamelabel3">
                                                     <td>姓名：</td>
-                                                    <td id="cardEmployeeName3" data="">某妹子</td>
+                                                    <td id="cardEmployeeName3" data=""></td>
                                                 </tr> 
                                                 <tr>
                                                     <td>控制器：</td>
@@ -224,7 +223,7 @@
                                                 </tr> 
                                                 <tr>
                                                     <td>姓名：</td>
-                                                    <td id="cardEmployeeName4" data="">某妹子</td>
+                                                    <td id="cardEmployeeName4" data=""></td>
                                                 </tr> 
                                                 <tr>
                                                     <td>控制器：</td>
@@ -246,50 +245,107 @@
         </div>
     </div>
 </div>
-    <script type="text/javascript">
 
+
+
+    <script type="text/javascript">
+    //全局变量
+        var cardShowNum = 0;    //当前显示的事件卡片数量
+        var doorID = 0;        //当前选中的门ID
+        var eventIndex = 0;   //事件最新编号
+        var alarmIndex = 0;   //报警最新编号
+        var clock = 5000;       //定时器更新间隔
+
+    //设备树控制
+        //节点选择
+        function onNodeClick(event){
+            var tree = mini.get("#deviceTree");
+            node = tree.getSelectedNode();
+            node = tree.getSelectedNode();
+
+            if ((node) && (node._level == 0)) {
+                resetMonitor();
+            }
+            if ((node) && (node._level == 1)) {
+                resetMonitor();
+            }
+            if ((node) && (node._level == 2)) {
+                var id = node.Id.replace("D_", "");              
+                if (id != doorID) {                   
+                    resetMonitor();
+                    doorID = id;
+                }
+            }
+        }
+
+    //事物刷新方法
+        function update(result) {
+            var list = result.DataList;
+            if (list.length > 0) {
+                for (var i = 0; i < list.length; i++) {                   
+                    addEvent(list[i].Img, list[i].EventType, list[i].EmployeeName, list[i].ControlName, list[i].EventTime);
+                    addItem(list[i]);
+                }
+                eventIndex = result.EventIndex;
+                alarmIndex = result.AlarmIndex;
+            }
+        }
+
+        //监控器初始化
+        function resetMonitor() {
+            doorID = 0;
+            eventIndex = 0;   //更新事件编号
+            alarmIndex = 0;   //更新事件编号
+            cardShowNum = 0;
+            mini.get("#datagrid1").clearRows();
+            for (var i = 0; i < 4; i++) {
+                $("#eventCard" + (i+1)).addClass("Hide");
+            }
+        }
+       
+
+    //定时器
         $(function () {
             var handler = function () {
-                var timerStr = new Array();　//创建一个数组
-                timerStr[0] = "10";
-                //event
-                timerStr[1] = "1";
-                //alarm
-                timerStr[2] = "2";
-                var json = mini.encode(timerStr);
-                url = "/Monitor/GetNewEvent";
-                $.ajax({
-                    url: url,
-                    type: 'post',
-                    data: { data: json },
-                    cache: false,
-                    success: function (text) {
-                        var result=eval('(' + text + ')');
-                        update(result);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(text);
-                    }
-                });
+                //没有选中则不开始监控
+                if (doorID != "") {
+                    var timerStr = new Array();　//Json 字符串数组
+
+                    timerStr[0] = doorID;
+                    //event
+                    timerStr[1] = eventIndex;
+                    //alarm
+                    timerStr[2] = alarmIndex;
+                    var json = mini.encode(timerStr);
+                    url = "/Monitor/GetNewEvent";
+                    $.ajax({
+                        url: url,
+                        type: 'post',
+                        data: { data: json },
+                        cache: false,
+                        success: function (text) {
+                            var result = eval('(' + text + ')');
+                            //调用更新方法
+                            update(result);
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(text);
+                        }
+                    });
+                }
             }
-            var timer = setInterval(handler, 5000);
+    
+            var timer = setInterval(handler, clock);
             var clear = function () {
                 clearInterval(timer);
             }
         });
 
-        function update(result) {
-            var list = result.DataList;
-            for (var i = 0; i < list.length; i++) {
-                addEvent("~/Test/test.jpg", list[i].EventType, list[i].EmployeeName, list[i].ControlName, list[i].EventTime);
-                addItem(list[i]);
-            }
-        }
-
-        var cardShowNum = 1;
-
+      
+    //事件过程
+       
+        // 表格增加节点
         function addItem(item) {
-        
             var row =
            {
                'EventTime': 'asdgsadgs',        //属性名用引号括起来，属性间由逗号隔开
@@ -300,13 +356,11 @@
            };
             mini.get("#datagrid1").addRow(item, 0);
         }
-
+       //增加事件
+        function addEvent(src, eventName, employeeName, device, time, type) {
        
-        function addEvent(src, eventName,employeeName ,device, time,type) {
             cardShowNum = cardShowNum + 1;
             $("#eventCard" + cardShowNum).removeClass("Hide");
-
-            
             for (var i = 3; i >0; i--) {
                 $("#cardImg" + (i+1)).attr("src",$("#cardImg" + (i)).attr("src"));
                 $("#cardEventName" + (i + 1)).html($("#cardEventName" + (i)).attr("data"));
@@ -318,8 +372,6 @@
                 $("#cardTime" + (i + 1)).html($("#cardTime" + (i)).attr("data"));
                 $("#cardTime" + (i + 1)).attr("data",$("#cardTime" + (i)).attr("data"));
             }
-
-
             $("#cardImg1").attr("src", src);
             $("#cardEventName1").html(eventName);
             $("#cardEventName1").attr("data", eventName);
@@ -331,34 +383,11 @@
             $("#cardTime1").attr("data", time);
         }
 
+        //miniUI 初始化
         mini.parse();
         var grid = mini.get("#datagrid1");
-        grid.load();
 
-        var form = new mini.Form("form1");
-        labelModel();
-
-        function labelModel() {
-            var fields = form.getFields();
-            for (var i = 0, l = fields.length; i < l; i++) {
-                var c = fields[i];
-                if (c.setReadOnly) c.setReadOnly(true);     //只读
-                if (c.setIsValid) c.setIsValid(true);      //去除错误提示
-                if (c.addCls) c.addCls("asLabel");          //增加asLabel外观
-            }
-        }
-
-        function inputModel() {
-            var fields = form.getFields();
-            for (var i = 0, l = fields.length; i < l; i++) {
-                var c = fields[i];
-                if (c.setReadOnly) c.setReadOnly(false);
-                if (c.removeCls) c.removeCls("asLabel");
-            }
-            mini.repaint(document.body);
-        }
-        
-
+        //操作处理
         function openDoor() {
 
             url = "/Monitor/OpenDoor?DoorID=9";

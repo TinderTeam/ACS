@@ -71,6 +71,13 @@
       <column name="HOME" length="60"/>
     </property>
 
+    <property name="Photo1">
+      <column name="PHOTO1" length="255"/>
+    </property>
+    <property name="Photo2">
+      <column name="PHOTO2" length="255"/>
+    </property>
+    
     <property name="Phone">
       <column name="PHONE" length="50"/>
     </property>
