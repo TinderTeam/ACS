@@ -77,17 +77,15 @@
                             <table style="width:100%;">
                                 <tr>
                                     <td style="width:100%;">
-                                        <a class="mini-button" iconCls="icon-add" onclick="connect()">连接</a>
-                                        <a class="mini-button" iconCls="icon-add" onclick="openDoor()">开门</a>
-                                        <a class="mini-button" iconCls="icon-edit" onclick="closeDoor()">关门</a>
-                                        <a class="mini-button" iconCls="icon-user" onclick="lockDoor()">锁门</a>
-                                        <a class="mini-button" iconCls="icon-user" onclick="unlockDoor()">解锁</a>
-                                        <a class="mini-button" iconCls="icon-remove" onclick="fireAlarm()">火警</a> 
-                                        <a class="mini-button" iconCls="icon-remove" onclick="removeFireAlarm()">火警解除</a>  
-                                        <a class="mini-button" iconCls="icon-remove" onclick="alarm()">报警</a> 
-                                        <a class="mini-button" iconCls="icon-remove" onclick="removeAlarm()">报警解除</a>      
-                 
-                                          <a class="mini-button" iconCls="icon-remove" onclick="test()">test</a>   
+
+                                        <a class="mini-button" iconCls="icon-add" onclick="OperateDevice('1')">开门</a>
+                                        <a class="mini-button" iconCls="icon-edit" onclick="OperateDevice('2')">关门</a>
+                                        <a class="mini-button" iconCls="icon-user" onclick="OperateDevice('3')">锁门</a>
+                                        <a class="mini-button" iconCls="icon-user" onclick="OperateDevice('4')">解锁</a>
+                                        <a class="mini-button" iconCls="icon-remove" onclick="OperateDevice('5')">火警</a> 
+                                        <a class="mini-button" iconCls="icon-remove" onclick="OperateDevice('6')">火警解除</a>  
+                                        <a class="mini-button" iconCls="icon-remove" onclick="OperateDevice('7')">报警</a> 
+                                        <a class="mini-button" iconCls="icon-remove" onclick="OperateDevice('8')">报警解除</a>      
                                     </td>
                                 </tr>
                             </table>           
@@ -388,193 +386,30 @@
         var grid = mini.get("#datagrid1");
 
         //操作处理
-        function openDoor() {
-
-            url = "/Monitor/OpenDoor?DoorID=9";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-
-                    mini.alert("操作完成！");
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-
-        function closeDoor() {
-
-            url = "/Monitor/CloseDoor?DoorID=9";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-                    mini.alert("操作完成！");
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-        function lockDoor() {
-
-            url = "/Monitor/Lock?ID=13";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
+        function OperateDevice(cmd) {
+           
+            if (doorID == 0) {
+                alert('请选择一个门');
+            } else {
+                var url = "/Monitor/OperateDevice?DoorID=" + doorID + "&cmdCode=" + cmd;
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: "",
+                    cache: false,
+                    success: function (text) {
+                        mini.alert("操作完成！");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                        CloseWindow();
                     }
-                    else {
-
-                        alert("操作失败!");
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-        function unlockDoor() {
-
-            url = "/Monitor/unLock?ID=13";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-
-                        alert("操作失败!");
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-        function alarm() {
-
-            url = "/Monitor/Alarm?ID=13";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-
-                        alert("操作失败!");
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-        function removeAlarm() {
-
-            url = "/Monitor/AlarmCancel?ID=13";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-
-                        alert("操作失败!");
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-        function removeFireAlarm() {
-
-            url = "/Monitor/FireAlarmCancel?ID=13";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-
-                        alert("操作失败!");
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
-        }
-        function fireAlarm() {
-
-            url = "/Monitor/FireAlarm?ID=13";
-            $.ajax({
-                url: url,
-                type: 'post',
-                data: "",
-                cache: false,
-                success: function (text) {
-
-                    if (text == "Success") {
-                        mini.alert("操作成功！");
-                        CloseWindow("save");
-                    }
-                    else {
-
-                        alert("操作失败!");
-                    }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(jqXHR.responseText);
-                    CloseWindow();
-                }
-            });
+                });
+            }
+      
+   
         }
     </script>
-        
+   
     </body>
 </html>

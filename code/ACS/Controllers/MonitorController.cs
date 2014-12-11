@@ -39,9 +39,6 @@ namespace ACS.Controllers
             List<AlarmRecordView> alarmEventList=ServiceContext.getInstance().getAlarmRecordService().GetCurAlarm(alarmID, doorID);
             List<EventRecordView> eventList = ServiceContext.getInstance().getEventRecordService().GetCurEvent(eventID, doorID);
 
-            //Stub
-           // alarmEventList = Stub.getAlarmEventList();
-           // eventList = Stub.getEventEventList();
 
             Result result = new Result();
             List<MonitorEventModel> modelList = new List<MonitorEventModel>();
