@@ -30,14 +30,14 @@ namespace ACS.Models.Po.Business
         private String controlName;
         private String photo1;
 
-        public String Photo1
+        public virtual String Photo1
         {
             get { return photo1; }
             set { photo1 = value; }
         }
         private String photo2;
 
-        public String Photo2
+        public virtual String Photo2
         {
             get { return photo2; }
             set { photo2 = value; }
