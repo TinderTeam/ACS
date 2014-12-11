@@ -18,77 +18,41 @@ using ACS.Common.Cache;
 using ACS.Service.device;
 namespace ACS.Service
 {
-    public class OnlineDeviceCache
+    [System.Runtime.Remoting.Contexts.Synchronization]
+    public class OnlineDeviceCache : System.ContextBoundObject
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public const int TIME_OUT = 30*1000;
+        public const int TIME_OUT = 10*1000;
+        public const long TIME_OUT_TICKET = TIME_OUT * 10000;
         private static Dictionary<String, long> cache = new Dictionary<String, long>();
-        private static Dictionary<String, Control> controlCache = new Dictionary<String, Control>();
+ 
 
-        public static void RefreshControl(Control control)
-        {
-            if (!controlCache.ContainsKey(control.Ip))
-            {
-                controlCache.Add(control.Ip, control);
-            }
-            else
-            {
-                controlCache[control.Ip] = control;
-            }
-        }
-        public static void Online(Control control)
-        {
-            RefreshStatus(control);
-            RefreshControl(control);
-        }
         public static  void RefreshStatus(Control control)
         {
+
             log.Info("refresh control status "+control.Ip);
             if (!cache.ContainsKey(control.Ip))
             {
-                cache.Add(control.Ip,DateTime.Now.Millisecond);
+                cache.Add(control.Ip, DateTime.Now.Ticks);
             }
             else
             {
-                cache[control.Ip] = DateTime.Now.Millisecond;
+                cache[control.Ip] = DateTime.Now.Ticks;
             }
 
 
         }
 
-        public static void CheckOnline()
-        {
-            log.Info("now check device status. the time is " + DateTime.Now);
-            foreach (var item in controlCache)
-            {
-
-                bool status = checkOnline(item.Key);
-                if (!status)
-                {
-                    log.Warn("the control is off line. the control ip " + item.Key);
-                    try
-                    {
-                        DeviceOperatorFactory.getInstance().getDeviceOperator(item.Value).Connect();
-                    }
-                    catch(Exception e)
-                    {
-                        log.Error("connect failed,the control is " + item.Value.Ip ,e);
-                    }
-                    
-                }
-
-            }
-        }
-
+     
         public static bool checkOnline(String ip)
         {
             if (!cache.ContainsKey(ip))
             {
                 return false;
             }
-            long time = DateTime.Now.Millisecond - cache[ip];
-            if(time > TIME_OUT)
+            long time = DateTime.Now.Ticks - cache[ip];
+            if (time > TIME_OUT_TICKET)
             {
                 return false;
             }

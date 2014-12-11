@@ -34,6 +34,7 @@ namespace ACS.Models.Po.Business
         private String readerOut;//
         private int mCardsOpen;//
         private int mCardsOpenInOut;//
+        public virtual int DoorNum { get; set; }
 
         public virtual int DoorID
         {

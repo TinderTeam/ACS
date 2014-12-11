@@ -23,6 +23,10 @@ namespace ACS.Service.Impl
         private TcpipClass connector;
         private DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
 
+        public Control GetControl()
+        {
+            return this.control;
+        }
    
         public DeviceOperatorImpl(Control control)
        {
@@ -33,7 +37,7 @@ namespace ACS.Service.Impl
           
        }
  
-        public bool Connect()
+        public void Connect()
         {
             log.Info("Start new Connect on devcie;" + control.ControlID);
 
@@ -44,13 +48,12 @@ namespace ACS.Service.Impl
             if (!result)
             {
                 log.Error("Connection error: IP=" + control.Ip);
+                log.Error("conncet device failed,the control ip address " + control.Ip + ",the port is " + control.Port);
+                throw new FuegoException(ExceptionMsg.CONNECT_FAILED);
             }
-            else
-            {
-                OnlineDeviceCache.Online(this.control);
-                log.Debug("Connect success:IP=" + control.Ip);
-            }
-            return result;
+            OnlineDeviceCache.RefreshStatus(this.control);
+            log.Debug("Connect success:IP=" + control.Ip);
+ 
 
         }
 
@@ -96,12 +99,12 @@ namespace ACS.Service.Impl
 
         public void OpenDoor(Door door)
         {
-            connector.Opendoor(ModelConventService.toDoorIndex(door));
+            connector.Opendoor((byte)door.DoorNum);
         }
 
         public void CloseDoor(Door door)
         {
-            connector.Closedoor(ModelConventService.toDoorIndex(door));
+            connector.Closedoor((byte)door.DoorNum);
            
         }
  
