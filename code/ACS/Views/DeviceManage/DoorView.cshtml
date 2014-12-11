@@ -1,0 +1,55 @@
+﻿<div class="mini-toolbar" style="border-bottom:0;padding:0px;">       
+    <table style="width:100%;">
+        <tr>
+            <td style="width:100%;">
+                <a class="mini-button" iconCls="icon-edit" onclick="onModifyDoor('Modify')">编辑</a>    
+            </td>
+        </tr>
+    </table>           
+</div>
+<div class = "mini-fit">
+    <div id ="doorGird" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
+            url="LoadDoorList"  idField="DoorID" multiSelect="true">
+            <div property="columns">
+                <div type="checkcolumn" ></div>                  
+                <div field="DoorName" width="70" headerAlign="center" allowSort="true">门名称</div>
+                <div field="DoorSerial" width="50" headerAlign="center" allowSort="true" >门编号</div>
+                <div field="OpenTime" width="50" headerAlign="center" allowSort="true" >开门时间</div>
+                <div field="CloseOutTime" width="50" headerAlign="center" allowSort="true" >开门超时时间</div>
+            </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //新增、编辑窗口页面
+    function onModifyDoor(type) {
+        var tree = mini.get("deviceTree");
+        var doorGrid = mini.get("#doorGird");
+        var rows = doorGrid.getSelecteds();
+        var row = doorGrid.getSelected();
+        if (rows.length == 1) {
+            var titleName = "编辑门";
+            var value = row.DoorID;
+            mini.open({
+                url: "../DeviceManage/DoorPage",
+                title: titleName, width: 350, height: 350,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = { action: type, id: value };
+                    iframe.contentWindow.Show(data);
+                },
+                ondestroy: function (action) {
+
+                    if (action == "ok")     //关闭窗口时点击的是确定
+                    {
+                        tree.load("../DeviceManage/LoadTree");
+                        doorGrid.reload();
+                    }
+                }
+            });
+        } 
+        else {
+            mini.alert("请选择一条记录");
+        }
+    }
+</script>

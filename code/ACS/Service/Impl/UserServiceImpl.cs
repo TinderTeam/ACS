@@ -20,14 +20,21 @@ namespace ACS.Service.Impl
     public class UserServiceImpl : CommonServiceImpl<SystemUser>, UserService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
-        CommonDao<Sys_Menu> sysMenuDao = DaoContext.getInstance().getSysMenuDao();
-        CommonDao<Control> controlDao = DaoContext.getInstance().getControlDao();
-        CommonDao<Door> doorDao = DaoContext.getInstance().getDoorDao();
 
         public override String GetPrimaryName()
         {
             return SystemUser.ID;
+        }
+        public override void Validator(SystemUser user)
+        {
+            log.Debug("the validator is empty ");
+            QueryCondition IDCondition = new QueryCondition(ConditionTypeEnum.EQUAL,SystemUser.NAME,user.UserName);
+            SystemUser oldUser = GetDao<SystemUser>().getUniRecord(IDCondition);
+            if((null != oldUser)&&(oldUser.UserID != user.UserID))
+            {
+                log.Error("create failed, the user name has exist. user name is " + user.UserName);
+                throw new FuegoException(ExceptionMsg.USER_EXISTED);
+            }
         }
         //创建新用户
         public override void Create(int createUserID, SystemUser user)
@@ -59,13 +66,13 @@ namespace ACS.Service.Impl
         public List<TreeModel> getMenuPrivilegeTree(string userID)
         {
             //获取所有权限树列表
-            List<Sys_Menu> menuList = sysMenuDao.getAll();
+            List<Sys_Menu> menuList = GetDao<Sys_Menu>().getAll();
             List<TreeModel> menuTreeList = ModelConventService.toMenuTreeModelList(menuList);
             //获取所选用户对应的权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_APP));
-            List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
+            List<Privilege> userPrivilegeList = GetDao<Privilege>().getAll(conditionList);
             //对用户存在的权限菜单打勾
             foreach (Privilege i in userPrivilegeList)
             {
@@ -86,7 +93,7 @@ namespace ACS.Service.Impl
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_APP));
-            privilegeDao.delete(conditionList); //删除原有菜单权限列表
+            GetDao<Privilege>().delete(conditionList); //删除原有菜单权限列表
 
             if (ValidatorUtil.isEmpty<string>(menuIDList))
             {
@@ -109,7 +116,7 @@ namespace ACS.Service.Impl
                 privilegeList.Add(privilege);
             }
 
-            privilegeDao.create(privilegeList);
+            GetDao<Privilege>().create(privilegeList);
 
         }
         //用户权限管理
@@ -117,13 +124,13 @@ namespace ACS.Service.Impl
         public List<TreeModel> getDevicePrivilegeTree(string userID)
         {
             //获取所有权限树列表
-            List<Control> controlList = controlDao.getAll();
+            List<Control> controlList = GetDao<Control>().getAll();
             List<TreeModel> DeviceTreeList = ModelConventService.toDeviceTreeModel(controlList);        
             //获取所选用户对应的权限
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
-            List<Privilege> userPrivilegeList = privilegeDao.getAll(conditionList);
+            List<Privilege> userPrivilegeList =GetDao<Privilege>().getAll(conditionList);
 
             //对用户存在的权限菜单打勾
             foreach (TreeModel j in DeviceTreeList)
@@ -147,7 +154,7 @@ namespace ACS.Service.Impl
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.MASTER_VALUE, userID));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
-            privilegeDao.delete(conditionList); //删除原有菜单权限列表
+            GetDao<Privilege>().delete(conditionList); //删除原有菜单权限列表
 
             if (ValidatorUtil.isEmpty<string>(deviceIDList))
             {
@@ -170,7 +177,7 @@ namespace ACS.Service.Impl
                 privilegeList.Add(privilege);
             }
 
-            privilegeDao.create(privilegeList);
+            GetDao<Privilege>().create(privilegeList);
 
         }
     }

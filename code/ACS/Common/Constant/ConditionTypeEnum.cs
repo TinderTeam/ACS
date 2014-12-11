@@ -16,6 +16,7 @@ namespace ACS.Common.Constant
 	    LOWER_EQ,  
 	    BETWEEN,
 	    IN,
+        FALSE,
 	    DESC_ORDER,
         ASC_ORDER,
     }

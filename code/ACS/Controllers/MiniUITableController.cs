@@ -166,7 +166,6 @@ namespace ACS.Controllers
           
             try
             {   
-				this.getSession();
                 E obj = JsonConvert.JsonToObject<E>(data);
                 getService().Create(this.getSession().UserID,obj);
             }
@@ -189,7 +188,6 @@ namespace ACS.Controllers
           
             try
             {
-                this.getSession();
                 E obj = JsonConvert.JsonToObject<E>(data);
                 getService().Modify(this.getSession().UserID, obj);
             }

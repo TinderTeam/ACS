@@ -23,7 +23,7 @@ namespace ACS.Controllers
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
-
+        PrivilegeService privilegeService = ServiceContext.getInstance().getPrivilegeService();
         public override CommonService<Control> getService()
         {
             return deviceService;
@@ -34,6 +34,37 @@ namespace ACS.Controllers
         {
             List<TreeModel> deviceTreeList = deviceService.getDeviceTreeByID(this.getSession().UserID.ToString());
             return ReturnJson(deviceTreeList);
+        }
+        //根据用户ID获取控制器列表
+        public override List<QueryCondition> GetFilterCondition(String json)
+        {
+            List<String> controlIDList = privilegeService.getPrivilegeValueList(this.getSession().UserID.ToString(), ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN);
+            List<QueryCondition> filterCondition = new List<QueryCondition>();
+            if (!ValidatorUtil.isEmpty(controlIDList))
+            {
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.IN, Control.CONTROL_ID, controlIDList));
+            }
+            else
+            {
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.FALSE));
+            }
+            return filterCondition;
+        }
+        //根据控制器ID加载DoorList
+        public ActionResult LoadDoorList(String data)
+        {
+            List<QueryCondition> filterCondition = new List<QueryCondition>();
+            if (ValidatorUtil.isEmpty(data))
+            {
+                log.Warn("the ControlID is empty");
+                return null;
+            }
+            else
+            {
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Door.CONTROL_ID, data));
+                return LoadTable<Door>(filterCondition);
+            }
+
         }
         //加载控制器类型列表
         public ActionResult LoadTypeList()

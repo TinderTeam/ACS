@@ -35,10 +35,18 @@ namespace ACS.Service.Impl
             QueryCondition IDListCondition = new QueryCondition(ConditionTypeEnum.IN, Control.CONTROL_ID, controlIDList);
             List<Control> controlList = GetDao<Control>().getAll(IDListCondition);
             
+            //生成根节点
+            TreeModel rootTreeModel = new TreeModel();
+            rootTreeModel.Id = Control.CONTROL_TYPE + Control.SPLIT + "0";
+            rootTreeModel.Pid = "ROOT0";
+            rootTreeModel.MenuName = "所有控制器";
+            treeModelList.Add(rootTreeModel);
+
             foreach (Control control in controlList)
             {
                 TreeModel treeModel = new TreeModel();
                 treeModel.Id = Control.CONTROL_TYPE + Control.SPLIT + control.ControlID.ToString();
+                treeModel.Pid = Control.CONTROL_TYPE + Control.SPLIT + "0";
                 treeModel.MenuName = control.ControlName;
                 treeModelList.Add(treeModel);
             }

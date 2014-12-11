@@ -80,6 +80,10 @@ namespace ACS.Common.Dao
 					c.Add(Restrictions.In(condition.AttrName,listObject));
 					 
 					break;
+                case ConditionTypeEnum.FALSE:
+                    c.SetFirstResult(0);
+                    c.SetMaxResults(0);
+                    break;
 				case ConditionTypeEnum.DESC_ORDER:	
 					 c.AddOrder(Order.Desc(condition.AttrName));
 					break;	
