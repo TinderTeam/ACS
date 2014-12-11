@@ -16,9 +16,7 @@ namespace ACS.Service
     {
         void Validator(E obj);
         AbstractDataSource<E> GetDataSource();
-
         AbstractDataSource<T> GetDataSource<T>(List<QueryCondition> conditionList);
-
         AbstractDataSource<E> GetDataSource(List<QueryCondition> conditionList);
         void Create(E obj); 
         void Create(int userID,E obj);
@@ -33,7 +31,6 @@ namespace ACS.Service
 
     public interface EmployeeService : CommonService<Employee>
     {
- 
         void cancel(List<String> employeeIDList);
         void leave(List<String> employeeIDList);
         void saveEmployeeCard(List<Employee> employeeModelList);
@@ -67,7 +64,6 @@ namespace ACS.Service
         List<TreeModel> getDeviceTreeByID(String userID);
         void ModifyDoorTime(int userID, DoorTime doorTime);
         void ModifyDoor(int userID, Door door);
- 
         void StartMonitorAll();
         void StartMonitor(List<String> idList);
         void OpenDoor(String doorID);
@@ -84,13 +80,12 @@ namespace ACS.Service
         void saveMenuPrivilege(string userID, List<string> menuIDList);
         List<TreeModel> getDevicePrivilegeTree(string userID);
         void saveDevicePrivilege(string userID, List<string> deviceIDList);
-
     }
 
 
     public interface EventRecordService : CommonService<EventRecord>
     {
-        
+        List<EventRecordView> GetCurEvent(String indexID, String doorID);
     }
     public interface EventTypeService : CommonService<EventType>
     {
@@ -98,11 +93,11 @@ namespace ACS.Service
     }
     public interface AlarmRecordService : CommonService<AlarmRecord>
     {
-
+        List<AlarmRecordView> GetCurAlarm(String indexID, String doorID);
     }
     public interface HolidayService : CommonService<Holiday>
     {
-
+       
     }
     public interface MonitorService
     {

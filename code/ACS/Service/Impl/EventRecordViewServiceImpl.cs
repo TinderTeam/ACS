@@ -22,13 +22,14 @@ namespace ACS.Service.Impl
         {
             return EventRecord.ID;
         }
-        public List<EventRecordView> GetCurAlarm(int indexID, int doorID)
+
+        public List<EventRecordView> GetCurEvent(String indexID, String doorID)
         {
             List<QueryCondition> conditionList = new List<QueryCondition>();
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, "DoorID", doorID.ToString()));
+            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, "DoorID", doorID));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.DESC_ORDER, EventRecordView.ID));
             List<EventRecordView> alarmList;
-            if (indexID == 0)
+            if (indexID.Equals("0"))
             {
                 alarmList = this.GetDao<EventRecordView>().getAll(conditionList, 0, 1);
             }
@@ -39,5 +40,6 @@ namespace ACS.Service.Impl
             }
             return alarmList;
         }
+
     }
 }

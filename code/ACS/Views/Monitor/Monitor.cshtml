@@ -64,7 +64,7 @@
                             </div>
                             <div showCollapseButton="false">
                                 <!----设备树--->
-                                <ul id="deviceTree" class="mini-tree" url="../DeviceManage/LoadTree" style="width:inherit;padding:3px;" 
+                                <ul id="deviceTree" class="mini-tree" url="DeviceTree" style="width:inherit;padding:3px;" 
                                     showTreeIcon="true" textField="MenuName" idField="Id" parentField="Pid" resultAsTree="false">
                                 </ul>
                             </div>        
@@ -77,7 +77,7 @@
                             <table style="width:100%;">
                                 <tr>
                                     <td style="width:100%;">
-                                         <a class="mini-button" iconCls="icon-add" onclick="connect()">连接</a>
+                                        <a class="mini-button" iconCls="icon-add" onclick="connect()">连接</a>
                                         <a class="mini-button" iconCls="icon-add" onclick="openDoor()">开门</a>
                                         <a class="mini-button" iconCls="icon-edit" onclick="closeDoor()">关门</a>
                                         <a class="mini-button" iconCls="icon-user" onclick="lockDoor()">锁门</a>
@@ -86,7 +86,7 @@
                                         <a class="mini-button" iconCls="icon-remove" onclick="removeFireAlarm()">火警解除</a>  
                                         <a class="mini-button" iconCls="icon-remove" onclick="alarm()">报警</a> 
                                         <a class="mini-button" iconCls="icon-remove" onclick="removeAlarm()">报警解除</a>      
-                                        <a class="mini-button" iconCls="icon-remove" onclick="newEvent()">新事件(Test)</a> 
+                 
                                           
                                     </td>
                                 </tr>
@@ -95,11 +95,11 @@
                         <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
                             url="Load"  idField="HolidayID" multiSelect="true">
                             <div property="columns">              
-                                <div field="ControlName" width="70" headerAlign="center" allowSort="true">时间    </div>    
-                                <div field="FireTime" width="70" headerAlign="center" allowSort="true">卡号</div>    
-                                <div field="AlarmTime" width="70" headerAlign="center" allowSort="true">姓名</div>
-                                <div field="TimeTamp" width="70" headerAlign="center" allowSort="true">门</div>   
-                                <div field="OpenTime" width="70" headerAlign="center" allowSort="true">事件</div>
+                                <div field="EventTime" width="70" headerAlign="center" allowSort="true">时间    </div>    
+                                <div field="CardNo" width="70" headerAlign="center" allowSort="true">卡号</div>    
+                                <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">姓名</div>
+                                <div field="DoorID" width="70" headerAlign="center" allowSort="true">门</div>   
+                                <div field="EventType" width="70" headerAlign="center" allowSort="true">事件</div>
 
                             </div>
                         </div> 
@@ -110,7 +110,7 @@
             <div size="200px" showCollapseButton="true">
                  <div class="mini-panel" title="事件" iconCls="icon-add" style="width:100%;height:100%;"
                      showToolbar="false" showCloseButton="false" showFooter="true">
-                     <table style="height:100%;">
+                     <table style="width:inherit;height:100%;">
                              <td>
                                 <div id="eventCard1" class="mini-panel"
                                     title="最新事件" style="width:300px;height:150px;" 
@@ -123,20 +123,20 @@
                                         <div class="mini-fit">
                                             <table>
                                                 <tr>
-                                                    <td>事件：</td>
-                                                    <td id="cardEventName1">进门</td>
+                                                    <td>事件类别：</td>
+                                                    <td id="cardEventName1" data="进门">进门</td>
                                                 </tr> 
-                                                 <tr>
+                                                <tr id="cardEmployeeNamelabel1">
                                                     <td>姓名：</td>
-                                                    <td id="cardEmployeeName1">某妹子</td>
-                                                </tr>  
+                                                    <td id="cardEmployeeName1" data="某妹子">某妹子</td>
+                                                </tr>
                                                 <tr>
                                                     <td>控制器：</td>
-                                                    <td id="cardDevice1">某某控制器</td>
+                                                    <td id="cardDevice1" data="控制器">控制器</td>
                                                 </tr>
                                                  <tr>
                                                     <td>事件时间：</td>
-                                                    <td id="cardTime1">2014-12-5 10:00:16</td>
+                                                    <td id="cardTime1" data="2014-12-5 10:00:16" >2014-12-5 10:00:16</td>
                                                 </tr>                                   
                                             </table>
                                         </div>
@@ -145,30 +145,62 @@
                              </td>
                              <td>
                                   <div id="eventCard2" class="mini-panel Hide" 
-                                    title="最新事件" style="width:300px;height:100%;"
+                                    title="最新事件" style="width:300px;height:150px;"
                                     bodyStyle="padding:5;">
                                        <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
                                         <div size="80px" showCollapseButton="false">
-                                            <img id="cardImg2"  width="80px" src="~/Test/test.jpg">
+                                            <img id="cardImg2"  width="80px" src="">
                                         </div>
                                         <div class="mini-fit">
                                             <table>
                                                
                                                 <tr>
                                                     <td>事件：</td>
-                                                    <td id="cardEventName2">进门</td>
+                                                    <td id="cardEventName2" data=""></td>
                                                 </tr> 
-                                                 <tr>
+                                                <tr id="cardEmployeeNamelabel2">
                                                     <td>姓名：</td>
-                                                    <td id="cardEmployeeName2">某妹子</td>
-                                                </tr>  
+                                                    <td id="cardEmployeeName2" data="">某妹子</td>
+                                                </tr>
                                                 <tr>
                                                     <td>控制器：</td>
-                                                    <td id="cardDevice2">某某控制器</td>
+                                                    <td id="cardDevice2" data=""></td>
                                                 </tr>
                                                  <tr>
                                                     <td>事件时间：</td>
-                                                    <td id="cardTime2">2014-12-5 10:00:16</td>
+                                                    <td id="cardTime2" data=""></td>
+                                                </tr>                                   
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>   
+                             </td>
+                           <td>
+                                  <div id="eventCard3" class="mini-panel Hide" 
+                                    title="最新事件" style="width:300px;height:150px;"
+                                    bodyStyle="padding:5;">
+                                       <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
+                                        <div size="80px" showCollapseButton="false">
+                                            <img id="cardImg3"  width="80px" src="">
+                                        </div>
+                                        <div class="mini-fit">
+                                            <table>
+                                               
+                                                <tr>
+                                                    <td>事件：</td>
+                                                    <td id="cardEventName3 data=""></td>
+                                                </tr> 
+                                                <tr id="cardEmployeeNamelabel3">
+                                                    <td>姓名：</td>
+                                                    <td id="cardEmployeeName3" data="">某妹子</td>
+                                                </tr> 
+                                                <tr>
+                                                    <td>控制器：</td>
+                                                    <td id="cardDevice3" data=""></td>
+                                                </tr>
+                                                 <tr>
+                                                    <td>事件时间：</td>
+                                                    <td id="cardTime3" data=""></td>
                                                 </tr>                                   
                                             </table>
                                         </div>
@@ -176,62 +208,31 @@
                                 </div>   
                              </td>
                              <td>
-                                <div id="eventCard3" class="mini-panel Hide" 
-                                    title="最新事件" style="width:300px;height:100%;"
-                                     <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
-                                        <div size="80px" showCollapseButton="false">
-                                            <img id="cardImg3"  width="80px" src="~/Test/test.jpg">
-                                        </div>
-                                        <div class="mini-fit">
-                                            <table>
-                                               
-                                                <tr>
-                                                    <td>事件：</td>
-                                                    <td id="cardEventName3">进门</td>
-                                                </tr> 
-                                                 <tr>
-                                                    <td>姓名：</td>
-                                                    <td id="cardEmployeeName3">某妹子</td>
-                                                </tr>  
-                                                <tr>
-                                                    <td>控制器：</td>
-                                                    <td id="cardDevice3">某某控制器</td>
-                                                </tr>
-                                                 <tr>
-                                                    <td>事件时间：</td>
-                                                    <td id="cardTime3">2014-12-5 10:00:16</td>
-                                                </tr>                                   
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>    
-                             </td>
-                             <td>
-                                <div id="eventCard4" class="mini-panel" 
-                                    title="最新事件" style="width:300px;height:100%;visibility:hidden" 
+                                <div id="eventCard4" class="mini-panel Hide" 
+                                    title="最新事件" style="width:300px;height:150px;" 
                                     bodyStyle="padding:5;">
                                      <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
                                         <div size="80px" showCollapseButton="false">
-                                            <img id="cardImg4"  width="80px" src="~/Test/test.jpg">
+                                            <img id="cardImg4"  width="80px" src="">
                                         </div>
                                         <div class="mini-fit">
                                             <table>
                                                
                                                 <tr>
                                                     <td>事件：</td>
-                                                    <td id="cardEventName4">进门</td>
+                                                    <td id="cardEventName4" data=""></td>
                                                 </tr> 
-                                                 <tr>
+                                                <tr>
                                                     <td>姓名：</td>
-                                                    <td id="cardEmployeeName4">某妹子</td>
-                                                </tr>  
+                                                    <td id="cardEmployeeName4" data="">某妹子</td>
+                                                </tr> 
                                                 <tr>
                                                     <td>控制器：</td>
-                                                    <td id="cardDevice4">某某控制器</td>
+                                                    <td id="cardDevice4" data=""></td>
                                                 </tr>
                                                  <tr>
-                                                    <td>事件时间：</td>
-                                                    <td id="cardTime4">2014-12-5 10:00:16</td>
+                                                    <td >事件时间：</td>
+                                                    <td id="cardTime4" data=""></td>
                                                 </tr>                                   
                                             </table>
                                         </div>
@@ -246,14 +247,88 @@
     </div>
 </div>
     <script type="text/javascript">
-        var cardShowNum=0;
-        function newEvent(){
-            alert("test");
+
+        $(function () {
+            var handler = function () {
+                var timerStr = new Array();　//创建一个数组
+                timerStr[0] = "10";
+                //event
+                timerStr[1] = "1";
+                //alarm
+                timerStr[2] = "2";
+                var json = mini.encode(timerStr);
+                url = "/Monitor/GetNewEvent";
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: { data: json },
+                    cache: false,
+                    success: function (text) {
+                        var result=eval('(' + text + ')');
+                        update(result);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(text);
+                    }
+                });
+            }
+            var timer = setInterval(handler, 5000);
+            var clear = function () {
+                clearInterval(timer);
+            }
+        });
+
+        function update(result) {
+            var list = result.DataList;
+            for (var i = 0; i < list.length; i++) {
+                addEvent("~/Test/test.jpg", list[i].EventType, list[i].EmployeeName, list[i].ControlName, list[i].EventTime);
+                addItem(list[i]);
+            }
         }
 
-        function addEvent(src, name, type, time) {
-            cardShowNum=cardShowNum+1;
-            $("3" + cardShowNum).attr("");
+        var cardShowNum = 1;
+
+        function addItem(item) {
+        
+            var row =
+           {
+               'EventTime': 'asdgsadgs',        //属性名用引号括起来，属性间由逗号隔开
+               'EmployeeName': 'asdgsadgs',
+               'DoorID': 'asdgsadgs',
+               'EventType': 'asdgsadgs',
+               'CardNo': 'sdfgdsg'
+           };
+            mini.get("#datagrid1").addRow(item, 0);
+        }
+
+       
+        function addEvent(src, eventName,employeeName ,device, time,type) {
+            cardShowNum = cardShowNum + 1;
+            $("#eventCard" + cardShowNum).removeClass("Hide");
+
+            
+            for (var i = 3; i >0; i--) {
+                $("#cardImg" + (i+1)).attr("src",$("#cardImg" + (i)).attr("src"));
+                $("#cardEventName" + (i + 1)).html($("#cardEventName" + (i)).attr("data"));
+                $("#cardEventName" + (i + 1)).attr("data", $("#cardEventName" + (i)).attr("data"));
+                $("#cardEmployeeName" + (i + 1)).html($("#cardEmployeeName" + (i)).attr("data"));
+                $("#cardEmployeeName" + (i + 1)).attr("data",$("#cardEmployeeName" + (i)).attr("data"));
+                $("#cardDevice" + (i + 1)).html($("#cardDevice" + (i)).attr("data"));
+                $("#cardDevice" + (i + 1)).attr("data",$("#cardDevice" + (i)).attr("data"));
+                $("#cardTime" + (i + 1)).html($("#cardTime" + (i)).attr("data"));
+                $("#cardTime" + (i + 1)).attr("data",$("#cardTime" + (i)).attr("data"));
+            }
+
+
+            $("#cardImg1").attr("src", src);
+            $("#cardEventName1").html(eventName);
+            $("#cardEventName1").attr("data", eventName);
+            $("#cardEmployeeName1").html(employeeName);
+            $("#cardEmployeeName1").attr("data", employeeName);
+            $("#cardDevice1").html(device);
+            $("#cardDevice1").attr("data", device);
+            $("#cardTime1").html(time);
+            $("#cardTime1").attr("data", time);
         }
 
         mini.parse();

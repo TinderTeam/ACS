@@ -28,6 +28,20 @@ namespace ACS.Models.Po.Business
         private String doorName;
 
         private String controlName;
+        private String photo1;
+
+        public String Photo1
+        {
+            get { return photo1; }
+            set { photo1 = value; }
+        }
+        private String photo2;
+
+        public String Photo2
+        {
+            get { return photo2; }
+            set { photo2 = value; }
+        }
 
         private String employeeCode;//工号
         private String employeeName;//员工名称

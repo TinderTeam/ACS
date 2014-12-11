@@ -30,8 +30,6 @@ namespace ACS.Service.device
                     log.Error("conncet device failed,the control ip address " + control.Ip + ",the port is " + control.Port);
                     throw new FuegoException(ExceptionMsg.CONNECT_FAILED);
                 }
-              
-                
             }
             deviceOperator = deviceOperatorMap[control.Ip];
             return deviceOperator;

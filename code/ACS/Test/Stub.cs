@@ -217,5 +217,43 @@ namespace ACS.Test
             }
             return list;
         }
+
+        internal static List<AlarmRecordView> getAlarmEventList()
+        {
+            List<AlarmRecordView> list = new List<AlarmRecordView>();
+            for (int i = 0; i < 1; i++)
+            {
+                AlarmRecordView v = new AlarmRecordView();
+                v.AlarmID = i+1;
+                v.AlarmTime = new DateTime();
+                v.ControlID = 1;
+                v.ControlName = "测试名称";
+                v.DoorID = 9;
+                v.DoorName = "门";
+                v.AlarmType = "火警";
+                list.Add(v);
+            }
+            return list;
+        }
+
+        internal static List<EventRecordView> getEventEventList()
+        {
+            List<EventRecordView> list = new List<EventRecordView>();
+            for (int i = 0; i < 1; i++)
+            {
+                EventRecordView v = new EventRecordView();
+                v.EventID = i + 1;
+                v.EventTime = new DateTime();
+                v.ControlID = 1;
+                v.ControlName = "测试名称";
+                v.DoorID = 9;
+                v.DoorName = "门";
+                v.EventTypeID = 1;
+                v.CardNo = "1234567";
+                v.EmployeeName = "萌妹子";
+                list.Add(v);
+            }
+            return list;
+        }
     }
 }

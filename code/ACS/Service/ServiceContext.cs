@@ -108,7 +108,7 @@ namespace ACS.Service
             if (alarmRecordService == null)
             {
                 alarmRecordService = new AlarmRecordServiceImpl();
-            }
+            } 
             return alarmRecordService;
         }
         public HolidayService getHolidayService()

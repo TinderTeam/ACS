@@ -215,6 +215,7 @@
     <Compile Include="Models\Model\EventModel.cs" />
     <Compile Include="Models\Model\FormColumn.cs" />
     <Compile Include="Models\Model\ColumnModel.cs" />
+    <Compile Include="Models\Model\MonitorEventModel.cs" />
     <Compile Include="Models\Model\TreeModel.cs" />
     <Compile Include="Models\Model\PrivilegeSet.cs" />
     <Compile Include="Models\Model\UserModel.cs" />
@@ -225,7 +226,6 @@
     <Compile Include="Models\Model\AlarmRecordFilterModel.cs" />
     <Compile Include="Models\Model\EventRecordFilterModel.cs" />
     <Compile Include="Models\Model\AttributeModel.cs" />
-    <Compile Include="Models\Model\MonitorEventModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\AccessDetail.cs" />
@@ -282,10 +282,11 @@
     <Compile Include="Service\ServiceContext.cs" />
     <Compile Include="Service\ServiceInterface.cs" />
     <Compile Include="Test\Class1.cs" />
+    <Compile Include="Test\Stub.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Common\bin\hibernate.cfg.xml" />
-    <Content Include="Common\bin\log4net.dll">
+    <Content Include="bin\hibernate.cfg.xml" />
+    <Content Include="bin\log4net.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -348,7 +349,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Common\bin\Log4Net.config" />
+    <Content Include="bin\Log4Net.config" />
     <EmbeddedResource Include="DeviceConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1674,9 +1675,6 @@
     <Content Include="Test\tasks.txt" />
     <Content Include="Test\test.jpg" />
     <Content Include="Test\tree.txt" />
-    <Content Include="upload\EmployeePhoto\80cb8773-5bd3-4043-84e6-b49c954914f9.jpg" />
-    <Content Include="upload\EmployeePhoto\abbbd6ac-944a-4e04-8b36-69e4caec8f15.jpg" />
-    <Content Include="upload\EmployeePhoto\f95b5673-ba54-41e6-a753-9e2a370017ff.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
