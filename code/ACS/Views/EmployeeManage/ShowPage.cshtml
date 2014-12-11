@@ -21,158 +21,166 @@
 </head>
 <body> 
     <form id="employeeForm" method="post" enctype="multipart/form-data" >
-
-            <div style="padding-left:25px;margin-top:10px;">
-                <table style="table-layout:fixed;">
-                    <div style="width:50%">
-                        <tr>
-                            <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Name")</td>
-                            <td style="width:150px;">    
-                                <input name="EmployeeName" class="mini-textbox" required="true"/>
-                                <input name ="EmployeeID" class="mini-textbox" style="display:none" value=""/>
-                            </td>
-                        </tr>                  
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_EnglishName")</td>
-                            <td >    
-                                <input name="EnglishName" class="mini-textbox"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Sex")</td>
-                            <td >    
-                                <select name="Sex" class="mini-radiobuttonlist">
-                                    <option value="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Male")</option>
-                                    <option value="false">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Female")</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Birthday")</td>
-                            <td >
-                                <input name="Birthday" class="mini-datepicker" required="true" emptyText="请选择日期"/>    
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Phone")</td>
-                                <td >    
-                                    <input name="Phone" class="mini-textbox"/>
-                                </td>    
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_PersonCode")</td>
-                                <td >    
-                                    <input name="PersonCode" class="mini-textbox"/>
-                                </td>
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Home")</td>
-                            <td >    
-                                <input name="Home" class="mini-textbox"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Car")</td>
-                                <td >    
-                                    <input name ="Car" class ="mini-textbox"/>
-                                </td>
-                        </tr>
-                    </div>
-                    <div style="float:right; margin-top:5px; margin-right:10%;width:46%;height:50%;"   class="mini-tabs" activeIndex="0">
-                        <div title="Photo1">
-			                <div style="margin-bottom:5px; width:170px; height:140px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
-				                <div ><img id="ImgPr1" src="" height="140" width="170" alt="个人1寸照片" ></div>
-                                <input id="employeePhoto1"  name ="Photo1" class ="mini-textbox" style="display:none"/>
-			                </div>
-			                <div>
-				                <input id="fileupload1" class="mini-fileupload" name="Fdata" flashUrl="../../Scripts/miniui/swfupload/swfupload.swf"
-                                        uploadUrl="UploadPhoto?num=1" onuploadsuccess="onUploadSuccess" onuploaderror="onUploadError" onfileselect="onFileSelect"
-                                />
-                                <input type="button" value="上传" onclick="startUpload('1')"/>
-                           
-			                </div>
+        <div class="mini-fit" >
+            <div class="mini-layout" style="width:100%;height:100%">
+                <!--上部--->
+                <div showHeader="false"  region="north" height="260" >
+                    <div class="mini-layout" showHeader="false" style="width:100%;">
+                        <!--个人信息--->
+                        <div region="center"  showHeader="false" >
+                            <table border="0" cellpadding="1" cellspacing="2" style="padding:10px">
+                                <tr>
+                                    <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Name")</td>
+                                    <td style="width:150px;">    
+                                        <input name="EmployeeName" class="mini-textbox" required="true"/>
+                                        <input name ="EmployeeID" class="mini-textbox" style="display:none" value=""/>
+                                    </td>
+                                </tr>                  
+                                <tr>
+                                    <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_EnglishName")</td>
+                                    <td >    
+                                        <input name="EnglishName" class="mini-textbox"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Sex")</td>
+                                    <td >    
+                                        <select name="Sex" class="mini-radiobuttonlist">
+                                            <option value="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Male")</option>
+                                            <option value="false">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Female")</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Birthday")</td>
+                                    <td >
+                                        <input name="Birthday" class="mini-datepicker" required="true" emptyText="请选择日期"/>    
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Phone")</td>
+                                        <td >    
+                                            <input name="Phone" class="mini-textbox"/>
+                                        </td>    
+                                </tr>
+                                <tr>
+                                    <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_PersonCode")</td>
+                                        <td >    
+                                            <input name="PersonCode" class="mini-textbox"/>
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Home")</td>
+                                    <td >    
+                                        <input name="Home" class="mini-textbox"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Car")</td>
+                                        <td >    
+                                            <input name ="Car" class ="mini-textbox"/>
+                                        </td>
+                                </tr>
+                            </table>
                         </div>
-                        <div title="Photo2">
-                            <div style="margin-bottom:5px; width:170px; height:140px; border:solid 1px #CCC; line-height:21px; background:#FFF;">
-				                <div ><img id="ImgPr2" src="" height="140" width="170" alt="个人1寸照片" ></div>
-                                <input id="employeePhoto2"  name ="Photo2" class ="mini-textbox" style="display:none"/>
-			                </div>
-			                <div>
-				                <input id="fileupload2" class="mini-fileupload" name="Fdata" flashUrl="../../Scripts/miniui/swfupload/swfupload.swf"
-                                        uploadUrl="UploadPhoto?num=2"; onuploadsuccess="onUploadSuccess" onuploaderror="onUploadError" onfileselect="onFileSelect"
-                                />
-                                <input type="button" value="上传" onclick="startUpload('2')"/>
-                           
-			                </div>
-                        </div>
-                    </div>                  
-                    
-                </table>
-            </div>
-            <fieldset style="border:solid 1px #aaa;padding:3px;">
-                <legend >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_WorkInfo")</legend>
-                <div style="padding-left:25px;margin-top:10px;margin-bottom:10px;">
-                    <table>
-                        <tr >
-                            <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Code")</td>
-                            <td style="width:150px;">
-                                <input name="EmployeeCode" class="mini-textbox" required="true"  emptyText="请输入员工工号"/>
-                                
-                            </td>
-                            <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Email")</td>
-                            <td style="width:150px;">    
-                                <input name="Email" class="mini-textbox"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_DeptID")</td>
-                            <td >    
-                                <input name="DeptID" class="mini-combobox" valueField="DeptID" textField="DeptName" 
-                                url="../DeptManage/LoadTree" onvaluechanged="onDeptChanged" required="true"
-                                emptyText="请选择部门"
-                                />
-                            </td>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_JobID")</td>
-                            <td >
-                                <input name="JobID" class="mini-combobox" valueField="JobID" textField="JobName"
-                                url="../JobManage/LoadTree" required="true" emptyText="请选择职位"
-                                />
-                            </td> 
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_RegDate")</td>
-                            <td >
-                                <input name="RegDate" class="mini-datepicker" required="true" emptyText="请选择日期"/>     
-                            </td>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_EndDate")</td>
-                            <td >
-                                <input name="EndDate" class="mini-datepicker" required="true" emptyText="请选择日期"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note1")</td>
-                            <td >    
-                                <input name="Note1" class="mini-textbox"/>
-                            </td>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note2")</td>
-                            <td >    
-                                <input name="Note2" class="mini-textbox"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note3")</td>
-                            <td >    
-                                <input name="Note3" class="mini-textbox"/>
-                            </td>
-                            <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note4")</td>
-                            <td >    
-                                <input name="Note4" class="mini-textbox"/>
-                            </td>
-                        </tr>
-                    </table>            
+                        <!--右边照片-->
+                        <div region="east" showHeader="false" width="300" style="padding:10px">
+                            <div style="float:right;width:100%;height:100%" class="mini-tabs" activeIndex="0" >
+                                <div title="照片1" >
+				                        <div style="text-align:center;margin:15px auto;">
+                                            <img id="ImgPr1" src="" height="120" alt="个人1寸照片" >
+				                        </div>
+                                         <div style="text-align:center;margin:0 auto;">
+                                            <input id="employeePhoto1"  name ="Photo1" class ="mini-textbox" style="display:none"/>
+				                            <input id="fileupload1" class="mini-fileupload" name="Fdata" flashUrl="../../Scripts/miniui/swfupload/swfupload.swf"
+                                                    uploadUrl="UploadPhoto?num=1" onuploadsuccess="onUploadSuccess" onuploaderror="onUploadError" onfileselect="onFileSelect"
+                                            />
+                                            <input type="button" value="上传" onclick="startUpload('1')"/>
+				                        </div>
+                                   
+                                </div>
+                                <div title="照片2">
+                                    <div style="text-align:center;margin:15px auto;">
+				                        <img id="ImgPr2" src="" height="140" width="170" alt="个人1寸照片" >
+                                    </div>
+                                    <div style="text-align:center;margin:0 auto;">
+                                        <input id="employeePhoto2"  name ="Photo2" class ="mini-textbox" style="display:none"/>
+				                        <input id="fileupload2" class="mini-fileupload" name="Fdata" flashUrl="../../Scripts/miniui/swfupload/swfupload.swf"
+                                                uploadUrl="UploadPhoto?num=2"; onuploadsuccess="onUploadSuccess" onuploaderror="onUploadError" onfileselect="onFileSelect"
+                                        />
+                                        <input type="button" value="上传" onclick="startUpload('2')"/>
+			                        </div>
+                                </div>
+                            </div>    
+                        </div> <!--右边照片-->
+                     </div>
                 </div>
-            </fieldset>      
-        
+                <!--下部--->
+                <fieldset style="border:solid 1px #aaa;padding:3px;" region="center">
+                    <legend >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_WorkInfo")</legend>
+                    <div style="padding-left:25px;margin-top:10px;margin-bottom:10px;">
+                        <table>
+                            <tr >
+                                <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Code")</td>
+                                <td style="width:150px;">
+                                    <input name="EmployeeCode" class="mini-textbox" required="true"  emptyText="请输入员工工号"/>
+                                
+                                </td>
+                                <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Email")</td>
+                                <td style="width:150px;">    
+                                    <input name="Email" class="mini-textbox"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_DeptID")</td>
+                                <td >    
+                                    <input name="DeptID" class="mini-combobox" valueField="DeptID" textField="DeptName" 
+                                    url="../DeptManage/LoadTree" onvaluechanged="onDeptChanged" required="true"
+                                    emptyText="请选择部门"
+                                    />
+                                </td>
+                                <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_JobID")</td>
+                                <td >
+                                    <input name="JobID" class="mini-combobox" valueField="JobID" textField="JobName"
+                                    url="../JobManage/LoadTree" required="true" emptyText="请选择职位"
+                                    />
+                                </td> 
+                            </tr>
+                            <tr>
+                                <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_RegDate")</td>
+                                <td >
+                                    <input name="RegDate" class="mini-datepicker" required="true" emptyText="请选择日期"/>     
+                                </td>
+                                <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_EndDate")</td>
+                                <td >
+                                    <input name="EndDate" class="mini-datepicker" required="true" emptyText="请选择日期"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note1")</td>
+                                <td >    
+                                    <input name="Note1" class="mini-textbox"/>
+                                </td>
+                                <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note2")</td>
+                                <td >    
+                                    <input name="Note2" class="mini-textbox"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note3")</td>
+                                <td >    
+                                    <input name="Note3" class="mini-textbox"/>
+                                </td>
+                                <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note4")</td>
+                                <td >    
+                                    <input name="Note4" class="mini-textbox"/>
+                                </td>
+                            </tr>
+                        </table>            
+                    </div>
+                </fieldset>      
+            </div>
+         </div>   
         <div style="text-align:center;padding:5px;">
             <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">确定</a>               
             <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">确定</a>                     
