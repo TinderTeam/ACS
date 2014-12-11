@@ -14,6 +14,8 @@ namespace ACS.Service.device
          void Connect();
 
          void Operate(OperateDeviceCmdEnum cmdCode, Door door);
+
+         void SetDoorTime(Door door,DoorTime doorTime);
  
 
     }

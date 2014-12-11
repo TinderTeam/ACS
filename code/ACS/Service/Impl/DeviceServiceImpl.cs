@@ -70,6 +70,8 @@ namespace ACS.Service.Impl
             //创建控制器
             base.Create(userID, control);
 
+            DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+
             //根据控制器创建门
             DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
             if (null == deviceType)
@@ -85,6 +87,7 @@ namespace ACS.Service.Impl
                 Door door = new Door();
                 door.ControlID = control.ControlID;
                 door.DoorName = "Door" + i.ToString();
+                door.DoorNum = i;
                 GetDao<Door>().create(door);
 
                 for (int j = 0; j < deviceType.TimeNum; j++)
@@ -92,6 +95,7 @@ namespace ACS.Service.Impl
                     DoorTime doorTime = new DoorTime();
                     doorTime.DoorID = door.DoorID;
                     doorTime.DoorTimeName = "Time" + j;
+                    doorTime.DoorTimeNum = i;
                     doorTimeList.Add(doorTime);
                 }
             }
@@ -165,6 +169,12 @@ namespace ACS.Service.Impl
             orignalDoorTime.Friday = doorTime.Friday;
             orignalDoorTime.Saturday = doorTime.Saturday;
             orignalDoorTime.Sunday = doorTime.Sunday;
+
+            Door door = GetDao<Door>().getUniRecord(new QueryCondition(ConditionTypeEnum.EQUAL, Door.DOOR_ID, orignalDoorTime.DoorID.ToString()));
+            Control control = GetDao<Control>().getUniRecord( new QueryCondition(ConditionTypeEnum.EQUAL, Control.CONTROL_ID, door.ControlID.ToString()));
+            DeviceOperatorFactory.getInstance().getDeviceOperator(control).SetDoorTime(door, orignalDoorTime);
+
+
             GetDao<DoorTime>().update(orignalDoorTime);
         }
         //更新Door信息

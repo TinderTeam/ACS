@@ -12,6 +12,7 @@ using TcpipIntface;
 using ACS.Service.device;
 using ACS.Common;
 using ACS.Service.Constant;
+using ACS.Common.Util;
 
 namespace ACS.Service.Impl
 {
@@ -126,6 +127,54 @@ namespace ACS.Service.Impl
                     result = connector.SetAlarm(false, false);
                     break;
             }
+        }
+
+        public void SetDoorTime(Door door,DoorTime doorTime)
+        {
+            byte week = 0;
+            if(doorTime.Holiday)
+            {
+                week |= 0x80;
+            }
+            if(doorTime.Sunday)
+            {
+                week |= 0x40;
+            }
+            if(doorTime.Saturday)
+            {
+                week |= 0x20;
+
+            }
+            if(doorTime.Friday)
+            {
+                week |= 0x10;
+            }
+            if(doorTime.Thursday)
+            {
+                week |= 0x08;
+            }
+            if(doorTime.Wednesday)
+            {
+                week |= 0x04;
+            }
+            if(doorTime.Tuesday)
+            {
+                week |= 0x02;
+            }
+            if(doorTime.Monday)
+            {
+                week |= 0x01;
+            }
+            bool result = connector.AddTimeZone(
+                (ushort)door.DoorNum, 
+                (byte)doorTime.DoorTimeNum, 
+                DateUtil.StringToDateTime(doorTime.StartTime),
+                 DateUtil.StringToDateTime(doorTime.EndTime), 
+                week, 
+                true, 
+                (byte)1, 
+                DateTime.Now, 
+                0);
         }
     
 

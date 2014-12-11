@@ -25,6 +25,7 @@ namespace ACS.Models.Po.Business
         private bool saturday = false;
         private bool sunday = false;
         private bool holiday = false;
+        public virtual int DoorTimeNum { get; set; }
 
         public virtual bool Monday
         {
