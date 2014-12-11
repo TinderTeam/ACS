@@ -211,7 +211,7 @@ namespace ACS.Service.Impl
             {
                 try
                 {
-                    DeviceOperatorFactory.getInstance().getDeviceOperator(control).Connect();
+                    DeviceOperatorFactory.getInstance().getDeviceOperator(control);
                     control.Online = true;
                 }
                 catch (Exception e)
@@ -224,13 +224,20 @@ namespace ACS.Service.Impl
 
             log.Info("start the time to check device online or not ");
             Timer timer = new System.Timers.Timer(OnlineDeviceCache.TIME_OUT);
-            timer.Elapsed += checkOnline;
+            timer.Elapsed += new System.Timers.ElapsedEventHandler(checkOnline);
             timer.AutoReset = true;
+            timer.Start();
+        }
+
+        public void OnlineStatus(Control control,bool status)
+        {
+            control.Online = status;
+            GetDao().update(control);
         }
 
         private void checkOnline(object sender, System.Timers.ElapsedEventArgs e)
         {
-            OnlineDeviceCache.CheckOnline();
+            DeviceOperatorFactory.getInstance().CheckOnline();
         }
 
         public void StartMonitor(List<String> idList)

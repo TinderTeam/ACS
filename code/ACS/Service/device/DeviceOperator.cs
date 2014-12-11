@@ -8,9 +8,10 @@ namespace ACS.Service.device
 {
     public interface DeviceOperator
     {
+        Control GetControl();
          void OpenDoor(Door door);
          void CloseDoor(Door door);
-         bool Connect();
+         void Connect();
  
     }
 }

@@ -69,6 +69,8 @@ namespace ACS.Service
         void StartMonitor(List<String> idList);
         void OpenDoor(String doorID);
         void CloseDoor(String doorID);
+        void OnlineStatus(Control control,bool status);
+
     }
 
     public interface PlatFormService

@@ -15,21 +15,37 @@ namespace ACS.Service.device
         private static DeviceOperatorFactory instance;
         private Dictionary<String, DeviceOperator> deviceOperatorMap = new Dictionary<String, DeviceOperator>();
 
+        public void CheckOnline()
+        {
+            log.Info("now check device status. the time is " + DateTime.Now);
+
+            List<String> keyList = new List<String>();
+            keyList.AddRange(deviceOperatorMap.Keys);
+
+            foreach (var item in keyList)
+            {
+ 
+                bool status = OnlineDeviceCache.checkOnline(item);
+                Control control = deviceOperatorMap[item].GetControl();
+                if(status != control.Online)
+                {
+
+                    log.Warn("the control ip is " + control.Ip+ "the control status change,now status is " + status);
+                     ServiceContext.getInstance().getDeviceService().OnlineStatus(control, status);
+                }
+ 
+            }
+        }
+
         public DeviceOperator getDeviceOperator(Control control)
         {
             DeviceOperator deviceOperator = null;
             if (!deviceOperatorMap.ContainsKey(control.Ip))
             {
                 deviceOperator = new DeviceOperatorImpl(control);
-                if (deviceOperator.Connect())
-                {
-                    deviceOperatorMap[control.Ip] = deviceOperator;
-                }
-                else
-                {
-                    log.Error("conncet device failed,the control ip address " + control.Ip + ",the port is " + control.Port);
-                    throw new FuegoException(ExceptionMsg.CONNECT_FAILED);
-                }
+                deviceOperator.Connect();
+                deviceOperatorMap[control.Ip] = deviceOperator;
+               
             }
             deviceOperator = deviceOperatorMap[control.Ip];
             return deviceOperator;
