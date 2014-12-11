@@ -9,6 +9,7 @@ using ACS.Models.Po.Business;
 using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
 using TcpipIntface;
+using ACS.Models.Po.Sys;
 namespace ACS.Service
 {
 
@@ -108,9 +109,10 @@ namespace ACS.Service
         List<String> getPrivilegeValueList(string userID, string PrivilegeType);
         void CreateDomainPrivilege(string userID, string controlID);
     }
-    public interface LoginService
+    public interface LoginService : CommonService<SystemUser>
     {
         UserModel Login(string userName, string password);
         void ModifyPswd(string userName, string oldPswd, string newPswd);
+        List<Sys_Menu> getSysMenuListByID(int userID);
     }
 }

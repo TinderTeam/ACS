@@ -25,16 +25,16 @@
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
                     <tr style ="height:35px">
-                        <td style="width:90px;">用户名称：</td>
+                        <td style="width:80px;">用户名称：</td>
                         <td style="width:150px;">
-                            <input name="UserName" class="mini-textbox" emptyText="请输入用户名" value=""/>
+                            <input name="UserName" class="mini-textbox" vtype="maxLength:20" required="true" emptyText="请输入用户名" value=""/>
                             <input name ="UserID" class="mini-textbox" style="display:none" value=""/>
                         </td>
                     </tr>
-                    <tr style ="height:35px">
+                    <tr>
                         <td >备注：</td>
-                        <td>    
-                            <input name="UserDesc" class="mini-textbox" value=""/>
+                        <td colspan="1">    
+                            <input name="UserDesc" class="mini-textarea" style="width:125px;height:80px;" vtype="maxLength:200" value=""/>
                         </td>
                     </tr>             
                 </table>

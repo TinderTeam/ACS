@@ -100,8 +100,8 @@ namespace ACS.Controllers
         //加载左侧边栏，MenuTree
         public ActionResult MenuTree()
         {
-            UserModel loginUser = (UserModel)Session["SystemUser"];            
-            List<Sys_Menu> sysMenuList = PrivilegeCache.getSysMenuListByID(loginUser.UserID);
+            UserModel loginUser = (UserModel)Session["SystemUser"];
+            List<Sys_Menu> sysMenuList = loginService.getSysMenuListByID(loginUser.UserID);
             //判断menu列表是否为空
             if (ValidatorUtil.isEmpty<Sys_Menu>(sysMenuList))
             {

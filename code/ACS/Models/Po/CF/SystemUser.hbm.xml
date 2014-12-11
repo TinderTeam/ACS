@@ -4,34 +4,34 @@
   <class name="ACS.Models.Po.CF.SystemUser,ACS" table="t_user"  >
 
     <id name="UserID" column ="USER_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
-    <property name="UserName" type="string">
-      <column name="USER_NAME" length="255" unique="true"/>
+    <property name="UserName">
+      <column name="USER_NAME" length="20"/>
     </property>
 
-    <property name="Pswd" type="string">
-      <column name="PSWD" length="255"/>
+    <property name="Pswd">
+      <column name="PSWD" length="10"/>
     </property>
     
-    <property name="UserDesc" type="string">
-      <column name="USER_DESC" length="255"/>
+    <property name="UserDesc">
+      <column name="USER_DESC" length="200"/>
     </property>
 
-    <property name="CreateUserID" type="int">
+    <property name="CreateUserID">
       <column name="CREATE_USER_ID"/>
     </property>
     
-    <property name="CreateDate" type="DateTime">
+    <property name="CreateDate">
       <column name="CREATE_DATE"/>
     </property>
 
-    <property name="ModifyUserID" type="int">
+    <property name="ModifyUserID">
       <column name="MODIFY_USER_ID"/>
     </property>
 
-    <property name="ModifyDate" type="DateTime">
+    <property name="ModifyDate">
       <column name="MODIFY_DATE"/>
     </property>
 
