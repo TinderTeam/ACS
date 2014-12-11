@@ -1,11 +1,11 @@
-﻿using System; 
-using System.Linq; 
+﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using System.IO; 
+using System.IO;
 using System.Net;
-using System.Net.Sockets ;
+using System.Net.Sockets;
 using System.Xml;
 using System.Threading;
 using System.Timers;
@@ -26,52 +26,52 @@ namespace TcpipIntface
 
         public const byte TcpErr_OK = 0;
         public const byte TcpErr_NotExists = 1; // 对象不存在
-        public const byte  TcpErr_DataErr = 2; // 数据超出边界
-        public const byte  TcpErr_OutTime = 3; // 操作超时
-        public const byte  TcpErr_UnLink = 4; //
+        public const byte TcpErr_DataErr = 2; // 数据超出边界
+        public const byte TcpErr_OutTime = 3; // 操作超时
+        public const byte TcpErr_UnLink = 4; //
         public const byte TcpErr_ReData = 5; // 返回数据错误
         public const byte TcpErr_Working = 6; //
-        public const byte  TcpErr_Unknow = 7; //
+        public const byte TcpErr_Unknow = 7; //
         #endregion
         #region 内部变量
         private Socket sock;
-        private IPEndPoint iep;   
-        private System.Timers.Timer timer;  
-        private ManualResetEvent TimeoutObject = new ManualResetEvent(false); 
+        private IPEndPoint iep;
+        private System.Timers.Timer timer;
+        private ManualResetEvent TimeoutObject = new ManualResetEvent(false);
         private object lockObj_IsConnectSuccess = new object();
 
         private string remoteHost = "192.168.0.71";
         private int remotePort = 8000;
         private byte isHeartTime = 0;
         private byte[] BufferRX = new byte[512];
-        private byte[] BufferTX = new byte[512]; 
-        private byte nBytesWrite = 0; 
+        private byte[] BufferTX = new byte[512];
+        private byte nBytesWrite = 0;
         private byte LastCmd;
-        private Boolean  Busy;
+        private Boolean Busy;
         private volatile Boolean FisWaiting;
         private Boolean IsconnectSuccess = false; //异步连接情况，由异步连接回调函数置位
         private String SockErrorStr = null;
 
-        private   byte Ver, Fun, CardNumInPack, DoorStatus;
-        private   Boolean isEndDate, isOrPIN, isShowName, isCardorPIN;
+        private byte Ver, Fun, CardNumInPack, DoorStatus;
+        private Boolean isEndDate, isOrPIN, isShowName, isCardorPIN;
         #endregion
 
         public int OEMCode = 23456;
         public byte TCPLastError = 0;
-        
-        #region 委托事件声明 
+
+        #region 委托事件声明
         public delegate void delSocketDisconnected();
-        public event delSocketDisconnected socketDisconnected ;
-        public delegate void  RxDataHandler(string buffRX);   //声明委托
+        public event delSocketDisconnected socketDisconnected;
+        public delegate void RxDataHandler(string buffRX);   //声明委托
         public event RxDataHandler RxDataEvent;        //声明事件
-        public delegate void  TOnEventHandler(byte EType,byte Second,byte Minute,byte Hour,byte Day,byte Month,int Year,byte DoorStatus,
-            byte Ver,byte FuntionByte,Boolean Online, byte CardsofPackage, UInt64 CardNo, out byte Door,  byte EventType,
-            UInt16 CardIndex, byte CardStatus,byte reader,out Boolean OpenDoor, out Boolean Ack);   //声明委托 
-        public event TOnEventHandler  OnEventHandler ;        //声明事件
+        public delegate void TOnEventHandler(byte EType, byte Second, byte Minute, byte Hour, byte Day, byte Month, int Year, byte DoorStatus,
+            byte Ver, byte FuntionByte, Boolean Online, byte CardsofPackage, UInt64 CardNo, out byte Door, byte EventType,
+            UInt16 CardIndex, byte CardStatus, byte reader, out Boolean OpenDoor, out Boolean Ack);   //声明委托 
+        public event TOnEventHandler OnEventHandler;        //声明事件
         #endregion
 
         public TcpipClass()
-        { 
+        {
             socketDisconnected = socketDisconnectedHandler;
             timer = new System.Timers.Timer();
             timer.Elapsed += new ElapsedEventHandler(timer_Tick);
@@ -80,50 +80,53 @@ namespace TcpipIntface
         }
 
         #region tcp数据组包处理
-        private Boolean CheckRxDataCS(byte[] buffRX, int len){
+        private Boolean CheckRxDataCS(byte[] buffRX, int len)
+        {
             int i;
             if (len < 4) return false;
 
             int L = 0;
-            if(buffRX[0]!=0x02)
-            for (i = 0; i < 4; i++)
-            {
-                if (buffRX[i] == 0x02) { L = i; break; }
-            }
+            if (buffRX[0] != 0x02)
+                for (i = 0; i < 4; i++)
+                {
+                    if (buffRX[i] == 0x02) { L = i; break; }
+                }
             if (L > 0)
             {
                 for (i = 0; i < len; i++)
                 {
-                    buffRX[i] =  buffRX[i+L];
+                    buffRX[i] = buffRX[i + L];
                 }
                 len = len - L;
             }
-           
-            int  Bufferlen  = buffRX[Loc_Len + 1] + Loc_Data + 2 ;
+
+            int Bufferlen = buffRX[Loc_Len + 1] + Loc_Data + 2;
             if (Bufferlen > 512) return false;
 
-            if (buffRX[Bufferlen - 1] != 0x03) return false;  
-            
-            Boolean result  = false;
-            
+            if (buffRX[Bufferlen - 1] != 0x03) return false;
+
+            Boolean result = false;
+
             byte cs = 0;
-            for(i = 0 ;i< Bufferlen - 2 ;i++){
+            for (i = 0; i < Bufferlen - 2; i++)
+            {
                 cs = Convert.ToByte(cs ^ buffRX[i]);
             }
 
-            result  = (cs == buffRX[Bufferlen - 2]);  
-            return  result;
+            result = (cs == buffRX[Bufferlen - 2]);
+            return result;
         }
 
-        private  void SendDataEnd(IAsyncResult iar)
+        private void SendDataEnd(IAsyncResult iar)
         {
             Socket remote = (Socket)iar.AsyncState;
-            int sent = remote.EndSend(iar);  
+            int sent = remote.EndSend(iar);
         }
-         
-        private Boolean DoSendData(){
-            int i,datalen, WriteNum;
-            byte OutBufferCS, cmd;  
+
+        private Boolean DoSendData()
+        {
+            int i, datalen, WriteNum;
+            byte OutBufferCS, cmd;
             try
             {
                 datalen = nBytesWrite - Loc_Data;
@@ -136,44 +139,45 @@ namespace TcpipIntface
                     OutBufferCS = Convert.ToByte(OutBufferCS ^ BufferTX[i]);
 
                 BufferTX[nBytesWrite] = OutBufferCS;
-                BufferTX[nBytesWrite + 1] = 0x03; 
+                BufferTX[nBytesWrite + 1] = 0x03;
                 WriteNum = nBytesWrite + 2;
 
                 if (IsconnectSuccess)
                 {
                     cmd = BufferTX[Loc_Command];
-                    LastCmd = BufferTX[Loc_Command]; 
-                    sock.BeginSend(BufferTX, 0,WriteNum , SocketFlags.None,new AsyncCallback(SendDataEnd),  sock); 
+                    LastCmd = BufferTX[Loc_Command];
+                    sock.BeginSend(BufferTX, 0, WriteNum, SocketFlags.None, new AsyncCallback(SendDataEnd), sock);
                     return true;
                 }
                 TCPLastError = TcpErr_UnLink;
-                return false; 
+                return false;
             }
             catch (Exception ex)
-            { 
+            {
                 TCPLastError = TcpErr_Unknow;
-                SockErrorStr = ex.ToString(); 
+                SockErrorStr = ex.ToString();
                 return false;
             }
         }
 
-        private Boolean  WaitReturn(int delay)
+        private Boolean WaitReturn(int delay)
         {
-            Boolean te,result;
-            int t1=0;            
-            while (FisWaiting) 
+            Boolean te, result;
+            int t1 = 0;
+            while (FisWaiting)
             {
-                Thread.Sleep(2);     
+                Thread.Sleep(2);
                 t1++;
-                te = t1 >(200 + delay);
-                if(te) {
-                    break; 
+                te = t1 > (200 + delay);
+                if (te)
+                {
+                    break;
                 }
             }
             result = (!FisWaiting);
-            if(result)
+            if (result)
             {
-                FisWaiting = false; 
+                FisWaiting = false;
             }
             else
                 TCPLastError = TcpErr_OutTime;
@@ -188,23 +192,26 @@ namespace TcpipIntface
 
         private Boolean SendAndNOReturn()
         {
-            return  DoSendData();
+            return DoSendData();
         }
-         
-        private Boolean SendAndReturn(int delay){ 
+
+        private Boolean SendAndReturn(int delay)
+        {
             Boolean result = false;
             Busy = true;
-            try{
+            try
+            {
                 FisWaiting = true;
-                if(DoSendData())
-                result = WaitReturn(delay);
+                if (DoSendData())
+                    result = WaitReturn(delay);
                 return result;
             }
-            finally{               
-                Busy = false; 
-            } 
+            finally
+            {
+                Busy = false;
+            }
         }
-        
+
         private void SetBufCommand(byte command)
         {
             BufferTX[Loc_Begin] = 0x02;
@@ -213,7 +220,7 @@ namespace TcpipIntface
             BufferTX[Loc_DoorAddr] = 0;
             BufferTX[Loc_Len] = 0;
             BufferTX[Loc_Len + 1] = 0;
-            BufferTX[Loc_Address] = 0xff; 
+            BufferTX[Loc_Address] = 0xff;
         }
 
         private void SetBufDoorAddr(byte ADoorAddr)
@@ -221,46 +228,47 @@ namespace TcpipIntface
             BufferTX[Loc_DoorAddr] = ADoorAddr;
         }
 
-        private Boolean AskHeart(){
-              SetBufCommand(0x56);
-              PutBuf(Convert.ToByte(OEMCode >> 8));
-              PutBuf(Convert.ToByte(OEMCode & 0xFF)); 
-              return  SendAndNOReturn();
+        private Boolean AskHeart()
+        {
+            SetBufCommand(0x56);
+            PutBuf(Convert.ToByte(OEMCode >> 8));
+            PutBuf(Convert.ToByte(OEMCode & 0xFF));
+            return SendAndNOReturn();
         }
         private void AnsEvent(byte Command, byte index, byte Door, Boolean opendoor)
         {
             SetBufCommand(Command);
             SetBufDoorAddr(Door);
             PutBuf(index);
-            PutBuf(Convert.ToByte( opendoor));
+            PutBuf(Convert.ToByte(opendoor));
             SendAndNOReturn();
         }
 
-        private void PutBuf(byte AData){
-                BufferTX[nBytesWrite] = AData;
-                nBytesWrite++;
+        private void PutBuf(byte AData)
+        {
+            BufferTX[nBytesWrite] = AData;
+            nBytesWrite++;
         }
 
-        private void PutBuf(DateTime AData){
+        private void PutBuf(DateTime AData)
+        {
             PutBuf(Convert.ToByte(AData.Hour));
-            PutBuf(Convert.ToByte(AData.Minute)); 
+            PutBuf(Convert.ToByte(AData.Minute));
         }
 
-        private void PutBufDate(DateTime AData){
-            PutBuf(Convert.ToByte(AData.Year-2000));
-            PutBuf(Convert.ToByte(AData.Month)); 
-            PutBuf(Convert.ToByte(AData.Day)); 
+        private void PutBufDate(DateTime AData)
+        {
+            PutBuf(Convert.ToByte(AData.Year - 2000));
+            PutBuf(Convert.ToByte(AData.Month));
+            PutBuf(Convert.ToByte(AData.Day));
         }
 
         private void PutBufCard(UInt64 AData)
         {
-            
-            
-            
             PutBuf(Convert.ToByte((AData) & 0xff));
-            PutBuf(Convert.ToByte((AData>>8)&0xff));
-            PutBuf(Convert.ToByte((AData>>16)&0xff));
-            PutBuf(Convert.ToByte((AData>>24)&0xff));
+            PutBuf(Convert.ToByte((AData >> 8) & 0xff));
+            PutBuf(Convert.ToByte((AData >> 16) & 0xff));
+            PutBuf(Convert.ToByte((AData >> 24) & 0xff));
         }
 
         private void PutBufPin2(string AData)
@@ -269,45 +277,45 @@ namespace TcpipIntface
 
             PutBuf(Convert.ToByte(vPin >> 8));
             PutBuf(Convert.ToByte(vPin));
-        } 
+        }
 
         private void PutBufPin4(string AData)
         {
             int i, len;
-            byte[] p  = new byte[8];
-            byte[] v  = new byte[4];
+            byte[] p = new byte[8];
+            byte[] v = new byte[4];
 
-            byte[] ap = UTF8Encoding.UTF8.GetBytes(AData); 
+            byte[] ap = UTF8Encoding.UTF8.GetBytes(AData);
 
             try
             {
-                len = ap.Length; 
-                for(i=0;i<8;i++) p[i] = 0xFF;
+                len = ap.Length;
+                for (i = 0; i < 8; i++) p[i] = 0xFF;
 
                 if (len > 8) len = 8;
-                for(i=0;i<len;i++) 
-                    p[i] = Convert.ToByte(ap[i]- 0x30) ;
+                for (i = 0; i < len; i++)
+                    p[i] = Convert.ToByte(ap[i] - 0x30);
 
-                 for(i=0;i<4;i++)  
-                    v[i] = Convert.ToByte(   (  (p[i * 2] << 4) & 0xF0) + (p[i * 2 + 1] & 0x0F));
+                for (i = 0; i < 4; i++)
+                    v[i] = Convert.ToByte(((p[i * 2] << 4) & 0xF0) + (p[i * 2 + 1] & 0x0F));
 
-                 PutBuf(Convert.ToByte(v[0]));
-                 PutBuf(Convert.ToByte(v[1]));
-                 PutBuf(Convert.ToByte(v[2]));
-                 PutBuf(Convert.ToByte(v[3]));
+                PutBuf(Convert.ToByte(v[0]));
+                PutBuf(Convert.ToByte(v[1]));
+                PutBuf(Convert.ToByte(v[2]));
+                PutBuf(Convert.ToByte(v[3]));
 
             }
             catch (SocketException e)
-            { 
+            {
                 SockErrorStr = e.ToString();
-            } 
+            }
         }
 
         private void PutBufCardName(string AData)
         {
-            int i, len; 
-            byte[] aname = UTF8Encoding.Default.GetBytes(AData); 
-            byte[] p = new byte[8];  
+            int i, len;
+            byte[] aname = UTF8Encoding.Default.GetBytes(AData);
+            byte[] p = new byte[8];
             try
             {
                 len = aname.Length;
@@ -316,18 +324,18 @@ namespace TcpipIntface
                 for (i = 0; i < 8; i++) p[i] = 0;
 
                 for (i = 0; i < len; i++)
-                    p[i] = Convert.ToByte(aname[i]); 
+                    p[i] = Convert.ToByte(aname[i]);
 
-                for (i = 0; i < 8; i++) 
-                  PutBuf(Convert.ToByte(p[i]));   // 178
+                for (i = 0; i < 8; i++)
+                    PutBuf(Convert.ToByte(p[i]));   // 178
             }
             catch (SocketException e)
             {
                 SockErrorStr = e.ToString();
             }
-        } 
+        }
 
-        private  byte[] strToToHexByte(string hexString)
+        private byte[] strToToHexByte(string hexString)
         {
             hexString = hexString.Replace(" ", "");
             if ((hexString.Length % 2) != 0)
@@ -469,17 +477,17 @@ namespace TcpipIntface
 
         #region 通信连接控制
         /// 设置心跳 
-        private  void SetXinTiao()
-        { 
-        /*    byte[] inValue = new byte[] { 1, 0, 0, 0, 0x88, 0x13, 0, 0, 0xd0, 0x07, 0, 0 };// 首次探测时间5 秒, 间隔侦测时间2 秒
+        private void SetXinTiao()
+        {
+            /*    byte[] inValue = new byte[] { 1, 0, 0, 0, 0x88, 0x13, 0, 0, 0xd0, 0x07, 0, 0 };// 首次探测时间5 秒, 间隔侦测时间2 秒
 
-            uint dummy = 0;
-            byte[] inOptionValues = new byte[Marshal.SizeOf(dummy) * 3];
-            BitConverter.GetBytes((uint)1).CopyTo(inOptionValues, 0);//是否启用Keep-Alive
-            BitConverter.GetBytes((uint)2000).CopyTo(inOptionValues, Marshal.SizeOf(dummy));//多长时间开始第一次探测
-            BitConverter.GetBytes((uint)2000).CopyTo(inOptionValues, Marshal.SizeOf(dummy) * 2);//探测时间间隔
+                uint dummy = 0;
+                byte[] inOptionValues = new byte[Marshal.SizeOf(dummy) * 3];
+                BitConverter.GetBytes((uint)1).CopyTo(inOptionValues, 0);//是否启用Keep-Alive
+                BitConverter.GetBytes((uint)2000).CopyTo(inOptionValues, Marshal.SizeOf(dummy));//多长时间开始第一次探测
+                BitConverter.GetBytes((uint)2000).CopyTo(inOptionValues, Marshal.SizeOf(dummy) * 2);//探测时间间隔
 
-            sock.IOControl(IOControlCode.KeepAliveValues, inOptionValues, null);*/
+                sock.IOControl(IOControlCode.KeepAliveValues, inOptionValues, null);*/
         }
 
         /// <summary>
@@ -517,7 +525,7 @@ namespace TcpipIntface
                 {
                     //Console.WriteLine("Still Connected, but the Send would block");
                     connectState = true;
-                } 
+                }
                 else
                 {
                     SockErrorStr = e.ToString();
@@ -535,7 +543,7 @@ namespace TcpipIntface
             return connectState;
             #endregion
         }
-         
+
         /// 另一种判断connected的方法，但未检测对端网线断开或ungraceful的情况 
         public bool IsSocketConnected(Socket s)
         {
@@ -629,91 +637,115 @@ namespace TcpipIntface
          */
         /// 异步连接回调函数
         private void connectedCallback(IAsyncResult iar)
-        {   
-                Socket client = (Socket)iar.AsyncState;
-                try
+        {
+            Socket client = (Socket)iar.AsyncState;
+            try
+            {
+                timer.Enabled = true;
+                if (sock.Connected)
                 {
-                    timer.Enabled = true;
-                    if (sock.Connected)
-                    { 
-                        sock.EndConnect(iar); 
-                        IsconnectSuccess = true; 
-                        sock.BeginReceive(BufferRX, 0, BufferRX.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), sock);
-                    }
-                    else
-                    {
-                        IsconnectSuccess = false;
-                        //sock.BeginConnect(iep, new AsyncCallback(connectedCallback), sock);
-                    } 
+                    sock.EndConnect(iar);
+                    IsconnectSuccess = true;
+                    sock.BeginReceive(BufferRX, 0, BufferRX.Length, SocketFlags.None, new AsyncCallback(ReceiveCallBack), sock);
                 }
-                catch (Exception e)
-                { 
-                    SockErrorStr = e.ToString();
+                else
+                {
                     IsconnectSuccess = false;
-                    Console.WriteLine("connectedCallback " );
-                }  
+                    //sock.BeginConnect(iep, new AsyncCallback(connectedCallback), sock);
+                }
+            }
+            catch (Exception e)
+            {
+                SockErrorStr = e.ToString();
+                IsconnectSuccess = false;
+                Console.WriteLine("connectedCallback ");
+            }
         }
-
 
         /// 创建套接字+异步连接函数
         private bool socket_create_connect()
         {
+            socketDisconnected = socketDisconnectedHandler;
             IPAddress serverIp = IPAddress.Parse(remoteHost);
             int serverPort = Convert.ToInt32(remotePort);
-            iep = new IPEndPoint(serverIp, serverPort); 
+            iep = new IPEndPoint(serverIp, serverPort);
 
             sock = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             sock.SendTimeout = 1000;
 
             SetXinTiao();//设置心跳参数
 
-            #region 异步连接代码 
+            #region 异步连接代码
 
             //TimeoutObject.Reset(); //复位timeout事件
             try
-            { 
-                sock.BeginConnect(iep, new AsyncCallback(connectedCallback ), sock );
+            {
+                sock.BeginConnect(iep, new AsyncCallback(connectedCallback), sock);
             }
             catch (Exception err)
             {
                 SockErrorStr = err.ToString();
-                Console.WriteLine( "socket_create_connect"  + err.Message );
+                Console.WriteLine("socket_create_connect" + err.Message);
                 return false;
             }
-            return true; 
+            return true;
             #endregion
+        }
+
+        public bool CloseTcpip()
+        {
+            timer.Enabled = false;
+            socketDisconnected = null; // socketDisconnectedHandler;
+            if (sock != null)
+                if (IsconnectSuccess)
+                {
+                    try
+                    {
+                        //关闭socket
+                        sock.Shutdown(SocketShutdown.Both);
+                        sock.Disconnect(true);
+                        IsconnectSuccess = false;
+                        sock.Close();
+                        timer.Enabled = false;
+                    }
+                    catch (Exception ex)
+                    {
+                        SockErrorStr = ex.ToString();
+                    }
+                }
+            return true;
         }
 
         private void timer_Tick(object sender, ElapsedEventArgs e)
         {
             try
-            { 
+            {
                 isHeartTime++;
                 if (isHeartTime > 7)
-                { 
-                    isHeartTime = 0; 
+                {
+                    isHeartTime = 0;
                     if (sock == null)
                     {
                         timer.Enabled = false;
                         socket_create_connect();
                     }
-                    else if (!sock.Connected)
+                    else // if
                     {
-                        if (!IsSocketConnected())
+                        if ((!IsSocketConnected()) || (!sock.Connected) || (!IsSocketConnected(sock)))
                         {
                             timer.Enabled = false;
                             Reconnect();
                         }
                     }
-                } 
+                }
             }
             catch (Exception ex)
             {
                 SockErrorStr = ex.ToString();
-                Console.WriteLine(string.Format("timer_Tick {0}", ex.Message)); 
+                Console.WriteLine(string.Format("timer_Tick {0}", ex.Message));
                 timer.Enabled = true;
-            } 
-        }        
+            }
+        }
 
         private void ReceiveCallBack(IAsyncResult ar)
         {
@@ -725,10 +757,10 @@ namespace TcpipIntface
             {
                 if (!IsSocketConnected())
                     Reconnect();
-            } 
+            }
 
             try
-            {     
+            {
                 Socket peerSock = (Socket)ar.AsyncState;
                 int BytesRead = peerSock.EndReceive(ar);
                 if (BytesRead > 0)
@@ -764,8 +796,8 @@ namespace TcpipIntface
                     socketDisconnected(); //Keepalive检测网线断开引发的异常在这里捕获
                     return;
                 }
-            } 
-        } 
+            }
+        }
 
         private bool Reconnect()
         {
@@ -780,9 +812,9 @@ namespace TcpipIntface
             catch (Exception ex)
             {
                 SockErrorStr = ex.ToString();
-            } 
+            }
             //创建socket
-            return socket_create_connect(); 
+            return socket_create_connect();
         }
 
         public void socketDisconnectedHandler()
@@ -792,32 +824,32 @@ namespace TcpipIntface
 
         #endregion
         public bool OpenIP(string ip, int port)
-        { 
-                remoteHost = ip;
-                remotePort = port; 
-               // timer.Enabled = true;
-                return socket_create_connect();  
+        {
+            remoteHost = ip;
+            remotePort = port;
+            // timer.Enabled = true;
+            return socket_create_connect();
         }
 
-        #region 门禁控制器通信指令 
+        #region 门禁控制器通信指令
 
-        private void HandleMessage(byte[] buffRX,string str)
-        {            
+        private void HandleMessage(byte[] buffRX, string str)
+        {
             if (CheckRxDataCS(buffRX, buffRX.Length))
             {
                 isHeartTime = 0;
                 switch (buffRX[Loc_Command])
                 {
-                    case 0x56: if(DoFormatStatusvent()) AskHeart(); break;
+                    case 0x56: if (DoFormatStatusvent()) AskHeart(); break;
                     case 0x52: break;   // card status
                     case 0x53: DoFormCardevent(); break;   // card event
-                    case 0x54: DoForMatAlarmevent();  break;   // alarm
-                    default: 
-                             if (buffRX[Loc_Command] == LastCmd)
-                                 FisWaiting = false;
-                             break;
-                 }                 
-            } 
+                    case 0x54: DoForMatAlarmevent(); break;   // alarm
+                    default:
+                        if (buffRX[Loc_Command] == LastCmd)
+                            FisWaiting = false;
+                        break;
+                }
+            }
         }
 
         #region 控制类指令
@@ -825,8 +857,8 @@ namespace TcpipIntface
         {
             if (isWorking()) return false;
             SetBufCommand(0x2C);
-            SetBufDoorAddr(Convert.ToByte( Door + 1));
-            return  SendAndReturn(10); 
+            SetBufDoorAddr(Convert.ToByte(Door + 1));
+            return SendAndReturn(10);
         }
 
         public Boolean Closedoor(byte Door)
@@ -869,12 +901,12 @@ namespace TcpipIntface
             if (isWorking()) return false;
             SetBufCommand(0x2C);
             SetBufDoorAddr(Convert.ToByte(AClose));
-            SetBufDoorAddr(Convert.ToByte(ALong)); 
+            SetBufDoorAddr(Convert.ToByte(ALong));
             return SendAndReturn(0);
         }
         #endregion
 
-        #region 参数类指令  
+        #region 参数类指令
 
         public Boolean DelTimeZone(byte Door)
         {
@@ -884,32 +916,32 @@ namespace TcpipIntface
             return SendAndReturn(20);
         }
 
-        public Boolean  AddTimeZone(UInt16 Door, byte Index,DateTime frmtime, DateTime totime, byte Week,Boolean PassBack, byte Indetify, DateTime Enddatetime,byte Group )
+        public Boolean AddTimeZone(UInt16 Door, byte Index, DateTime frmtime, DateTime totime, byte Week, Boolean PassBack, byte Indetify, DateTime Enddatetime, byte Group)
         {
             if (isWorking()) return false;
-            byte vIndetify =0 ; 
+            byte vIndetify = 0;
             SetBufCommand(0x0d);
-            SetBufDoorAddr(Convert.ToByte(Door + 1));             
+            SetBufDoorAddr(Convert.ToByte(Door + 1));
             PutBuf(Convert.ToByte(Index));
             PutBuf(frmtime);
             PutBuf(totime);
             PutBuf(Convert.ToByte(Week));
-            if(PassBack)
-              vIndetify |= 0x80;
+            if (PassBack)
+                vIndetify |= 0x80;
             PutBuf(Convert.ToByte(vIndetify));
             PutBufDate(Enddatetime);
             PutBuf(Convert.ToByte(Group));
-            return  SendAndReturn(0); 
+            return SendAndReturn(0);
         }
 
         public Boolean DelHoliday()
         {
             if (isWorking()) return false;
-            SetBufCommand(0x0c); 
+            SetBufCommand(0x0c);
             return SendAndReturn(0);
         }
 
-        public Boolean  AddHoliday(byte Index,DateTime frmdate, DateTime todate)
+        public Boolean AddHoliday(byte Index, DateTime frmdate, DateTime todate)
         {
             if (isWorking()) return false;
             SetBufCommand(0x09);
@@ -917,23 +949,23 @@ namespace TcpipIntface
             PutBuf(Convert.ToByte(Index));
             PutBufDate(frmdate);
             PutBufDate(todate);
-            return  SendAndReturn(0); 
+            return SendAndReturn(0);
         }
 
         public Boolean SetControl(UInt16 FireTime, UInt16 AlarmTime, string DuressPIN, byte LockEach)
         {
             byte[] pin = new byte[4];
             if (isWorking()) return false;
-            SetBufCommand(0x63); 
+            SetBufCommand(0x63);
             PutBuf(Convert.ToByte(LockEach));
             PutBuf(Convert.ToByte(FireTime));
-            PutBuf(Convert.ToByte(FireTime>>8));
+            PutBuf(Convert.ToByte(FireTime >> 8));
             PutBuf(Convert.ToByte(AlarmTime));
-            PutBuf(Convert.ToByte(AlarmTime>>8));
+            PutBuf(Convert.ToByte(AlarmTime >> 8));
             PutBuf(Convert.ToByte(pin[0]));
             PutBuf(Convert.ToByte(pin[1]));
             PutBuf(Convert.ToByte(pin[2]));
-            PutBuf(Convert.ToByte(pin[3]));  
+            PutBuf(Convert.ToByte(pin[3]));
             return SendAndReturn(0);
         }
 
@@ -948,75 +980,76 @@ namespace TcpipIntface
             PutBuf(Convert.ToByte(OpenOutTime));
             PutBuf(Convert.ToByte(DoublePath));
             PutBuf(Convert.ToByte(TooLongAlarm));
-            PutBuf(Convert.ToByte(OpenTime>>8));
+            PutBuf(Convert.ToByte(OpenTime >> 8));
             PutBuf(Convert.ToByte(AlarmMast));
             PutBuf(Convert.ToByte(AlarmTime));
-            PutBuf(Convert.ToByte(AlarmTime>>8));
+            PutBuf(Convert.ToByte(AlarmTime >> 8));
             PutBuf(Convert.ToByte(CardsOpen));
-            PutBuf(Convert.ToByte(CardsOpenInOut)); 
+            PutBuf(Convert.ToByte(CardsOpenInOut));
             return SendAndReturn(0);
         }
 
         public Boolean SetTime(DateTime datetime)
-        {    
+        {
             if (isWorking()) return false;
-            DateTime dt = datetime; 
-            SetBufCommand(0x07);  
+            DateTime dt = datetime;
+            SetBufCommand(0x07);
             PutBuf(Convert.ToByte(dt.Second));
             PutBuf(Convert.ToByte(dt.Minute));
             PutBuf(Convert.ToByte(dt.Hour));
             PutBuf(Convert.ToByte(dt.DayOfWeek + 1));
             PutBuf(Convert.ToByte(dt.Day));
             PutBuf(Convert.ToByte(dt.Month));
-            PutBuf(Convert.ToByte(dt.Year-2000));
+            PutBuf(Convert.ToByte(dt.Year - 2000));
 
             return SendAndReturn(0);
         }
         #endregion
 
         #region 下载卡
-        public Boolean  AddCard(UInt16 Index, UInt64 CardNo, string pin,string name, byte TZ1, byte TZ2, byte TZ3, byte TZ4,  byte Status,DateTime enddatetime)
+        public Boolean AddCard(UInt16 Index, UInt64 CardNo, string pin, string name, byte TZ1, byte TZ2, byte TZ3, byte TZ4, byte Status, DateTime enddatetime)
         {
-             if (isWorking()) return false;
-             SetBufCommand(0x62);             
-             PutBuf(Convert.ToByte(Index));
-             PutBuf(Convert.ToByte(Index >>8));
-             PutBufCard(CardNo);
+            if (isWorking()) return false;
+            SetBufCommand(0x62);
+            PutBuf(Convert.ToByte(Index));
+            PutBuf(Convert.ToByte(Index >> 8));
+            PutBufCard(CardNo);
 
-            if(isOrPIN)
-            {  
+            if (isOrPIN)
+            {
                 PutBufPin2(pin);
             }
-            else if(isCardorPIN)
+            else if (isCardorPIN)
             {
                 PutBufPin4(pin);
-            }else
-                PutBufPin2(pin); 
+            }
+            else
+                PutBufPin2(pin);
 
             PutBuf(Convert.ToByte(TZ1));
             PutBuf(Convert.ToByte(TZ2));
             PutBuf(Convert.ToByte(TZ3));
             PutBuf(Convert.ToByte(TZ4));
 
-            if(isEndDate)
+            if (isEndDate)
             {
-                PutBufDate(enddatetime); 
+                PutBufDate(enddatetime);
                 PutBuf(Convert.ToByte(enddatetime.Hour));
                 PutBuf(Convert.ToByte(enddatetime.Minute));
             }
             else
             {
-               PutBuf(Convert.ToByte(0));
-               PutBuf(Convert.ToByte(0));
-               PutBuf(Convert.ToByte(0));
-               PutBuf(Convert.ToByte(0));
-               PutBuf(Convert.ToByte(Status));
+                PutBuf(Convert.ToByte(0));
+                PutBuf(Convert.ToByte(0));
+                PutBuf(Convert.ToByte(0));
+                PutBuf(Convert.ToByte(0));
+                PutBuf(Convert.ToByte(Status));
             }
 
             if (isShowName)
-                PutBufCardName(name); 
+                PutBufCardName(name);
 
-             return  SendAndReturn(0);
+            return SendAndReturn(0);
         }
 
         public Boolean DelCard(UInt16 Index)
@@ -1028,19 +1061,20 @@ namespace TcpipIntface
             return SendAndReturn(0);
         }
 
-        public Boolean  AddCards(UInt16 PackIndex, byte  CardofPack , Boolean LastRecord,  UInt16  CardIndex, UInt64 CardNo, UInt16 pin,
-            byte TZ1, byte TZ2, byte TZ3, byte TZ4, byte Status,string Name,UInt16 EndYear,byte EndMonth, byte EndDay, byte EndHour, byte EndMinute, byte EndSecond)
+        public Boolean AddCards(UInt16 PackIndex, byte CardofPack, Boolean LastRecord, UInt16 CardIndex, UInt64 CardNo, UInt16 pin,
+            byte TZ1, byte TZ2, byte TZ3, byte TZ4, byte Status, string Name, UInt16 EndYear, byte EndMonth, byte EndDay, byte EndHour, byte EndMinute, byte EndSecond)
         {
             if (isWorking()) return false;
 
             //return  SendAndReturn(0);    
             return false;
-        } 
+        }
 
-        public Boolean  ClearAllCards(){
+        public Boolean ClearAllCards()
+        {
             if (isWorking()) return false;
-            SetBufCommand(0x17);  
-            return  SendAndReturn(2000); 
+            SetBufCommand(0x17);
+            return SendAndReturn(2000);
         }
         #endregion
 
@@ -1049,19 +1083,19 @@ namespace TcpipIntface
         public Boolean Reset()
         {
             if (isWorking()) return false;
-            SetBufCommand(0x04); 
+            SetBufCommand(0x04);
             return SendAndReturn(1000);
         }
 
-        public Boolean  Restart()
+        public Boolean Restart()
         {
             if (isWorking()) return false;
-            SetBufCommand(0x05); 
-            return   SendAndNOReturn(); 
-        } 
+            SetBufCommand(0x05);
+            return SendAndNOReturn();
+        }
         #endregion
 
         #endregion
-    }    
+    }
 
 }

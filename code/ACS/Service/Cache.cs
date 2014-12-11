@@ -14,7 +14,6 @@ using ACS.Common.Dao;
 using System.Xml;
 using ACS.Service.Constant;
 using ACS.Models.Po.Business;
-using ACS.Common.Cache;
 using ACS.Service.device;
 namespace ACS.Service
 {

@@ -96,18 +96,38 @@ namespace ACS.Service.Impl
             log.Info("Receive Msg(DeviceID=" + control.ControlID + ",IP=" + control.Ip+ "):" + buffRX);
         }
         #endregion
-
-        public void OpenDoor(Door door)
+        public void Operate(OperateDeviceCmdEnum cmdCode, Door door)
         {
-            connector.Opendoor((byte)door.DoorNum);
+            bool result = true;
+            switch (cmdCode)
+            {
+                case OperateDeviceCmdEnum.OPEN_DOOR:
+                    result = connector.Opendoor((byte)door.DoorNum);
+                    break;
+                case OperateDeviceCmdEnum.CLOSE_DOOR:
+                    result = connector.Closedoor((byte)door.DoorNum);
+                    break;
+                case OperateDeviceCmdEnum.LOCK_DOOR:
+                    result = connector.LockDoor((byte)door.DoorNum,true);
+                    break;
+                case OperateDeviceCmdEnum.UNLOCK_DOOR:
+                    result = connector.LockDoor((byte)door.DoorNum, false);
+                    break;
+                case OperateDeviceCmdEnum.SET_FIRE:
+                    result = connector.SetFire(true, false);
+                    break;
+                case OperateDeviceCmdEnum.CACEL_FIRE:
+                    result = connector.SetFire(false, false);
+                    break;
+                case OperateDeviceCmdEnum.SET_ALARM:
+                    result = connector.SetAlarm(true, false);
+                    break;
+                case OperateDeviceCmdEnum.CACEL_ALARM:
+                    result = connector.SetAlarm(false, false);
+                    break;
+            }
         }
-
-        public void CloseDoor(Door door)
-        {
-            connector.Closedoor((byte)door.DoorNum);
-           
-        }
- 
+    
 
     }
 }

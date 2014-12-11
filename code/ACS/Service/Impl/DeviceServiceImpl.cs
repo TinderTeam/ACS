@@ -185,23 +185,7 @@ namespace ACS.Service.Impl
  
         
 
-        public void OpenDoor(String doorID)
-        {
-            Door door = Get<Door>(Door.DOOR_ID, doorID);
-            if(null == door)
-            {
-                log.Error("can not find the door by id, the door id is " + doorID);
-                throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
-            }
-            Control control = Get(door.ControlID.ToString());
-            if(null == control)
-            {
-                log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
-                throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
-            }
-            DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
-            deviceOperator.OpenDoor(door);
-        }
+      
 
         public void StartMonitorAll()
         {
@@ -249,9 +233,27 @@ namespace ACS.Service.Impl
                 DeviceOperatorFactory.getInstance().getDeviceOperator(control);
             }
         }
-        public void CloseDoor(String doorID)
+
+ 
+        public void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID)
         {
+
+            Door door = Get<Door>(Door.DOOR_ID, doorID);
+            if (null == door)
+            {
+                log.Error("can not find the door by id, the door id is " + doorID);
+                throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
+            }
+            Control control = Get(door.ControlID.ToString());
+            if (null == control)
+            {
+                log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
+                throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
+            }
+            DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+            deviceOperator.Operate(cmdCode,door);
         }
+ 
  
     }
 }

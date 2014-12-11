@@ -1,4 +1,5 @@
 ﻿using ACS.Models.Po.Business;
+using ACS.Service.Constant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,11 @@ namespace ACS.Service.device
     public interface DeviceOperator
     {
         Control GetControl();
-         void OpenDoor(Door door);
-         void CloseDoor(Door door);
-         void Connect();
  
+         void Connect();
+
+         void Operate(OperateDeviceCmdEnum cmdCode, Door door);
+ 
+
     }
 }

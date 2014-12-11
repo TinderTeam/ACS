@@ -12,6 +12,8 @@ using TcpipIntface;
 using ACS.Common.Util;
 using ACS.Service.device;
 using System.Dynamic;
+using ACS.Common;
+using ACS.Service.Constant;
 namespace ACS.Controllers
 {
     public class MonitorController : BaseController
@@ -27,19 +29,7 @@ namespace ACS.Controllers
             return View();
         }
 
-
-        public ActionResult Load(TableForm tableForm)
-        {
-            log.Debug("Load Control Data...");
-            //数据库操作：使用查询条件、分页、排序等参数进行查询
-            TableDataModel<Control> controlModelTable = new TableDataModel<Control>();
-            controlModelTable.setPage(tableForm.getPage());
-            controlModelTable.setDataSource(monitorService.getControlList(null));
-            log.Debug("pageIndex = " + tableForm.PageIndex + ";pageSize=" + tableForm.PageSize);
-            Response.Write(controlModelTable.getMiniUIJson());
-            return null;
-        }
-
+ 
         public ActionResult GetNewEvent(String data)
         {
             String[] attr = JsonConvert.JsonToObject<String[]>(data);
@@ -49,6 +39,9 @@ namespace ACS.Controllers
             List<AlarmRecordView> alarmEventList=ServiceContext.getInstance().getAlarmRecordService().GetCurAlarm(alarmID, doorID);
             List<EventRecordView> eventList = ServiceContext.getInstance().getEventRecordService().GetCurEvent(eventID, doorID);
 
+            //Stub
+           // alarmEventList = Stub.getAlarmEventList();
+           // eventList = Stub.getEventEventList();
 
             Result result = new Result();
             List<MonitorEventModel> modelList = new List<MonitorEventModel>();
@@ -101,95 +94,28 @@ namespace ACS.Controllers
             return null;
         }
 
-        public String OpenDoor(String DoorID)
+        public ActionResult OperateDevice(String DoorID,int cmdCode)
         {
-            deviceService.OpenDoor(DoorID);   
-            return null;
+            try
+            {
+                OperateDeviceCmdEnum cmd = OperateDeviceCmdEnum.CACEL_ALARM;
+                deviceService.OperateDevice(cmd, DoorID); 
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
+ 
         }
 
-        public String CloseDoor(String DoorID)
-        {
-            deviceService.CloseDoor(DoorID);
-            return null;
-        }
-        /*
-        public String Alarm(String ID)
-        {
-            if (!tcpService.openDoor("163.125.218.203", 1))
-            {
-                Response.Write("false");
-            }
-            else
-            {
-                Response.Write("true");
-            }
-            return null;
-        }
-
-        public String AlarmCancel(String ID)
-        {
-            if (!tcpService.openDoor("163.125.218.203", 1))
-            {
-                Response.Write("false");
-            }
-            else
-            {
-                Response.Write("true");
-            }
-            return null;
-        }
-
-        public String unLock(String ID)
-        {
-            if (!tcpService.openDoor("163.125.218.203", 1))
-            {
-                Response.Write("false");
-            }
-            else
-            {
-                Response.Write("true");
-            }
-            return null;
-        }
-
-        public String Lock(String ID)
-        {
-            if (!tcpService.openDoor("163.125.218.203", 1))
-            {
-                Response.Write("false");
-            }
-            else
-            {
-                Response.Write("true");
-            }
-            return null;
-        }
-
-        public String FireAlarm(String ID)
-        {
-            if (!tcpService.openDoor("163.125.218.203", 1))
-            {
-                Response.Write("false");
-            }
-            else
-            {
-                Response.Write("true");
-            }
-            return null;
-        }
-
-        public String FireAlarmCancel(String ID)
-        {
-            if (!tcpService.openDoor("163.125.218.203", 1))
-            {
-                Response.Write("false");
-            }
-            else
-            {
-                Response.Write("true");
-            }
-            return null;
-        }
-         */
+      
     }
 }

@@ -10,6 +10,7 @@ using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
 using TcpipIntface;
 using ACS.Models.Po.Sys;
+using ACS.Service.Constant;
 namespace ACS.Service
 {
 
@@ -67,8 +68,9 @@ namespace ACS.Service
         void ModifyDoor(int userID, Door door);
         void StartMonitorAll();
         void StartMonitor(List<String> idList);
-        void OpenDoor(String doorID);
-        void CloseDoor(String doorID);
+        void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID);
+ 
+    
         void OnlineStatus(Control control,bool status);
 
     }
