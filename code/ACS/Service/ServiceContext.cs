@@ -26,6 +26,7 @@ namespace ACS.Service
         private AccessDetailService accessDetailService;
         private DeptService deptService;
         private JobService jobService;
+        private LogService logService;
 
         public static ServiceContext getInstance()
         {
@@ -34,6 +35,17 @@ namespace ACS.Service
                 serviceContext = new ServiceContext();
             }
             return serviceContext;
+        }
+
+        public LogService getLogService()
+        {
+
+            if (logService == null)
+            {
+                logService = new LogServiceImpl();
+            }
+            return logService;
+
         }
 
         public AccessDetailService getAccessDetailService()

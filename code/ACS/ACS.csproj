@@ -189,6 +189,7 @@
     <Compile Include="Controllers\DeviceManageController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MiniUITableController.cs" />
     <Compile Include="Controllers\MonitorController.cs" />
     <Compile Include="Controllers\OrganizationManageController.cs" />
@@ -264,6 +265,7 @@
     <Compile Include="Service\Impl\DeviceServiceImpl.cs" />
     <Compile Include="Service\Impl\EmployeeServiceImpl.cs" />
     <Compile Include="Service\device\TcpipClass.cs" />
+    <Compile Include="Service\Impl\LogServiceImpl.cs" />
     <Compile Include="Service\Impl\UserServiceImpl.cs" />
     <Compile Include="Service\Impl\LoginServiceImpl.cs" />
     <Compile Include="Service\Impl\EventRecordViewServiceImpl.cs" />
@@ -430,6 +432,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\EventType.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Log\SystemLog.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
@@ -1730,6 +1735,7 @@
     <Content Include="Views\EventTypeManage\IndexPage.cshtml" />
     <Content Include="Views\EventTypeManage\ShowPage.cshtml" />
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
+    <Content Include="Views\Log\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,6 +20,14 @@ namespace ACS.Controllers
         public const String  MODIFY = "modify";
         public const String  DELETE = "delete";
 
+        public const String SUCCESS = "成功";
+        public const String FAIL = "失败";
+
+        public const String MODIFY_LOG = "编辑";
+        public const String CREATE_LOG = "新增";
+        public const String DELETE_LOG = "删除";
+
+
         /**
          * 该方法绑定了MiniUI 分页数据提交
          */

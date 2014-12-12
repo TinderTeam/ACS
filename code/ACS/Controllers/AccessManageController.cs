@@ -178,18 +178,22 @@ namespace ACS.Controllers
             {
                 List<AccessDetailModel> treeItemList = JsonConvert.JsonToObject<List<AccessDetailModel>>(data);
                 accessService.addAccessInAccess(accessID, treeItemList);
+               
+
             }
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
+                ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_ACCESS + CREATE_LOG, accessID + ":" + data, FAIL);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
                 log.Error("create failed", e);
+                ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_ACCESS + CREATE_LOG, accessID + ":" + data, FAIL);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-
+            ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_ACCESS + CREATE_LOG, accessID + ":" + data, SUCCESS);
             return ReturnJson(Rsp);
         }
         /// <summary>
@@ -284,14 +288,16 @@ namespace ACS.Controllers
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
+                ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_ACCESS + MODIFY_LOG, accessID + ":" + data,FAIL);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
                 log.Error("create failed", e);
+                ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_ACCESS + MODIFY_LOG, accessID + ":" + data, FAIL);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-
+            ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_ACCESS + MODIFY_LOG, accessID + ":" + data, SUCCESS);
             return ReturnJson(Rsp);
         }
 

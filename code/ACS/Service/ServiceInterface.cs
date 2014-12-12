@@ -11,6 +11,7 @@ using ACS.Common.Dao;
 using TcpipIntface;
 using ACS.Models.Po.Sys;
 using ACS.Service.Constant;
+using ACS.Models.Po.Log;
 namespace ACS.Service
 {
 
@@ -62,6 +63,10 @@ namespace ACS.Service
     public interface JobService : CommonService<Job>
     {
 
+    }
+    public interface LogService : CommonService<SystemLog>
+    {
+        void log(int userID, String logEvent,String  msg,String result);
     }
     public interface DeviceService : CommonService<Control>
     {
