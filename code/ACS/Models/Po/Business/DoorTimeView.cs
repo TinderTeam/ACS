@@ -15,7 +15,14 @@ namespace ACS.Models.Po.Business
         private String startTime;           //开始时间
         private String endTime;             //截止时间
         private string enable;              //是否使能
-
+        public virtual bool Monday { get; set; }
+        public virtual bool Tuesday { get; set; }
+        public virtual bool Wednesday { get; set; }
+        public virtual bool Thursday { get; set; }
+        public virtual bool Friday { get; set; }
+        public virtual bool Saturday { get; set; }
+        public virtual bool Sunday { get; set; }
+        public virtual bool Holiday { get; set; }
         //从Door中获取
         private String doorName;            //门名称
 

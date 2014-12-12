@@ -5,6 +5,8 @@ using System.Web;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Criterion;
+using ACS.Common.Constant;
+using ACS.Common.Util;
 
 
 namespace ACS.Common.Dao.impl
@@ -117,10 +119,29 @@ namespace ACS.Common.Dao.impl
             log.Info("the object calss is " + getFeaturedClass() + "the object list size is " + objectList.Count);
             return objectList;
         }
-
+        private bool isContainsFalse(List<QueryCondition> conditionList)
+        {
+            if (!ValidatorUtil.isEmpty<QueryCondition>(conditionList))
+            {
+                foreach (QueryCondition e in conditionList)
+                {
+                    if (e.ConditionType == ConditionTypeEnum.FALSE)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
         public List<E> getAll(List<QueryCondition> conditionList, int startNum, int pageSize)
         {
             List<E> objectList = new List<E>();
+
+            if (isContainsFalse(conditionList))
+            {
+                log.Warn("the condition contains false,no need to query");
+                return objectList;
+            }
             ISession session = null;
             try
             {

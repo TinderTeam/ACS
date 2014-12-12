@@ -12,6 +12,7 @@ namespace ACS.Models.Po.Business
         public const char SPLIT = '_';
         public const String CONTROL_TYPE = "C";
         public const String DOOR_TYPE = "D";
+        public const String IP = "Ip";
         private int controlID;                              //控制器ID
         private int netID;                                  //连接号即
         private String code;                                //编号

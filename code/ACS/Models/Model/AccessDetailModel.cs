@@ -20,6 +20,14 @@ namespace ACS.Models.Model
         public String StartTime { get; set; }             //DoorTime的开始时间
         public String EndTime { get; set; }               //DoorTime的结束时间
         public bool CheckNode { get; set; }                 //节点是否勾选
+        public bool Monday { get; set; }
+        public bool Tuesday { get; set; }
+        public bool Wednesday { get; set; }
+        public bool Thursday { get; set; }
+        public bool Friday { get; set; }
+        public bool Saturday { get; set; }
+        public bool Sunday { get; set; }
+        public bool Holiday { get; set; }
         public List<AccessDetailModel> Children { get; set; }    //子节点
 
         public AccessDetailModel()

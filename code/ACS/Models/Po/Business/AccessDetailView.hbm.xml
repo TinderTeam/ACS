@@ -58,6 +58,38 @@
     <property name="EndTime">
       <column name="END_TIME"/>
     </property>
+    
+    <property name="Monday">
+      <column name="MONDAY"/>
+    </property>
 
+    <property name="Tuesday">
+      <column name="TUESDAY"/>
+    </property>
+
+    <property name="Wednesday">
+      <column name="WEDNESDAY"/>
+    </property>
+
+    <property name="Thursday">
+      <column name="THURSDAY"/>
+    </property>
+
+    <property name="Friday">
+      <column name="FRIDAY"/>
+    </property>
+
+    <property name="Saturday">
+      <column name="SATURDAY"/>
+    </property>
+
+    <property name="Sunday">
+      <column name="SUNDAY"/>
+    </property>
+
+    <property name="Holiday">
+      <column name="HOLIDAY"/>
+    </property>
+    
   </class>
 </hibernate-mapping>

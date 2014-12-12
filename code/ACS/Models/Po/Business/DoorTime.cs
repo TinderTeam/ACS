@@ -16,7 +16,7 @@ namespace ACS.Models.Po.Business
         private String doorTimeName;                //开放时间名称
         private String startTime;                   //开始时间
         private String endTime;                     //截止时间
-        private String enable = "disable";          //是否使能
+        private String enable = "Disable";          //是否使能
         private bool monday = false;
         private bool tuesday = false;
         private bool wednesday = false;

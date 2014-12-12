@@ -104,6 +104,14 @@ namespace ACS.Controllers
                     doorTime.Type = AccessDetail.DOORTIME_TYPE;
                     doorTime.StartTime = accessDetailView.StartTime;
                     doorTime.EndTime = accessDetailView.EndTime;
+                    doorTime.Monday = accessDetailView.Monday;
+                    doorTime.Tuesday = accessDetailView.Tuesday;
+                    doorTime.Wednesday = accessDetailView.Wednesday;
+                    doorTime.Thursday = accessDetailView.Thursday;
+                    doorTime.Friday = accessDetailView.Friday;
+                    doorTime.Saturday = accessDetailView.Saturday;
+                    doorTime.Sunday = accessDetailView.Sunday;
+                    doorTime.Holiday = accessDetailView.Holiday;
                     rspTreeList.Add(doorTime);
 
                 }
@@ -240,7 +248,14 @@ namespace ACS.Controllers
                 doorTime.StartTime = doorTimeView.StartTime;
                 doorTime.EndTime = doorTimeView.EndTime;
                 doorTime.ValueID = doorTimeView.DoorTimeID;
-
+                doorTime.Monday = doorTimeView.Monday;
+                doorTime.Tuesday = doorTimeView.Tuesday;
+                doorTime.Wednesday = doorTimeView.Wednesday;
+                doorTime.Thursday = doorTimeView.Thursday;
+                doorTime.Friday = doorTimeView.Friday;
+                doorTime.Saturday = doorTimeView.Saturday;
+                doorTime.Sunday = doorTimeView.Sunday;
+                doorTime.Holiday = doorTimeView.Holiday;
                 foreach (AccessDetailView doorTimeAccess in selectedDoorTimeList)
                 {
                     if (doorTimeView.DoorTimeID == doorTimeAccess.ValueID)

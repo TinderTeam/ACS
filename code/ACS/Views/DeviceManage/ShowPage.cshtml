@@ -27,7 +27,7 @@
                     <tr style ="height:35px">
                         <td style="width:90px;">控制器名称：</td>
                         <td style="width:150px;">
-                            <input name="ControlName" class="mini-textbox"  value=""/>
+                            <input name="ControlName" class="mini-textbox" vtype="maxLength:50" required="true" value=""/>
                             <input name ="ControlID" class="mini-textbox" style="display:none" value=""/>
                         </td>
                     </tr>
@@ -41,15 +41,27 @@
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >控制器状态：</td>
+                        <td >控制器编号：</td>
                         <td>    
-                            <input name="Enable" class="mini-textbox" value=""/>
+                            <input name="Code" class="mini-textbox" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >控制器IP：</td>
+                        <td >控制器序列号：</td>
                         <td>    
-                            <input name="Ip" class="mini-textbox" value=""/>
+                            <input name="Serial" class="mini-textbox" value=""/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >IP地址：</td>
+                        <td>    
+                            <input name="Ip" class="mini-textbox" onvalidation ="IPValidation" required="true" value=""/>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >端口号：</td>
+                        <td> 
+                            <input name="Port" class="mini-textbox" vtype="range:0,65535" required="true" value=""/>
                         </td>
                     </tr>               
                 </table>
@@ -63,6 +75,22 @@
     </form>
     <script type="text/javascript">
         mini.parse();
+
+        //IP地址验证
+        function IPValidation(e) {
+            if (e.isValid) {
+                if (isIP(e.value) == false) {
+                    e.errorText = "请输入正确格式的IP地址";
+                    e.isValid = false;
+                }
+            }
+        }
+        function isIP(v) {
+            var re = new RegExp("^(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9])\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[1-9]|0)\.(25[0-5]|2[0-4][0-9]|[0-1]{1}[0-9]{2}|[1-9]{1}[0-9]{1}|[0-9])$");
+            if (re.test(v)) return true;
+            return false;
+        }
+        //端口号验证
 
         var form = new mini.Form("#controlForm");
         ////////////////////

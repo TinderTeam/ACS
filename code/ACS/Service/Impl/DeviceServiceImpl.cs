@@ -32,8 +32,6 @@ namespace ACS.Service.Impl
         {
             List<TreeModel> treeModelList = new List<TreeModel>();
             List<String> controlIDList = privilegeService.getPrivilegeValueList(userID, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN);
-            QueryCondition IDListCondition = new QueryCondition(ConditionTypeEnum.IN, Control.CONTROL_ID, controlIDList);
-            List<Control> controlList = GetDao<Control>().getAll(IDListCondition);
             
             //生成根节点
             TreeModel rootTreeModel = new TreeModel();
@@ -42,6 +40,12 @@ namespace ACS.Service.Impl
             rootTreeModel.MenuName = "所有控制器";
             treeModelList.Add(rootTreeModel);
 
+            if (ValidatorUtil.isEmpty(controlIDList))
+            {
+                return treeModelList;
+            }
+            QueryCondition IDListCondition = new QueryCondition(ConditionTypeEnum.IN, Control.CONTROL_ID, controlIDList);
+            List<Control> controlList = GetDao<Control>().getAll(IDListCondition);
             foreach (Control control in controlList)
             {
                 TreeModel treeModel = new TreeModel();
@@ -67,18 +71,25 @@ namespace ACS.Service.Impl
         //新建控制器
         public override void Create(int userID, Control control)
         {
-            //创建控制器
-            base.Create(userID, control);
-
-            DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+            
 
             //根据控制器创建门
             DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
-            if (null == deviceType)
+            if (null == deviceType)     //控制器类型为空
             {
                 log.Error("Control create Failed,deviceType not exist, the type is " + control.TypeID);
                 throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
             }
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,Control.IP,control.Ip);
+            Control orignalcontrol = GetDao<Control>().getUniRecord(condition);
+            if (null != orignalcontrol)     //控制器ID重复
+            {
+                log.Error("Control create Failed,IP has exist, the IP is " + control.Ip);
+                throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
+            }
+            //创建控制器
+            base.Create(userID, control);
+
             List<DoorTime> doorTimeList = new List<DoorTime>();
             //根据控制器创建时间
             for (int i = 0; i < deviceType.DoorNum; i++)
