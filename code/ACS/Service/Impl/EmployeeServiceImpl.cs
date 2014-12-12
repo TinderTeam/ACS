@@ -157,5 +157,31 @@ namespace ACS.Service.Impl
                 employeeDao.update(orignalEmployee);
             }
         }
+
+        #region EmployeeService 成员
+
+        /// <summary>
+        /// 根据卡号更新员工时间刷新
+        /// </summary>
+        /// <param name="cardID"></param>
+        public void UpdateLastEvent(string cardID,int eventID)
+        {
+            QueryCondition condition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                Employee.Card,
+                cardID);
+            Employee employee=GetDao().getUniRecord(condition);
+            if (employee != null)
+            {
+                employee.LastEventID=eventID;
+                GetDao().update(employee);
+            }
+            else
+            {
+                throw new FuegoException(ExceptionMsg.EMPLOYEE_CODE_NOT_EXIST);
+            }
+        }
+
+        #endregion
     }
 }

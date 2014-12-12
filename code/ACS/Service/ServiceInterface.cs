@@ -36,6 +36,8 @@ namespace ACS.Service
         void cancel(List<String> employeeIDList);
         void leave(List<String> employeeIDList);
         void saveEmployeeCard(List<Employee> employeeModelList);
+
+        void UpdateLastEvent(string cardID, int eventID);
     }
     public interface DeviceOperatorService
     {

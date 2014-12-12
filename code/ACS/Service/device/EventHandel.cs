@@ -80,6 +80,9 @@ namespace ACS.Service.device
                 eventRecord.EventTypeID = eventMsg.EventType;
                 eventRecord.CardNo = eventMsg.CardNo.ToString();
                 ServiceContext.getInstance().getEventRecordService().Create(eventRecord);
+
+                //更新员工的最近刷卡时间
+                ServiceContext.getInstance().getEmployeeService().UpdateLastEvent(eventRecord.CardNo, eventRecord.EventID);
             }
             catch (Exception e)
             {

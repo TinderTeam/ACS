@@ -37,5 +37,7 @@ namespace ACS.Service.Constant
         public static string CONTROL_NOT_EXIST { get; set; }
 
         public static string OPERATE_DEVICE_FAILED { get; set; }
+
+        public static string EMPLOYEE_CODE_NOT_EXIST = "EMPLOYEE_CARD_NOT_EXIST";
     }
 }
