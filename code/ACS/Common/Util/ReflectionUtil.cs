@@ -11,15 +11,24 @@ namespace ACS.Common.Util
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public static Object convertToFieldObject(Type clazz,String fieldName,String value)  
+        public static Object convertToFieldObject(Type clazz,String fieldName,Object value)  
 	    {
 		Object obj = null;
         
 		try
 		{
           
+          
             Type fieldClass = clazz.GetProperty(fieldName).PropertyType;
-			obj = DataTypeConvert.convertStrToObject(value, fieldClass);
+            if (fieldClass == value.GetType())
+            {
+                obj = value;
+            }
+            else
+            {
+                obj = DataTypeConvert.convertStrToObject(value.ToString(), fieldClass);
+            }
+			
 
 		}
 		catch(Exception e)
@@ -33,10 +42,11 @@ namespace ACS.Common.Util
 		
 		return obj;
 	   }
-        public static void setObjetField(Object obj, String fieldName, String value)
+        public static void setObjetField(Object obj, String fieldName, Object value)
         {
             PropertyInfo  field = obj.GetType().GetProperty(fieldName);
-            field.SetValue(obj,value,null);
+            Object objValue = convertToFieldObject(obj.GetType(), fieldName, value);
+            field.SetValue(obj, objValue, null);
         }
     }
 }

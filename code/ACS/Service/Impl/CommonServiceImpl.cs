@@ -69,7 +69,7 @@ namespace ACS.Service.Impl
             Validator(obj);
             DaoContext.getInstance().getDao<E>().update(obj);
         }
-        public virtual void Modify(List<String> idList,String fieldName,String fieldValue)
+        public virtual void Modify(List<String> idList,String fieldName,Object fieldValue)
         {
             if (ValidatorUtil.isEmpty(idList))
             {

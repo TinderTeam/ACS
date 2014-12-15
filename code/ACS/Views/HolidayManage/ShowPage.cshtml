@@ -28,7 +28,7 @@
                         <td style="width:60px;">@Resources.Label_Resource.ResourceManager.GetString("HolidayEdit_HolidayName")</td>
                         <td style="width:150px;">
                             <input name ="HolidayID" class="mini-textbox" style="display:none" value=""/>
-                            <input name="HolidayName" class="mini-textbox" required="true" value=""/>
+                            <input name="HolidayName" class="mini-textbox" vtype="maxLength:50" required="true" value=""/>
                         </td>
                         
                     </tr>
@@ -102,6 +102,8 @@
         function onSaveData(type) {
             var data = form.getData();
             var json = mini.encode(data);
+            form.validate();
+            if (form.isValid() == false) return;
             //获取操作类型（新建/修改）
             var url;
             if (type == 'Create') {

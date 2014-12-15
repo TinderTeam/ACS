@@ -32,14 +32,14 @@
                                 <tr>
                                     <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Name")</td>
                                     <td style="width:150px;">    
-                                        <input name="EmployeeName" class="mini-textbox" required="true"/>
+                                        <input name="EmployeeName" class="mini-textbox" vtype="maxLength:50" required="true"/>
                                         <input name ="EmployeeID" class="mini-textbox" style="display:none" value=""/>
                                     </td>
                                 </tr>                  
                                 <tr>
                                     <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_EnglishName")</td>
                                     <td >    
-                                        <input name="EnglishName" class="mini-textbox"/>
+                                        <input name="EnglishName" class="mini-textbox" vtype="maxLength:50"/>
                                     </td>
                                 </tr>
                                 <tr>
@@ -54,31 +54,31 @@
                                 <tr>
                                     <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Birthday")</td>
                                     <td >
-                                        <input name="Birthday" class="mini-datepicker" required="true" emptyText="请选择日期"/>    
+                                        <input name="Birthday" class="mini-datepicker" emptyText="请选择日期" required="true"/>    
                                     </td>
                                 </tr>
                                 <tr>
                                     <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Phone")</td>
                                         <td >    
-                                            <input name="Phone" class="mini-textbox"/>
+                                            <input name="Phone" class="mini-textbox" vtype="maxLength:20"/>
                                         </td>    
                                 </tr>
                                 <tr>
                                     <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_PersonCode")</td>
                                         <td >    
-                                            <input name="PersonCode" class="mini-textbox"/>
+                                            <input name="PersonCode" class="mini-textbox" vtype="maxLength:20"/>
                                         </td>
                                 </tr>
                                 <tr>
                                     <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Home")</td>
                                     <td >    
-                                        <input name="Home" class="mini-textbox"/>
+                                        <input name="Home" class="mini-textbox" vtype="maxLength:60"/>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Car")</td>
                                         <td >    
-                                            <input name ="Car" class ="mini-textbox"/>
+                                            <input name ="Car" class ="mini-textbox" vtype="maxLength:20"/>
                                         </td>
                                 </tr>
                             </table>
@@ -88,7 +88,7 @@
                             <div style="float:right;width:100%;height:100%" class="mini-tabs" activeIndex="0" >
                                 <div title="照片1" >
 				                        <div style="text-align:center;margin:15px auto;">
-                                            <img id="ImgPr1" src="" height="120" alt="个人1寸照片" >
+                                            <img id="ImgPr1" src="" height="120" width="170" alt="个人1寸照片" >
 				                        </div>
                                          <div style="text-align:center;margin:0 auto;">
                                             <input id="employeePhoto1"  name ="Photo1" class ="mini-textbox" style="display:none"/>
@@ -101,7 +101,7 @@
                                 </div>
                                 <div title="照片2">
                                     <div style="text-align:center;margin:15px auto;">
-				                        <img id="ImgPr2" src="" height="140" width="170" alt="个人1寸照片" >
+				                        <img id="ImgPr2" src="" height="120" width="170" alt="个人1寸照片" >
                                     </div>
                                     <div style="text-align:center;margin:0 auto;">
                                         <input id="employeePhoto2"  name ="Photo2" class ="mini-textbox" style="display:none"/>
@@ -123,12 +123,12 @@
                             <tr >
                                 <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Code")</td>
                                 <td style="width:150px;">
-                                    <input name="EmployeeCode" class="mini-textbox" required="true"  emptyText="请输入员工工号"/>
+                                    <input name="EmployeeCode" class="mini-textbox" vtype="maxLength:24" required="true"  emptyText="请输入员工工号"/>
                                 
                                 </td>
                                 <td style="width:70px;">@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Email")</td>
                                 <td style="width:150px;">    
-                                    <input name="Email" class="mini-textbox"/>
+                                    <input name="Email" class="mini-textbox" vtype="email;rangeLength:5,20;"/>
                                 </td>
                             </tr>
                             <tr>
@@ -159,21 +159,21 @@
                             <tr>
                                 <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note1")</td>
                                 <td >    
-                                    <input name="Note1" class="mini-textbox"/>
+                                    <input name="Note1" class="mini-textbox" vtype="maxLength:50"/>
                                 </td>
                                 <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note2")</td>
                                 <td >    
-                                    <input name="Note2" class="mini-textbox"/>
+                                    <input name="Note2" class="mini-textbox" vtype="maxLength:50"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note3")</td>
                                 <td >    
-                                    <input name="Note3" class="mini-textbox"/>
+                                    <input name="Note3" class="mini-textbox" vtype="maxLength:50"/>
                                 </td>
                                 <td >@Resources.Label_Resource.ResourceManager.GetString("EmployeeEdit_Note4")</td>
                                 <td >    
-                                    <input name="Note4" class="mini-textbox"/>
+                                    <input name="Note4" class="mini-textbox" vtype="maxLength:50"/>
                                 </td>
                             </tr>
                         </table>            
@@ -249,6 +249,8 @@
 
         function onSaveData(type) {
             var data = form.getData();
+            form.validate();
+            if (form.isValid() == false) return;
             var json = mini.encode(data);
             //获取操作类型（新建/修改）
             var url;

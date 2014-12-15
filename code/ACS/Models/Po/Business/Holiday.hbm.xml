@@ -11,11 +11,11 @@
       <column name="HOLIDAY_NAME" length="50"/>
     </property>
     
-    <property name="StartTime" type="DateTime">
+    <property name="StartTime">
       <column name="START_TIME"/>
     </property>
 
-    <property name="EndTime" type="DateTime">
+    <property name="EndTime">
       <column name="END_TIME"/>
     </property>
 

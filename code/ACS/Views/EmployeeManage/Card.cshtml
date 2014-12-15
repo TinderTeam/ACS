@@ -21,7 +21,7 @@
 </head>
 <body>
 <div class="mini-fit"> 
-    <div id="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" url="../EmployeeManage/distributeCardList?idstr=@ViewBag.idstr" idField="EmployeeID"
+    <div id="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" url ="distributeCardList" idField="EmployeeID"
     allowResize="true" pageSize="20" allowCellEdit="true" allowCellSelect="true" multiSelect="true">
         <div property="columns">
     
@@ -34,17 +34,23 @@
     </div>
 </div>
      <div style="text-align:center;padding:5px;">               
-        <a class="mini-button" onclick="onOk" style="width:60px;margin-right:20px;">确定</a>       
-        <a class="mini-button" onclick="onCancel" style="width:60px;">取消</a>       
+        <a class="mini-button" onclick="SaveData" style="width:60px;margin-right:20px;">确定</a>       
+        <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
     </div>
 </body>
 </html>
 <script type="text/javascript">
     mini.parse();
     var grid = mini.get("#datagrid1");
-    grid.load();
+
     //grid.sortBy("createtime", "desc");
 
+    //加载窗口信息
+    function Show(data) {
+        //跨页面传递的数据对象，克隆后才可以安全使用
+        receiveData = mini.clone(data);
+        grid.load({ data: receiveData.id });
+    }
     
     function SaveData() {
         //获得增加、删除、修改的记录集合
@@ -55,15 +61,14 @@
             url: "../EmployeeManage/SaveCard",
             data: { data: json },
             type: "post",
-            success: function (text) {
-                if (text == "Success") {
-                    mini.alert("修改成功！");
-                    CloseWindow("save");
+            success: function (json) {
+                var Rsp = mini.decode(json);
+                if (Rsp.ErrorCode == "Success") {
+                    CloseWindow("ok");
                 }
                 else {
-                    alert(text);
+                    alert(Rsp.Message);
                 }
-                grid.reload();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert(jqXHR.responseText);
@@ -73,11 +78,5 @@
     function CloseWindow(action) {
         if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
         else window.close();
-    }
-    function onOk(e) {
-        SaveData();
-    }
-    function onCancel(e) {
-        CloseWindow("cancel");
     }
 </script>

@@ -104,7 +104,7 @@ namespace ACS.Service.Impl
         /// <returns></returns>
         public void cancel(List<String> employeeIDList)
         {
-            Modify(employeeIDList, "EmpEnable", "已注销");
+            Modify(employeeIDList, "EmpEnable", true);
  
         }
         /// <summary>
@@ -113,7 +113,7 @@ namespace ACS.Service.Impl
         /// <returns></returns>
         public void leave(List<String> employeeIDList)
         {
-            Modify(employeeIDList, "Leave", "已离职");
+            Modify(employeeIDList, "Leave", true);
         }
  
  

@@ -105,11 +105,12 @@ namespace ACS.Controllers
         /// </summary>
         /// <param name="idstr"></param>
         /// <returns></returns>
-        public ActionResult Leave(String idList)
+        public ActionResult Leave(String data)
         {
             try
             {
-                employeeService.leave(getIDList(idList));
+                List<String> idList = JsonConvert.JsonToObject<List<String>>(data);
+                employeeService.leave(idList);
             }
             catch (FuegoException e)
             {
@@ -130,19 +131,17 @@ namespace ACS.Controllers
         /// </summary>
         /// <param name="idstr"></param>
         /// <returns></returns>
-        public ActionResult Card(String idstr)
+        public ActionResult Card()
         {
-            ViewBag.idstr = idstr;
             return View();
         }
         //加载需要发卡的用户列表
-        public ActionResult distributeCardList(String idList)
+        public ActionResult distributeCardList(String data)
         {
-
+            List<String> employeeIDList = JsonConvert.JsonToObject<List<String>>(data);
             List<QueryCondition> conditionList = new List<QueryCondition>();
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN,Employee.ID,getIDList(idList));
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN, Employee.ID, employeeIDList);
             conditionList.Add(condition);
- 
             return LoadTable(conditionList);
         }
 

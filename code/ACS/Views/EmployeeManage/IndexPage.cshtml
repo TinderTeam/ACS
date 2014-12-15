@@ -52,12 +52,6 @@
                     <a class="mini-button" iconCls="icon-lock" onclick="cancel()">注销</a> 
                     <a class="mini-button" iconCls="icon-node" onclick="card()">发卡</a>       
                 </td>
-                @*<td style="white-space:nowrap;">
-                    <form id="searchForm" method="post">
-                        <input id="key" name="EmployeeName"  class="mini-textbox" emptyText="请输入姓名" style="width:150px;"/>   
-                        <a class="mini-button" onclick="search()">查询</a>
-                    </form>
-                </td>*@
             </tr>
         </table>           
     </div>
@@ -165,13 +159,22 @@
                         var r = rows[i];
                         ids.push(r.EmployeeID);
                     }
-                    var id = ids.join(',');
-                    grid.loading("操作中，请稍后......");
+                    var json = mini.encode(ids);
+                    //grid.loading("操作中，请稍后......");
                     $.ajax({
-                        url: "../EmployeeManage/Leave?idList=" + id,
+                        url: "../EmployeeManage/Leave",
                         type: 'post',
+                        data: { data: json },
+                        cache: false,
                         success: function (json) {
-                            grid.reload();
+                            var Rsp = mini.decode(json);
+                            if (Rsp.ErrorCode == "Success") {
+                                mini.alert("删除成功！");
+                                grid.reload();
+                            }
+                            else {
+                                mini.alert(text);
+                            }
                         },
                         error: function () {
                         }
@@ -190,12 +193,15 @@
                     var r = rows[i];
                     ids.push(r.EmployeeID);
                 }
-                var id = ids.join(',');
+                var json = mini.encode(ids);
                 grid.loading("操作中，请稍后......");
                 mini.open({
-                    url: "../EmployeeManage/Card?idList=" + id,
+                    url: "../EmployeeManage/Card",
                     title: "员工发卡", width: 560, height: 500,
                     onload: function () {
+                        var iframe = this.getIFrameEl();
+                        var data = {id: json };
+                        iframe.contentWindow.Show(data);
                     },
                     ondestroy: function (action) {
                         grid.reload();
@@ -247,15 +253,21 @@
                         var r = rows[i];
                         ids.push(r.EmployeeID);
                     }
-                    var id = ids.join(',');
-                    grid.loading("操作中，请稍后......");
+                    var json = mini.encode(ids);
                     $.ajax({
-                        url: "../EmployeeManage/Delete?idList=" + id,
+                        url: "../EmployeeManage/Delete",
                         type: 'post',
+                        data: { data: json },
+                        cache: false,
                         success: function (json) {
-                            var rsp = mini.decode(json);
-                            mini.alert(rsp.Message);
-                            grid.reload();
+                            var Rsp = mini.decode(json);
+                            if (Rsp.ErrorCode == "Success") {
+                                mini.alert("删除成功！");
+                                grid.reload();
+                            }
+                            else {
+                                mini.alert(text);
+                            }
                         },
                         error: function ()
                         {
