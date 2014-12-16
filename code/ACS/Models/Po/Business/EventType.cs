@@ -14,8 +14,8 @@ namespace ACS.Models.Po.Business
         public virtual bool Visible { get; set; }                       //是否显示
         public virtual bool Affirm { get; set; }                        //是否需要确认
         public virtual bool Alarm { get; set; }                         //是否报警
-        public virtual int ForegroundColor { get; set; }                //前景色
-        public virtual int BackgroundColor { get; set; }                //背景色
+        public virtual String ForegroundColor { get; set; }                //前景色
+        public virtual String BackgroundColor { get; set; }                //背景色
         public virtual int Event0 { get; set; }                         //
         public virtual int Event1 { get; set; }                         //
         public virtual int Event2 { get; set; }                         //

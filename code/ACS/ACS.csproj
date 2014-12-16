@@ -355,7 +355,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <None Include="Properties\PublishProfiles\11.pubxml" />
     <Content Include="App_GlobalResources\Label_Resource.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Label_Resource.Designer.cs</LastGenOutput>
@@ -441,12 +441,12 @@
     <Content Include="Scripts\core.js" />
     <Content Include="Scripts\demo.css" />
     <Content Include="Scripts\diysize.css" />
-    <Content Include="Scripts\jquery-1.6.2.min.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.6.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
+    <Content Include="Scripts\jquery.bigcolorpicker.css" />
+    <Content Include="Scripts\jquery.bigcolorpicker.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />

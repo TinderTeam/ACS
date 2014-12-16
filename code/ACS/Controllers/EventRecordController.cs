@@ -39,7 +39,7 @@ namespace ACS.Controllers
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.CARDNO, eventRecordFilter.CardNo));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEENAME, eventRecordFilter.EmployeeName));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEECODE, eventRecordFilter.EmployeeCode));
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EVENTTYPE, eventRecordFilter.EventType));
+               // filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EVENTTYPE, eventRecordFilter.EventType));
                 if (!DateUtil.DateTimeIsEmpty(eventRecordFilter.EventTimeStart))
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.BIGER_EQ, EventRecordView.EVNETTIME, DateUtil.DateTimeToString(eventRecordFilter.EventTimeStart)));
