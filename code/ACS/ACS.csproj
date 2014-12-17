@@ -1728,6 +1728,7 @@
     <Content Include="Views\EventTypeManage\ShowPage.cshtml" />
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
+    <Content Include="Views\EmployeeManage\AccessPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

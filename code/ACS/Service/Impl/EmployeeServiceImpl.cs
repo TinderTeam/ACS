@@ -115,8 +115,15 @@ namespace ACS.Service.Impl
         {
             Modify(employeeIDList, "Leave", true);
         }
- 
- 
+        //更改员工权限
+        public void modifyAccess(String employeeID, String AccessID)
+        {
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,Employee.ID,employeeID);
+            Employee orignalEmployee = GetDao<Employee>().getUniRecord(condition);
+            orignalEmployee.AccessID = Convert.ToInt32(AccessID);
+            GetDao<Employee>().update(orignalEmployee);
+        }
+
         /// <summary>
         ///员工批量发卡
         /// </summary>

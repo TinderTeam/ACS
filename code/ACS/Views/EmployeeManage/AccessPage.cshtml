@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <link href="../../Script/demo.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/boot.js" type="text/javascript"></script>
+    <style type="text/css">
+        html, body
+        {
+            margin: 0;
+            padding: 0;
+            border: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="mini-fit">
+        <div title="根据权限选择" style="width: 100%; height: 100%;">
+                <div id="treegrid1" class="mini-treegrid" style="width: 100%; height: 93%;" url="../AccessManage/LoadAllAccessDetail"
+                    showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid"
+                    resultAsTree="false" allowResize="true" onbeforenodecheck="onBeforeNodeCheck">
+                    <div property="columns">
+                        <div type="indexcolumn"></div>
+                        <div name="taskname" field="NodeName" width="120" headeralign="center" allowsort="true">权限名称</div>
+                        <div field="Type" width="120" headeralign="center" allowsort="true">类型</div>
+                        <div header="门禁时间" headeralign="center">
+                            <div property="columns" >
+                                <div field="StartTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">开始时间</div>
+                                <div field="EndTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">截止时间</div>
+                                <div field="Monday" width="30" headerAlign="center" renderer ="onYesRenderer">星期一</div>
+                                <div field="Tuesday" width="30" headerAlign="center" renderer ="onYesRenderer">星期二</div>
+                                <div field="Wednesday" width="30" headerAlign="center" renderer ="onYesRenderer">星期三</div>
+                                <div field="Thursday" width="30" headerAlign="center" renderer ="onYesRenderer">星期四</div>
+                                <div field="Friday" width="30" headerAlign="center" renderer ="onYesRenderer">星期五</div>
+                                <div field="Saturday" width="30" headerAlign="center" renderer ="onYesRenderer">星期六</div>
+                                <div field="Sunday" width="30" headerAlign="center" renderer ="onYesRenderer">星期日</div>
+                                <div field="Holiday" width="30" headerAlign="center" renderer ="onYesRenderer">假期</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; padding: 5px;">
+                    <a class="mini-button" onclick="onSaveData()"  style="width: 60px; margin-right: 20px;">确定</a>
+                    <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">取消</a>
+                </div>
+
+            </div>
+        </div>
+</body>
+<script type="text/javascript">
+
+    mini.parse();
+    function onYesRenderer(e) {
+        if (e.value == 1) return "*";
+        else return "";
+    }
+    //加载窗口信息
+    function Show(data) {
+        //跨页面传递的数据对象，克隆后才可以安全使用
+        receiveData = mini.clone(data);
+    }
+
+    function onSaveData() {
+        //获取操作类型（新建/修改）
+        var treeGrid = mini.get("#treegrid1");
+        var node = treeGrid.getSelectedNode();
+        if ((node) && (node.Pid == "0")) {
+            var json = mini.encode(node.ValueID);
+            $.ajax({
+                url: "../EmployeeManage/ModifyAccess?employeeID=" + receiveData.id,
+                type: 'post',
+                data: { data: json },
+                cache: false,
+                success: function (json) {
+                    var Rsp = mini.decode(json);
+                    if (Rsp.ErrorCode == "Success") {
+                        CloseWindow("ok");
+                    }
+                    else {
+                        alert(Rsp.Message);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(jqXHR.responseText);
+                    CloseWindow();
+                }
+            });
+        }
+        else {
+            mini.alert("请选择一条根权限");
+        }
+
+    }
+
+    function CloseWindow(action) {
+        if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
+        else window.close();
+    }
+</script>
+
+</html>

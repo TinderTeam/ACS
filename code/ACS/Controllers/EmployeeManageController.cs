@@ -76,6 +76,31 @@ namespace ACS.Controllers
 
             return ReturnJson(Rsp);
         }
+        //显示员工权限配置页面
+        public ActionResult AccessPage()
+        {
+            return View();
+        }
+        //更新员工权限配置
+        public ActionResult ModifyAccess(String employeeID, String data)
+        {
+            try
+            {
+                employeeService.modifyAccess(employeeID, data);
+            }
+            catch (FuegoException e)
+            {
+                log.Error("cancel failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (SystemException e)
+            {
+                log.Error("cancel failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
+        }
         /// <summary>
         /// 注销用户
         /// </summary>

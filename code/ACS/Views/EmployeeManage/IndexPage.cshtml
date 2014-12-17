@@ -63,7 +63,7 @@
             <div type="checkcolumn" ></div>                  
             <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Code")</div>    
             <div field="EmployeeName" width="70" headerAlign="center" allowSort="true" align="center">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Name")</div>    
-            <!--<div field="Photo" width="70" headerAlign="center" allowSort="true"></div>-->
+            <div field="AccessName" width="70" headerAlign="center" allowSort="true">权限</div>
             <div field="Sex" width="70" headerAlign="center" allowSort="true" align="center" renderer="onSexRenderer">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Sex")</div>   
             <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_CardNo")</div>
             <div field="EmpEnable" width="70" headerAlign="center" allowSort="true" renderer="onYesRenderer">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EmpEnable")</div>
@@ -299,8 +299,27 @@
    
         //员工权限
         function privilege() {
-            alert("to be implemented...");
-        };
+            var rows = grid.getSelecteds();
+            var row = grid.getSelected();
+            if (rows.length != 1) {
+                mini.alert("请选中一条记录");
+                return;
+            }
+            var value = row.EmployeeID;
+            mini.open({
+                url: "../EmployeeManage/AccessPage",
+                title: "权限配置", width: 1024, height: 600,
+                onload: function () {
+                    var iframe = this.getIFrameEl();
+                    var data = {id: value };
+                    iframe.contentWindow.Show(data);
+                },
+                ondestroy: function (action) {
+                    grid.reload();
+
+                }
+            });
+        }
 
     </script>
 </body>

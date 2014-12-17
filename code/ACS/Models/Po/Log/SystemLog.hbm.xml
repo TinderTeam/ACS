@@ -3,31 +3,31 @@
   <class name="ACS.Models.Po.Log.SystemLog,ACS" table="t_system_log"  >
 
     <id name="LogID" column ="LOG_ID" >
-      <generator class ="increment"/>
+      <generator class ="identity"/>
     </id>
 
-    <property name="LogDateTime" type="DateTime">
+    <property name="LogDateTime">
       <column name="LOG_DATE_TIME"/>
     </property>
 
-    <property name="UserCode" type="int">
+    <property name="UserCode">
       <column name="USER_CODE" />
     </property>
     
-    <property name="LogEvent" type="string">
+    <property name="LogEvent">
       <column name="LOG_EVENT" length="255"/>
     </property>
 
-    <property name="Msg" type="DateTime">
+    <property name="Msg">
       <column name="MSG"/>
     </property>
     
-    <property name="Result" type="string">
+    <property name="Result">
       <column name="RESULT"/>
     </property>
 
-    <property name="Computer" type="string">
-      <column name="COMPUTER"/>
+    <property name="Computer">
+      <column name="COMPUTER" length ="50"/>
     </property>
 
   </class>
