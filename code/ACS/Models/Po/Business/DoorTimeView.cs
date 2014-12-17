@@ -9,6 +9,8 @@ namespace ACS.Models.Po.Business
     {
 
         //从DoorTime中获取
+        public const String DOOR_TIME_ID = "DoorTimeID";
+
         private int doorTimeID;             //开放时间编号
         private int doorID;                 //门编号
         private String doorTimeName;        //开放时间名称

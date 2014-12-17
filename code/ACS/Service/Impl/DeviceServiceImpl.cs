@@ -256,23 +256,56 @@ namespace ACS.Service.Impl
         }
 
  
-        public void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID)
+        public void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID,String controlID)
         {
+            log.Info("OperateDevice: Cmd=" + cmdCode + ";DoorID=" + doorID + ";ControlID=" + controlID);
 
-            Door door = Get<Door>(Door.DOOR_ID, doorID);
-            if (null == door)
+            if (cmdCode == OperateDeviceCmdEnum.DEVICE_DOWNLOAD)
             {
-                log.Error("can not find the door by id, the door id is " + doorID);
-                throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
+                Control control = Get(controlID);
+                if (null == control)
+                {
+                    log.Error("can not find the control by id, the control id is " + controlID);
+                    throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
+                }
+                DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+
+                Dictionary<Employee, List<DoorTimeView>> cardInfoMap = new Dictionary<Employee, List<DoorTimeView>>();
+
+                List<Employee> employeeList = GetDao<Employee>().getAll();
+                foreach (Employee e in employeeList)
+                {
+                    List<DoorTimeView> doorTimeList = 
+                        ServiceContext.getInstance().getAccessDetailService()
+                        .getDoorTimeViewListByAccessID(e.AccessID.ToString(), controlID);
+                    cardInfoMap.Add(e, doorTimeList);
+                   
+                }
+                
+                deviceOperator.deviceCardInfoDownLoad(cardInfoMap);
+
             }
-            Control control = Get(door.ControlID.ToString());
-            if (null == control)
+            else
             {
-                log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
-                throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
+                Control control = null;
+                Door door = null;
+                door = Get<Door>(Door.DOOR_ID, doorID);
+                if (null == door)
+                {
+                    log.Error("can not find the door by id, the door id is " + doorID);
+                    throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
+                }
+                control = Get(door.ControlID.ToString());
+                if (null == control)
+                {
+                    log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
+                    throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
+                }
+                DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+                deviceOperator.Operate(cmdCode, door);
             }
-            DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
-            deviceOperator.Operate(cmdCode,door);
+           
+            
         }
  
  

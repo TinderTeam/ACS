@@ -176,7 +176,93 @@ namespace ACS.Service.Impl
                 DateTime.Now, 
                 0);
         }
-    
 
+
+        public void deviceCardInfoDownLoad(Dictionary<Employee, List<DoorTimeView>> cardInfoMap)
+        {
+            log.Info("cardInfoMap is :" + cardInfoMap);
+            List<Employee> list = new List<Employee>(cardInfoMap.Keys);
+            foreach (Employee e in list)
+            {
+                if (cardInfoMap.ContainsKey(e))
+                {
+                    cardInfoDownLoad(e, cardInfoMap[e]);
+                }
+            }
+        }
+
+
+        public void cardInfoDownLoad(Employee employee,List<DoorTimeView> doorTimeList)
+        {
+            log.Info("CardInfo: " + employee + doorTimeList);
+            byte[] TZ = new byte[4];
+            int doorCnt = DeviceTypeCache.GetInstance().GetDeviceType(this.control.TypeID).DoorNum;
+            switch (doorCnt)
+            {
+                case 1:
+                    foreach(DoorTimeView doorTime in doorTimeList)
+                    {
+                        int num = doorTime.DoorTimeID;
+                        byte temp = 0x01;
+                        if (num < 8)
+                        {
+                            TZ[0] += (byte)(temp << num);
+                        }
+                        else
+                        {
+                            TZ[1] += (byte)(temp << (num -8));
+                        }
+                    }
+
+                    break;
+                case 2:
+                    foreach (DoorTimeView doorTime in doorTimeList)
+                    {
+                        int num = doorTime.DoorTimeID;
+                        int doorNum = doorTime.DoorID;
+                        byte temp = 0x01;
+                        for (int i = 0; i < TZ.Length; i++)
+                        {
+                            if (num < 8)
+                            {
+                                TZ[doorNum] += (byte)(temp << num);
+                            }
+                            else
+                            {
+                                TZ[doorNum] += (byte)(temp << (num - 8));
+                            }
+                        }
+ 
+
+                    }
+                    break;
+                case 4:
+                    foreach (DoorTimeView doorTime in doorTimeList)
+                    {
+                        int num = doorTime.DoorTimeID;
+                        int doorNum =doorTime.DoorID;
+                        byte temp = 0x01;
+                        for (int i = 0; i < TZ.Length;i++ )
+                        {
+                            TZ[doorNum] += (byte)(temp << num);
+                        }
+                    }
+                    break;
+            }
+
+            connector.AddCard(
+                       0,
+                       System.Convert.ToUInt64(employee.CardNo),
+                       employee.Pin,
+                       employee.EmployeeName,
+                       TZ[0],
+                       TZ[1],
+                       TZ[2],
+                       TZ[3],
+                       1,
+                       employee.EndDate
+                  );
+        }
+     
     }
 }

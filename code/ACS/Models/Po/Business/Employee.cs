@@ -14,7 +14,7 @@ namespace ACS.Models.Po.Business
         private String employeeCode;//
         private String englishName;//
         private String cardNo;//卡号
-        private int pin;//密码开门
+        private String pin;//密码开门
         private bool empEnable;//是否注销
         private bool sex;//
         private DateTime birthday = DateTime.Now;//
@@ -52,6 +52,13 @@ namespace ACS.Models.Po.Business
         private DateTime timeStampx = DateTime.Now;//
         private bool isBlackCard;//
         private String ascString;//
+        private int accessID;
+
+        public int AccessID
+        {
+            get { return accessID; }
+            set { accessID = value; }
+        }
 
 
         public virtual int EmployeeID
@@ -82,7 +89,7 @@ namespace ACS.Models.Po.Business
             set { cardNo = value; }
         }
 
-        public virtual int Pin
+        public virtual String Pin
         {
             get { return pin; }
             set { pin = value; }

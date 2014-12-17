@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ACS.Models.Model;
 
 namespace ACS.Service.device
 {
@@ -16,7 +17,9 @@ namespace ACS.Service.device
          void Operate(OperateDeviceCmdEnum cmdCode, Door door);
 
          void SetDoorTime(Door door,DoorTime doorTime);
- 
 
+         void deviceCardInfoDownLoad(Dictionary<Employee, List<DoorTimeView>> cardInfoMap);
+
+         void  cardInfoDownLoad(Employee employee, List<DoorTimeView> doorTimeList);
     }
 }

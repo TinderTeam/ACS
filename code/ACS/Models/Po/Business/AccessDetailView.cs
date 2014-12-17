@@ -7,11 +7,14 @@ namespace ACS.Models.Po.Business
 {
     public class AccessDetailView
     {
+
         //AccessDetail表中获取
         public const String ID = "AccessID";
         public const String USER_ID = "CreateUserID";
         public const String VALUE_ID_NAME = "ValueID";
         public const String TYPE_NAME = "Type";
+        public const String CONTROL_ID = "ControlID";
+
         private int accessDetailID;         //门禁权限详细信息ID
         private int accessID;               //门禁权限ID
         private String accessName;          //父门禁权限名称
@@ -19,17 +22,18 @@ namespace ACS.Models.Po.Business
         private string type;                //类型 Access/DoorTime
         private int createUserID;           //创建人ID
         private DateTime createDate;        //创建时间
-
         //Control表中获取
         private int controlID;              //控制器ID
         private String controlName;         //控制器名称
-
         //Door表中获取
         private int doorID;                 //门ID
         private String doorName;            //门名称
+        private int doorNum;                //门编号
 
         //DoorTime标准获取
         private String doorTimeName;        //门时间段名称
+        private int doorTimeNum;        //门时间段编号
+
         private String startTime;         //开始时间
         private String endTime;           //截止时间
         public virtual bool Monday { get; set; }
@@ -51,6 +55,18 @@ namespace ACS.Models.Po.Business
         {
             get { return accessID; }
             set { accessID = value; }
+        }
+        public int DoorTimeNum
+        {
+            get { return doorTimeNum; }
+            set { doorTimeNum = value; }
+        }
+
+
+        public int DoorNum
+        {
+            get { return doorNum; }
+            set { doorNum = value; }
         }
 
         public virtual int ValueID
@@ -124,5 +140,6 @@ namespace ACS.Models.Po.Business
             get { return endTime; }
             set { endTime = value; }
         }
+
     }
 }

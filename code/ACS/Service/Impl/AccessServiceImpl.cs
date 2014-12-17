@@ -122,8 +122,7 @@ namespace ACS.Service.Impl
         //门禁权限管理
         //获取用户DoorTimeList
         public List<DoorTimeView> getDoorTimeViewListByUserID(string userID)
-        {
-            
+        {       
             List<DoorTimeView> allDoorTimeViewList = doorTimeViewDao.getAll();
             List<DoorTimeView> doorTimeViewList = new List<DoorTimeView>();
             //获取所选用户对应的权限
@@ -145,8 +144,7 @@ namespace ACS.Service.Impl
                         }
                     }
                 }                
-            }
-            
+            }           
             return doorTimeViewList;
         }
         //门禁权限管理
@@ -230,5 +228,39 @@ namespace ACS.Service.Impl
             return accessDetailList;
         }
 
+
+        #region AccessDetailService 成员
+
+        //根据权限ID获取时间段列表
+        public List<DoorTimeView> getDoorTimeViewListByAccessID(string accessID,string controlID)
+        {
+
+            List<QueryCondition> conditionList = new List<QueryCondition>();
+            conditionList.Add(new QueryCondition(
+                ConditionTypeEnum.EQUAL, 
+                AccessDetailView.ID,
+                accessID
+                ));
+            conditionList.Add(new QueryCondition(
+               ConditionTypeEnum.EQUAL,
+               AccessDetailView.CONTROL_ID,
+               controlID
+               ));
+            List<AccessDetailView> detailList = GetDao<AccessDetailView>().getAll(conditionList);
+
+            List<DoorTimeView> doorTimeList = new List<DoorTimeView>();
+
+            foreach(AccessDetailView v in detailList){
+
+                DoorTimeView d = Get<DoorTimeView>(DoorTimeView.DOOR_TIME_ID, v.ValueID.ToString());
+                if (d != null)
+                {
+                    doorTimeList.Add(d);
+                }
+            }
+            return doorTimeList;
+        }
+
+        #endregion
     }
 }

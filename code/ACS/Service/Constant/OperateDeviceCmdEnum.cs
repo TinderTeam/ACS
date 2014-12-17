@@ -15,6 +15,7 @@ namespace ACS.Service.Constant
         CACEL_FIRE = 6,
         SET_ALARM = 7,
         CACEL_ALARM = 8,
+        DEVICE_DOWNLOAD=9,
  
     }
 }

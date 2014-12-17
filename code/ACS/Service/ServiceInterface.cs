@@ -53,6 +53,7 @@ namespace ACS.Service
         AccessDetail getAccessDetailByAccessID(string accessID, string parentID);
         List<AccessDetailView> getDoorTimeAccessByAccessID(string selectedAccessID);
         List<DoorTimeView> getDoorTimeViewListByUserID(string userID);
+        List<DoorTimeView> getDoorTimeViewListByAccessID(string AccessID,string ControlID);
         void addDeviceInAccess(int userID, string accessID, List<AccessDetailModel> treeItemList);
         List<AccessDetail> getAccessDetailListByAccessID(string accessID);
     }
@@ -75,7 +76,7 @@ namespace ACS.Service
         void ModifyDoor(int userID, Door door);
         void StartMonitorAll();
         void StartMonitor(List<String> idList);
-        void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID);
+        void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID,String controlID);
  
     
         void OnlineStatus(Control control,bool status);

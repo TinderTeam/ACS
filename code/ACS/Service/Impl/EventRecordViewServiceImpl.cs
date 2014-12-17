@@ -26,7 +26,8 @@ namespace ACS.Service.Impl
         public List<EventRecordView> GetCurEvent(String indexID, String doorID)
         {
             List<QueryCondition> conditionList = new List<QueryCondition>();
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, "DoorID", doorID));
+            /*这里不使用门的过滤条件*/
+            //conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, "DoorID", doorID));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.DESC_ORDER, EventRecordView.ID));
             List<EventRecordView> alarmList;
             if (indexID.Equals("0"))

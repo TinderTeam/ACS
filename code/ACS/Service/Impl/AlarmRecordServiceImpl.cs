@@ -25,7 +25,9 @@ namespace ACS.Service.Impl
         public List<AlarmRecordView> GetCurAlarm(String indexID, String doorID)
         {
             List<QueryCondition> conditionList = new List<QueryCondition>();
-            conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, "DoorID", doorID));
+            /*这里使用用门的过滤条件*/
+            //conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, "DoorID", doorID));
+
             conditionList.Add(new QueryCondition(ConditionTypeEnum.DESC_ORDER, AlarmRecordView.ID));
 
 

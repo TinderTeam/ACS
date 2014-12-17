@@ -22,20 +22,19 @@ namespace ACS.Controllers
         MonitorService monitorService = ServiceContext.getInstance().getMonitorService();
         DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
 
-        // GET: /Monitor/
-
         public ActionResult Monitor()
         {
             return View();
         }
 
- 
         public ActionResult GetNewEvent(String data)
         {
             String[] attr = JsonConvert.JsonToObject<String[]>(data);
             String doorID=attr[0];
             String eventID = attr[1];
             String alarmID = attr[2];
+      
+
             List<AlarmRecordView> alarmEventList=ServiceContext.getInstance().getAlarmRecordService().GetCurAlarm(alarmID, doorID);
             List<EventRecordView> eventList = ServiceContext.getInstance().getEventRecordService().GetCurEvent(eventID, doorID);
 
@@ -77,26 +76,20 @@ namespace ACS.Controllers
             return ReturnJson(result);
         }
 
-        class Result{
-
-            public int EventIndex { get; set; }
-            public int AlarmIndex { get; set; }
-            public List<MonitorEventModel> DataList { get; set; }
-
-        }
-
         public String Timer(String data)
         {
             String[] attr = JsonConvert.JsonToObject<String[]>(data);
             return null;
         }
 
-        public ActionResult OperateDevice(String DoorID,int cmdCode)
+        public ActionResult OperateDevice(String DoorID,int cmdCode,String ControlID)
         {
             try
             {
                 OperateDeviceCmdEnum cmd = OperateDeviceCmdEnum.CACEL_ALARM;
-                deviceService.OperateDevice(cmd, DoorID); 
+                deviceService.OperateDevice(cmd, DoorID, ControlID);
+
+               
             }
             catch (FuegoException e)
             {
@@ -108,11 +101,17 @@ namespace ACS.Controllers
                 log.Error("create failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-
             return ReturnJson(Rsp);
- 
         }
+    }
 
-      
+
+    class Result
+    {
+
+        public int EventIndex { get; set; }
+        public int AlarmIndex { get; set; }
+        public List<MonitorEventModel> DataList { get; set; }
+
     }
 }

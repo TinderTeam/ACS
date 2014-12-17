@@ -7,6 +7,8 @@
       <generator class ="identity"/>
     </id>
 
+
+    
     <property name="EmployeeName">
       <column name="EMPLOYEE_NAME" length="50" unique="true"/>
     </property>
@@ -24,7 +26,7 @@
     </property>
 
     <property name="Pin">
-      <column name="PIN"/>
+      <column name="PIN" length="11"/>
     </property>
 
     <property name="EmpEnable">
@@ -67,6 +69,10 @@
       <column name="DEPT_ID"/>
     </property>
 
+    <property name="AccessID" type="int">
+      <column name="ACCESS_ID"/>
+    </property>
+    
     <property name="Photo1">
       <column name="PHOTO1" length="255"/>
     </property>
