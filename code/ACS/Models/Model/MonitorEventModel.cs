@@ -17,6 +17,7 @@ namespace ACS.Models.Model
         public String EventType { get; set; }
         public String EmployeeName{ get; set; }
         public String Img{ get; set; }
+        public String EventModelType { get; set; }
  
     }
 }

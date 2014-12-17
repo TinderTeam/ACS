@@ -52,7 +52,7 @@ namespace ACS.Service.device
 
                 alarmRecord.ControlID = this.control.ControlID;
 
-                alarmRecord.DoorID = 9;
+                alarmRecord.DoorID = 62;
                 alarmRecord.AlarmType = eventMsg.EventType.ToString();
 
                 alarmRecord.AlarmTime = new DateTime(eventMsg.Year, eventMsg.Month, eventMsg.Day, eventMsg.Hour, eventMsg.Minute, eventMsg.Second);
@@ -74,7 +74,7 @@ namespace ACS.Service.device
             {
                 EventRecord eventRecord = new EventRecord();
                 eventRecord.ControlID = this.control.ControlID;
-                eventRecord.DoorID = 9;
+                eventRecord.DoorID = 62;
                 eventRecord.EventTime = new DateTime(eventMsg.Year, eventMsg.Month, eventMsg.Day, eventMsg.Hour, eventMsg.Minute, eventMsg.Second);
 
                 eventRecord.EventTypeID = eventMsg.EventType;

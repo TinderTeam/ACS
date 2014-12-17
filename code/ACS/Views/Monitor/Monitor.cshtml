@@ -21,7 +21,7 @@
      }
      .Hide
      {
-        visibility:hidden;    
+        display:none;    
      }
      </style>
     </head>
@@ -42,54 +42,36 @@
             <div class="mini-fit">
                 <div class="mini-splitter" style="width:100%;height:100%;">
                   
-                    <div size="200px" showCollapseButton="true">
+                    <div size="200px" showCollapseButton="false">
                         <!----设备树--->
-                        <div class="mini-splitter" style="width:100%;height:100%;" handlerSize="1" vertical="true" allowResize="false">
-                            <div size="70px" showCollapseButton="false" style="height:100%;">
-                                <!----设备搜索--->
-                                <table class="form-table" border="0" cellpadding="1" cellspacing="1" style="width:100%;height:inherit">
-                                    <tr>
-                                        <td class="form-label">设备编号查询：</td>
-                                
-                                    </tr>
-                                    <tr>
-                                        <td >
-                                            <input name="deviceID" class="mini-textbox" />
-                                        </td>
-                                        <td >
-                                           <a class="mini-button" onclick="onClick" >搜索</a>
-                                        </td>
-                                    </tr>
-                                </table>             
-                            </div>
-                            <div showCollapseButton="false">
-                                <!----设备树--->
-                                <ul id="deviceTree" class="mini-tree" url="../DeviceManage/LoadTree" style="width:inherit;padding:3px;" 
-                                    showTreeIcon="true" onNodeClick="onNodeClick()" textField="MenuName" idField="Id" parentField="Pid" resultAsTree="false">
-                                </ul>
-                            </div>        
-                        </div>
-                    </div>
-                    <!----设备信息栏--->
-
-                    <div class="mini-fit" >
-                         <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
+                        <div class="mini-fit" style="width:100%;height:100%;" handlerSize="1" vertical="true" allowResize="false">
+                            <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
                             <table style="width:100%;">
                                 <tr>
                                     <td style="width:100%;">
 
-                                        <a class="mini-button" iconCls="icon-ok" onclick="OperateDevice('1')">开门</a>
-                                        <a class="mini-button" iconCls="icon-remove" onclick="OperateDevice('2')">关门</a>
-                                        <a class="mini-button" iconCls="icon-lock" onclick="OperateDevice('3')">锁门</a>
-                                        <a class="mini-button" iconCls="icon-unlock" onclick="OperateDevice('4')">解锁</a>
-                                        <a class="mini-button" iconCls="icon-no" onclick="OperateDevice('5')">火警</a> 
-                                        <a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('6')">火警解除</a>  
-                                        <a class="mini-button" iconCls="icon-no" onclick="OperateDevice('7')">报警</a> 
-                                        <a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('8')">报警解除</a>      
+                                        <span class="door Hide" ><a class="mini-button" iconCls="icon-ok" onclick="OperateDevice('1')">开门</a></span>
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-remove" onclick="OperateDevice('2')">关门</a></span>
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-lock" onclick="OperateDevice('3')">锁门</a></span>
+                                       <span class="door Hide"> <a class="mini-button" iconCls="icon-unlock" onclick="OperateDevice('4')">解锁</a></span>
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-no" onclick="OperateDevice('5')">火警</a>           </span>                             
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-no" onclick="OperateDevice('7')">报警</a></span>
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('6')">火警解除</a> </span>  
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('8')">报警解除</a></span>
+                                        <span class="control Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('9')">下发设备卡信息</a> </span>         
                                     </td>
                                 </tr>
                             </table>           
                         </div>
+                            <!----设备树--->
+                            <ul id="deviceTree" class="mini-tree" url="../DeviceManage/LoadTree" style="width:inherit;padding:3px;" 
+                                showTreeIcon="true" onNodeClick="onNodeClick()" textField="MenuName" idField="Id" parentField="Pid" resultAsTree="false">
+                            </ul>                              
+                        </div>
+                    </div>
+                    <!----设备信息栏--->
+
+                    <div class="mini-fit" >                        
                         <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
                             idField="HolidayID" multiSelect="true">
                             <div property="columns">              
@@ -110,14 +92,14 @@
                      <table style="width:inherit;height:100%;">
                              <td>
                                 <div id="eventCard1" class="mini-panel Hide"
-                                    title="最新事件" style="width:300px;height:150px;" 
+                                    title="最新事件" style="width:310px;height:150px;" 
                                    >
                                     <!---事件卡片--->
-                                    <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
-                                        <div size="80px" showCollapseButton="false">
-                                            <img id="cardImg1"  width="80px" src="">
+                                    <div class="mini-splitter" style="width:300px;height:110px;" vertical="false">
+                                        <div size="85px" showCollapseButton="false">
+                                            <img id="cardImg1"  width="85px" src="">
                                         </div>
-                                        <div class="mini-fit">
+                                        <div style="width:200px">
                                             <table>
                                                 <tr>
                                                     <td>事件类别：</td>
@@ -141,12 +123,12 @@
                                 </div>    
                              </td>
                              <td>
-                                  <div id="eventCard2" class="mini-panel Hide" 
-                                    title="最新事件" style="width:300px;height:150px;"
-                                    bodyStyle="padding:5;">
-                                       <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
-                                        <div size="80px" showCollapseButton="false">
-                                            <img id="cardImg2"  width="80px" src="">
+                                  <div id="eventCard2" class="mini-panel Hide"
+                                    title="最新事件" style="width:310px;height:150px;" 
+                                   >
+                                     <div class="mini-splitter" style="width:300px;height:110px;" vertical="false">
+                                        <div size="85px" showCollapseButton="false">
+                                            <img id="cardImg2"  width="85px" src="">
                                         </div>
                                         <div class="mini-fit">
                                             <table>
@@ -174,11 +156,11 @@
                              </td>
                            <td>
                                   <div id="eventCard3" class="mini-panel Hide" 
-                                    title="最新事件" style="width:300px;height:150px;"
+                                    title="最新事件" style="width:310px;height:150px;"
                                     bodyStyle="padding:5;">
-                                       <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
-                                        <div size="80px" showCollapseButton="false">
-                                            <img id="cardImg3"  width="80px" src="">
+                                    <div class="mini-splitter" style="width:300px;height:110px;" vertical="false">
+                                        <div size="85px" showCollapseButton="false">
+                                            <img id="cardImg3"  width="85px" src="">
                                         </div>
                                         <div class="mini-fit">
                                             <table>
@@ -206,11 +188,11 @@
                              </td>
                              <td>
                                 <div id="eventCard4" class="mini-panel Hide" 
-                                    title="最新事件" style="width:300px;height:150px;" 
+                                    title="最新事件" style="width:310px;height:150px;" 
                                     bodyStyle="padding:5;">
-                                     <div class="mini-splitter" style="width:100%;height:100%;" vertical="false">
-                                        <div size="80px" showCollapseButton="false">
-                                            <img id="cardImg4"  width="80px" src="">
+                                   <div class="mini-splitter" style="width:300px;height:110px;" vertical="false">
+                                        <div size="85px" showCollapseButton="false">
+                                            <img id="cardImg4"  width="85px" src="">
                                         </div>
                                         <div class="mini-fit">
                                             <table>
@@ -250,6 +232,7 @@
     //全局变量
         var cardShowNum = 0;    //当前显示的事件卡片数量
         var doorID = 0;        //当前选中的门ID
+        var controlID = 0;        //当前选中的门ID
         var eventIndex = 0;   //事件最新编号
         var alarmIndex = 0;   //报警最新编号
         var clock = 5000;       //定时器更新间隔
@@ -262,53 +245,63 @@
             node = tree.getSelectedNode();
 
             if ((node) && (node._level == 0)) {
-                resetMonitor();
+                showNull();
             }
             if ((node) && (node._level == 1)) {
-                resetMonitor();
+                var id = node.Id.replace("C_", "");
+                showControl();
+                controlID = id;
             }
             if ((node) && (node._level == 2)) {
-                var id = node.Id.replace("D_", "");              
-                if (id != doorID) {                   
-                    resetMonitor();
-                    doorID = id;
-                }
+                var id = node.Id.replace("D_", "");
+                showDoor();
+                doorID = id;
             }
+        }
+
+        function showControl() {
+            $(".control").removeClass("Hide");
+            $(".door").addClass("Hide");
+        }
+
+        function showDoor() {
+            $(".door").removeClass("Hide");
+            $(".control").addClass("Hide");
+        }
+        function showNull() {
+            $(".door").addClass("Hide");
+            $(".control").addClass("Hide");
         }
 
     //事物刷新方法
         function update(result) {
             var list = result.DataList;
             if (list.length > 0) {
-                for (var i = 0; i < list.length; i++) {                   
-                    addEvent(list[i].Img, list[i].EventType, list[i].EmployeeName, list[i].ControlName, list[i].EventTime);
-                    addItem(list[i]);
+               
+                for (var i = 0; i < list.length; i++) {
+                    //alert('id=' + list[i].Id + "type=" + list[i].EventModelType + ";event:" + eventIndex + "|alarm" + alarmIndex);
+                    
+                    if (
+                        !(eventIndex==0 && list[i].EventModelType == "event")
+                        &&
+                        !(alarmIndex==0 && list[i].EventModelType == "alarm")
+                        ) {
+                        
+                        addEvent(list[i].Img, list[i].EventType, list[i].EmployeeName, list[i].ControlName, list[i].EventTime);
+                        addItem(list[i]);
+                    
+                    }
+                    
                 }
-                eventIndex = result.EventIndex;
-                alarmIndex = result.AlarmIndex;
-            }
-        }
 
-        //监控器初始化
-        function resetMonitor() {
-            doorID = 0;
-            eventIndex = 0;   //更新事件编号
-            alarmIndex = 0;   //更新事件编号
-            cardShowNum = 0;
-            mini.get("#datagrid1").clearRows();
-            for (var i = 0; i < 4; i++) {
-                $("#eventCard" + (i+1)).addClass("Hide");
             }
         }
-       
 
     //定时器
         $(function () {
             var handler = function () {
                 //没有选中则不开始监控
-                if (doorID != "") {
                     var timerStr = new Array();　//Json 字符串数组
-
                     timerStr[0] = doorID;
                     //event
                     timerStr[1] = eventIndex;
@@ -316,6 +309,7 @@
                     timerStr[2] = alarmIndex;
                     var json = mini.encode(timerStr);
                     url = "/Monitor/GetNewEvent";
+
                     $.ajax({
                         url: url,
                         type: 'post',
@@ -323,14 +317,19 @@
                         cache: false,
                         success: function (text) {
                             var result = eval('(' + text + ')');
+                      
                             //调用更新方法
                             update(result);
+                        
+                            eventIndex = result.EventIndex;
+                            alarmIndex = result.AlarmIndex;
+
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(text);
                         }
                     });
-                }
+             
             }
     
             var timer = setInterval(handler, clock);
@@ -388,10 +387,10 @@
         //操作处理
         function OperateDevice(cmd) {
            
-            if (doorID == 0) {
+            if (doorID == 0 && controlID==0) {
                 alert('请选择一个门');
             } else {
-                var url = "/Monitor/OperateDevice?DoorID=" + doorID + "&cmdCode=" + cmd;
+                var url = "/Monitor/OperateDevice?DoorID=" + doorID +"&ControlID="+controlID+ "&cmdCode=" + cmd;
                 $.ajax({
                     url: url,
                     type: 'post',
@@ -410,6 +409,5 @@
    
         }
     </script>
-   
     </body>
 </html>

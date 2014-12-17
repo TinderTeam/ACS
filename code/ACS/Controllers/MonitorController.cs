@@ -52,8 +52,9 @@ namespace ACS.Controllers
                 model.EventType = e.AlarmType;
                 model.Id = e.AlarmID;
                 model.Img = ServiceConstant.ALARM_IMG_PATH;
+                model.EventModelType = "alarm";
                 modelList.Add(model);
-                result.AlarmIndex = e.AlarmID;
+        
 
             }
             foreach (EventRecordView e in eventList)
@@ -68,10 +69,29 @@ namespace ACS.Controllers
                 model.EventTime = DateUtil.DateTimeToString(e.EventTime);
                 model.EventType = ServiceContext.getInstance().getEventTypeService().Get(e.EventTypeID.ToString()).EventTypeName;
                 model.Id = e.EventID;
+                model.EventModelType = "event";
                 model.Img = e.Photo1;
                 modelList.Add(model);
-                result.EventIndex = e.EventID;
+               
             }
+            if (!ValidatorUtil.isEmpty(eventList))
+            {
+                result.EventIndex = eventList[0].EventID;
+            }
+            else
+            {
+                result.EventIndex = System.Convert.ToInt32(eventID);
+            }
+
+            if (!ValidatorUtil.isEmpty(alarmEventList))
+            {
+                result.AlarmIndex = alarmEventList[0].AlarmID;
+            }
+            else
+            {
+                result.AlarmIndex = System.Convert.ToInt32(alarmID); ;
+            }
+
             result.DataList = modelList;
             return ReturnJson(result);
         }
@@ -86,7 +106,7 @@ namespace ACS.Controllers
         {
             try
             {
-                OperateDeviceCmdEnum cmd = OperateDeviceCmdEnum.CACEL_ALARM;
+                OperateDeviceCmdEnum cmd = (OperateDeviceCmdEnum)cmdCode;
                 deviceService.OperateDevice(cmd, DoorID, ControlID);
 
                
