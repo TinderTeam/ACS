@@ -56,14 +56,14 @@ namespace ACS.Models.Po.Business
             get { return accessID; }
             set { accessID = value; }
         }
-        public int DoorTimeNum
+        public virtual int DoorTimeNum
         {
             get { return doorTimeNum; }
             set { doorTimeNum = value; }
         }
 
 
-        public int DoorNum
+        public virtual int DoorNum
         {
             get { return doorNum; }
             set { doorNum = value; }

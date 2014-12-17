@@ -54,7 +54,7 @@ namespace ACS.Models.Po.Business
         private String ascString;//
         private int accessID;
 
-        public int AccessID
+        public virtual int AccessID
         {
             get { return accessID; }
             set { accessID = value; }
