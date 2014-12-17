@@ -7,8 +7,6 @@
       <generator class ="identity"/>
     </id>
 
-
-    
     <property name="EmployeeName">
       <column name="EMPLOYEE_NAME" length="50" unique="true"/>
     </property>
@@ -26,7 +24,7 @@
     </property>
 
     <property name="Pin">
-      <column name="PIN" length="11"/>
+      <column name="PIN" length="4"/>
     </property>
 
     <property name="EmpEnable">
@@ -69,10 +67,6 @@
       <column name="DEPT_ID"/>
     </property>
 
-    <property name="AccessID" type="int">
-      <column name="ACCESS_ID"/>
-    </property>
-    
     <property name="Photo1">
       <column name="PHOTO1" length="255"/>
     </property>
@@ -177,9 +171,13 @@
       <column name="IS_BLACK_CARD"/>
     </property>
 
-    <property name="AscString" type="string">
+    <property name="AscString">
       <column name="ASC_STRING" length="255"/>
     </property>
 
+    <property name="AccessID">
+      <column name="ACCESS_ID"/>
+    </property>
+    
   </class>
 </hibernate-mapping>

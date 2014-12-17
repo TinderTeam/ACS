@@ -52,15 +52,8 @@ namespace ACS.Models.Po.Business
         private DateTime timeStampx = DateTime.Now;//
         private bool isBlackCard;//
         private String ascString;//
-        private int accessID;
-
-        public virtual int AccessID
-        {
-            get { return accessID; }
-            set { accessID = value; }
-        }
-
-
+        public virtual int AccessID { get; set; }
+        
         public virtual int EmployeeID
         {
           get { return employeeID; }

@@ -43,6 +43,10 @@
       <column name="DEPT_ID"/>
     </property>
 
+    <property name="AccessID">
+      <column name="ACCESS_ID"/>
+    </property>
+
     <property name="Photo1">
       <column name="PHOTO1" length="50"/>
     </property>
@@ -70,6 +74,10 @@
     <property name="JobName">
       <column name="JOB_NAME" length="50"/>
     </property>
-
+    
+    <property name="AccessName">
+      <column name="ACCESS_NAME" length="50"/>
+    </property>
+    
   </class>
 </hibernate-mapping>

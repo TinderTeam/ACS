@@ -46,7 +46,7 @@
     <property name="DoorName">
       <column name="DOOR_NAME" length="50"/>
     </property>
-    
+
     <property name="DoorNum">
       <column name="DOOR_NUM"/>
     </property>
@@ -54,11 +54,7 @@
     <property name="DoorTimeName">
       <column name="DOOR_TIME_NAME" length="50"/>
     </property>
-
-    <property name="DoorTimeNum">
-      <column name="DOOR_TIME_NUM" />
-    </property>
-
+    
     <property name="StartTime">
       <column name="START_TIME"/>
     </property>
@@ -66,7 +62,11 @@
     <property name="EndTime">
       <column name="END_TIME"/>
     </property>
-    
+
+    <property name="DoorTimeNum" >
+      <column name="DOOR_TIME_NUM"/>
+    </property>
+
     <property name="Monday">
       <column name="MONDAY"/>
     </property>

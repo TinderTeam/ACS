@@ -29,6 +29,7 @@ namespace ACS.Models.Po.Business
         private DateTime endDate = DateTime.Now;        //有效期
         private bool leave;                           //离职
         private int lastEventID;                        //最后一次刷卡
+        public virtual int AccessID { get; set; }               //权限ID
 
         //从Dept表中获得
         private String deptName;
@@ -36,6 +37,8 @@ namespace ACS.Models.Po.Business
         //从Job表中活动
         private String jobName;
 
+        //从AccessDetail中获得
+        public virtual String AccessName { get; set; }          //权限名称
 
         public virtual int EmployeeID
         {

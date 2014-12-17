@@ -99,5 +99,9 @@
       <column name="M_CARDS_OPEN_IN_OUT"/>
     </property>
 
+    <property name="DoorNum">
+      <column name="DOOR_NUM"/>
+    </property>
+    
   </class>
 </hibernate-mapping>
