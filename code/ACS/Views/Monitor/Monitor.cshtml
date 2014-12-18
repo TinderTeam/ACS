@@ -5,7 +5,15 @@
         <title>员工面板</title>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
         <link href="../../script/demo.css" rel="stylesheet" type="text/css" />
+
         <script src="../../Scripts/boot.js" type="text/javascript"></script>
+     
+        <script src="../../Scripts/jquery.progressbar/js/jquery.progressbar.min.js" type="text/javascript"></script>
+             <script type="text/javascript">
+                 $(document).ready(function () {
+                     $("#bar").progressBar(0, { barImage: '../../Scripts/jquery.progressbar/images/progressbg_green.gif', showText: false,speed:5 });
+                 });
+		</script>
  <style>
      .my-label
      {
@@ -44,7 +52,7 @@
                   
                     <div size="200px" showCollapseButton="false">
                         <!----设备树--->
-                        <div class="mini-fit" style="width:100%;height:100%;" handlerSize="1" vertical="true" allowResize="false">
+                        <div class="mini-fit" style="width:100%;height:100%;" handlerSize="1" vertical="true"allowResize="false">
                             <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
                             <table style="width:100%;">
                                 <tr>
@@ -58,8 +66,9 @@
                                         <span class="door Hide"><a class="mini-button" iconCls="icon-no" onclick="OperateDevice('7')">报警</a></span>
                                         <span class="door Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('6')">火警解除</a> </span>  
                                         <span class="door Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('8')">报警解除</a></span>
-                                        <span class="control Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('9')">下发设备卡信息</a> </span>         
-                                    </td>
+                                        <span class="control Hide"><a class="mini-button" iconCls="icon-undo" style="width:95%" onclick="DeviceDownload()">下发设备卡信息</a> </span>         
+                                        <span class="bar Hide" >操作进度：<span class="progressBar" id="bar"></span></span>
+                                   </td>
                                 </tr>
                             </table>           
                         </div>
@@ -236,7 +245,11 @@
         var eventIndex = 0;   //事件最新编号
         var alarmIndex = 0;   //报警最新编号
         var clock = 5000;       //定时器更新间隔
-
+        var barClock = 2000;       //定时器更新间隔
+        var barStart = false;
+        var barValue = 0;
+        var barUUID = "";
+        var barTimer;
     //设备树控制
         //节点选择
         function onNodeClick(event){
@@ -328,19 +341,55 @@
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(text);
                         }
-                    });
-             
+                    }); 
             }
-    
-            var timer = setInterval(handler, clock);
-            var clear = function () {
-                clearInterval(timer);
-            }
-        });
+           
 
+            var timer = setInterval(handler, clock);
+          
+            
+        });
+       
+        var clear = function () {
+            clearInterval(timer);
+            clearInterval(barTimer);
+        }
+
+        //进度条刷新过程
+        var barHandler = function () {
+            if (barStart) {
+                url = "/Monitor/BarStatus?UUID=" + barUUID;
+
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: "",
+                    cache: false,
+                    success: function (text) {
+                        var p = eval('(' + text + ')');
+                        barValue = p.Obj;
+                        $("#bar").progressBar(barValue);
+                        if (barValue == 100) {    
+                            clearInterval(barTimer);
+                            setTimeout(hideBar, 2000);
+                       
+                        }
+                        
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(text);
+                    }
+                });
+            }
+        }
       
     //事件过程
        
+        function hideBar() {
+            $(".bar").addClass('Hide');
+            $("#bar").progressBar(0);
+        }
+
         // 表格增加节点
         function addItem(item) {
             var row =
@@ -355,7 +404,6 @@
         }
        //增加事件
         function addEvent(src, eventName, employeeName, device, time, type) {
-       
             cardShowNum = cardShowNum + 1;
             $("#eventCard" + cardShowNum).removeClass("Hide");
             for (var i = 3; i >0; i--) {
@@ -390,7 +438,7 @@
             if (doorID == 0 && controlID==0) {
                 alert('请选择一个门');
             } else {
-                var url = "/Monitor/OperateDevice?DoorID=" + doorID +"&ControlID="+controlID+ "&cmdCode=" + cmd;
+                var url = "/Monitor/OperateDevice?DoorID=" + doorID +"&cmdCode=" + cmd;
                 $.ajax({
                     url: url,
                     type: 'post',
@@ -405,9 +453,42 @@
                     }
                 });
             }
-      
-   
         }
+        //操作处理
+        function DeviceDownload() {
+            if (doorID == 0 && controlID == 0) {
+                alert('请选择一个控制器');
+            } else {
+
+              
+
+                var url = "/Monitor/DeviceDownload?&ControlID=" + controlID;
+                
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: "",
+                    cache: false,
+                    success: function (json) {
+                        var Rsp = mini.decode(json);
+                        if (Rsp.ErrorCode == "Success") {
+                            barUUID = Rsp.Obj;
+                            $(".bar").removeClass("Hide");
+                            barStart = true;
+                            barTimer = setInterval(barHandler, barClock);
+                        } else {
+                            mini.alert(Rsp.Message);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(jqXHR.responseText);
+                        CloseWindow();
+                    }
+                });
+            }
+        }
+        
     </script>
+
     </body>
 </html>

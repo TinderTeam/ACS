@@ -175,7 +175,7 @@ namespace ACS.Controllers
             try
             {   
                 E obj = JsonConvert.JsonToObject<E>(data);
-                getService().Create(this.getSession().UserID,obj);
+                getService().Create(this.getSessionUser().UserID,obj);
             }
             catch (FuegoException e)
             {
@@ -197,7 +197,7 @@ namespace ACS.Controllers
             try
             {
                 E obj = JsonConvert.JsonToObject<E>(data);
-                getService().Modify(this.getSession().UserID, obj);
+                getService().Modify(this.getSessionUser().UserID, obj);
             }
             catch (FuegoException e)
             {

@@ -25,7 +25,7 @@ namespace ACS.Service.Impl
             log.Msg = msg;
             log.Result = result;
             log.UserCode = userID;
-            base.Create(log);
+            //base.Create(log);
         }
         #endregion
     }

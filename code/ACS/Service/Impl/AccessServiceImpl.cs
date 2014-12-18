@@ -246,6 +246,7 @@ namespace ACS.Service.Impl
                AccessDetailView.CONTROL_ID,
                controlID
                ));
+
             List<AccessDetailView> detailList = GetDao<AccessDetailView>().getAll(conditionList);
 
             List<DoorTimeView> doorTimeList = new List<DoorTimeView>();
@@ -253,7 +254,7 @@ namespace ACS.Service.Impl
             foreach(AccessDetailView v in detailList){
 
                 DoorTimeView d = Get<DoorTimeView>(DoorTimeView.DOOR_TIME_ID, v.ValueID.ToString());
-                if (d != null)
+                if (d != null && !d.Enable.Equals("Disable"))
                 {
                     doorTimeList.Add(d);
                 }
@@ -262,5 +263,94 @@ namespace ACS.Service.Impl
         }
 
         #endregion
+
+        #region AccessDetailService 成员
+
+        /// <summary>
+        /// 根据权限ID获取涉及到的ControlList和DoorTimeList
+        /// </summary>
+        /// <param name="accessID"></param>
+        /// <returns></returns>
+        public Dictionary<Control, List<DoorTimeView>> getControlListByAccessID(string accessID)
+        {
+            log.Info("Get Control-DoorTimeView Table by Access :" + accessID);
+            
+            Dictionary<Control, List<DoorTimeView>> map = new Dictionary<Control, List<DoorTimeView>>();
+            //获取AccessID的全部DoorTimeView
+            List<DoorTimeView> allDoorTimeView = getDoorTimeViewListByAccessCondition(accessID);
+            //获取全部的Control
+            List<Control> controlList = GetDao<Control>().getAll();
+
+            ///遍历每一个Conrol 获取该Control包含的DoorTime 中被AccessID权限控制的一个对应关系
+            ///| control | DoorTimeList                               |
+            ///| 控制器  | 这个控制其中被Access控制的DoorTimeView     |
+
+
+            foreach ( Control c in controlList){  
+                List<DoorTimeView> controlDootTimeList = new List<DoorTimeView>();
+                foreach (DoorTimeView d in allDoorTimeView)
+                {
+                    if (d.ControlID == c.ControlID)
+                    {
+                        controlDootTimeList.Add(d);
+                    }
+                }
+                if (!ValidatorUtil.isEmpty(controlDootTimeList))
+                {
+                    map.Add(c, controlDootTimeList);
+                }
+            }
+            return map;
+        }
+
+        /// <summary>
+        /// 通过Access的条件获取一个
+        /// </summary>
+        /// <param name="conditionList"></param>
+        /// <returns></returns>
+        public List<DoorTimeView> getDoorTimeViewListByAccessCondition(String accessID)
+        {
+            log.Info("Get DoorTimeView List by AccessID :" + accessID);
+            Dictionary<int, DoorTimeView> map = new Dictionary<int, DoorTimeView>();
+            //先获取该权限所有的权限列表
+
+            
+            QueryCondition IDCondition = new QueryCondition(
+              ConditionTypeEnum.EQUAL,
+              AccessDetailView.ID,
+              accessID
+             );
+
+            List<AccessDetailView> detailList = GetDao<AccessDetailView>().getAll(IDCondition);
+            //递归获取权限的DoorTimeList
+            foreach (AccessDetailView a in detailList)
+            {
+                if (a.Type.Equals(AccessDetail.ACCESS_TYPE))
+                {
+                    //类型为Access 递归处理
+                    List<DoorTimeView> subDoorTimeList = getDoorTimeViewListByAccessCondition(accessID);
+                    foreach (DoorTimeView d in subDoorTimeList){
+                        if (d.Enable.Equals(DoorTimeView.ENABLE))
+                        {
+                            map[d.DoorTimeID] = d;
+                        }
+                    }
+                }
+                else if (a.Type.Equals(AccessDetail.DOORTIME_TYPE))
+                {
+                    QueryCondition DoorTimeCondition = new QueryCondition(
+                        ConditionTypeEnum.EQUAL,
+                        DoorTimeView.DOOR_TIME_ID,
+                        a.ValueID.ToString()
+                    );
+                    map[a.ValueID] = GetDao<DoorTimeView>().getUniRecord(DoorTimeCondition);
+                }
+            }
+
+            return new List<DoorTimeView>(map.Values);
+        }
+        #endregion
     }
+
+   
 }

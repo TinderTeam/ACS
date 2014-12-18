@@ -11,6 +11,14 @@
       <column name="DOOR_ID"/>
     </property>
 
+    <property name="DoorNum" type="int">
+      <column name="DOOR_NUM"/>
+    </property>
+
+    <property name="DoorTimeNum" type="int">
+      <column name="DOOR_TIME_NUM"/>
+    </property>
+    
     <property name="DoorTimeName" type="string">
       <column name="DOOR_TIME_NAME" length="255"/>
     </property>

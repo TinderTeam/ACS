@@ -39,6 +39,8 @@ namespace ACS.Service
         void saveEmployeeCard(List<Employee> employeeModelList);
         void modifyAccess(String employeeID, String AccessID);
         void UpdateLastEvent(string cardID, int eventID);
+
+        void DownCardList(List<string> list);
     }
     public interface DeviceOperatorService
     {
@@ -56,6 +58,8 @@ namespace ACS.Service
         List<DoorTimeView> getDoorTimeViewListByAccessID(string AccessID,string ControlID);
         void addDeviceInAccess(int userID, string accessID, List<AccessDetailModel> treeItemList);
         List<AccessDetail> getAccessDetailListByAccessID(string accessID);
+
+        Dictionary<Control, List<DoorTimeView>> getControlListByAccessID(String accessID);
     }
     public interface DeptService  : CommonService<Dept>
     {
@@ -76,11 +80,13 @@ namespace ACS.Service
         void ModifyDoor(int userID, Door door);
         void StartMonitorAll();
         void StartMonitor(List<String> idList);
-        void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID,String controlID);
+        void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID);
  
     
         void OnlineStatus(Control control,bool status);
 
+
+        void DeviceDownload(string controlID, string uuID);
     }
 
     public interface PlatFormService

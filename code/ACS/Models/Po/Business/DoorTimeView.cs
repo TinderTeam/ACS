@@ -10,13 +10,19 @@ namespace ACS.Models.Po.Business
 
         //从DoorTime中获取
         public const String DOOR_TIME_ID = "DoorTimeID";
+        
+        private int doorTimeID;             //开放时间索引
+        private int doorTimeNum;         //开放时间序号
 
-        private int doorTimeID;             //开放时间编号
-        private int doorID;                 //门编号
+        private int doorID;                 //门索引
+        private int doorNum;                //门编号
+     
         private String doorTimeName;        //开放时间名称
         private String startTime;           //开始时间
         private String endTime;             //截止时间
         private string enable;              //是否使能
+        public const String ENABLE = "Enable";
+        public const String DISABLE = "Disable";
         public virtual bool Monday { get; set; }
         public virtual bool Tuesday { get; set; }
         public virtual bool Wednesday { get; set; }
@@ -27,28 +33,40 @@ namespace ACS.Models.Po.Business
         public virtual bool Holiday { get; set; }
         //从Door中获取
         private String doorName;            //门名称
-
         //从Control中获取
         private int controlID;              //控制器ID
         private String controlName;         //控制器名称
-
+      
         public virtual int DoorTimeID
         {
             get { return doorTimeID; }
             set { doorTimeID = value; }
         }
-        
+
+        public virtual int DoorNum
+        {
+            get { return doorNum; }
+            set { doorNum = value; }
+        }
+
         public virtual int DoorID
         {
             get { return doorID; }
             set { doorID = value; }
         }
-        
+
+
+        public virtual int DoorTimeNum
+        {
+            get { return doorTimeNum; }
+            set { doorTimeNum = value; }
+        }
         public virtual String DoorTimeName
         {
             get { return doorTimeName; }
             set { doorTimeName = value; }
         }
+       
 
         public virtual String StartTime
         {

@@ -13,6 +13,7 @@ using ACS.Service.Constant;
 using ACS.Common.Util;
 using ACS.Common;
 using System.IO;
+using ACS.Service.device;
 namespace ACS.Service.Impl
 {
     public class EmployeeServiceImpl : CommonServiceImpl<Employee>, EmployeeService
@@ -186,6 +187,34 @@ namespace ACS.Service.Impl
             else
             {
                 throw new FuegoException(ExceptionMsg.EMPLOYEE_CODE_NOT_EXIST);
+            }
+        }
+
+        #endregion
+
+        #region EmployeeService 成员
+
+        /// <summary>
+        /// 根据员工ID列表进行下发员工卡片信息到设备的操作
+        /// </summary>
+        /// <param name="list"></param>
+        public void DownCardList(List<string> list)
+        {
+            foreach (String id in list)
+            {
+                Employee employee=Get(id);
+                //获取这个员工涉及到的控制器-门时间列表
+                Dictionary<Control, List<DoorTimeView>> controlDateTimeMap = 
+                    ServiceContext.getInstance().getAccessDetailService().getControlListByAccessID(employee.AccessID.ToString());
+                foreach (Control c in controlDateTimeMap.Keys)
+                {
+                    if (controlDateTimeMap.ContainsKey(c) && controlDateTimeMap[c] != null)
+                    {                   
+                        DeviceOperatorFactory.getInstance().getDeviceOperator(c).cardInfoDownLoad(employee, controlDateTimeMap[c]);
+                    }
+
+                }
+                
             }
         }
 

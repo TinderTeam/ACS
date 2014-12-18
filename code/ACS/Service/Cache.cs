@@ -113,6 +113,86 @@ namespace ACS.Service
             return null;
         }
     }
+
+    public class ProcessManageCache
+    {
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        /// 
+        /// map for:
+        /// | UserID in Session + cmd   | ProcessPro    |
+        /// | String                    | int         |
+        /// 
+
+        static Dictionary<String, int> map = new Dictionary<String, int>();
+
+        /// <summary>
+        /// 获得一个Session用户操作的进度，如果缓存中没有进度则返回0，上级处理时应当对0当做没有进度来进行处理。
+        /// 如果读到1（说明进度为100%）则需要将这个进度从缓存中删除掉。
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public static int getProcessByUUID(String uuID)
+        {
+            log.Info("get Procession: ID= " + uuID);
+
+            if (map.ContainsKey(uuID))
+            {
+                log.Info("get Procession: ID= " + uuID + "p=" + map[uuID]);
+                int value = map[uuID];
+                if (map[uuID] == 100)
+                {
+                    removeProcess(uuID);
+                }
+                return value;
+            }
+            else
+            {
+                log.Info("Procession not exist!");
+                return 0 ;
+            }
+        }
+
+        public static void startNewProcession(String uuID)
+        {
+            log.Info("Start a new Procession: ID= " + uuID);
+            if (map.ContainsKey(uuID))
+            {
+                log.Error("ProcessExcist!!");
+                ///这里一般不会出现重复的问题，因为在进程接受后都会清除掉的。所以这里处理的时候打开一个新的进程。
+                map[uuID] = 0;
+            }
+            else{
+                map[uuID] =0;
+            }
+          
+        }
+        public static void removeProcess(String uuID)
+        {
+            if (map.ContainsKey(uuID))
+            {
+                map.Remove(uuID);
+            }
+            else
+            {
+                log.Error("ProcessNotExcist!!");
+            }
+        }
+
+        internal static void Update(string uuID, int p)
+        {
+            log.Info("Update Procession: ID= " + uuID+"p="+p);
+            if (map.ContainsKey(uuID))
+            {
+                map[uuID] = p;
+            }
+            else
+            {
+                map[uuID] = p;
+                log.Error("ProcessNotExcist!!");
+            }
+        }
+
+    }
     //public class PrivilegeCache
     //{
 

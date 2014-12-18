@@ -197,6 +197,29 @@ namespace ACS.Controllers
  
             return ReturnJson(Rsp);
         }
- 
+        /// <summary>
+        /// 下发员工的卡片到所有设备
+        /// </summary>
+        /// <param name="idList"></param>
+        /// <returns></returns>
+        public ActionResult DownCardList(String idList)
+        {
+            try
+            {
+                employeeService.DownCardList(getIDList(idList));
+            }
+            catch (FuegoException e)
+            {
+                log.Error("download failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (SystemException e)
+            {
+                log.Error("download failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
+        }
     }
 }

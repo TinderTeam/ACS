@@ -165,6 +165,7 @@ namespace ACS.Service.Impl
             {
                 week |= 0x01;
             }
+            log.Info("TCPControl AddTimeZone: door.DoorNum= " + door.DoorNum + ",doorTime.DoorTimeNum=" + doorTime.DoorTimeNum + ",doorTime.DoorTimeNum=" + doorTime.DoorTimeNum + ",doorTime.StartTime" + DateUtil.StringToDateTime(doorTime.StartTime) + ",doorTime.EndTime= " + DateUtil.StringToDateTime(doorTime.EndTime) + ",week=" + week);
             bool result = connector.AddTimeZone(
                 (ushort)door.DoorNum, 
                 (byte)doorTime.DoorTimeNum, 
@@ -175,21 +176,20 @@ namespace ACS.Service.Impl
                 (byte)1, 
                 DateTime.Now, 
                 0);
-        }
 
-
-        public void deviceCardInfoDownLoad(Dictionary<Employee, List<DoorTimeView>> cardInfoMap)
-        {
-            log.Info("cardInfoMap is :" + cardInfoMap);
-            List<Employee> list = new List<Employee>(cardInfoMap.Keys);
-            foreach (Employee e in list)
+            if (result)
             {
-                if (cardInfoMap.ContainsKey(e))
-                {
-                    cardInfoDownLoad(e, cardInfoMap[e]);
-                }
+                log.Info("TCPControl AddTimeZone:Success...");
             }
+            else
+            {
+                log.Info("TCPControl AddTimeZone: Fail...");
+            }
+
         }
+
+
+
 
 
         public void cardInfoDownLoad(Employee employee,List<DoorTimeView> doorTimeList)
@@ -202,7 +202,7 @@ namespace ACS.Service.Impl
                 case 1:
                     foreach(DoorTimeView doorTime in doorTimeList)
                     {
-                        int num = doorTime.DoorTimeID;
+                        int num = doorTime.DoorTimeNum;
                         byte temp = 0x01;
                         if (num < 8)
                         {
@@ -218,8 +218,8 @@ namespace ACS.Service.Impl
                 case 2:
                     foreach (DoorTimeView doorTime in doorTimeList)
                     {
-                        int num = doorTime.DoorTimeID;
-                        int doorNum = doorTime.DoorID;
+                        int num = doorTime.DoorTimeNum;
+                        int doorNum = doorTime.DoorNum;
                         byte temp = 0x01;
                         for (int i = 0; i < TZ.Length; i++)
                         {
@@ -239,18 +239,19 @@ namespace ACS.Service.Impl
                 case 4:
                     foreach (DoorTimeView doorTime in doorTimeList)
                     {
-                        int num = doorTime.DoorTimeID;
-                        int doorNum =doorTime.DoorID;
+                        int num = doorTime.DoorTimeNum;
+                        int doorNum =doorTime.DoorNum;
                         byte temp = 0x01;
-                        for (int i = 0; i < TZ.Length;i++ )
+                        for (int i = 0; i < num;i++ )
                         {
-                            TZ[doorNum] += (byte)(temp << num);
+                            temp = (byte)(temp << num);
                         }
+                        TZ[doorNum] += temp;
                     }
                     break;
             }
-
-            connector.AddCard(
+            log.Info("TCPControl Addcard: cardno= " + System.Convert.ToUInt64(employee.CardNo) + ",pin=" + employee.Pin + ",EmployeeName=" + employee.EmployeeName + ",TZ[0-3]=" + TZ[0] + " " + TZ[1] + " "+TZ[2]+" "+TZ[3]+",date= "+employee.EndDate);
+            bool result=connector.AddCard(
                        0,
                        System.Convert.ToUInt64(employee.CardNo),
                        employee.Pin,
@@ -262,7 +263,22 @@ namespace ACS.Service.Impl
                        1,
                        employee.EndDate
                   );
+            if (result)
+            {
+                log.Info("TCPControl Addcard:Success...");
+            }
+            else
+            {
+                log.Info("TCPControl Addcard: Fail...");
+            }
         }
-     
+
+
+
+        public bool ClearAllCards()
+        {
+            return connector.ClearAllCards();
+        }
+
     }
 }

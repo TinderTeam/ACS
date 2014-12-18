@@ -18,8 +18,9 @@ namespace ACS.Service.device
 
          void SetDoorTime(Door door,DoorTime doorTime);
 
-         void deviceCardInfoDownLoad(Dictionary<Employee, List<DoorTimeView>> cardInfoMap);
 
          void  cardInfoDownLoad(Employee employee, List<DoorTimeView> doorTimeList);
+
+         bool ClearAllCards();
     }
 }

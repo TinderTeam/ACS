@@ -14,6 +14,7 @@ using ACS.Service.device;
 using System.Dynamic;
 using ACS.Common;
 using ACS.Service.Constant;
+using System.Threading;
 namespace ACS.Controllers
 {
     public class MonitorController : BaseController
@@ -96,20 +97,59 @@ namespace ACS.Controllers
             return ReturnJson(result);
         }
 
-        public String Timer(String data)
-        {
-            String[] attr = JsonConvert.JsonToObject<String[]>(data);
-            return null;
-        }
-
-        public ActionResult OperateDevice(String DoorID,int cmdCode,String ControlID)
+        public ActionResult BarStatus(String UUID)
         {
             try
             {
-                OperateDeviceCmdEnum cmd = (OperateDeviceCmdEnum)cmdCode;
-                deviceService.OperateDevice(cmd, DoorID, ControlID);
+                int p = ProcessManageCache.getProcessByUUID(UUID);
 
+                Rsp.Obj = p;
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+            return ReturnJson(Rsp);
+        }
+
+        public ActionResult OperateDevice(String DoorID,int cmdCode)
+        {
+            try
+            {
+
+                OperateDeviceCmdEnum cmd = (OperateDeviceCmdEnum)cmdCode;
+                deviceService.OperateDevice(cmd, DoorID);
                
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+            return ReturnJson(Rsp);
+        }
+
+        public ActionResult DeviceDownload(String ControlID)
+        {
+            try
+            {
+                String uuID = DataCreatUtil.getUUID();
+                DeviceOperatorThread thread = new DeviceOperatorThread(ControlID, uuID);
+                Thread oThread = new Thread(new ThreadStart(thread.Op));
+                oThread.Start();
+                Rsp.Obj = uuID;
+
             }
             catch (FuegoException e)
             {
@@ -125,6 +165,31 @@ namespace ACS.Controllers
         }
     }
 
+    /// <summary>
+    /// 设备控制操作线程
+    /// </summary>
+    class DeviceOperatorThread
+    {
+
+        DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
+        String uuID;
+        String controlID;
+       
+        public DeviceOperatorThread(String controlID,String uuID)
+        {
+            this.controlID = controlID;
+            this.uuID = uuID;
+        }
+
+        public void Op()
+        {
+   
+            //打开进度监控器
+            ProcessManageCache.startNewProcession(uuID);
+            deviceService.DeviceDownload(controlID, uuID);
+           
+        }
+    }
 
     class Result
     {

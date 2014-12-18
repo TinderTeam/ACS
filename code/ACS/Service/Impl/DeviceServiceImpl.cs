@@ -204,10 +204,6 @@ namespace ACS.Service.Impl
             GetDao<Door>().update(orignalDoor);
         }
  
-        
-
-      
-
         public void StartMonitorAll()
         {
             log.Info("now start conncet all device");
@@ -255,59 +251,74 @@ namespace ACS.Service.Impl
             }
         }
 
- 
-        public void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID,String controlID)
+
+
+
+        #region DeviceService 成员
+
+
+        public void OperateDevice(OperateDeviceCmdEnum cmdCode, string doorID)
         {
-            log.Info("OperateDevice: Cmd=" + cmdCode + ";DoorID=" + doorID + ";ControlID=" + controlID);
+            log.Info("OperateDevice: Cmd=" + cmdCode + ";DoorID=" + doorID );
 
-            if (cmdCode == OperateDeviceCmdEnum.DEVICE_DOWNLOAD)
+            Control control = null;
+            Door door = null;
+            door = Get<Door>(Door.DOOR_ID, doorID);
+            if (null == door)
             {
-                Control control = Get(controlID);
-                if (null == control)
-                {
-                    log.Error("can not find the control by id, the control id is " + controlID);
-                    throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
-                }
-                DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
-
-                Dictionary<Employee, List<DoorTimeView>> cardInfoMap = new Dictionary<Employee, List<DoorTimeView>>();
-
-                List<Employee> employeeList = GetDao<Employee>().getAll();
-                foreach (Employee e in employeeList)
-                {
-                    List<DoorTimeView> doorTimeList = 
-                        ServiceContext.getInstance().getAccessDetailService()
-                        .getDoorTimeViewListByAccessID(e.AccessID.ToString(), controlID);
-                    cardInfoMap.Add(e, doorTimeList);
-                   
-                }
-                
-                deviceOperator.deviceCardInfoDownLoad(cardInfoMap);
-
+                log.Error("can not find the door by id, the door id is " + doorID);
+                throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
             }
-            else
+            control = Get(door.ControlID.ToString());
+            if (null == control)
             {
-                Control control = null;
-                Door door = null;
-                door = Get<Door>(Door.DOOR_ID, doorID);
-                if (null == door)
-                {
-                    log.Error("can not find the door by id, the door id is " + doorID);
-                    throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
-                }
-                control = Get(door.ControlID.ToString());
-                if (null == control)
-                {
-                    log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
-                    throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
-                }
-                DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
-                deviceOperator.Operate(cmdCode, door);
+                log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
+                throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
             }
-           
-            
+            DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+            deviceOperator.Operate(cmdCode, door);
         }
- 
- 
+
+        public void DeviceDownload(string controlID, string uuID)
+        {
+
+
+
+            Control control = Get(controlID);
+            if (null == control)
+            {
+                log.Error("can not find the control by id, the control id is " + controlID);
+                throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
+            }
+            DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+
+            log.Info("ClearAllCards in Device...");
+            if (!deviceOperator.ClearAllCards())
+            {
+                log.Info("TCPControl ClearAllCards: Fail...");
+            }
+            log.Info("TCPControl ClearAllCards: Success...");
+            
+
+            List<Employee> employeeList = GetDao<Employee>().getAll();
+            ///进度条处理
+            int i = 0;
+            foreach (Employee e in employeeList)
+            {
+               
+                int p = (100 * (i+1) / employeeList.Count);
+                ProcessManageCache.Update(uuID,p);
+                List<DoorTimeView> doorTimeList =
+                    ServiceContext.getInstance().getAccessDetailService()
+                    .getDoorTimeViewListByAccessID(e.AccessID.ToString(), controlID);
+                if (!ValidatorUtil.isEmpty(doorTimeList))
+                {
+                    deviceOperator.cardInfoDownLoad(e, doorTimeList);
+                }
+                i++;
+            }
+        }
+
+        #endregion
     }
 }

@@ -32,13 +32,13 @@ namespace ACS.Controllers
         // 加载设备-门树
         public override ActionResult LoadTree()
         {
-            List<TreeModel> deviceTreeList = deviceService.getDeviceTreeByID(this.getSession().UserID.ToString());
+            List<TreeModel> deviceTreeList = deviceService.getDeviceTreeByID(this.getSessionUser().UserID.ToString());
             return ReturnJson(deviceTreeList);
         }
         //根据用户ID获取控制器列表
         public override List<QueryCondition> GetFilterCondition(String json)
         {
-            List<String> controlIDList = privilegeService.getPrivilegeValueList(this.getSession().UserID.ToString(), ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN);
+            List<String> controlIDList = privilegeService.getPrivilegeValueList(this.getSessionUser().UserID.ToString(), ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN);
             List<QueryCondition> filterCondition = new List<QueryCondition>();
             if (!ValidatorUtil.isEmpty(controlIDList))
             {
@@ -104,24 +104,24 @@ namespace ACS.Controllers
 
             try
             {
-                this.getSession();
+                this.getSessionUser();
                 Door door = JsonConvert.JsonToObject<Door>(data);
-                deviceService.ModifyDoor(this.getSession().UserID, door);
+                deviceService.ModifyDoor(this.getSessionUser().UserID, door);
                 
             }
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
-                ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_DOOR + MODIFY_LOG, data, FAIL);
+               // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOOR + MODIFY_LOG, data, FAIL);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
                 log.Error("create failed", e);
-                ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_DOOR+ MODIFY_LOG, data, FAIL);
+               // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOOR+ MODIFY_LOG, data, FAIL);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-            ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_DOOR + MODIFY_LOG, data, SUCCESS);
+           // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOOR + MODIFY_LOG, data, SUCCESS);
             return ReturnJson(Rsp);
         }
         //打开时间段编辑窗口
@@ -140,23 +140,23 @@ namespace ACS.Controllers
 
             try
             {
-                this.getSession();
+                this.getSessionUser();
                 DoorTime doorTime = JsonConvert.JsonToObject<DoorTime>(data);
-                deviceService.ModifyDoorTime(this.getSession().UserID, doorTime);
+                deviceService.ModifyDoorTime(this.getSessionUser().UserID, doorTime);
             }
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
-                ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, FAIL);
+               // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, FAIL);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
                 log.Error("create failed", e);
-                ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, FAIL);
+               // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, FAIL);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-            ServiceContext.getInstance().getLogService().log(getSession().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, SUCCESS);
+           // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, SUCCESS);
             return ReturnJson(Rsp);
         }
 

@@ -51,7 +51,8 @@
                     <a class="mini-button" iconCls="icon-undo" onclick="leave()">离职</a> 
                     <a class="mini-button" iconCls="icon-lock" onclick="cancel()">注销</a> 
                     <a class="mini-button" iconCls="icon-node" onclick="card()">发卡</a>       
-                    <a class="mini-button" iconCls="icon-node" onclick="privilege()">权限配置</a>      
+                    <a class="mini-button" iconCls="icon-node" onclick="privilege()">权限配置</a>   
+                    <a class="mini-button" iconCls="icon-node" onclick="downloadCard()">下发卡信息</a>     
                 </td>
             </tr>
         </table>           
@@ -137,6 +138,33 @@
                     grid.loading("操作中，请稍后......");
                     $.ajax({
                         url: "../EmployeeManage/Cancel?idList=" + id,
+                        type: 'post',
+                        success: function (json) {
+                            grid.reload();
+                        },
+                        error: function () {
+                        }
+                    });
+                }
+            } else {
+                alert("请选中一条记录");
+            }
+        }
+
+        function downloadCard() {
+            var rows = grid.getSelecteds();
+            if (rows.length > 0) {
+                if (confirm("确定下发选中记录？")) {
+
+                    var ids = [];
+                    for (var i = 0, l = rows.length; i < l; i++) {
+                        var r = rows[i];
+                        ids.push(r.EmployeeID);
+                    }
+                    var id = ids.join(',');
+                    grid.loading("操作中，请稍后......");
+                    $.ajax({
+                        url: "../EmployeeManage/DownCardList?idList=" + id,
                         type: 'post',
                         success: function (json) {
                             grid.reload();
