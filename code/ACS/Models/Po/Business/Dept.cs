@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ACS.Common;
+using ACS.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Models.Po.Business
 {
-    public class Dept
+    public class Dept : LogOperable
     {
         public const String ID = "DeptID";
         public const String Name = "DeptName";
@@ -45,5 +47,21 @@ namespace ACS.Models.Po.Business
             get { return note; }
             set { note = value; }
         }
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_DEPT;
+        }
+        public virtual string GetObjName()
+        {
+            return this.deptName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
+        }
+
+
     }
 }

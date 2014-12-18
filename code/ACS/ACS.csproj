@@ -160,9 +160,10 @@
     <Compile Include="Common\Dao\ViewDao.cs" />
     <Compile Include="Common\FuegoCommonMsg.cs" />
     <Compile Include="Common\FuegoException.cs" />
+    <Compile Include="Common\LogOperable.cs" />
     <Compile Include="Common\Model\PageModel.cs" />
     <Compile Include="Common\Model\TableDataModel.cs" />
-    <Compile Include="Common\Model\TableForm.cs" />
+    <Compile Include="Common\Model\PersistenceObjInfo.cs" />
     <Compile Include="Common\Dao\impl\CommonDaoImpl.cs" />
     <Compile Include="Common\Dao\impl\ViewDaoCommonImpl.cs" />
     <Compile Include="Common\Dao\QueryCondition.cs" />
@@ -1713,7 +1714,6 @@
     <Content Include="Views\AccessManage\AccessEdit.cshtml" />
     <Content Include="Views\EmployeeManage\IndexPage.cshtml" />
     <Content Include="Views\EmployeeManage\ShowPage.cshtml" />
-    <Content Include="Views\PrivilegeManage\PrivilegeManage.cshtml" />
     <Content Include="Views\Monitor\Monitor.cshtml" />
     <Content Include="Views\EventRecord\IndexPage.cshtml" />
     <Content Include="Views\AlarmRecord\IndexPage.cshtml" />

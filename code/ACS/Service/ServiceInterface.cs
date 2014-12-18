@@ -12,6 +12,7 @@ using TcpipIntface;
 using ACS.Models.Po.Sys;
 using ACS.Service.Constant;
 using ACS.Models.Po.Log;
+using ACS.Common;
 namespace ACS.Service
 {
 
@@ -26,7 +27,7 @@ namespace ACS.Service
         void Modify(E obj);
         void Modify(int userID, E obj);
         void Delete(String id);
-        void Delete(List<String> idList);
+        void Delete(int userID, List<String> idList);
         E Get(String id);
         List<E> Get(List<String> idList);
         T Get<T>(String key, String value);
@@ -34,10 +35,10 @@ namespace ACS.Service
 
     public interface EmployeeService : CommonService<Employee>
     {
-        void cancel(List<String> employeeIDList);
-        void leave(List<String> employeeIDList);
-        void saveEmployeeCard(List<Employee> employeeModelList);
-        void modifyAccess(String employeeID, String AccessID);
+        void cancel(int userID, List<String> employeeIDList);
+        void leave(int userID, List<String> employeeIDList);
+        void saveEmployeeCard(int userID, List<Employee> employeeModelList);
+        void modifyAccess(int userID, String employeeID, String AccessID);
         void UpdateLastEvent(string cardID, int eventID);
 
         void DownCardList(List<string> list);
@@ -51,7 +52,7 @@ namespace ACS.Service
     public interface AccessDetailService : CommonService<AccessDetail>
     {
         List<AccessDetailView> getAccessDetailViewList(string userID,string parentID);
-        void addAccessInAccess(string accessID, List<AccessDetailModel> treeItem);
+        void addAccessInAccess(int userID, string accessID, List<AccessDetailModel> treeItemList);
         AccessDetail getAccessDetailByAccessID(string accessID, string parentID);
         List<AccessDetailView> getDoorTimeAccessByAccessID(string selectedAccessID);
         List<DoorTimeView> getDoorTimeViewListByUserID(string userID);
@@ -71,7 +72,9 @@ namespace ACS.Service
     }
     public interface LogService : CommonService<SystemLog>
     {
-        void log(int userID, String logEvent,String  msg,String result);
+        void CreateLog(int userID, String operType, List<LogOperable> operObjList, String operResult);
+        void CreateLog(int userID, String operType,LogOperable operObj,String operResult);
+        void CreateLog(int userID, String logEvent,String  msg,String result);
     }
     public interface DeviceService : CommonService<Control>
     {

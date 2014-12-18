@@ -44,10 +44,9 @@ namespace ACS.Controllers
         public List<AccessDetailModel> LoadAccessDetailListByID(string parentID, string accessID, string selectedID)
         {
             log.Info("LoadAccessDetailListByID" + "the parent id is " + parentID + ",selected id is :" + selectedID);
-            UserModel loginUser = (UserModel)Session["SystemUser"];
-            List<AccessDetailModel> rspTreeList = new List<AccessDetailModel>();
 
-            List<AccessDetailView> accessDetailViewList = accessService.getAccessDetailViewList(loginUser.UserID.ToString(), accessID);
+            List<AccessDetailModel> rspTreeList = new List<AccessDetailModel>();
+            List<AccessDetailView> accessDetailViewList = accessService.getAccessDetailViewList(this.getSessionUser().UserID.ToString(), accessID);
 
             if (ValidatorUtil.isEmpty<AccessDetailView>(accessDetailViewList))
             {
@@ -153,20 +152,34 @@ namespace ACS.Controllers
         // 加载增加门禁权限列表
         public ActionResult LoadAddAccessDetail(string selectedID)
         {
+            log.Info("LoadAddAccessDetail. the AccessID is " + selectedID);
             //被选中的Access不再增加权限列表中显示
             List<AccessDetailModel> treeGridItemList = LoadAccessDetailListByID("0", "0", selectedID);
+            if (ValidatorUtil.isEmpty<AccessDetailModel>(treeGridItemList))
+            {
+                log.Info("can not find  other Access of the user. the user id is " + this.getSessionUser().UserID.ToString());
+                return null;
+            }
             //原权限中包含的权限打勾
             List<AccessDetail> accessDetilList = accessService.getAccessDetailListByAccessID(selectedID);
+            if (ValidatorUtil.isEmpty<AccessDetail>(accessDetilList))
+            {
+                log.Info("can not find child access by access id. the AccessID is " + selectedID);
+            }
             foreach (AccessDetail accessDetail in accessDetilList)
             {
-                int valueID = accessDetail.ValueID;
-                foreach (AccessDetailModel treeGridItem in treeGridItemList)
+                if (null != accessDetail)
                 {
-                    if ((valueID == treeGridItem.ValueID) && (treeGridItem.AccessID == 0))
+                    int valueID = accessDetail.ValueID;
+                    foreach (AccessDetailModel treeGridItem in treeGridItemList)
                     {
-                        treeGridItem.CheckNode = true;
+                        if ((valueID == treeGridItem.ValueID) && (treeGridItem.AccessID == 0))
+                        {
+                            treeGridItem.CheckNode = true;
+                        }
                     }
                 }
+                
             }
             return ReturnJson(treeGridItemList);
         }
@@ -174,41 +187,36 @@ namespace ACS.Controllers
         public ActionResult AddAccessOfAccess(string accessID, string data)
         {
             //accessID是正在编辑的AccessID,data是编辑后提交上来的ID列表
+            log.Debug("Adding accessList to Access, AccessID is " + accessID + ". accessList json is " + data);
             try
             {
                 List<AccessDetailModel> treeItemList = JsonConvert.JsonToObject<List<AccessDetailModel>>(data);
-                accessService.addAccessInAccess(accessID, treeItemList);
-               
-
+                accessService.addAccessInAccess(this.getSessionUser().UserID, accessID, treeItemList);
             }
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
-                ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_ACCESS + CREATE_LOG, accessID + ":" + data, FAIL);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
                 log.Error("create failed", e);
-                ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_ACCESS + CREATE_LOG, accessID + ":" + data, FAIL);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-            ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_ACCESS + CREATE_LOG, accessID + ":" + data, SUCCESS);
             return ReturnJson(Rsp);
         }
         /// <summary>
         /// 根据DeviceID获取设备树列表
         public ActionResult LoadDeviceTreeList(string selectedID)
         {
-            log.Info("LoadDeviceTreeList" +  ",selected id is :" + selectedID);
-            UserModel loginUser = (UserModel)Session["SystemUser"];
-            List<DoorTimeView> doorTimeViewList = accessService.getDoorTimeViewListByUserID(loginUser.UserID.ToString());
+            log.Info("LoadDeviceTreeList ,selected id is :" + selectedID);
+            List<DoorTimeView> doorTimeViewList = accessService.getDoorTimeViewListByUserID(this.getSessionUser().UserID.ToString());
             List<AccessDetailView> selectedDoorTimeList = accessService.getDoorTimeAccessByAccessID(selectedID);
             List<AccessDetailModel> rspTreeList = new List<AccessDetailModel>();
 
             if (ValidatorUtil.isEmpty<DoorTimeView>(doorTimeViewList))
             {
-                log.Warn("can not find  doortime of the user. the user id is " + loginUser.UserID.ToString());
+                log.Warn("can not find  doortime of the user. the user id is " + this.getSessionUser().UserID.ToString());
                 return null;
             }
 
@@ -279,25 +287,22 @@ namespace ACS.Controllers
         public ActionResult AddDeviceOfAccess(string accessID, string data)
         {
             //accessID是正在编辑的AccessID,data是编辑后提交上来的ID列表
-            UserModel loginUser = (UserModel)Session["SystemUser"];
+            log.Debug("Adding deviceList to Access, AccessID is " + accessID + ". deviceList json is " + data);
             try
             {
                 List<AccessDetailModel> treeItemList = JsonConvert.JsonToObject<List<AccessDetailModel>>(data);
-                accessService.addDeviceInAccess(loginUser.UserID, accessID, treeItemList);
+                accessService.addDeviceInAccess(this.getSessionUser().UserID, accessID, treeItemList);
             }
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
-                ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_ACCESS + MODIFY_LOG, accessID + ":" + data,FAIL);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
                 log.Error("create failed", e);
-                ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_ACCESS + MODIFY_LOG, accessID + ":" + data, FAIL);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-            ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_ACCESS + MODIFY_LOG, accessID + ":" + data, SUCCESS);
             return ReturnJson(Rsp);
         }
 

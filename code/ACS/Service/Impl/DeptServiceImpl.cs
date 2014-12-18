@@ -15,12 +15,21 @@ using ACS.Common.Util;
 using ACS.Models.Po.Sys;
 using ACS.Models.Po.Business;
 using ACS.Common;
+using ACS.Common.Model;
 namespace ACS.Service.Impl
 {
     public class DeptServiceImpl :CommonServiceImpl<Dept>,DeptService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         CommonDao<Dept> deptDao = DaoContext.getInstance().getDeptDao();
+
+        //获取对象信息
+        public override PersistenceObjInfo GetObjectInfo()
+        {
+            PersistenceObjInfo perObjInfo = new PersistenceObjInfo();
+            perObjInfo.PrimaryName = Dept.ID;
+            return perObjInfo;
+        }
 
         public override void Validator(Dept obj)
         {
@@ -37,7 +46,7 @@ namespace ACS.Service.Impl
         
         //部门管理
         //删除部门
-        public override void Delete(List<string> idList)
+        public override void Delete(int userID, List<string> idList)
         {
             foreach(string id in idList)
             {
@@ -50,13 +59,8 @@ namespace ACS.Service.Impl
                 }
             }
 
- 	        base.Delete(idList);
+ 	        base.Delete(userID, idList);
         }
-       
 
-        public override string GetPrimaryName()
-        {
-            return Dept.ID;
-        }
     }
 }

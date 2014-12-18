@@ -15,16 +15,21 @@ using ACS.Common.Util;
 using ACS.Models.Po.Sys;
 using ACS.Models.Po.Business;
 using ACS.Common;
+using ACS.Common.Model;
 namespace ACS.Service.Impl
 {
     public class UserServiceImpl : CommonServiceImpl<SystemUser>, UserService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public override String GetPrimaryName()
+        //获取对象信息
+        public override PersistenceObjInfo GetObjectInfo()
         {
-            return SystemUser.ID;
+            PersistenceObjInfo perObjInfo = new PersistenceObjInfo();
+            perObjInfo.PrimaryName = SystemUser.ID;
+            return perObjInfo;
         }
+
         public override void Validator(SystemUser user)
         {
             log.Debug("the validator is empty ");
@@ -58,7 +63,7 @@ namespace ACS.Service.Impl
             orignalUser.UserDesc = user.UserDesc;
             orignalUser.ModifyDate = DateTime.Now;
             orignalUser.ModifyUserID = modifyUserID;
-            base.Modify(orignalUser);
+            base.Modify(modifyUserID,orignalUser);
 
         }
         //用户权限管理

@@ -30,6 +30,7 @@ namespace ACS.Controllers
         //用于实现条件查询功能
         public override List<QueryCondition> GetFilterCondition(String json)
         {
+            log.Debug("Loading AlarmRecord... ,the FilterCondition is " + json);
             List<QueryCondition> filterCondition = new List<QueryCondition>();
             AlarmRecordFilterModel alarmRecordFilter = JsonConvert.JsonToObject<AlarmRecordFilterModel>(json);
             if (null != alarmRecordFilter)

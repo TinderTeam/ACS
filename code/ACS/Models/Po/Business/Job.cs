@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ACS.Common;
+using ACS.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Models.Po.Business
 {
-    public class Job
+    public class Job : LogOperable
     {
         public const String ID = "JobID";
         private int jobID;          //职位ID
@@ -21,6 +23,21 @@ namespace ACS.Models.Po.Business
         {
             get { return jobName; }
             set { jobName = value; }
+        }
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_JOB;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.jobName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
         }
     }
 }

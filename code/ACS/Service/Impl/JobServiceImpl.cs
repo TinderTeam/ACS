@@ -15,48 +15,20 @@ using ACS.Common.Util;
 using ACS.Models.Po.Sys;
 using ACS.Models.Po.Business;
 using ACS.Common;
+using ACS.Common.Model;
 namespace ACS.Service.Impl
 {
     public class JobServiceImpl :CommonServiceImpl<Job>,JobService
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        CommonDao<Job> deptDao = DaoContext.getInstance().getJobDao();
 
-        public override string GetPrimaryName()
+        //获取对象信息
+        public override PersistenceObjInfo GetObjectInfo()
         {
-            return Job.ID;
+            PersistenceObjInfo perObjInfo = new PersistenceObjInfo();
+            perObjInfo.PrimaryName = Job.ID;
+            return perObjInfo;
         }
-
-        //public override void Validator(Dept obj)
-        //{
-        //    base.Validator(obj);
-        //    QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, Dept.Name, obj.DeptName);
-        //    if (null != deptDao.getUniRecord(condition))
-        //    {
-        //        log.Error("create failed, the department has exist. department name is " + obj.DeptName);
-        //        throw new FuegoException(ExceptionMsg.DEPTNAME_EXIST);
-        //    }
-          
-        //}
-  
-        
-        ////部门管理
-        ////删除部门
-        //public override void Delete(List<string> idList)
-        //{
-        //    foreach(string id in idList)
-        //    {
-        //        QueryCondition fatherIDCondition = new QueryCondition(ConditionTypeEnum.EQUAL, Dept.FatherID, id);
-        //        List<Dept> childrenDeptList = deptDao.getAll(fatherIDCondition);
-        //        if (!ValidatorUtil.isEmpty<Dept>(childrenDeptList))
-        //        {
-        //            log.Error("Delete failed, the Dept to be deleted has children Dept");
-        //            throw new FuegoException(ExceptionMsg.DEPT_HAS_CHILDREN);
-        //        }
-        //    }
-
-        //    base.Delete(idList);
-        //}
 
     }
 }

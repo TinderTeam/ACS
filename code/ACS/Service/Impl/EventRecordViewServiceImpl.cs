@@ -10,6 +10,7 @@ using ACS.Common.Dao.datasource;
 using ACS.Common.Dao;
 using ACS.Common.Constant;
 using ACS.Service.Constant;
+using ACS.Common.Model;
 namespace ACS.Service.Impl
 {
     public class EventRecordServiceImpl : CommonServiceImpl<EventRecord>, EventRecordService
@@ -17,10 +18,12 @@ namespace ACS.Service.Impl
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         ViewDao<EventRecordView> eventRecordViewDao = DaoContext.getInstance().getEventRecordViewDao();
 
-        //获取对象主键
-        public override string GetPrimaryName()
+        //获取对象信息
+        public override PersistenceObjInfo GetObjectInfo()
         {
-            return EventRecord.ID;
+            PersistenceObjInfo perObjInfo = new PersistenceObjInfo();
+            perObjInfo.PrimaryName = EventRecord.ID;
+            return perObjInfo;
         }
 
         public List<EventRecordView> GetCurEvent(String indexID, String doorID)

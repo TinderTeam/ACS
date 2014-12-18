@@ -20,13 +20,6 @@ namespace ACS.Controllers
         public const String  MODIFY = "modify";
         public const String  DELETE = "delete";
 
-        public const String SUCCESS = "成功";
-        public const String FAIL = "失败";
-
-        public const String MODIFY_LOG = "编辑";
-        public const String CREATE_LOG = "新增";
-        public const String DELETE_LOG = "删除";
-
 
         /**
          * 该方法绑定了MiniUI 分页数据提交
@@ -171,7 +164,8 @@ namespace ACS.Controllers
         }
         public virtual ActionResult Create(String data)
         {
-          
+            log.Debug("Creating OBJ ... " + data);
+        
             try
             {   
                 E obj = JsonConvert.JsonToObject<E>(data);
@@ -193,7 +187,7 @@ namespace ACS.Controllers
 
         public virtual ActionResult Modify(String data)
         {
-          
+            log.Debug("Modify OBJ ... " + data); 
             try
             {
                 E obj = JsonConvert.JsonToObject<E>(data);
@@ -215,10 +209,11 @@ namespace ACS.Controllers
 
         public virtual ActionResult Delete(String data)
         {
+            log.Debug("Deleting ObjList, ObjIDList is " + data);
             try
             {
                 List<String> idList = JsonConvert.JsonToObject<List<String>>(data);
-                getService().Delete(idList);
+                getService().Delete(this.getSessionUser().UserID,idList);
             }
             catch (FuegoException e)
             {

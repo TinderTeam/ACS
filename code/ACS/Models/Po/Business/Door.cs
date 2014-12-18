@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ACS.Common.Constant;
+using ACS.Common;
+using ACS.Service;
 
 namespace ACS.Models.Po.Business
 {
-    public class Door
+    public class Door : LogOperable
     {
         public const String DOOR_ID = "DoorID";
         public const String CONTROL_ID = "ControlID";
@@ -180,5 +182,20 @@ namespace ACS.Models.Po.Business
             set { mCardsOpenInOut = value; }
         }
 
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_DOOR;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.doorName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
+        }
     }
 }

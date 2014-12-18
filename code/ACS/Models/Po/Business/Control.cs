@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ACS.Common.Constant;
+using ACS.Common;
+using ACS.Service;
 
 namespace ACS.Models.Po.Business
 {
-    public class Control
+    public class Control : LogOperable
     {
         public const String CONTROL_ID = "ControlID";
         public const char SPLIT = '_';
@@ -292,5 +294,19 @@ namespace ACS.Models.Po.Business
             set { icIsSt = value; }
         }
 
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_CONTROL;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.controlName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
+        }
     }
 }

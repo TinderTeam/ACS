@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ACS.Common;
+using ACS.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Models.Po.Business
 {
-    public class EventType
+    public class EventType : LogOperable
     {
         public const String ID = "EventTypeID";
         public virtual int EventTypeID { get; set; }                        //事件ID
@@ -22,5 +24,20 @@ namespace ACS.Models.Po.Business
         public virtual int Event3 { get; set; }                         //
         public virtual int Event4 { get; set; }                         //
         public virtual int Event5 { get; set; }                         //
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_EVENTYPE;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.EventTypeName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
+        }
     }
 }

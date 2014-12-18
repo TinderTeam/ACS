@@ -13,7 +13,7 @@ using ACS.Service.Constant;
 using ACS.Common.Util;
 using ACS.Common;
 using System.IO;
-using ACS.Service.device;
+using ACS.Common.Model;
 namespace ACS.Service.Impl
 {
     public class EmployeeServiceImpl : CommonServiceImpl<Employee>, EmployeeService
@@ -21,9 +21,12 @@ namespace ACS.Service.Impl
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         CommonDao<Employee> employeeDao = DaoContext.getInstance().getEmployeeDao();
 
-        public override String GetPrimaryName()
+        //获取对象信息
+        public override PersistenceObjInfo GetObjectInfo()
         {
-            return Employee.ID;
+            PersistenceObjInfo perObjInfo = new PersistenceObjInfo();
+            perObjInfo.PrimaryName = Employee.ID;
+            return perObjInfo;
         }
 
         public override void Validator(Employee obj)
@@ -94,7 +97,8 @@ namespace ACS.Service.Impl
                 oldEmployee.Photo2 = newEmployee.Photo2;
             }
             employeeDao.update(oldEmployee);
- 
+			//加入日志
+            CreateOperateLog(userID, ServiceConstant.MODIFY_LOG, oldEmployee);
              
         }
  
@@ -103,33 +107,82 @@ namespace ACS.Service.Impl
         ///批量注销员工
         /// </summary>
         /// <returns></returns>
-        public void cancel(List<String> employeeIDList)
+        public void cancel(int userID, List<String> employeeIDList)
         {
-            Modify(employeeIDList, "EmpEnable", true);
+            if (!ValidatorUtil.isEmpty(employeeIDList))
+            {
+                List<Employee> employeeList = new List<Employee>();
+                employeeList = Get(employeeIDList);
+                Modify(employeeIDList, "EmpEnable", true);
+                //加入日志
+                CreateOperateLog(userID, ServiceConstant.CANCEL_EMPLOYEE_LOG, employeeList);
+            }
+            else 
+            {
+                log.Info("Canceling employee, but employeeIDList is null");
+            }
  
         }
         /// <summary>
         ///批量离职
         /// </summary>
         /// <returns></returns>
-        public void leave(List<String> employeeIDList)
+        public void leave(int userID,List<String> employeeIDList)
         {
-            Modify(employeeIDList, "Leave", true);
+            
+            if (!ValidatorUtil.isEmpty(employeeIDList))
+            {
+                List<Employee> employeeList = new List<Employee>();
+                employeeList = Get(employeeIDList);
+                Modify(employeeIDList, "Leave", true);
+                //加入日志
+                CreateOperateLog(userID, ServiceConstant.LEAVE_EMPLOYEE_LOG, employeeList);
+            }
+            else
+            {
+                log.Info("Canceling employee, but employeeIDList is null");
+            }
         }
         //更改员工权限
-        public void modifyAccess(String employeeID, String AccessID)
+        public void modifyAccess(int userID,String employeeID, String accessID)
         {
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,Employee.ID,employeeID);
-            Employee orignalEmployee = GetDao<Employee>().getUniRecord(condition);
-            orignalEmployee.AccessID = Convert.ToInt32(AccessID);
-            GetDao<Employee>().update(orignalEmployee);
+            if (!ValidatorUtil.isEmpty(accessID))
+            {
+                AccessDetail acessDetail = new AccessDetail();
+                List<QueryCondition> conditionList = new List<QueryCondition>();
+                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetail.VALUE_ID, accessID));
+                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetail.TYPE, AccessDetail.ACCESS_TYPE));
+                conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, AccessDetail.ROOT_ID));
+                acessDetail = GetDao<AccessDetail>().getUniRecord(conditionList);
+                if (null != acessDetail)
+                {
+                    QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, Employee.ID, employeeID);
+                    Employee orignalEmployee = GetDao<Employee>().getUniRecord(condition);
+                    orignalEmployee.AccessID = Convert.ToInt32(accessID);
+                    GetDao<Employee>().update(orignalEmployee);
+                    //加入日志
+                    CreateOperateLog(userID, ServiceConstant.ASSIGN_ACCESS_LOG, orignalEmployee);
+                }
+                else
+                {
+                    log.Error("Add access to employee error, The access is not exist, accessID is " + accessID);
+                    throw new FuegoException(ExceptionMsg.ACCESS_NOT_EXIST);
+                }
+                
+            }
+            else 
+            {
+                log.Error("Add access to employee error, The accessID is null.");
+                throw new FuegoException(ExceptionMsg.ACCESS_NOT_EXIST);
+            }
+            
         }
 
         /// <summary>
         ///员工批量发卡
         /// </summary>
         /// <returns></returns>
-        public void saveEmployeeCard(List<Employee> employeeModelList)
+        public void saveEmployeeCard(int userID, List<Employee> employeeModelList)
         {
             //判断卡号是否重复
             for(int i=0;i<employeeModelList.Count;i++)
@@ -163,6 +216,8 @@ namespace ACS.Service.Impl
                 Employee orignalEmployee = employeeDao.getUniRecord(condition);
                 orignalEmployee.CardNo = employeeModelList[i].CardNo;
                 employeeDao.update(orignalEmployee);
+                //加入日志
+                CreateOperateLog(userID, ServiceConstant.SAVE_CARD_LOG, orignalEmployee);
             }
         }
 

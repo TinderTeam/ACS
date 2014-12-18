@@ -12,6 +12,7 @@ using ACS.Common.Constant;
 using ACS.Service.Constant;
 using ACS.Common;
 using ACS.Models.Po.Sys;
+using ACS.Common.Model;
 
 namespace ACS.Service.Impl
 {
@@ -21,10 +22,14 @@ namespace ACS.Service.Impl
         CommonDao<SystemUser> userDao = DaoContext.getInstance().getUserDao();
         PrivilegeService privilegeService = ServiceContext.getInstance().getPrivilegeService();
 
-        public override String GetPrimaryName()
+        //获取对象信息
+        public override PersistenceObjInfo GetObjectInfo()
         {
-            return SystemUser.ID;
+            PersistenceObjInfo perObjInfo = new PersistenceObjInfo();
+            perObjInfo.PrimaryName = SystemUser.ID;
+            return perObjInfo;
         }
+
         /// <summary>
         /// 用户登陆
         /// </summary>

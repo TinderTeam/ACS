@@ -134,12 +134,13 @@
                         var r = rows[i];
                         ids.push(r.EmployeeID);
                     }
-                    var id = ids.join(',');
+                    var json = mini.encode(ids);
                     grid.loading("操作中，请稍后......");
                     $.ajax({
-                        url: "../EmployeeManage/Cancel?idList=" + id,
+                        url: "../EmployeeManage/Cancel",
                         type: 'post',
-                        success: function (json) {
+			cache: false,
+                        data: { data: json },
                             grid.reload();
                         },
                         error: function () {
@@ -198,7 +199,6 @@
                         success: function (json) {
                             var Rsp = mini.decode(json);
                             if (Rsp.ErrorCode == "Success") {
-                                mini.alert("删除成功！");
                                 grid.reload();
                             }
                             else {

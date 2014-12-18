@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ACS.Common;
+using ACS.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Models.Po.Business
 {
-    public class Employee
+    public class Employee : LogOperable
     {
         public const String ID = "EmployeeID";
         public const String Card = "CardNo";
@@ -305,5 +307,20 @@ namespace ACS.Models.Po.Business
             set { ascString = value; }
         }
 
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_EMPLOYEE;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.employeeName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
+        }
     }
 }

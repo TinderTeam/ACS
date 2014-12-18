@@ -84,9 +84,10 @@ namespace ACS.Controllers
         //更新员工权限配置
         public ActionResult ModifyAccess(String employeeID, String data)
         {
+            log.Debug("Modifying access of employee, employeeID is " + employeeID +". accessID is "+ data );
             try
             {
-                employeeService.modifyAccess(employeeID, data);
+                employeeService.modifyAccess(this.getSessionUser().UserID, employeeID, data);
             }
             catch (FuegoException e)
             {
@@ -106,11 +107,13 @@ namespace ACS.Controllers
         /// </summary>
         /// <param name="idstr"></param>
         /// <returns></returns>
-        public ActionResult Cancel(String idList)
+        public ActionResult Cancel(String data)
         {
+            log.Debug("Canceling employee, employee IDList is " + data);
             try
             {
-                employeeService.cancel(getIDList(idList));
+                List<String> idList = JsonConvert.JsonToObject<List<String>>(data);
+                employeeService.cancel(this.getSessionUser().UserID, idList);
             }
             catch (FuegoException e)
             {
@@ -132,10 +135,11 @@ namespace ACS.Controllers
         /// <returns></returns>
         public ActionResult Leave(String data)
         {
+            log.Debug("Leaving employee, employee IDList is " + data);
             try
             {
                 List<String> idList = JsonConvert.JsonToObject<List<String>>(data);
-                employeeService.leave(idList);
+                employeeService.leave(this.getSessionUser().UserID, idList);
             }
             catch (FuegoException e)
             {
@@ -176,13 +180,12 @@ namespace ACS.Controllers
         /// <returns></returns>
         public ActionResult SaveCard(string data)
         {
-            log.Debug("Save Employee card...");
-            List<Employee> employeeList = JsonConvert.JsonToObject<List<Employee>>(data);
-
+            log.Debug("Saving card of employee, employeeList is " + data);
             try
             {
                 //校验成功
-                employeeService.saveEmployeeCard(employeeList);
+                List<Employee> employeeList = JsonConvert.JsonToObject<List<Employee>>(data);
+                employeeService.saveEmployeeCard(this.getSessionUser().UserID, employeeList);
             }
             catch (FuegoException e)
             {

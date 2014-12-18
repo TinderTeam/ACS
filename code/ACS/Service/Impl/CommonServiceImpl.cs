@@ -1,8 +1,11 @@
-﻿using ACS.Common.Constant;
+﻿using ACS.Common;
+using ACS.Common.Constant;
 using ACS.Common.Dao;
 using ACS.Common.Dao.datasource;
+using ACS.Common.Model;
 using ACS.Common.Util;
 using ACS.Dao;
+using ACS.Service.Constant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,11 +34,13 @@ namespace ACS.Service.Impl
             Validator(obj);
             DaoContext.getInstance().getDao<E>().create(obj);
         }
-        public virtual void Create(int userID,E obj)
+        public virtual void Create(int userID , E obj)
         {
-            Validator(obj);
+            Validator(obj);  
             DaoContext.getInstance().getDao<E>().create(obj);
+            CreateOperateLog(userID, ServiceConstant.CREATE_LOG,obj); 
         }
+        
         public virtual void Delete(String id)
         {
             if (ValidatorUtil.isEmpty(id))
@@ -43,20 +48,23 @@ namespace ACS.Service.Impl
                 log.Warn("the id is empty");
                 return;
             }
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, GetPrimaryName(), id);
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, GetObjectInfo().PrimaryName, id);
 
             DaoContext.getInstance().getDao<E>().delete(condition);
         }
-        public virtual void Delete(List<String> idList)
+        public virtual void Delete(int userID, List<String> idList)
         {
             if (ValidatorUtil.isEmpty(idList))
             {
                 log.Warn("the id list is empty");
                 return;
             }
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN, GetPrimaryName(), idList);
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN, GetObjectInfo().PrimaryName, idList);
+            List<E> objList = Get(idList);
 
             DaoContext.getInstance().getDao<E>().delete(condition);
+
+            CreateOperateLog(userID, ServiceConstant.DELETE_LOG, objList);
         }
 
         public virtual void Modify(E obj)
@@ -68,6 +76,7 @@ namespace ACS.Service.Impl
         {
             Validator(obj);
             DaoContext.getInstance().getDao<E>().update(obj);
+            CreateOperateLog(userID, ServiceConstant.MODIFY_LOG,obj);
         }
         public virtual void Modify(List<String> idList,String fieldName,Object fieldValue)
         {
@@ -114,7 +123,7 @@ namespace ACS.Service.Impl
                 log.Error("the id is empty");
                 return default(E);
             }
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, GetPrimaryName(), id);
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, GetObjectInfo().PrimaryName, id);
             return DaoContext.getInstance().getDao<E>().getUniRecord(condition);
         }
         public virtual List<E> Get(List<String> idList)
@@ -124,7 +133,7 @@ namespace ACS.Service.Impl
                 log.Error("the id list is empty");
                 return new List<E>();
             }
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN, GetPrimaryName(), idList);
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN, GetObjectInfo().PrimaryName, idList);
             return DaoContext.getInstance().getDao<E>().getAll(condition);
         }
 
@@ -145,8 +154,38 @@ namespace ACS.Service.Impl
             return DaoContext.getInstance().getDao<T>().getUniRecord(condition);
         }
 
-        public abstract String GetPrimaryName();
+        public abstract PersistenceObjInfo GetObjectInfo();
 
+        //创建一条系统操作日志
+        public void CreateOperateLog(int userID, String operateType, E obj)
+        {
+            if (typeof(LogOperable).IsAssignableFrom(typeof(E)))
+            {
+                ServiceContext.getInstance().getLogService().CreateLog(userID, operateType, (LogOperable)obj, ServiceConstant.SUCCESS);
+            }
+            else
+            {
+                log.Warn("the type of " + typeof(E) + " is not a operable class");
+            }
+        }
+        //创建系统操作日志List
+        public void CreateOperateLog(int userID, String operateType, List<E> objList)
+        {
+           
+            if (typeof(LogOperable).IsAssignableFrom(typeof(E)))
+            {
+                List<LogOperable> logList = new List<LogOperable>();
+                foreach (E e in objList)
+                {
+                    logList.Add((LogOperable)e);
+                }
+                ServiceContext.getInstance().getLogService().CreateLog(userID, operateType, logList, ServiceConstant.SUCCESS);
+            }
+            else
+            {
+                log.Warn("the type of " + typeof(E) + " is not a operable class");
+            }
+        }
 
     }
 }

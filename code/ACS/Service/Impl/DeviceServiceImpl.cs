@@ -15,6 +15,7 @@ using ACS.Common.Util;
 using ACS.Common;
 using ACS.Service.device;
 using System.Timers;
+using ACS.Common.Model;
 namespace ACS.Service.Impl
 {
     public class DeviceServiceImpl : CommonServiceImpl<Control>, DeviceService
@@ -23,10 +24,14 @@ namespace ACS.Service.Impl
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         PrivilegeService privilegeService = ServiceContext.getInstance().getPrivilegeService();
 
-        public override String GetPrimaryName()
+        //获取对象信息
+        public override PersistenceObjInfo GetObjectInfo()
         {
-            return Control.CONTROL_ID;
+            PersistenceObjInfo perObjInfo = new PersistenceObjInfo();
+            perObjInfo.PrimaryName = Control.CONTROL_ID;
+            return perObjInfo;
         }
+
         //根据用户ID，获取设备树列表
         public List<TreeModel> getDeviceTreeByID(String userID)
         {
@@ -115,10 +120,10 @@ namespace ACS.Service.Impl
             privilegeService.CreateDomainPrivilege(userID.ToString(), control.ControlID.ToString());
         }
         //删除控制器
-        public override void Delete(List<String> idList)
+        public override void Delete(int userID, List<String> idList)
         {
             //删除该控制器
-            base.Delete(idList);
+            base.Delete(userID,idList);
             //删除控制器所属的Door\DoorTime及DoorTime类型的门禁权限
             deleteDooTimeByControlId(idList);
 
@@ -185,8 +190,8 @@ namespace ACS.Service.Impl
             Control control = GetDao<Control>().getUniRecord( new QueryCondition(ConditionTypeEnum.EQUAL, Control.CONTROL_ID, door.ControlID.ToString()));
             DeviceOperatorFactory.getInstance().getDeviceOperator(control).SetDoorTime(door, orignalDoorTime);
 
-
             GetDao<DoorTime>().update(orignalDoorTime);
+            ServiceContext.getInstance().getLogService().CreateLog(userID, ServiceConstant.MODIFY_LOG, (LogOperable)orignalDoorTime, ServiceConstant.SUCCESS);
         }
         //更新Door信息
         public void ModifyDoor(int userID, Door door)
@@ -202,8 +207,9 @@ namespace ACS.Service.Impl
             orignalDoor.OpenTime = door.OpenTime;
             orignalDoor.CloseOutTime = door.CloseOutTime;
             GetDao<Door>().update(orignalDoor);
+            ServiceContext.getInstance().getLogService().CreateLog(userID, ServiceConstant.MODIFY_LOG, (LogOperable)orignalDoor, ServiceConstant.SUCCESS);
         }
- 
+
         public void StartMonitorAll()
         {
             log.Info("now start conncet all device");

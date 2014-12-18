@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ACS.Common;
+using ACS.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Models.Po.Business
 {
-    public class AccessDetail
+    public class AccessDetail : LogOperable
     {
         public const char SPLIT = '_';
         public const String ACCESS_TYPE = "ACCESS";
@@ -65,6 +67,21 @@ namespace ACS.Models.Po.Business
         {
             get { return type; }
             set { type = value; }
+        }
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_ACCESS;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.accessName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
         }
     }
 }

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ACS.Common;
+using ACS.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Models.Po.CF
 {
-    public class SystemUser
+    public class SystemUser : LogOperable
     {
         public const String ID = "UserID";
         public const String NAME = "UserName";
@@ -68,5 +70,20 @@ namespace ACS.Models.Po.CF
         }
 
 
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_SYSTEMUSER;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.userName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
+        }
     }
 }

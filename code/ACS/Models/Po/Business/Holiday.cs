@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ACS.Common;
+using ACS.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Models.Po.Business
 {
-    public class Holiday
+    public class Holiday : LogOperable
     {
         public const String ID = "HolidayID";
         private int holidayID;//假日ID
@@ -44,5 +46,20 @@ namespace ACS.Models.Po.Business
             set { endTime = value; }
         }
 
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_HOLIDAY;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.holidayName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
+        }
     }
 }

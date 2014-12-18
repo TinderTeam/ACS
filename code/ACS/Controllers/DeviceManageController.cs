@@ -112,16 +112,13 @@ namespace ACS.Controllers
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
-               // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOOR + MODIFY_LOG, data, FAIL);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
                 log.Error("create failed", e);
-               // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOOR+ MODIFY_LOG, data, FAIL);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-           // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOOR + MODIFY_LOG, data, SUCCESS);
             return ReturnJson(Rsp);
         }
         //打开时间段编辑窗口
@@ -147,16 +144,13 @@ namespace ACS.Controllers
             catch (FuegoException e)
             {
                 log.Error("create failed", e);
-               // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, FAIL);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
                 log.Error("create failed", e);
-               // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, FAIL);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-           // ServiceContext.getInstance().getLogService().log(getSessionUser().UserID, ServiceConstant.LOG_OBJ_DOORTIME + MODIFY_LOG, data, SUCCESS);
             return ReturnJson(Rsp);
         }
 

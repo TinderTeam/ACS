@@ -1,11 +1,13 @@
-﻿using System;
+﻿using ACS.Common;
+using ACS.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
 namespace ACS.Models.Po.Business
 {
-    public class DoorTime
+    public class DoorTime : LogOperable
     {
 
         public const String DOOR_ID = "DoorID";
@@ -110,5 +112,20 @@ namespace ACS.Models.Po.Business
             set { endTime = value; }
         }
 
+
+        public virtual string GetObjType()
+        {
+            return ServiceConstant.LOG_OBJ_DOORTIME;
+        }
+
+        public virtual string GetObjName()
+        {
+            return this.doorTimeName;
+        }
+
+        public virtual string GetDesp()
+        {
+            return null;
+        }
     }
 }

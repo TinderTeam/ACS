@@ -153,8 +153,7 @@
                     //通过Ajax删除节点
                     //方法：removeAccess
                     var ids = Array(node.ValueID.toString());
-                    var json = mini.encode(ids);
-                    alert(mini.decode(json));    
+                    var json = mini.encode(ids);   
                     $.ajax({
                         url: "../AccessManage/Delete",
                         type: 'post',

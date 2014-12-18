@@ -12,6 +12,7 @@ using ACS.Service.Constant;
 using ACS.Common.Util;
 using ACS.Common;
 using ACS.Models.Po.CF;
+using ACS.Common.Model;
 
 namespace ACS.Service.Impl
 {
@@ -23,9 +24,12 @@ namespace ACS.Service.Impl
         CommonDao<Privilege> privilegeDao = DaoContext.getInstance().getPrivilegeDao();
         ViewDao<DoorTimeView> doorTimeViewDao = DaoContext.getInstance().getDoorTimeViewDao();
 
-        public override String GetPrimaryName()
+        //获取对象信息
+        public override PersistenceObjInfo GetObjectInfo()
         {
-            return AccessDetail.ACCESS_DETAIL_ID;
+            PersistenceObjInfo perObjInfo = new PersistenceObjInfo();
+            perObjInfo.PrimaryName = AccessDetail.ACCESS_DETAIL_ID;
+            return perObjInfo;
         }
 
         //门禁权限管理
@@ -51,14 +55,13 @@ namespace ACS.Service.Impl
             newAccessDetail.CreateUserID = creatUserID;
             newAccessDetail.CreateDate = DateTime.Now;
             newAccessDetail.Type = AccessDetail.ACCESS_TYPE;
-            accessDetailDao.create(newAccessDetail);
+            base.Create(creatUserID, newAccessDetail);
             newAccessDetail.ValueID = newAccessDetail.AccessDetailID;
             accessDetailDao.update(newAccessDetail);
-
         }
         //门禁权限管理
         //编辑门禁权限名称
-        public override void Modify(AccessDetail accessDetail)
+        public override void Modify(int userID,AccessDetail accessDetail)
         {
             //如果删除的节点是根节点，还需要删除所有包含此节点的权限
             //删除所有以该根节点为子节点的记录
@@ -71,10 +74,12 @@ namespace ACS.Service.Impl
                 accessItem.AccessName = accessDetail.AccessName;
             }
             accessDetailDao.update(accessDetailList);
+            //记录操作日志
+            CreateOperateLog(userID, ServiceConstant.MODIFY_LOG, accessDetail);
         }
         //门禁权限管理
         //增加门禁权限中包含的权限
-        public void addAccessInAccess(string accessID, List<AccessDetailModel> treeItemList)
+        public void addAccessInAccess(int userID, string accessID, List<AccessDetailModel> treeItemList)
         {
             //获取编辑的目标权限
             AccessDetail fatherAccessDetail = getAccessDetailByAccessID(accessID, AccessDetail.ROOT_ID);
@@ -103,6 +108,12 @@ namespace ACS.Service.Impl
                     }
                 }
                 accessDetailDao.create(accessDetailList);
+                //记录操作日志
+                CreateOperateLog(userID, ServiceConstant.MODIFY_LOG, fatherAccessDetail);
+            }
+            else
+            {
+                log.Warn("Adding access in Access, the AccessID is " + accessID+". but accessList is null.");
             }
         }
         //门禁权限管理
@@ -151,7 +162,8 @@ namespace ACS.Service.Impl
         //增加门禁权限中包含的DoorTime
         public void addDeviceInAccess(int userID, string accessID, List<AccessDetailModel> treeItemList)
         {
-            
+            //获取编辑的目标权限
+            AccessDetail fatherAccessDetail = getAccessDetailByAccessID(accessID, AccessDetail.ROOT_ID);
             //删除所有以该节点为根节点的DoorTime记录
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, accessID));
@@ -172,18 +184,26 @@ namespace ACS.Service.Impl
                         accessDetail.ValueID = treeGridItem.ValueID;
                         accessDetail.CreateDate = DateTime.Now;
                         accessDetail.CreateUserID = userID;
-                        accessDetailDao.create(accessDetail);
+                        accessDetailDao.create(accessDetail); 
                     }
 
                 }
+                //加入日志
+                CreateOperateLog(userID, ServiceConstant.MODIFY_LOG, fatherAccessDetail);
+            }
+            else
+            {
+                log.Warn("Adding device in Access, the AccessID is " + accessID + ". but deviceList is null.");
             }
         }
         //门禁权限管理
         //删除门禁权限
-        public override void Delete(List<String> idList)
+        public override void Delete(int userID, List<String> idList)
         {
             foreach (String id in idList)
             {
+                //获取编辑的目标权限
+                AccessDetail fatherAccessDetail = getAccessDetailByAccessID(id, AccessDetail.ROOT_ID);
                 //如果删除的节点是根节点，还需要删除所有包含此节点的权限
                 //删除所有以该根节点为子节点的记录
                 List<QueryCondition> conditionList = new List<QueryCondition>();
@@ -195,8 +215,10 @@ namespace ACS.Service.Impl
                 parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, id));
                 parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
                 accessDetailDao.delete(parentConditionList);
+                //记录操作日志
+                CreateOperateLog(userID, ServiceConstant.DELETE_LOG, fatherAccessDetail);
             }
-             
+            
         }
         
         
