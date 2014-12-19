@@ -24,7 +24,7 @@
         <!--body-->
         <ul id="deptTree" class="mini-tree" url="../DeptManage/LoadTree" style="width:100%;height:100%;padding:0px;" 
             showTreeIcon="true" textField="DeptName" idField="DeptID" parentField="FatherDeptID" resultAsTree="false"  
-            allowDrag="true" allowDrop="true" 
+            allowDrag="true" allowDrop="true"  expandOnLoad="0"
             >
         </ul>
     </div>
@@ -63,18 +63,8 @@
                 ondestroy: function (action) {
                     if (action == "ok")     //关闭窗口时点击的是确定
                     {
-                        var iframe = this.getIFrameEl();
-                        var data = iframe.contentWindow.GetData();
-                        data = mini.clone(data);
-                        if (type == "Create") {
-                            var newNode = { DeptName: data.DeptName };
-                            tree.addNode(newNode, "add", node);
-                        }
-                        else if (type == "Modify") {
-                          
-                            tree.updateNode(node, { DeptName: data.DeptName });
-                            //tree.load("../DeptManage/LoadTree");
-                        }
+                        tree.load("../DeptManage/LoadTree");
+
                     }
 
 

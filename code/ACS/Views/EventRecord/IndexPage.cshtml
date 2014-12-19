@@ -62,14 +62,16 @@
         url="Load"  idField="EventTypeID" multiSelect="true">
         <div property="columns">
             <div type="indexcolumn"></div>        
-            <!--<div type="checkcolumn" ></div>-->                  
+            <!--<div type="checkcolumn" ></div>-->
+            <div name="ForegroundColorColumn" field="ForegroundColor" width="70" headerAlign="center" allowSort="true"></div>    
+            <div name="BackgroundColorColumn" field="BackgroundColor" width="70" headerAlign="center" allowSort="true"></div>                  
             <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EmployeeName")</div>    
             <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EmployeeCode")</div>    
             <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_CardNo")</div>
             <div field="EventTime" width="70" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventTime")</div>   
             <div field="ControlName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_ControlID")</div>
             <div field="DoorName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_DoorID")</div>
-            <div field="EventTypeID" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventType")</div> 
+            <div field="EventTypeName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventType")</div> 
             <div field="Modify" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Modify")</div>    
             <div field="EnglishName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EnglishName")</div>    
             <div field="Sex" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Sex")</div>
@@ -100,8 +102,19 @@
         mini.parse();
         var grid = mini.get("#datagrid1");
         grid.load();
+        grid.hideColumn("ForegroundColorColumn");
+        grid.hideColumn("BackgroundColorColumn");
         //grid.sortBy("createtime", "desc");
 
+        //根据事件类型标记颜色
+        grid.on("drawcell", function (e) {
+            var record = e.record;
+            //给帐号列，增加背景色
+            if (e.field == "EventTypeName") {
+                e.cellStyle = "background:" + record.BackgroundColor + ";color:" + record.ForegroundColor;
+            }
+
+        });
         function search() {
 
             var form = new mini.Form("#searchForm");

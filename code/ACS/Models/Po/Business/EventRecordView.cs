@@ -23,6 +23,9 @@ namespace ACS.Models.Po.Business
         private int controlID;                      //控制器ID
         private int doorID;                         //门ID
         private int eventTypeID;                      //事件类型
+        public virtual String EventTypeName { get; set; }                   //事件名称
+        public virtual String ForegroundColor { get; set; }                 //前景色
+        public virtual String BackgroundColor { get; set; }                 //背景色
         private int modify;                         //是否修改过
 
         private String doorName;

@@ -95,12 +95,12 @@
  
                     if (receiveData.action == "Create") {
                         Rsp.Obj.FatherDeptName = data.DeptName;
+                        Rsp.Obj.FatherDeptID = data.id;
                     }
                     else {
                         Rsp.Obj.FatherDeptName = data.FatherDeptName;
                     }
-                    Rsp.Obj.FatherDeptID = data.id;
- 
+
                     form.setData(Rsp.Obj);  
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

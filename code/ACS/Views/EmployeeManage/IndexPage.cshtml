@@ -139,9 +139,16 @@
                     $.ajax({
                         url: "../EmployeeManage/Cancel",
                         type: 'post',
-			cache: false,
                         data: { data: json },
-                            grid.reload();
+                        cache: false,
+                        success: function (json) {
+                            var Rsp = mini.decode(json);
+                            if (Rsp.ErrorCode == "Success") {
+                                grid.reload();
+                            }
+                            else {
+                                mini.alert(text);
+                            }
                         },
                         error: function () {
                         }
