@@ -187,7 +187,6 @@
     <Compile Include="Controllers\MonitorController.cs" />
     <Compile Include="Controllers\OrganizationManageController.cs" />
     <Compile Include="Controllers\PersonalManageController.cs" />
-    <Compile Include="Controllers\PrivilegeManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Controllers\EmployeeManageController.cs" />
     <Compile Include="Controllers\EventRecordController.cs" />

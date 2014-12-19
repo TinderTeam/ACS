@@ -14,6 +14,7 @@ using ACS.Common.Util;
 using ACS.Common;
 using System.IO;
 using ACS.Common.Model;
+using ACS.Service.device;
 namespace ACS.Service.Impl
 {
     public class EmployeeServiceImpl : CommonServiceImpl<Employee>, EmployeeService
