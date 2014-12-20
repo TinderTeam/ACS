@@ -35,42 +35,6 @@ namespace ACS.Service
             return list;
 
         }
-          
-        public static List<UserModel> toUserModelList(List<SystemUser> userList){
-            List<UserModel> userModelList = new List<UserModel>();
-            foreach (SystemUser item in userList)
-            {
-                userModelList.Add(toUserModel(item));
-            }
-            return userModelList;
-        }
-
-        public static UserModel toUserModel(SystemUser user)
-        {
-            UserModel u = new UserModel();
-            u.UserName = user.UserName;
-            u.Pswd = user.Pswd;
-            u.UserID = user.UserID;
-            u.CreateUserID = user.CreateUserID;
-            u.CreateDate = user.CreateDate;
-            u.ModifyUserID = user.ModifyUserID;
-            u.ModifyDate = user.ModifyDate;
-            u.UserDesc = user.UserDesc;
-            return u;
-        }
-        public static SystemUser toUser(UserModel m)
-        {
-            SystemUser user = new SystemUser();
-            user.UserName = m.UserName;
-            user.Pswd = m.Pswd;
-            user.CreateUserID = m.CreateUserID;
-            user.CreateDate = m.CreateDate;
-            user.UserDesc = m.UserDesc;
-            user.ModifyUserID = m.ModifyUserID;
-            user.ModifyDate = m.ModifyDate;
-            //TODO: 实现转化 方法
-            return user;
-        }
  
         // <summary>
         // 转化为menuTreemodel

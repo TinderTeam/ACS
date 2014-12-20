@@ -132,7 +132,7 @@ namespace ACS.Service
     }
     public interface LoginService : CommonService<SystemUser>
     {
-        UserModel Login(string userName, string password);
+        SystemUser Login(SystemUser loginUser);
         void ModifyPswd(string userName, string oldPswd, string newPswd);
         List<Sys_Menu> getSysMenuListByID(int userID);
     }

@@ -209,8 +209,6 @@
     <Compile Include="Models\Model\MonitorEventModel.cs" />
     <Compile Include="Models\Model\TreeModel.cs" />
     <Compile Include="Models\Model\PrivilegeSet.cs" />
-    <Compile Include="Models\Model\UserModel.cs" />
-    <Compile Include="Models\Model\PswdModel.cs" />
     <Compile Include="Models\Model\DeptModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
     <Compile Include="Models\Model\AccessDetailModel.cs" />
@@ -227,6 +225,7 @@
     <Compile Include="Models\Po\Business\Job.cs" />
     <Compile Include="Models\Po\Business\EmployeeView.cs" />
     <Compile Include="Models\Po\Business\AlarmRecordView.cs" />
+    <Compile Include="Models\Po\Business\EmployeeIndex.cs" />
     <Compile Include="Models\Po\CF\Privilege.cs" />
     <Compile Include="Models\Po\CF\Role.cs" />
     <Compile Include="Models\Po\CF\UserRole.cs" />
@@ -427,6 +426,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Log\SystemLog.hbm.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Models\Po\Business\EmployeeIndex.hbm.xml">
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="Scripts\boot.js" />
@@ -1697,12 +1700,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Index\Login.cshtml" />
-    <Content Include="Views\PersonalManage\PersonalManage.cshtml" />
-    <Content Include="Views\PersonalManage\PswdManage.cshtml" />
     <Content Include="Views\Public\_CopyrightInfo.cshtml" />
     <Content Include="Views\Public\_MenuTree.cshtml" />
     <Content Include="Views\Public\_TitleLink.cshtml" />
-    <Content Include="Views\Index\Overview.cshtml" />
+    <Content Include="Views\Index\IndexPage.cshtml" />
     <Content Include="Views\Public\_EditTable.cshtml" />
     <Content Include="Views\UserManage\IndexPage.cshtml" />
     <Content Include="Views\UserManage\ShowPage.cshtml">
@@ -1737,6 +1738,7 @@
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\EmployeeManage\AccessPage.cshtml" />
+    <Content Include="Views\Index\ShowPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

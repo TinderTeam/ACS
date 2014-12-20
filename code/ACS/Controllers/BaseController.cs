@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using ACS.Common;
 using ACS.Service.Constant;
+using ACS.Models.Po.CF;
 
 
 namespace ACS.Controllers
@@ -51,10 +52,10 @@ namespace ACS.Controllers
             //然后验证写这里就有效啦，什么session 什么 RouteData 都能获取到了。谢谢大家，希望对后人又所帮助。
         }
 
-        public UserModel getSessionUser()
+         public SystemUser getSessionUser()
         {
-            UserModel userModel = (UserModel)Session["SystemUser"];
-            return userModel;
+            SystemUser user = (SystemUser)Session["SystemUser"];
+            return user;
         }
 
         public String getRspJson()

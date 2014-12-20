@@ -10,23 +10,23 @@ using ACS.Test;
 using ACS.Common.Util;
 using System.Web.Script.Serialization;
 using ACS.Models.Po.Sys;
+using ACS.Models.Po.CF;
+using ACS.Common;
+using ACS.Service.Constant;
 namespace ACS.Controllers
-
 {
-    public class IndexController : BaseController
+    public class IndexController : MiniUITableController<SystemUser>
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
         LoginService loginService = ServiceContext.getInstance().getLoginService();
-        /// <summary>
-        /// 首页显示
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
+
+        public override CommonService<SystemUser> getService()
         {
-            return View();
+                                                                                                 return loginService;
         }
-        public ActionResult Overview()
+        //展示Index页面
+        public ActionResult Index()
         {
             return View();
         }
@@ -42,50 +42,50 @@ namespace ACS.Controllers
         /// <summary>
         /// 用户登陆
         /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult LoginCheck(UserModel model)
-        {
 
+        public ActionResult LoginCheck(String data)
+        {
+            log.Debug("User login, user Info is " + data);
             try
             {
-
-                Session["SystemUser"] = loginService.Login(model.UserName, model.Pswd);
+                SystemUser loginUser = JsonConvert.JsonToObject<SystemUser>(data);
+                Session["SystemUser"] = loginService.Login(loginUser);
 
             }
-            catch (SystemException ex)
+            catch (FuegoException e)
             {
-                return RedirectToAction("Login", "Index", new { msg = ex.Message });
+                log.Error("cancel failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
             }
-            return RedirectToAction("Index", "Index");
-            
+            catch (SystemException e)
+            {
+                log.Error("cancel failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+            return ReturnJson(Rsp);
+
         }
         /// <summary>
         /// 修改密码
-        /// </summary>
-        /// <returns></returns>
-        [HttpPost]
-        public string ModifyPswd(string data)
+        public ActionResult ModifyPswd(string data)
         {
-            string text = null;
             try
             {
-
-                UserModel user = (UserModel) Session["SystemUser"];
-        
+                SystemUser user = (SystemUser)Session["SystemUser"];
                 PswdModel pwd =  JsonConvert.JsonToObject<PswdModel>(data);
                 loginService.ModifyPswd(user.UserName, pwd.OldPswd, pwd.NewPswd);
             }
-            catch (SystemException ex)
+            catch (FuegoException e)
             {
-              
-                text = ex.Message; 
-                Response.Write(text);
-                return null;
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
             }
-            text = "Success";
-            Response.Write(text);
-            return null;
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+            return ReturnJson(Rsp);
 
         }
         /// <summary>
@@ -100,7 +100,7 @@ namespace ACS.Controllers
         //加载左侧边栏，MenuTree
         public ActionResult MenuTree()
         {
-            UserModel loginUser = (UserModel)Session["SystemUser"];
+            SystemUser loginUser = (SystemUser)Session["SystemUser"];
             List<Sys_Menu> sysMenuList = loginService.getSysMenuListByID(loginUser.UserID);
             //判断menu列表是否为空
             if (ValidatorUtil.isEmpty<Sys_Menu>(sysMenuList))
@@ -115,6 +115,12 @@ namespace ACS.Controllers
         public ActionResult Default()
         {
             return View();
+        }
+        //密码类
+        class PswdModel
+        {
+            public String OldPswd { get; set; }
+            public String NewPswd { get; set; }
         }
     }
 }

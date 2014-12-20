@@ -10,14 +10,6 @@ namespace ACS.Service
     public class ModelVerificationService
     {
 
-
-
-        public static bool UserVerification(UserModel userModel)
-        {
-            //TODO
-
-            return true;
-        }
         public static bool UserIDExist(List<int> id)
         {
             //TODO

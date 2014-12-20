@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.EmployeeIndex,ACS" table="t_employee_index"  >
+
+    <id name="EmployeeIndexID" column ="EMPLOYEE_INDEX_ID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="EmployeeID">
+      <column name="EMPLOYEE_ID"/>
+    </property>
+
+    <property name="IndexStatus">
+      <column name="INDEX_STATUS"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>

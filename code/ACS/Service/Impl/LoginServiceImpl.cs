@@ -36,28 +36,21 @@ namespace ACS.Service.Impl
         /// <param name="userID"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public UserModel Login(string userName, string password)
+        public SystemUser Login(SystemUser loginUser)
         {
 
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "UserName", userName);
-            SystemUser user = userDao.getUniRecord(condition);
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, SystemUser.NAME, loginUser.UserName);
+            SystemUser orignalUser = userDao.getUniRecord(condition);
 
-            if (null == user)
+            if ((null == orignalUser) || (!orignalUser.Pswd.Equals(loginUser.Pswd)))
             {
-                log.Error("login failed, the user is not exist. user name is " + userName);
+                log.Info("login failed, the password is wrong. user name is " + loginUser.UserName);
                 throw new FuegoException(ExceptionMsg.USERNAME_PASSWORD_WRONG);
             }
-
-            if (null == user.Pswd || !user.Pswd.Equals(password))
-            {
-                log.Error("login failed, the password is not right. user name is " + userName);
-                throw new FuegoException(ExceptionMsg.USERNAME_PASSWORD_WRONG);
-            }
-
-            UserModel userModel = new UserModel();
-            userModel.UserName = user.UserName;
-            userModel.UserID = user.UserID;
-            return userModel;
+            SystemUser user = new SystemUser();
+            user.UserName = orignalUser.UserName;
+            user.UserID = orignalUser.UserID;
+            return user;
         }
         /// <summary>
         /// 修改密码
@@ -79,7 +72,7 @@ namespace ACS.Service.Impl
 
             if (!user.Pswd.Equals(oldPswd))
             {
-                log.Error("old password is wrong. user name is " + userName);
+                log.Info("old password is wrong. user name is " + userName);
                 throw new FuegoException(ExceptionMsg.USERNAME_PASSWORD_WRONG);
             }
             
