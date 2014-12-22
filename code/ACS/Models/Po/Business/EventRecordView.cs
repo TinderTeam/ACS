@@ -15,7 +15,7 @@ namespace ACS.Models.Po.Business
         public const String CARDNO = "CardNo";
         public const String EMPLOYEENAME = "EmployeeName";
         public const String EMPLOYEECODE = "EmployeeCode";
-        public const String EVENTTYPE = "EventType";
+        public const String EVENTTYPEID = "EventTypeID";
 
         private int eventID;                        //事件ID
         private DateTime eventTime;                 //事件时间

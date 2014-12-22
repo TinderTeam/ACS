@@ -141,6 +141,7 @@
         </div>
     </div> 
 </div>
+    @Html.Partial("../Public/js")
     <script type="text/javascript">
         mini.parse();
         var grid = mini.get("#datagrid1");
@@ -153,14 +154,7 @@
 
         grid.load();
         //grid.sortBy("createtime", "desc");
-        function onSexRenderer(e) {
-            if (e.value == 1) return "男";
-            else return "女";
-        }
-        function onYesRenderer(e) {
-            if (e.value == 1) return "是";
-            else return "否";
-        }
+
         //注销操作
         function cancel() {
             var rows = grid.getSelecteds();

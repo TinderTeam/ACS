@@ -7,7 +7,6 @@ using ACS.Common.Model;
 using ACS.Models.Model;
 using ACS.Models.Po.Business;
 using ACS.Service;
-using ACS.Test;
 using TcpipIntface;
 using ACS.Common.Util;
 using ACS.Service.device;
@@ -50,7 +49,7 @@ namespace ACS.Controllers
                 model.ControlName = e.ControlName;
                 model.DoorName = e.DoorName;
                 model.EventTime = DateUtil.DateTimeToString(e.AlarmTime);
-                model.EventType = e.AlarmType;
+                model.EventType = e.EventTypeName;
                 model.Id = e.AlarmID;
                 model.Img = ServiceConstant.ALARM_IMG_PATH;
                 model.EventModelType = "alarm";

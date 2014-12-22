@@ -22,6 +22,13 @@ namespace ACS.Controllers
         {
             return eventRecordService;
         }
+        //加载刷卡记录类型列表
+        public ActionResult LoadEventTypeList()
+        {
+            List<EventTypeModel> typeList = eventRecordService.GetEventTypeList();
+            return ReturnJson(typeList);
+        }
+        //加载刷卡记录列表
         public override ActionResult Load(String data)
         {
             return LoadTable<EventRecordView>(GetFilterCondition(data));
@@ -39,7 +46,7 @@ namespace ACS.Controllers
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.CARDNO, eventRecordFilter.CardNo));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEENAME, eventRecordFilter.EmployeeName));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEECODE, eventRecordFilter.EmployeeCode));
-               // filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EVENTTYPE, eventRecordFilter.EventType));
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EventRecordView.EVENTTYPEID , eventRecordFilter.EventTypeID.ToString()));
                 if (!DateUtil.DateTimeIsEmpty(eventRecordFilter.EventTimeStart))
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.BIGER_EQ, EventRecordView.EVNETTIME, DateUtil.DateTimeToString(eventRecordFilter.EventTimeStart)));

@@ -8,7 +8,6 @@ using ACS.Common.Util;
 using ACS.Models.Model;
 using ACS.Models.Po.Business;
 using ACS.Service;
-using ACS.Test;
 using System.Web.Script.Serialization;
 using NHibernate.Mapping;
 using ACM.Controllers;
@@ -151,6 +150,26 @@ namespace ACS.Controllers
                 log.Error("create failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
+            return ReturnJson(Rsp);
+        }
+        public ActionResult updateDeviceInfo(String idList)
+        {
+            try
+            {
+                List<String> controlIDList = JsonConvert.JsonToObject<List<String>>(idList);
+                //待实现
+            }
+            catch (FuegoException e)
+            {
+                log.Error("download failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (SystemException e)
+            {
+                log.Error("download failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
             return ReturnJson(Rsp);
         }
 

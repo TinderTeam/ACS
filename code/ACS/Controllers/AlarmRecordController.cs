@@ -22,7 +22,13 @@ namespace ACS.Controllers
         {
             return alarmRecordService;
         }
-        //加载用户首页用户信息列表
+        //加载报警记录类型列表
+        public ActionResult LoadEventTypeList()
+        {
+            List<EventTypeModel> typeList = alarmRecordService.GetEventTypeList();
+            return ReturnJson(typeList);
+        }
+        //加载报警信息列表
         public override ActionResult Load(String data)
         {
             return LoadTable<AlarmRecordView>(GetFilterCondition(data));
@@ -35,7 +41,7 @@ namespace ACS.Controllers
             AlarmRecordFilterModel alarmRecordFilter = JsonConvert.JsonToObject<AlarmRecordFilterModel>(json);
             if (null != alarmRecordFilter)
             {
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, AlarmRecordView.ALARMTYPE, alarmRecordFilter.AlarmType));
+                filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AlarmRecordView.EVENTTYPEID, alarmRecordFilter.EventTypeID.ToString()));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, AlarmRecordView.DOORNAME, alarmRecordFilter.DoorName));
                 if (!DateUtil.DateTimeIsEmpty(alarmRecordFilter.AlarmTimeStart))
                 {

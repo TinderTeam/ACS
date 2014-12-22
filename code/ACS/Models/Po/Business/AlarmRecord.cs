@@ -12,7 +12,7 @@ namespace ACS.Models.Po.Business
         private DateTime alarmTime;//时间时间
         private int doorID;//门ID
         private int controlID;//控制器ID
-        private String alarmType;//事件类型
+        private int eventTypeID;//事件类型
 
         public virtual int AlarmID
         {
@@ -38,10 +38,10 @@ namespace ACS.Models.Po.Business
             set { controlID = value; }
         }
 
-        public virtual String AlarmType
+        public virtual int EventTypeID
         {
-            get { return alarmType; }
-            set { alarmType = value; }
+            get { return eventTypeID; }
+            set { eventTypeID = value; }
         }
 
     }

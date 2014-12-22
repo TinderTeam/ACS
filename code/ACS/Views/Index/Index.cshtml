@@ -139,6 +139,18 @@
             tabs.activeTab(tab);
         }
     }
+    //修改密码
+    function pswdManage() {
+        mini.open({
+            url: "Index/ShowPage",
+            title: document.getElementById("ModifyPswd").innerHTML, width: 400, height: 260,
+            onload: function () {
+
+            },
+            ondestroy: function (action) {
+            }
+        });
+    }
 </script>
     </body>
 </html>

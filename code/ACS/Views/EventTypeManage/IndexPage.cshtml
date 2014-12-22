@@ -34,7 +34,7 @@
             <div field="ForegroundColor" width="70" headerAlign="center" allowSort="true" align="center">前景色</div>    
             <div field="BackgroundColor" width="70" headerAlign="center" allowSort="true" align="center">背景色</div>     
             <div field="Level" width="70" headerAlign="center" allowSort="true" align="center">事件级别</div>   
-            <div field="Visible" width="70" headerAlign="center" allowSort="true" align="center" renderer="onYesRenderer">可见</div>
+            <div field="Visible" width="70" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">可见</div>
             <div field="Affirm" width="70" headerAlign="center" allowSort="true" align="center" renderer="onYesRenderer">是否需要确认</div>
             <div field="Alarm" width="70" headerAlign="center" allowSort="true" align="center" renderer="onYesRenderer">是否报警</div> 
               
@@ -42,6 +42,7 @@
         </div>
     </div> 
 </div>
+    @Html.Partial("../Public/js")
     <script type="text/javascript">
         mini.parse();
         var grid = mini.get("#datagrid1");

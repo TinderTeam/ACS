@@ -30,15 +30,10 @@ html, body
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
                     <tr style ="height:35px">
-                        <td style="width:70px;">类型ID：</td>
-                        <td style="width:150px;">
-                            <input name ="EventTypeID" class="mini-textbox" readonly="readonly" value=""/>
-                        </td>
-                    </tr>
-                    <tr style ="height:35px">
-                        <td >类型名称：</td>
-                        <td >    
+                        <td style="width:70px;">类型名称：</td>
+                        <td style="width:150px;">    
                             <input name="EventTypeName" class="mini-textbox" vtype="maxLength:50" required="true" value=""/>
+                            <input name ="EventTypeID" class="mini-textbox" style="display:none" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
@@ -60,7 +55,25 @@ html, body
                         <td >    
                             <input name="Level" class="mini-textbox" value=""/>
                         </td>
-                    </tr>        
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >可见</td>
+                        <td >    
+                            <select name="Visible" class="mini-radiobuttonlist">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >报警</td>
+                        <td >    
+                            <select name="Alarm" class="mini-radiobuttonlist">
+                                <option value="true">是</option>
+                                <option value="false">否</option>
+                            </select>
+                        </td>
+                    </tr>         
                 </table>
             </div>
        

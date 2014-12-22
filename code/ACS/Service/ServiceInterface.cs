@@ -118,6 +118,7 @@ namespace ACS.Service
     public interface EventRecordService : CommonService<EventRecord>
     {
         List<EventRecordView> GetCurEvent(String indexID, String doorID);
+        List<EventTypeModel> GetEventTypeList();
     }
     public interface EventTypeService : CommonService<EventType>
     {
@@ -126,6 +127,7 @@ namespace ACS.Service
     public interface AlarmRecordService : CommonService<AlarmRecord>
     {
         List<AlarmRecordView> GetCurAlarm(String indexID, String doorID);
+        List<EventTypeModel> GetEventTypeList();
     }
     public interface HolidayService : CommonService<Holiday>
     {

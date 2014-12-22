@@ -16,6 +16,6 @@ namespace ACS.Models.Model
         public String CardNo { get; set; }
         public String EmployeeName { get; set; }
         public String EmployeeCode { get; set; }
-        public String EventType { get; set; }
+        public int EventTypeID { get; set; }
     }
 }

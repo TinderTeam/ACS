@@ -87,20 +87,34 @@ namespace ACS.Service.Impl
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_APP));
             List<Privilege> userPrivilegeList = GetDao<Privilege>().getAll(conditionList);
             //对用户存在的权限菜单打勾
-            List<String> menuIDList = new List<string>();
+            Dictionary<String, String> menuIDListMap = new Dictionary<String, String>();
+            List<String> orginalmenuIDList = new List<string>();
             foreach (Privilege i in userPrivilegeList)
             {
-                menuIDList.Add(i.PrivilegeAccessValue);
+                if (!menuIDListMap.ContainsKey(i.PrivilegeAccessValue))
+                {
+                    menuIDListMap.Add(i.PrivilegeAccessValue, i.PrivilegeAccessValue);
+                }
             }
-            QueryCondition IDcondition = new QueryCondition(ConditionTypeEnum.IN, Sys_Menu.MEMU_ID, menuIDList);
+            orginalmenuIDList.AddRange(menuIDListMap.Values.ToList<String>());
+            QueryCondition IDcondition = new QueryCondition(ConditionTypeEnum.IN, Sys_Menu.MEMU_ID, orginalmenuIDList);
             List<Sys_Menu> menuList = GetDao<Sys_Menu>().getAll(IDcondition);
             //加入父级按钮
+            List<String> menuIDList = new List<string>();
             foreach (Sys_Menu sys_menu in menuList)
             {
-                menuIDList.Add(sys_menu.MenuParentNo);
+                if (!sys_menu.MenuParentNo.Equals("0"))
+                {
+                    if (!menuIDListMap.ContainsKey(sys_menu.MenuParentNo))
+                    {
+                        menuIDListMap.Add(sys_menu.MenuParentNo, sys_menu.MenuParentNo);
+                    }
+                }
+                
             }
-            IDcondition = new QueryCondition(ConditionTypeEnum.IN, Sys_Menu.MEMU_ID, menuIDList);
-            menuList = GetDao<Sys_Menu>().getAll(IDcondition);
+            menuIDList.AddRange(menuIDListMap.Values.ToList<String>());
+            QueryCondition menuIDcondition = new QueryCondition(ConditionTypeEnum.IN, Sys_Menu.MEMU_ID, menuIDList);
+            menuList = GetDao<Sys_Menu>().getAll(menuIDcondition);
             return menuList;
         }
     }

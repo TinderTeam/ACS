@@ -215,6 +215,7 @@
     <Compile Include="Models\Model\AlarmRecordFilterModel.cs" />
     <Compile Include="Models\Model\EventRecordFilterModel.cs" />
     <Compile Include="Models\Model\AttributeModel.cs" />
+    <Compile Include="Models\Model\EventTypeModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />
     <Compile Include="Models\Po\Business\Holiday.cs" />
     <Compile Include="Models\Po\Business\AccessDetail.cs" />
@@ -273,7 +274,6 @@
     <Compile Include="Service\ServiceConstant.cs" />
     <Compile Include="Service\ServiceContext.cs" />
     <Compile Include="Service\ServiceInterface.cs" />
-
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\hibernate.cfg.xml" />
@@ -1687,7 +1687,9 @@
     <Content Include="upload\EmployeePhoto\a08afc16-b9df-4a7b-8fe8-96f04f4bcf49.jpg" />
     <Content Include="upload\EmployeePhoto\a4d311a1-af25-470b-88b3-f9d68d9c9b72.jpg" />
     <Content Include="upload\EmployeePhoto\c9c5d082-31ec-4f10-9098-433ea50a2e47.jpg" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1739,6 +1741,7 @@
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\EmployeeManage\AccessPage.cshtml" />
     <Content Include="Views\Index\ShowPage.cshtml" />
+    <Content Include="Views\Public\js.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

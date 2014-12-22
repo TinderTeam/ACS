@@ -11,6 +11,7 @@ using ACS.Common.Dao;
 using ACS.Common.Constant;
 using ACS.Service.Constant;
 using ACS.Common.Model;
+using ACS.Common.Util;
 namespace ACS.Service.Impl
 {
     public class EventRecordServiceImpl : CommonServiceImpl<EventRecord>, EventRecordService
@@ -43,6 +44,25 @@ namespace ACS.Service.Impl
                 alarmList = this.GetDao<EventRecordView>().getAll(conditionList);
             }
             return alarmList;
+        }
+        //获取刷卡记录事件类型列表
+        public List<EventTypeModel> GetEventTypeList()
+        {
+            List<EventTypeModel> eventTypeModelList = new List<EventTypeModel>();
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,EventType.VISIBLE, "true");
+            List<EventType> eventTypeList = GetDao<EventType>().getAll(condition);
+            if(!ValidatorUtil.isEmpty<EventType>(eventTypeList))
+            {
+                foreach (EventType eventType in eventTypeList)
+                {
+                    EventTypeModel eventTypeModel = new EventTypeModel();
+                    eventTypeModel.EventTypeID = eventType.EventTypeID;
+                    eventTypeModel.EventTypeName = eventType.EventTypeName;
+                    eventTypeModelList.Add(eventTypeModel);
+                }
+            }
+
+            return eventTypeModelList;
         }
 
     }

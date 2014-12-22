@@ -11,16 +11,16 @@
       <column name="ALARM_TIME"/>
     </property>
 
-    <property name="ControlID" type="int">
+    <property name="ControlID">
       <column name="CONTROL_ID"/>
     </property>
 
-    <property name="DoorID" type="int">
+    <property name="DoorID">
       <column name="DOOR_ID"/>
     </property>
 
-    <property name="AlarmType" type="string">
-      <column name="ALARM_TYPE" length="50"/>
+    <property name="EventTypeID">
+      <column name="EVENT_TYPE_ID"/>
     </property>
     
   </class>

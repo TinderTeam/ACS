@@ -10,6 +10,8 @@ namespace ACS.Models.Po.Business
     public class EventType : LogOperable
     {
         public const String ID = "EventTypeID";
+        public const String VISIBLE = "Visible";
+        public const String ALARM = "Alarm";
         public virtual int EventTypeID { get; set; }                        //事件ID
         public virtual String EventTypeName { get; set; }                   //事件名称
         public virtual int Level { get; set; }                          //级别

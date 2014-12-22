@@ -10,7 +10,7 @@ namespace ACS.Models.Model
         //从AlarmRecord表中获得
         private DateTime alarmTimeStart;         //查询起始时间
         private DateTime alarmTimeEnd;           //查询截至时间
-        private String alarmType;                //事件类型
+        private int eventTypeID;                //事件类型
 
         //从Door表中获得
         private String doorName;                 //门名称
@@ -27,10 +27,10 @@ namespace ACS.Models.Model
             set { alarmTimeEnd = value; }
         }
 
-        public String AlarmType
+        public int EventTypeID
         {
-            get { return alarmType; }
-            set { alarmType = value; }
+            get { return eventTypeID; }
+            set { eventTypeID = value; }
         }
 
         public String DoorName

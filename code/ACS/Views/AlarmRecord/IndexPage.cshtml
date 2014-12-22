@@ -21,7 +21,10 @@
                 <table style="width:100%;">
                     <tr>
                         <td style="width:60px;">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmTypeSearch")</td>
-                        <td style="width:130px;"><input name="AlarmType" class="mini-textbox" /></td>
+                        <td style="width:130px;">
+                            <input name="EventTypeID" class="mini-combobox" valueField="EventTypeID" textField="EventTypeName" 
+                                url="../AlarmRecord/LoadEventTypeList"/>
+                        </td>
                         <td style="width:20px;">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_DoorSearch")</td>
                         <td style="width:130px;"><input name="DoorName" class="mini-textbox"></td>
                         <td style="width:40px;">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_TimeSearch")</td>
@@ -46,11 +49,13 @@
         url="Load"  idField="AlarmID" multiSelect="true">
         <div property="columns">
             <!--<div type="indexcolumn"></div>        -->
-            <div type="indexcolumn" width="15px"></div>                 
+            <div type="indexcolumn" width="15px"></div>
+            <div name="ForegroundColorColumn" field="ForegroundColor" width="70" headerAlign="center" allowSort="true"></div>    
+            <div name="BackgroundColorColumn" field="BackgroundColor" width="70" headerAlign="center" allowSort="true"></div>
+            <div field="EventTypeName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmType")</div>                       
             <div field="AlarmTime" width="140px" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmTime")</div>    
             <div field="DoorName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_DoorID")</div>    
             <div field="ControlName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_ControlID")</div>
-            <div field="AlarmType" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmType")</div>   
                     
         </div>
     </div> 
@@ -59,8 +64,19 @@
         mini.parse();
         var grid = mini.get("#datagrid1");
         grid.load();
+        grid.hideColumn("ForegroundColorColumn");
+        grid.hideColumn("BackgroundColorColumn");
         //grid.sortBy("createtime", "desc");
+        //根据事件类型标记颜色
+        grid.on("drawcell", function (e) {
+            var record = e.record;
+            //给帐号列，增加背景色
+            if (e.field == "EventTypeName") {
+                e.cellStyle = "background:" + record.BackgroundColor + ";color:" + record.ForegroundColor;
+            }
 
+        });
+        //
         function search() {
 
             var form = new mini.Form("#searchForm");
