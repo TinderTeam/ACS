@@ -31,6 +31,7 @@ namespace ACS.Service
         E Get(String id);
         List<E> Get(List<String> idList);
         T Get<T>(String key, String value);
+
     }
 
     public interface EmployeeService : CommonService<Employee>
@@ -41,7 +42,16 @@ namespace ACS.Service
         void modifyAccess(int userID, String employeeID, String AccessID);
         void UpdateLastEvent(string cardID, int eventID);
 
-        void DownCardList(List<string> list);
+        void DownCardList(List<string> list,String uuID);
+
+        void DeleteIndex(List<string> idList);
+
+        int getReceiveIndex();
+
+        void CreateIndex(Employee obj);
+
+        void UpdateIndex(int receiveIndex, Employee obj);
+        int getIndexByEmployeeID(String EmployeeID);
     }
     public interface DeviceOperatorService
     {

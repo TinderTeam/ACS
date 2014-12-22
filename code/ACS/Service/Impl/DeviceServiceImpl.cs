@@ -75,9 +75,9 @@ namespace ACS.Service.Impl
 
         //新建控制器
         public override void Create(int userID, Control control)
-        {
-            
-
+        {          
+            log.Info("Create a new control.  userID="+userID+"control=" +JsonConvert.ObjectToJson(control));
+           
             //根据控制器创建门
             DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
             if (null == deviceType)     //控制器类型为空
@@ -94,9 +94,11 @@ namespace ACS.Service.Impl
             }
             //创建控制器
             base.Create(userID, control);
-
-            List<DoorTime> doorTimeList = new List<DoorTime>();
+          
             //根据控制器创建时间
+            List<DoorTime> doorTimeList = new List<DoorTime>();
+            log.Info("Create doors and doortimes of the new control. Doors' number is :" + deviceType.DoorNum + ".Times' number is:" + deviceType.TimeNum);
+
             for (int i = 0; i < deviceType.DoorNum; i++)
             {
 
@@ -116,22 +118,30 @@ namespace ACS.Service.Impl
                 }
             }
             GetDao<DoorTime>().create(doorTimeList);
+            
             //增加设备权限
+            log.Info("Create privileges of the new control creater.");
             privilegeService.CreateDomainPrivilege(userID.ToString(), control.ControlID.ToString());
         }
         //删除控制器
         public override void Delete(int userID, List<String> idList)
         {
+            log.Info("Delete some controls.  userID=" + userID + "idList=" + JsonConvert.ObjectToJson(idList));          
             //删除该控制器
             base.Delete(userID,idList);
+
             //删除控制器所属的Door\DoorTime及DoorTime类型的门禁权限
+            log.Info("Delete doortimes of this controls.");   
             deleteDooTimeByControlId(idList);
+           
 
             //删除该控制器的域管理权限
+            log.Info("Delete privileges of this controls.");   
             List<QueryCondition> conditionList = new List<QueryCondition>();
             conditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Privilege.ACCESS_TYPE, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN));
             conditionList.Add(new QueryCondition(ConditionTypeEnum.IN, Privilege.ACCESS_VALUE, idList));
             GetDao<Privilege>().delete(conditionList);
+
 
         }
         //根据控制器ID删除Door\DoorTime\DoorTimeAccess
@@ -167,8 +177,11 @@ namespace ACS.Service.Impl
         //更新DoorTime信息
         public void ModifyDoorTime(int userID, DoorTime doorTime)
         {
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,DoorTime.DOOR_TIME_ID,doorTime.DoorTimeID.ToString());
+            log.Info("Update a doortime.  userID=" + userID + "doorTime=" + JsonConvert.ObjectToJson(doorTime));          
+            QueryCondition condition = 
+                new QueryCondition(ConditionTypeEnum.EQUAL,DoorTime.DOOR_TIME_ID,doorTime.DoorTimeID.ToString());
             DoorTime orignalDoorTime = GetDao<DoorTime>().getUniRecord(condition);
+
             if (null == orignalDoorTime)
             {
                 log.Error("DoorTime Modify Failed, DoorTime is  not exist, the DoorTimeID is " + doorTime.DoorTimeID);
@@ -319,7 +332,12 @@ namespace ACS.Service.Impl
                     .getDoorTimeViewListByAccessID(e.AccessID.ToString(), controlID);
                 if (!ValidatorUtil.isEmpty(doorTimeList))
                 {
-                    deviceOperator.cardInfoDownLoad(e, doorTimeList);
+                    
+                    deviceOperator.cardInfoDownLoad(
+                        e, 
+                        doorTimeList,
+                        ServiceContext.getInstance().getEmployeeService().getIndexByEmployeeID(e.EmployeeID.ToString())
+                        );
                 }
                 i++;
             }

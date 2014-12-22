@@ -6,6 +6,35 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
     <link href="../../script/demo.css" rel="stylesheet" type="text/css" />
     <script src="../../scripts/boot.js" type="text/javascript"></script>
+     <script src="../../Scripts/jquery.progressbar/js/jquery.progressbar.min.js" type="text/javascript"></script>
+             <script type="text/javascript">
+                 $(document).ready(function () {
+                     $("#bar").progressBar(0, { barImage: '../../Scripts/jquery.progressbar/images/progressbg_green.gif', showText: false,speed:5 });
+                 });
+		</script>
+     <style  type="text/css">
+     .my-label
+     {
+         padding-left: 1px;
+         width: 200px;
+         text-align:right;
+     }
+      .my-result
+     {
+         padding-left: 1px;
+         width: 200px;
+         text-align:left;
+     }
+     .Hide
+     {
+        display:none;    
+     }
+     </style>
+        <style type="text/css">
+             html, body{
+        margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
+    }    
+</style>
 </head>
 <body>
 <style type="text/css">
@@ -52,8 +81,10 @@
                     <a class="mini-button" iconCls="icon-lock" onclick="cancel()">注销</a> 
                     <a class="mini-button" iconCls="icon-node" onclick="card()">发卡</a>       
                     <a class="mini-button" iconCls="icon-node" onclick="privilege()">权限配置</a>   
-                    <a class="mini-button" iconCls="icon-node" onclick="downloadCard()">下发卡信息</a>     
+                    <a class="mini-button" iconCls="icon-node" onclick="downloadCard()">下发卡信息</a>   
+                    <span class="bar Hide" style="text-align:right" >操作进度：<span class="progressBar" id="bar"></span></span>  
                 </td>
+
             </tr>
         </table>           
     </div>
@@ -113,6 +144,13 @@
     <script type="text/javascript">
         mini.parse();
         var grid = mini.get("#datagrid1");
+
+        var barClock = 2000;       //定时器更新间隔
+        var barStart = false;
+        var barValue = 0;
+        var barUUID = "";
+        var barTimer;
+
         grid.load();
         //grid.sortBy("createtime", "desc");
         function onSexRenderer(e) {
@@ -159,6 +197,39 @@
             }
         }
 
+        ///下发卡片信息
+
+        //进度条刷新过程
+        var barHandler = function () {
+            if (barStart) {
+                url = "/Monitor/BarStatus?UUID=" + barUUID;
+
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: "",
+                    cache: false,
+                    success: function (text) {
+                        var p = eval('(' + text + ')');
+                        barValue = p.Obj;
+                        $("#bar").progressBar(barValue);
+                        if (barValue == 100) {
+                            clearInterval(barTimer);
+                            setTimeout(hideBar, 2000);
+
+                        }
+
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(text);
+                    }
+                });
+            }
+        }
+        function hideBar() {
+            $(".bar").addClass('Hide');
+            $("#bar").progressBar(0);
+        }
         function downloadCard() {
             var rows = grid.getSelecteds();
             if (rows.length > 0) {
@@ -170,12 +241,19 @@
                         ids.push(r.EmployeeID);
                     }
                     var id = ids.join(',');
-                    grid.loading("操作中，请稍后......");
                     $.ajax({
                         url: "../EmployeeManage/DownCardList?idList=" + id,
                         type: 'post',
                         success: function (json) {
-                            grid.reload();
+                            var Rsp = mini.decode(json);
+                            if (Rsp.ErrorCode == "Success") {
+                                barUUID = Rsp.Obj;
+                                $(".bar").removeClass("Hide");
+                                barStart = true;
+                                barTimer = setInterval(barHandler, barClock);
+                            } else {
+                                mini.alert(Rsp.Message);
+                            }
                         },
                         error: function () {
                         }

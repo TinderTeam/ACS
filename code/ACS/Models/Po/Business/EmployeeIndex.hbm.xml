@@ -10,7 +10,7 @@
     <property name="EmployeeID">
       <column name="EMPLOYEE_ID"/>
     </property>
-
+    
     <property name="IndexStatus">
       <column name="INDEX_STATUS"/>
     </property>

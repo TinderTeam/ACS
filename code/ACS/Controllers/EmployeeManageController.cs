@@ -14,6 +14,7 @@ using ACS.Common;
 using ACS.Service.Constant;
 using ACS.Common.Dao;
 using ACS.Common.Constant;
+using System.Threading;
 namespace ACS.Controllers
 {
     public class EmployeeManageController : MiniUITableController<Employee>
@@ -23,6 +24,67 @@ namespace ACS.Controllers
         private EmployeeService employeeService = ServiceContext.getInstance().getEmployeeService();
 
 
+
+        /**
+         *  这里在处理Employee的过程中因为涉及到EmployeeIndex更新的问题，所以在这里要复写增删方法。
+         */
+        #region 复写 Delete Create 方法
+        public override ActionResult Delete(String data)
+        {
+            log.Debug("Deleting ObjList, ObjIDList is " + data);
+            try
+            {
+                List<String> idList = JsonConvert.JsonToObject<List<String>>(data);
+                getService().Delete(this.getSessionUser().UserID, idList);
+                employeeService.DeleteIndex(idList); 
+
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+            return ReturnJson(Rsp);
+        }
+       
+        public override ActionResult Create(String data)
+        {
+            log.Debug("Creating OBJ ... " + data);
+
+            try
+            {
+                Employee obj = JsonConvert.JsonToObject<Employee>(data);
+                //先查询是否有回收到的Index
+                getService().Create(this.getSessionUser().UserID, obj);
+                int receiveIndex = employeeService.getReceiveIndex();
+                if (receiveIndex == 0)
+                {
+                    employeeService.CreateIndex(obj);
+                }
+                else{
+                    employeeService.UpdateIndex(receiveIndex, obj);
+                }
+               
+            }
+            catch (FuegoException e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (Exception e)
+            {
+                log.Error("create failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
+        }
+        #endregion
         public override CommonService<Employee> getService()
         {
             return employeeService;
@@ -209,7 +271,13 @@ namespace ACS.Controllers
         {
             try
             {
-                employeeService.DownCardList(getIDList(idList));
+                var list = getIDList(idList);
+                String uuID = DataCreatUtil.getUUID();
+                DownCardListThread thread = new DownCardListThread(list, uuID);
+                Thread oThread = new Thread(new ThreadStart(thread.Op));
+
+                oThread.Start();
+                Rsp.Obj = uuID;  
             }
             catch (FuegoException e)
             {
@@ -223,6 +291,30 @@ namespace ACS.Controllers
             }
 
             return ReturnJson(Rsp);
+        }
+    }
+
+
+    class DownCardListThread
+    {
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private EmployeeService employeeService = ServiceContext.getInstance().getEmployeeService();
+        String uuID;
+        List<String> list;
+
+        public DownCardListThread(List<String> list, String uuID)
+        {
+            this.list = list;
+            this.uuID = uuID;
+        }
+
+        public void Op()
+        {
+        
+            //打开进度监控器
+            ProcessManageCache.startNewProcession(uuID);
+            employeeService.DownCardList(list, uuID);
+           
         }
     }
 }

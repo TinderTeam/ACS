@@ -16,7 +16,6 @@ namespace ACS.Controllers
         public ActionResult Index()
         {
             return RedirectToAction("Login", "Index");
-           // return RedirectToAction("Test", "Home");
         }
 
         public ActionResult Test()

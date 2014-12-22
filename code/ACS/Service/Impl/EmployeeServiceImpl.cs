@@ -254,19 +254,35 @@ namespace ACS.Service.Impl
         /// 根据员工ID列表进行下发员工卡片信息到设备的操作
         /// </summary>
         /// <param name="list"></param>
-        public void DownCardList(List<string> list)
+        public void DownCardList(List<string> list,String uuID)
         {
+            log.Info("Download card list by Employees : uuid=" + uuID + ".Employee list is" + JsonConvert.ObjectToJson(list));
+
+            int i = 0;
             foreach (String id in list)
             {
+                int p = (100 * (i + 1) / list.Count);
+                ProcessManageCache.Update(uuID, p);
+
                 Employee employee=Get(id);
                 //获取这个员工涉及到的控制器-门时间列表
                 Dictionary<Control, List<DoorTimeView>> controlDateTimeMap = 
                     ServiceContext.getInstance().getAccessDetailService().getControlListByAccessID(employee.AccessID.ToString());
+                ///进度条处理
+                ///
+                log.Info("Download card list by control datetime map : uuid=" + uuID + ".map is" + JsonConvert.ObjectToJson(controlDateTimeMap.Keys) + JsonConvert.ObjectToJson(controlDateTimeMap.Values));
                 foreach (Control c in controlDateTimeMap.Keys)
                 {
+
+                   
+                    
                     if (controlDateTimeMap.ContainsKey(c) && controlDateTimeMap[c] != null)
-                    {                   
-                        DeviceOperatorFactory.getInstance().getDeviceOperator(c).cardInfoDownLoad(employee, controlDateTimeMap[c]);
+                    {
+                      
+                        DeviceOperatorFactory.getInstance().getDeviceOperator(c).cardInfoDownLoad(
+                            employee, 
+                            controlDateTimeMap[c],
+                            getIndexByEmployeeID(employee.EmployeeID.ToString()));
                     }
 
                 }
@@ -274,6 +290,85 @@ namespace ACS.Service.Impl
             }
         }
 
+        #endregion
+
+        #region 员工发卡序号相关服务
+
+        /// <summary>
+        /// 将idList中的状态转为回收
+        /// </summary>
+        /// <param name="idList"></param>
+        public void DeleteIndex(List<string> idList)
+        {
+            foreach (String employeeId in idList)
+            {
+                QueryCondition condition = new QueryCondition(
+                    ConditionTypeEnum.EQUAL, 
+                    Employee.ID,
+                    employeeId
+                    );
+                EmployeeIndex ei=GetDao<EmployeeIndex>().getUniRecord(condition);
+                //将序号状态转换为已回收
+                if (ei == null)
+                {
+                    throw new FuegoException(ExceptionMsg.EMPLOYEE_INDEX_NOT_EXIST); 
+                }
+                ei.IndexStatus =EmployeeIndex.RECEIVE;
+                GetDao<EmployeeIndex>().update(ei);
+            }
+        }
+
+        /// <summary>
+        /// 获得一个已回收的序号
+        /// </summary>
+        /// <returns></returns>
+        public int getReceiveIndex()
+        {
+            QueryCondition condition = new QueryCondition(
+                   ConditionTypeEnum.EQUAL,
+                   EmployeeIndex.INDEX_STATUS,
+                   EmployeeIndex.RECEIVE
+                   );
+            List<EmployeeIndex> ei = GetDao<EmployeeIndex>().getAll(condition);
+            if (ei.Count == 0)
+            {
+                return 0;
+            }
+            return ei[0].EmployeeIndexID;
+        }
+
+        public int getIndexByEmployeeID(String EmployeeID)
+        {
+            QueryCondition condition = new QueryCondition(
+                   ConditionTypeEnum.EQUAL,
+                   EmployeeIndex.EMPLOYEE_ID,
+                   EmployeeID
+                   );
+           EmployeeIndex ei = GetDao<EmployeeIndex>().getUniRecord(condition);
+            if (ei == null)
+            {
+                throw new FuegoException(ExceptionMsg.EMPLOYEE_INDEX_NOT_EXIST); 
+            }
+            return ei.EmployeeIndexID;
+        }
+        /// <summary>
+        /// 创建一个新的序号
+        /// </summary>
+        /// <param name="obj"></param>
+        public void CreateIndex(Employee obj)
+        {
+            EmployeeIndex ei = new EmployeeIndex();
+            ei.EmployeeID = obj.EmployeeID;
+            GetDao<EmployeeIndex>().create(ei);    
+        }
+
+        public void UpdateIndex(int receiveIndex, Employee obj)
+        {
+            EmployeeIndex ei = Get<EmployeeIndex>(EmployeeIndex.EMPLOYEE_INDEX_ID, receiveIndex.ToString());
+            ei.EmployeeID = obj.EmployeeID;
+            ei.IndexStatus = EmployeeIndex.OK;
+            GetDao<EmployeeIndex>().update(ei); ;
+        }
         #endregion
     }
 }

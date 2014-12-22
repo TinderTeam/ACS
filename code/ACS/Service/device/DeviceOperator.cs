@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ACS.Models.Model;
+using TcpipIntface;
 
 namespace ACS.Service.device
 {
@@ -18,9 +19,10 @@ namespace ACS.Service.device
 
          void SetDoorTime(Door door,DoorTime doorTime);
 
-
-         void  cardInfoDownLoad(Employee employee, List<DoorTimeView> doorTimeList);
+         void  cardInfoDownLoad(Employee employee, List<DoorTimeView> doorTimeList, int employeeIndex);
 
          bool ClearAllCards();
+
+         TcpipClass getConnector();
     }
 }

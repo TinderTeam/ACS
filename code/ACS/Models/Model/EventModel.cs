@@ -46,10 +46,17 @@ namespace ACS.Models.Model
         private UInt16 cardIndex;
         private byte cardStatus;
         private byte reader;
+        private byte doorNum;
+
+    
 
         #region 封装
 
-
+        public byte DoorNum
+        {
+            get { return doorNum; }
+            set { doorNum = value; }
+        }
         public byte EType
         {
           get { return eType; }

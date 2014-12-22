@@ -22,6 +22,9 @@ namespace ACS.Service.Impl
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Control control;
         private TcpipClass connector;
+
+  
+
         private DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
 
         public Control GetControl()
@@ -60,8 +63,8 @@ namespace ACS.Service.Impl
 
         #region 事件接口
         public void EventHandler(byte EType, byte Second, byte Minute, byte Hour, byte Day, byte Month, int Year, byte DoorStatus,
-             byte Ver, byte FuntionByte, Boolean Online, byte CardsofPackage, UInt64 CardNo, out byte Door, byte EventType,
-             UInt16 CardIndex, byte CardStatus, byte reader, out Boolean OpenDoor, out Boolean Ack)
+            byte Ver, byte FuntionByte, Boolean Online, byte CardsofPackage, UInt64 CardNo, byte Door, byte EventType,
+            UInt16 CardIndex, byte CardStatus, byte reader, out Boolean OpenDoor, out Boolean Ack)
         {
             EventMsg eventMsg = new EventMsg();
             eventMsg.EType = EType;
@@ -80,7 +83,7 @@ namespace ACS.Service.Impl
             eventMsg.EventType = EventType;
             eventMsg.CardIndex = CardIndex;
             eventMsg.CardStatus = CardStatus;
-            //eventMsg.Door= Door;
+            eventMsg.DoorNum= Door;
             eventMsg.Reader = reader;
 
             EventHandel handel = new EventHandel(control,eventMsg);
@@ -103,28 +106,36 @@ namespace ACS.Service.Impl
             switch (cmdCode)
             {
                 case OperateDeviceCmdEnum.OPEN_DOOR:
+                    log.Info("Device operate command : open door.  Door number=" + door.DoorNum+" controlID="+control.ControlID);
                     result = connector.Opendoor((byte)door.DoorNum);
                     break;
                 case OperateDeviceCmdEnum.CLOSE_DOOR:
+                    log.Info("Device operate command : close door.  Door number=" + door.DoorNum + " controlID="+control.ControlID);
                     result = connector.Closedoor((byte)door.DoorNum);
                     break;
                 case OperateDeviceCmdEnum.LOCK_DOOR:
-                    result = connector.LockDoor((byte)door.DoorNum,true);
+                    log.Info("Device operate command : lock door.  Door number=" + door.DoorNum + " controlID=" + control.ControlID);
+                    result = connector.LockDoor((byte)door.DoorNum, true);
                     break;
                 case OperateDeviceCmdEnum.UNLOCK_DOOR:
+                    log.Info("Device operate command : unlock door.  Door number=" + door.DoorNum + " controlID=" + control.ControlID);
                     result = connector.LockDoor((byte)door.DoorNum, false);
                     break;
                 case OperateDeviceCmdEnum.SET_FIRE:
-                    result = connector.SetFire(true, false);
-                    break;
-                case OperateDeviceCmdEnum.CACEL_FIRE:
+                    log.Info("Device operate command : set fire alarm.  controlID=" + control.ControlID);
                     result = connector.SetFire(false, false);
                     break;
+                case OperateDeviceCmdEnum.CACEL_FIRE:
+                    log.Info("Device operate command : cancel fire alarm.  controlID=" + control.ControlID);
+                    result = connector.SetFire(true, false);
+                    break;
                 case OperateDeviceCmdEnum.SET_ALARM:
-                    result = connector.SetAlarm(true, false);
+                    log.Info("Device operate command : set alarm.  controlID=" + control.ControlID);
+                    result = connector.SetAlarm(false, false);
                     break;
                 case OperateDeviceCmdEnum.CACEL_ALARM:
-                    result = connector.SetAlarm(false, false);
+                    log.Info("Device operate command : cancel fire alarm.  controlID=" + control.ControlID);
+                    result = connector.SetAlarm(true, false);
                     break;
             }
         }
@@ -192,9 +203,11 @@ namespace ACS.Service.Impl
 
 
 
-        public void cardInfoDownLoad(Employee employee,List<DoorTimeView> doorTimeList)
+        public void cardInfoDownLoad(Employee employee,List<DoorTimeView> doorTimeList,int employeeIndex)
         {
-            log.Info("CardInfo: " + employee + doorTimeList);
+            log.Info("CardInfo: "+ employeeIndex+ employee + doorTimeList);
+
+            ushort index = (ushort)employeeIndex;
             byte[] TZ = new byte[4];
             int doorCnt = DeviceTypeCache.GetInstance().GetDeviceType(this.control.TypeID).DoorNum;
             switch (doorCnt)
@@ -251,8 +264,8 @@ namespace ACS.Service.Impl
                     break;
             }
             log.Info("TCPControl Addcard: cardno= " + System.Convert.ToUInt64(employee.CardNo) + ",pin=" + employee.Pin + ",EmployeeName=" + employee.EmployeeName + ",TZ[0-3]=" + TZ[0] + " " + TZ[1] + " "+TZ[2]+" "+TZ[3]+",date= "+employee.EndDate);
-            bool result=connector.AddCard(
-                       0,
+            bool result = connector.AddCard(
+                       index,
                        System.Convert.ToUInt64(employee.CardNo),
                        employee.Pin,
                        employee.EmployeeName,
@@ -263,11 +276,7 @@ namespace ACS.Service.Impl
                        1,
                        employee.EndDate
                   );
-            if (result)
-            {
-                log.Info("TCPControl Addcard:Success...");
-            }
-            else
+            if (!result)
             {
                 log.Info("TCPControl Addcard: Fail...");
             }
@@ -277,7 +286,20 @@ namespace ACS.Service.Impl
 
         public bool ClearAllCards()
         {
-            return connector.ClearAllCards();
+            if (!connector.ClearAllCards())
+            {
+                log.Info("TCPControl Addcard: Fail...");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public TcpipClass getConnector()
+        {
+            return connector;
         }
 
     }
