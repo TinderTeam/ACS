@@ -36,7 +36,7 @@ namespace ACS.Service.Impl
         /// <param name="userID"></param>
         /// <param name="password"></param>
         /// <returns></returns>
-        public SystemUser Login(SystemUser loginUser)             
+        public SystemUser Login(SystemUser loginUser)
         {
 
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, SystemUser.NAME, loginUser.UserName);
