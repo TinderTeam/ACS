@@ -56,7 +56,6 @@
         //获得增加、删除、修改的记录集合
         var data = grid.getChanges();
         var json = mini.encode(data);
-        grid.loading("保存中，请稍后......");
         $.ajax({
             url: "../EmployeeManage/SaveCard",
             data: { data: json },
@@ -67,7 +66,7 @@
                     CloseWindow("ok");
                 }
                 else {
-                    alert(Rsp.Message);
+                    mini.alert(Rsp.Message);
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

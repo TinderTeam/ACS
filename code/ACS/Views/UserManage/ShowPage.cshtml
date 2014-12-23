@@ -27,7 +27,7 @@
                     <tr style ="height:35px">
                         <td style="width:80px;">用户名称：</td>
                         <td style="width:150px;">
-                            <input name="UserName" class="mini-textbox" vtype="maxLength:20" required="true" emptyText="请输入用户名" value=""/>
+                            <input id="UserName" name="UserName" class="mini-textbox" vtype="maxLength:20" required="true" emptyText="请输入用户名" value=""/>
                             <input name ="UserID" class="mini-textbox" style="display:none" value=""/>
                         </td>
                     </tr>
@@ -58,6 +58,8 @@
             if (receiveData.action == "Modify") {
                 var showUrl = "../UserManage/Show?data=" + data.id;
                 $("#Modify").attr('style', 'width:60px;margin-right:20px;');
+                var userName = mini.get("UserName");
+                userName.disable();
             }
             else if (receiveData.action == "Create") {
                 //数据库中不存在valueID="0"的权限，这样就不会查到任何信息

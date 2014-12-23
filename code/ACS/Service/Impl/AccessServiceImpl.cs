@@ -213,7 +213,7 @@ namespace ACS.Service.Impl
                 //删除所有以该根节点为根节点的记录
                 List<QueryCondition> parentConditionList = new List<QueryCondition>();
                 parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.ID, id));
-                parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
+                //parentConditionList.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AccessDetailView.TYPE_NAME, AccessDetail.ACCESS_TYPE));
                 accessDetailDao.delete(parentConditionList);
                 //记录操作日志
                 CreateOperateLog(userID, ServiceConstant.DELETE_LOG, fatherAccessDetail);

@@ -8,7 +8,7 @@
     </id>
 
     <property name="EmployeeName">
-      <column name="EMPLOYEE_NAME" length="50" unique="true"/>
+      <column name="EMPLOYEE_NAME" length="50"/>
     </property>
 
     <property name="EmployeeCode">

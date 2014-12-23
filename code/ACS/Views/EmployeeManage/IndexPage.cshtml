@@ -50,9 +50,17 @@
             <table style="width:100%;">
                 <tr>
                     <td style="width:40px;">部门：</td>
-                    <td style="width:130px;"><input name="DeptName" class="mini-textbox" /></td>
+                    <td style="width:130px;">
+                        <input name="DeptID" class="mini-combobox" valueField="DeptID" textField="DeptName" 
+                        url="../DeptManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="请选择部门..."
+                        />
+                    </td>
                     <td style="width:40px;">职位：</td>
-                    <td style="width:130px;"><input name="JobName" class="mini-textbox"></td>
+                    <td style="width:130px;">
+                        <input name="JobID" class="mini-combobox" valueField="JobID" textField="JobName"
+                        url="../JobManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="请选择部门..."
+                        />
+                    </td>
                     <td style="width:40px;">姓名：</td>
                     <td style="width:130px;">
                         <input name="EmployeeName" class="mini-textbox" />

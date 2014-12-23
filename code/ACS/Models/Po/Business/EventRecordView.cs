@@ -8,8 +8,8 @@ namespace ACS.Models.Po.Business
     public class EventRecordView
     {
         public const String ID = "EventID";
-        public const String DEPTNAME = "DeptName";
-        public const String JOBNAME = "JobName";
+        public const String DEPTID = "DeptID";
+        public const String JOBID = "JobID";
         public const String DOORNAME = "DoorName";
         public const String EVNETTIME = "EventTime";
         public const String CARDNO = "CardNo";
@@ -29,23 +29,13 @@ namespace ACS.Models.Po.Business
         private int modify;                         //是否修改过
 
         private String doorName;
-
         private String controlName;
-        private String photo1;
 
-        public virtual String Photo1
-        {
-            get { return photo1; }
-            set { photo1 = value; }
-        }
-        private String photo2;
-
-        public virtual String Photo2
-        {
-            get { return photo2; }
-            set { photo2 = value; }
-        }
-
+        public virtual String Photo1 { get; set; }
+        public virtual String Photo2 { get; set; }
+        public virtual int DeptID { get; set; }
+        public virtual int JobID { get; set; }
+        
         private String employeeCode;//工号
         private String employeeName;//员工名称
         private String englishName;//英文名称

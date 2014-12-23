@@ -210,8 +210,6 @@
     <Compile Include="Models\Model\DeptModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
     <Compile Include="Models\Model\AccessDetailModel.cs" />
-    <Compile Include="Models\Model\AlarmRecordFilterModel.cs" />
-    <Compile Include="Models\Model\EventRecordFilterModel.cs" />
     <Compile Include="Models\Model\AttributeModel.cs" />
     <Compile Include="Models\Model\EventTypeModel.cs" />
     <Compile Include="Models\Po\Business\EventType.cs" />

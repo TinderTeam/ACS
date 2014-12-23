@@ -23,7 +23,8 @@
                         <td style="width:60px;">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmTypeSearch")</td>
                         <td style="width:130px;">
                             <input name="EventTypeID" class="mini-combobox" valueField="EventTypeID" textField="EventTypeName" 
-                                url="../AlarmRecord/LoadEventTypeList"/>
+                                url="../AlarmRecord/LoadEventTypeList" allowInput="true" showNullItem="true" nullItemText="请选择..."
+                            />
                         </td>
                         <td style="width:20px;">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_DoorSearch")</td>
                         <td style="width:130px;"><input name="DoorName" class="mini-textbox"></td>

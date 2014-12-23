@@ -22,11 +22,15 @@
                     <tr>
                         <td style="width:80px;">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_DeptSearch")</td>
                         <td style="width:150px;">
-                            <input name="DeptName" class="mini-textbox"/>
+                            <input name="DeptID" class="mini-combobox" valueField="DeptID" textField="DeptName" 
+                            url="../DeptManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="请选择部门..."
+                            />
                         </td>
                         <td style="width:80px;">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_JobSearch")</td>
                         <td style="width:150px;">
-                            <input name="JobName" class="mini-textbox"/>
+                            <input name="JobID" class="mini-combobox" valueField="JobID" textField="JobName"
+                            url="../JobManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="请选择部门..."
+                            />
                         </td>
                         <td style="width:80px;">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_DoorSearch")</td>
                         <td style="width:150px;"><input name="DoorName" class="mini-textbox"></td>
@@ -50,7 +54,8 @@
                         <td>@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventTypeSearch")</td>
                         <td>
                             <input name="EventTypeID" class="mini-combobox" valueField="EventTypeID" textField="EventTypeName" 
-                                url="../EventRecord/LoadEventTypeList"/>
+                                url="../EventRecord/LoadEventTypeList" allowInput="true" showNullItem="true" nullItemText="请选择..."
+                            />
                         </td>
                         <td style="width:150px;">
                             <a class="mini-button " iconCls="icon-search" onclick="search()">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Search")</a>

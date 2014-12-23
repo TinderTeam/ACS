@@ -10,8 +10,8 @@ namespace ACS.Models.Po.Business
         public const String ID = "EmployeeID";
         public const String Card = "CardNo";
         public const String EMPLOYEENAME = "EmployeeName";
-        public const String DEPTNAME = "DeptName";
-        public const String JOBNAME = "JobName";
+        public const String DEPTID = "DeptID";
+        public const String JOBID = "JobID";
         public const String EMPLOYEECODE = "EmployeeCode";
         //从Employee表中获得
         private int employeeID;                         //员工ID

@@ -34,7 +34,7 @@
                     <tr style ="height:35px">
                         <td >控制器类型：</td>
                         <td>    
-                            <input name="TypeID" class="mini-combobox" valueField="TypeID" textField="TypeName" 
+                            <input id="ControlType" name="TypeID" class="mini-combobox" valueField="TypeID" textField="TypeName" 
                                 url="../DeviceManage/LoadTypeList" onvaluechanged="onDeptChanged" required="true"
                                 emptyText="请选择类型"
                                 />
@@ -101,6 +101,8 @@
             if (receiveData.action == "Modify") {
                 var showUrl = "../DeviceManage/Show?data=" + receiveData.id;
                 $("#Modify").attr('style', 'width:60px;margin-right:20px;');
+                var controlType = mini.get("ControlType");
+                controlType.disable();
             }
             else if (receiveData.action == "Create") {
                 //数据库中不存在valueID="0"的权限，这样就不会查到任何信息

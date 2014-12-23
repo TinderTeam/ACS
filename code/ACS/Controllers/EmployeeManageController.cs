@@ -99,16 +99,31 @@ namespace ACS.Controllers
         {
             
             List<QueryCondition> filterCondition = new List<QueryCondition>();
-            EmployeeView employeeFilter = JsonConvert.JsonToObject<EmployeeView>(json);
+            EmployeeFilterModel employeeFilter = JsonConvert.JsonToObject<EmployeeFilterModel>(json);
             if (null != employeeFilter)
             {
+                
+                if (!ValidatorUtil.isEmpty(employeeFilter.DeptID))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EmployeeView.DEPTID, employeeFilter.DeptID));
+                }
+                if (!ValidatorUtil.isEmpty(employeeFilter.JobID))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.JOBID, employeeFilter.JobID.ToString()));
+                }
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.EMPLOYEENAME, employeeFilter.EmployeeName));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.EMPLOYEECODE, employeeFilter.EmployeeCode));
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.DEPTNAME, employeeFilter.DeptName));
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.JOBNAME, employeeFilter.JobName));
+                
             }
             
             return filterCondition;
+        }
+        class EmployeeFilterModel
+        {
+            public String DeptID { get; set; }
+            public String JobID { get; set; }
+            public String EmployeeName { get; set; }
+            public String EmployeeCode { get; set; }
         }
         //上传员工照片
         public ActionResult UploadPhoto(HttpPostedFileBase Fdata,String num)

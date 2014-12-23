@@ -40,13 +40,22 @@ namespace ACS.Controllers
             EventRecordFilterModel eventRecordFilter = JsonConvert.JsonToObject<EventRecordFilterModel>(json);
             if (null != eventRecordFilter)
             {
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.DEPTNAME, eventRecordFilter.DeptName));
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.JOBNAME, eventRecordFilter.JobName));
+                if (!ValidatorUtil.isEmpty(eventRecordFilter.DeptID))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EventRecordView.DEPTID, eventRecordFilter.DeptID));
+                }
+                if (!ValidatorUtil.isEmpty(eventRecordFilter.JobID))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.JOBID, eventRecordFilter.JobID));
+                }
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.DOORNAME, eventRecordFilter.DoorName));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.CARDNO, eventRecordFilter.CardNo));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEENAME, eventRecordFilter.EmployeeName));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEECODE, eventRecordFilter.EmployeeCode));
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EventRecordView.EVENTTYPEID , eventRecordFilter.EventTypeID.ToString()));
+                if (!ValidatorUtil.isEmpty(eventRecordFilter.EventTypeID))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EventRecordView.EVENTTYPEID, eventRecordFilter.EventTypeID));
+                }
                 if (!DateUtil.DateTimeIsEmpty(eventRecordFilter.EventTimeStart))
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.BIGER_EQ, EventRecordView.EVNETTIME, DateUtil.DateTimeToString(eventRecordFilter.EventTimeStart)));
@@ -57,6 +66,19 @@ namespace ACS.Controllers
                 }
             }
             return filterCondition;
+        }
+        class EventRecordFilterModel
+        {
+            //从EventRecord表中获得
+            public String DeptID { get; set; }
+            public String JobID { get; set; }
+            public String DoorName { get; set; }
+            public DateTime EventTimeStart { get; set; }
+            public DateTime EventTimeEnd { get; set; }
+            public String CardNo { get; set; }
+            public String EmployeeName { get; set; }
+            public String EmployeeCode { get; set; }
+            public String EventTypeID { get; set; }
         }
 
     }

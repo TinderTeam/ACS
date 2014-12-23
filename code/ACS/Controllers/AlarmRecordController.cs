@@ -41,7 +41,10 @@ namespace ACS.Controllers
             AlarmRecordFilterModel alarmRecordFilter = JsonConvert.JsonToObject<AlarmRecordFilterModel>(json);
             if (null != alarmRecordFilter)
             {
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AlarmRecordView.EVENTTYPEID, alarmRecordFilter.EventTypeID.ToString()));
+                if (!ValidatorUtil.isEmpty(alarmRecordFilter.EventTypeID))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AlarmRecordView.EVENTTYPEID, alarmRecordFilter.EventTypeID.ToString()));
+                }
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, AlarmRecordView.DOORNAME, alarmRecordFilter.DoorName));
                 if (!DateUtil.DateTimeIsEmpty(alarmRecordFilter.AlarmTimeStart))
                 {
@@ -54,6 +57,13 @@ namespace ACS.Controllers
             }
             return filterCondition;
         }
+        class AlarmRecordFilterModel
+        {
+            public DateTime AlarmTimeStart { get; set; }    //查询起始时间
+            public DateTime AlarmTimeEnd { get; set; }      //查询截至时间
+            public String EventTypeID { get; set; }         //事件类型ID
+            public String DoorName { get; set; }            //门名称
 
+        }
     }
 }

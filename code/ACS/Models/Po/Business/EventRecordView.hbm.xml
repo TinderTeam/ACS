@@ -19,6 +19,14 @@
       <column name="DOOR_ID"/>
     </property>
 
+    <property name="DeptID">
+      <column name="DEPT_ID"/>
+    </property>
+
+    <property name="JobID">
+      <column name="JOB_ID"/>
+    </property>
+
     <property name="EventTypeID">
       <column name="EVENT_TYPE_ID"/>
     </property>
