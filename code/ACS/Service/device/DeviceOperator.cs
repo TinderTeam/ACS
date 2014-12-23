@@ -24,5 +24,9 @@ namespace ACS.Service.device
          bool ClearAllCards();
 
          TcpipClass getConnector();
+
+         void SetDoor(Door door);
+
+         void SetDoorTime(DoorTimeView doortime);
     }
 }

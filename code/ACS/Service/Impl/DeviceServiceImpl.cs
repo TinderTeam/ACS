@@ -343,6 +343,69 @@ namespace ACS.Service.Impl
             }
         }
 
+        //更新设备信息（批量）
+        public  void UpdateDeviceInfo(int userID, List<String> controlIDList)
+        {
+            log.Info("Update devices' info. IDList:"+controlIDList);
+            foreach (string controlID in controlIDList)
+            {              
+                Control control = GetDao<Control>().getUniRecord(new QueryCondition(
+                    ConditionTypeEnum.EQUAL,
+                    Control.CONTROL_ID,
+                    controlID
+                    ));
+                UpdateUniDeviceInfo(userID,control);
+
+            }
+        }
+
+        //更新设备信息（一个）
+        private void UpdateUniDeviceInfo(int userID, Control control)
+        {
+            log.Info("Update a device's info. IDList:" +JsonConvert.ObjectToJson( control));
+
+            #region 操作注释
+                ///1.重连该设备
+                ///2.对设备的门进行下发
+                ///3.对设备的时间段进行下发
+            #endregion
+
+            //重新连接这个设备
+            DeviceOperator deviceOperator= DeviceOperatorFactory.getInstance().initDeviceOperator(control);
+            
+            #region 门操作
+            //获取门列表
+
+            List<Door> doorList = GetDao<Door>().getAll(new QueryCondition(
+                        ConditionTypeEnum.EQUAL,
+                        Door.CONTROL_ID,
+                        control.ControlID.ToString()
+                    ));
+            foreach (Door door in doorList)
+            {
+                deviceOperator.SetDoor(door);
+            }
+
+            #endregion
+
+            #region 时间段操作
+            //获取门列表
+
+            List<DoorTimeView> doorTimeViewList = GetDao<DoorTimeView>().getAll(new QueryCondition(
+                        ConditionTypeEnum.EQUAL,
+                        DoorTimeView.CONTROL_ID,
+                        control.ControlID.ToString()
+                    ));
+
+            foreach (DoorTimeView doortime in doorTimeViewList)
+            {
+                deviceOperator.SetDoorTime(doortime);
+            }
+
+            #endregion
+
+        }
+
         #endregion
     }
 }

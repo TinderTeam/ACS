@@ -79,5 +79,14 @@
       <column name="CONTROL_NAME" length="255"/>
     </property>
 
+    <property name="Identify">
+      <column name="IDENTIFY"/>
+    </property>
+    
+    <property name="LimitDate">
+      <column name="LIMIT_DATE"/>
+    </property>
+    
+    
   </class>
 </hibernate-mapping>

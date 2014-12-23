@@ -10,7 +10,9 @@ namespace ACS.Models.Po.Business
 
         //从DoorTime中获取
         public const String DOOR_TIME_ID = "DoorTimeID";
-        
+        public const String CONTROL_ID = "ControlID";
+
+
         private int doorTimeID;             //开放时间索引
         private int doorTimeNum;         //开放时间序号
 
@@ -18,8 +20,8 @@ namespace ACS.Models.Po.Business
         private int doorNum;                //门编号
      
         private String doorTimeName;        //开放时间名称
-        private String startTime;           //开始时间
-        private String endTime;             //截止时间
+        public virtual DateTime StartTime { get; set; }          //开始时间
+        public virtual DateTime EndTime { get; set; }             //截止时间
         private string enable;              //是否使能
         public const String ENABLE = "Enable";
         public const String DISABLE = "Disable";
@@ -36,6 +38,10 @@ namespace ACS.Models.Po.Business
         //从Control中获取
         private int controlID;              //控制器ID
         private String controlName;         //控制器名称
+
+        //根据接口补充加入
+        public virtual int Identify { get; set; }       //识别方式
+        public virtual DateTime LimitDate { get; set; }   //到期日期
       
         public virtual int DoorTimeID
         {
@@ -68,17 +74,6 @@ namespace ACS.Models.Po.Business
         }
        
 
-        public virtual String StartTime
-        {
-            get { return startTime; }
-            set { startTime = value; }
-        }
-
-        public virtual String EndTime
-        {
-            get { return endTime; }
-            set { endTime = value; }
-        }
 
 
         public virtual string Enable

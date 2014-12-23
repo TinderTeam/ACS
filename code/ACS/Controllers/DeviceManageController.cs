@@ -20,6 +20,8 @@ namespace ACS.Controllers
 {
     public class DeviceManageController : MiniUITableController<Control>
     {
+
+        #region 控制器服务      
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
         PrivilegeService privilegeService = ServiceContext.getInstance().getPrivilegeService();
@@ -27,13 +29,17 @@ namespace ACS.Controllers
         {
             return deviceService;
         }
+        #endregion
 
+        #region 页面载入数据
+      
         // 加载设备-门树
         public override ActionResult LoadTree()
         {
             List<TreeModel> deviceTreeList = deviceService.getDeviceTreeByID(this.getSessionUser().UserID.ToString());
             return ReturnJson(deviceTreeList);
         }
+
         //根据用户ID获取控制器列表
         public override List<QueryCondition> GetFilterCondition(String json)
         {
@@ -49,6 +55,7 @@ namespace ACS.Controllers
             }
             return filterCondition;
         }
+
         //根据控制器ID加载DoorList
         public ActionResult LoadDoorList(String data)
         {
@@ -63,14 +70,15 @@ namespace ACS.Controllers
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, Door.CONTROL_ID, data));
                 return LoadTable<Door>(filterCondition);
             }
-
         }
+
         //加载控制器类型列表
         public ActionResult LoadTypeList()
         {
             List<DeviceTypeModel> typeList = DeviceTypeCache.GetInstance().TypeList;
             return ReturnJson(typeList);
         }
+
         //根据DoorID加载DoorTimeList
         public ActionResult LoadDoorTimeList(String data)
         {
@@ -84,29 +92,45 @@ namespace ACS.Controllers
             {
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, DoorTime.DOOR_ID, data));
                 return LoadTable<DoorTime>(filterCondition);
-            }
-        
+            }       
         }
+
         //打开门编辑窗口
         public ActionResult DoorPage()
         {
             return View();
         }
+
         //加载门信息
         public ActionResult ShowDoor(String data)
         {
            return base.Show<Door>(Door.DOOR_ID,data);
         }
-        //更新DoorTime编辑后的信息
+
+        //打开时间段编辑窗口
+        public ActionResult DoorTimePage()
+        {
+            return View();
+        }
+
+        //加载时间段信息
+        public ActionResult ShowDoorTime(String data)
+        {
+            return base.Show<DoorTime>(DoorTime.DOOR_TIME_ID, data);
+        }
+
+        #endregion
+
+        #region 提交
+
+        //更新Door编辑后的信息
         public ActionResult ModifyDoor(String data)
         {
-
             try
             {
                 this.getSessionUser();
                 Door door = JsonConvert.JsonToObject<Door>(data);
                 deviceService.ModifyDoor(this.getSessionUser().UserID, door);
-                
             }
             catch (FuegoException e)
             {
@@ -120,20 +144,10 @@ namespace ACS.Controllers
             }
             return ReturnJson(Rsp);
         }
-        //打开时间段编辑窗口
-        public ActionResult DoorTimePage()
-        {
-            return View();
-        }
-        //加载时间段信息
-        public ActionResult ShowDoorTime(String data)
-        {
-            return base.Show<DoorTime>(DoorTime.DOOR_TIME_ID, data);
-        }
+
         //更新DoorTime编辑后的信息
         public ActionResult ModifyDoorTime(String data)
         {
-
             try
             {
                 this.getSessionUser();
@@ -152,11 +166,14 @@ namespace ACS.Controllers
             }
             return ReturnJson(Rsp);
         }
+
+        //更新设备信息
         public ActionResult updateDeviceInfo(String idList)
         {
             try
             {
                 List<String> controlIDList = JsonConvert.JsonToObject<List<String>>(idList);
+                deviceService.UpdateDeviceInfo(this.getSessionUser().UserID, controlIDList);
                 //待实现
             }
             catch (FuegoException e)
@@ -172,6 +189,8 @@ namespace ACS.Controllers
 
             return ReturnJson(Rsp);
         }
+
+        #endregion
 
     }
 }

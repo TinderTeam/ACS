@@ -176,12 +176,12 @@ namespace ACS.Service.Impl
             {
                 week |= 0x01;
             }
-            log.Info("TCPControl AddTimeZone: door.DoorNum= " + door.DoorNum + ",doorTime.DoorTimeNum=" + doorTime.DoorTimeNum + ",doorTime.DoorTimeNum=" + doorTime.DoorTimeNum + ",doorTime.StartTime" + DateUtil.StringToDateTime(doorTime.StartTime) + ",doorTime.EndTime= " + DateUtil.StringToDateTime(doorTime.EndTime) + ",week=" + week);
+            log.Info("TCPControl AddTimeZone: door.DoorNum= " + door.DoorNum + ",doorTime.DoorTimeNum=" + doorTime.DoorTimeNum + ",doorTime.DoorTimeNum=" + doorTime.DoorTimeNum + ",doorTime.StartTime" + doorTime.StartTime + ",doorTime.EndTime= " + doorTime.EndTime + ",week=" + week);
             bool result = connector.AddTimeZone(
                 (ushort)door.DoorNum, 
                 (byte)doorTime.DoorTimeNum, 
-                DateUtil.StringToDateTime(doorTime.StartTime),
-                 DateUtil.StringToDateTime(doorTime.EndTime), 
+                doorTime.StartTime,
+                doorTime.EndTime, 
                 week, 
                 true, 
                 (byte)1, 
@@ -302,5 +302,110 @@ namespace ACS.Service.Impl
             return connector;
         }
 
+
+
+
+        #region DeviceOperator 成员
+
+
+
+
+        public void SetDoor(Door door)
+        {
+            log.Info("TCPControl set door: DoorNum= " + door.DoorNum + ",OpenTime=" + door.OpenTime + ",CloseOutTime=" + (ushort)door.CloseOutTime + ",DoorAlerm2Long" + door.DoorAlerm2Long + ",door.AlarmMast= " + door.AlarmMast + " .AlarmTime=" + door.AlarmTime + ",PassBack= " + door.PassBack + ",MCardsOpen= " + (byte)door.MCardsOpen + "," + (byte)door.MCardsOpenInOut);
+            bool result = connector.SetDoor(
+                        (byte)door.DoorNum,
+                        (ushort)door.OpenTime,
+                        (ushort)door.CloseOutTime,
+                        door.DoorAlerm2Long,
+                        (ushort)door.AlarmMast,
+                        (ushort)door.AlarmTime,
+                        door.PassBack,
+                        (byte)door.MCardsOpen,
+                        (byte)door.MCardsOpenInOut
+                  );
+            if (!result)
+            {
+                log.Info("TCPControl set door: Fail...");
+            }
+                     
+        }
+
+        public void SetDoorTime(DoorTimeView doortime)
+        {
+            log.Info("TCPControl set door time: DoorNum= " + doortime.DoorNum + ",DoorTimeNum=" + doortime.DoorTimeNum + ",StartTime=" + doortime.StartTime + ",EndTime" + doortime.EndTime + ",WeekByte= " + getWeekByte(doortime) + " ,PassBack=" + true + ",Indetifys= " + doortime.Identify + ",LimitDate= " + doortime.LimitDate + ",group=0");
+
+            /* public Boolean AddTimeZone(
+             *  UInt16 Door, 
+             *  byte Index, 
+             *  DateTime frmtime,
+             *  DateTime totime, 
+             *  byte Week, 
+             *  Boolean PassBack, 
+             *  byte Indetify, 
+             *  DateTime Enddatetime,
+             *  byte Group
+             *  )
+             */
+            
+
+            bool result = connector.AddTimeZone(
+                (byte)doortime.DoorNum,
+                (byte)doortime.DoorTimeNum,
+                doortime.StartTime,
+                doortime.EndTime,
+                getWeekByte(doortime),
+                true,
+                (byte)doortime.Identify,
+                doortime.LimitDate,
+                0 //group
+                );
+            if (!result)
+            {
+                log.Info("TCPControl set door: Fail...");
+            }
+            
+        }
+
+        //获取星期字
+        private byte getWeekByte(DoorTimeView doortime)
+        {
+            byte weekByte = 0x00;
+            if (doortime.Sunday)
+            {
+                weekByte += 0x01;
+            }
+            if (doortime.Monday)
+            {
+                weekByte += 0x02;
+            }
+            if (doortime.Tuesday)
+            {
+                weekByte += 0x04;
+            }
+            if (doortime.Wednesday)
+            {
+                weekByte += 0x08;
+            }
+            if (doortime.Thursday)
+            {
+                weekByte += 0x10;
+            }
+            if (doortime.Friday)
+            {
+                weekByte += 0x20;
+            }
+            if (doortime.Saturday)
+            {
+                weekByte += 0x40;
+            }
+            if (doortime.Holiday)
+            {
+                weekByte += 0x80;
+            }
+            return weekByte;
+        }
+
+        #endregion
     }
 }

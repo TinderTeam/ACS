@@ -62,6 +62,13 @@
     <property name="DoorTimeNum" >
       <column name="DOOR_TIME_NUM"/>
     </property>
-    
+
+    <property name="Identify" >
+      <column name="IDENTIFY"/>
+    </property>
+
+    <property name="LimitDate" >
+      <column name="LIMIT_DATE"/>
+    </property>
   </class>
 </hibernate-mapping>

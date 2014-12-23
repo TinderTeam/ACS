@@ -20,15 +20,11 @@ namespace ACS.Service
     public class OnlineDeviceCache : System.ContextBoundObject
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         public const int TIME_OUT = 10*1000;
         public const long TIME_OUT_TICKET = TIME_OUT * 10000;
         private static Dictionary<String, long> cache = new Dictionary<String, long>();
- 
-
         public static  void RefreshStatus(Control control)
         {
-
             log.Info("refresh control status "+control.Ip);
             if (!cache.ContainsKey(control.Ip))
             {
@@ -38,11 +34,7 @@ namespace ACS.Service
             {
                 cache[control.Ip] = DateTime.Now.Ticks;
             }
-
-
         }
-
-     
         public static bool checkOnline(String ip)
         {
             if (!cache.ContainsKey(ip))
@@ -56,7 +48,6 @@ namespace ACS.Service
             }
             return true;
         }
-
     }
     public class DeviceTypeCache
     {

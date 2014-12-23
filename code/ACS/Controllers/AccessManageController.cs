@@ -256,8 +256,8 @@ namespace ACS.Controllers
                 AccessDetailModel doorTime = new AccessDetailModel(door.Id, getCurTreeID());
                 doorTime.NodeName = doorTimeView.DoorTimeName;
                 doorTime.Type = AccessDetail.DOORTIME_TYPE;
-                doorTime.StartTime = doorTimeView.StartTime;
-                doorTime.EndTime = doorTimeView.EndTime;
+                doorTime.StartTime = doorTimeView.StartTime.ToString();
+                doorTime.EndTime = doorTimeView.EndTime.ToString();
                 doorTime.ValueID = doorTimeView.DoorTimeID;
                 doorTime.Monday = doorTimeView.Monday;
                 doorTime.Tuesday = doorTimeView.Tuesday;

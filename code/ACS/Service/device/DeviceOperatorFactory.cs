@@ -51,6 +51,16 @@ namespace ACS.Service.device
             return deviceOperator;
         }
 
+        public DeviceOperator initDeviceOperator(Control control)
+        {
+            DeviceOperator deviceOperator = null;
+            deviceOperator = new DeviceOperatorImpl(control);
+            deviceOperator.Connect();
+            deviceOperatorMap[control.Ip] = deviceOperator;
+            return deviceOperator;
+        }
+
+
         public static DeviceOperatorFactory getInstance()
         {
             if (instance == null)

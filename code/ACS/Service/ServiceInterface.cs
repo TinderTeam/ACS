@@ -94,12 +94,14 @@ namespace ACS.Service
         void StartMonitorAll();
         void StartMonitor(List<String> idList);
         void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID);
- 
-    
+
         void OnlineStatus(Control control,bool status);
 
-
         void DeviceDownload(string controlID, string uuID);
+
+        //更新设备列表批量操作
+
+        void UpdateDeviceInfo(int p, List<String> controlIDList);
     }
 
     public interface PlatFormService
