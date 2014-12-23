@@ -66,6 +66,32 @@ namespace ACS.Service.Impl
             base.Modify(modifyUserID,orignalUser);
 
         }
+        //删除用户信息
+        public override void Delete(int userID, List<String> userIDList)
+        {
+            foreach (String ID in userIDList)
+            {
+                if (ID.Equals(userID.ToString()))
+                {
+                    log.Debug("Delete user failed, can't delete youself");
+                    throw new FuegoException(ExceptionMsg.CANT_DELETE_YOURSELF);
+                }
+            }
+            if (!ValidatorUtil.isEmpty(userIDList))
+            {
+                //删除该用户拥有的菜单权限和设备权限
+                QueryCondition condition = new QueryCondition(ConditionTypeEnum.IN, Privilege.MASTER_VALUE, userIDList);
+                GetDao<Privilege>().delete(condition);
+                //删除该用户
+                base.Delete(userID, userIDList);
+            }
+            else
+            {
+                log.Warn("Delete user Fail, userIDList is empty");
+            }
+            
+
+        }
         //用户权限管理
         //获取用户菜单权限树
         public List<TreeModel> getMenuPrivilegeTree(string userID)

@@ -18,7 +18,6 @@ namespace ACS.Controllers
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private AjaxRspModel rsp = new AjaxRspModel();
-
         public ActionResult ReturnJson(Object obj)
         {
             if (obj.GetType() == typeof(string) || obj.GetType() == typeof(String))
@@ -40,15 +39,14 @@ namespace ACS.Controllers
 
            base.Initialize(requestContext);
 
-            /* 
-            if (null == Session["SystemUser"])
+ 
+            if (null == this.getSessionUser())
             {
 
                 log.Warn("session is invalid");
-                Response.Redirect("/");
+                Response.Redirect("/Home/Index");
 
             }
-            */
             //然后验证写这里就有效啦，什么session 什么 RouteData 都能获取到了。谢谢大家，希望对后人又所帮助。
         }
 

@@ -44,7 +44,7 @@
             <div field="UserID" width="80" headerAlign="center" allowSort="true">用户系统ID</div>    
             <div field="UserName" width="120" headerAlign="center" allowSort="true">用户名</div>    
             <div field="UserDesc" width="120" headerAlign="center" allowSort="true">用户描述</div>
-            <div header="日志" style="text-align:center">
+            <div header="日志" headerAlign="center" style="text-align:center">
                 <div property="columns">
                     <div field="CreateUserID" width="80" headerAlign="center" allowSort="true">创建者ID</div>   
                     <div field="CreateDate" width="120" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">创建时间</div>
@@ -151,7 +151,7 @@
                                 grid.reload();
                             }
                             else {
-                                mini.alert(text);
+                                mini.alert(Rsp.ErrorCode);
                             }
                         },
                         error: function () {

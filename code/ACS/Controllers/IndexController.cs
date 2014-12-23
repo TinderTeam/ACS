@@ -14,18 +14,24 @@ using ACS.Common;
 using ACS.Service.Constant;
 namespace ACS.Controllers
 {
-    public class IndexController : MiniUITableController<SystemUser>
+    public class IndexController : Controller
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         PlatFormService platFormService = ServiceContext.getInstance().getPlatFormService();
         LoginService loginService = ServiceContext.getInstance().getLoginService();
 
-        public override CommonService<SystemUser> getService()
-        {
-                                                                                                 return loginService;
-        }
-        //展示Index页面
+        //展示主界面
         public ActionResult Index()
+        {
+            return View();
+        }
+        //展示首页
+        public ActionResult IndexPage()
+        {
+            return View();
+        }
+        //展示修改密码页面
+        public ActionResult PasswordModify()
         {
             return View();
         }
@@ -33,9 +39,8 @@ namespace ACS.Controllers
         /// 用户登陆
         /// </summary>
         /// <returns></returns>
-        public ActionResult Login(string msg)
+        public ActionResult Login()
         {
-            ViewBag.msg = msg;
             return View();
         }
         /// <summary>
@@ -44,6 +49,7 @@ namespace ACS.Controllers
 
         public ActionResult LoginCheck(String data)
         {
+            AjaxRspModel Rsp = new AjaxRspModel();
             log.Debug("User login, user Info is " + data);
             try
             {
@@ -61,13 +67,14 @@ namespace ACS.Controllers
                 log.Error("cancel failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-            return ReturnJson(Rsp);
+            return Content(JsonConvert.ObjectToJson(Rsp));
 
         }
         /// <summary>
         /// 修改密码
         public ActionResult ModifyPswd(string data)
         {
+            AjaxRspModel Rsp = new AjaxRspModel();
             try
             {
                 SystemUser user = (SystemUser)Session["SystemUser"];
@@ -84,7 +91,7 @@ namespace ACS.Controllers
                 log.Error("create failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-            return ReturnJson(Rsp);
+            return Content(JsonConvert.ObjectToJson(Rsp));
 
         }
         /// <summary>
@@ -109,7 +116,7 @@ namespace ACS.Controllers
             }
             List<TreeModel> menuTreeList = ModelConventService.toMenuTreeModelList(sysMenuList);
 
-            return ReturnJson(menuTreeList);
+            return Content(JsonConvert.ObjectToJson(menuTreeList));
         }
         public ActionResult Default()
         {

@@ -185,8 +185,6 @@
     <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\MiniUITableController.cs" />
     <Compile Include="Controllers\MonitorController.cs" />
-    <Compile Include="Controllers\OrganizationManageController.cs" />
-    <Compile Include="Controllers\PersonalManageController.cs" />
     <Compile Include="Controllers\UserManageController.cs" />
     <Compile Include="Controllers\EmployeeManageController.cs" />
     <Compile Include="Controllers\EventRecordController.cs" />
@@ -1740,8 +1738,9 @@
     <Content Include="Views\DeviceManage\DoorView.cshtml" />
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\EmployeeManage\AccessPage.cshtml" />
-    <Content Include="Views\Index\ShowPage.cshtml" />
+    <Content Include="Views\Index\PasswordModify.cshtml" />
     <Content Include="Views\Public\js.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

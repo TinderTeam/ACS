@@ -14,14 +14,8 @@ namespace ACS.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            return RedirectToAction("Login", "Index");
+            return View();
         }
-
-        public ActionResult Test()
-        {
-            return RedirectToAction("UserManage", "UserManage");
-        }
-
 
     }
 }
