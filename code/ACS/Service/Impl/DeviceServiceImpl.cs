@@ -381,15 +381,26 @@ namespace ACS.Service.Impl
                         Door.CONTROL_ID,
                         control.ControlID.ToString()
                     ));
+
             foreach (Door door in doorList)
             {
-                deviceOperator.SetDoor(door);
+                if (door.DoorEnable)
+                {
+                    deviceOperator.SetDoor(door);
+                }
+
             }
 
             #endregion
 
             #region 时间段操作
             //获取门列表
+
+            //初始化时间段
+            for (int i = 0; i < DeviceTypeCache.GetInstance().GetDeviceType(control.ControlID).DoorNum; i++)
+            {
+                deviceOperator.DelTimeZone(i);
+            }
 
             List<DoorTimeView> doorTimeViewList = GetDao<DoorTimeView>().getAll(new QueryCondition(
                         ConditionTypeEnum.EQUAL,
@@ -399,7 +410,10 @@ namespace ACS.Service.Impl
 
             foreach (DoorTimeView doortime in doorTimeViewList)
             {
-                deviceOperator.SetDoorTime(doortime);
+                if (doortime.Enable.Equals(DoorTimeView.ENABLE))
+                {
+                    deviceOperator.SetDoorTime(doortime);
+                }
             }
 
             #endregion

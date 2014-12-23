@@ -28,5 +28,7 @@ namespace ACS.Service.device
          void SetDoor(Door door);
 
          void SetDoorTime(DoorTimeView doortime);
+
+         void DelTimeZone(int i);
     }
 }

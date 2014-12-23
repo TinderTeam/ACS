@@ -407,5 +407,20 @@ namespace ACS.Service.Impl
         }
 
         #endregion
+
+        #region DeviceOperator 成员
+
+
+        public void DelTimeZone(int DoorNum)
+        {
+            log.Info("TCPControl DelTimeZone:DoorNum=" + DoorNum);
+            bool result = connector.DelTimeZone((byte)DoorNum);
+            if (!result)
+            {
+                log.Info("TCPControl DelTimeZone: Fail...");
+            }
+        }
+
+        #endregion
     }
 }
