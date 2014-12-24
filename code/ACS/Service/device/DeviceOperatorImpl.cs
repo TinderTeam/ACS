@@ -180,8 +180,8 @@ namespace ACS.Service.Impl
             bool result = connector.AddTimeZone(
                 (ushort)door.DoorNum, 
                 (byte)doorTime.DoorTimeNum, 
-                doorTime.StartTime,
-                doorTime.EndTime, 
+                DateUtil.StringToDateTime(doorTime.StartTime),
+               DateUtil.StringToDateTime(doorTime.EndTime), 
                 week, 
                 true, 
                 (byte)1, 
@@ -278,7 +278,7 @@ namespace ACS.Service.Impl
                   );
             if (!result)
             {
-                log.Info("TCPControl Addcard: Fail...");
+                log.Info("TCPControl Addcard: Fail..." + connector.TCPLastError);
             }
         }
 
@@ -288,7 +288,7 @@ namespace ACS.Service.Impl
         {
             if (!connector.ClearAllCards())
             {
-                log.Info("TCPControl Addcard: Fail...");
+                log.Info("TCPControl Addcard: Fail..." + connector.TCPLastError);
                 return false;
             }
             else
@@ -306,10 +306,6 @@ namespace ACS.Service.Impl
 
 
         #region DeviceOperator 成员
-
-
-
-
         public void SetDoor(Door door)
         {
             log.Info("TCPControl set door: DoorNum= " + door.DoorNum + ",OpenTime=" + door.OpenTime + ",CloseOutTime=" + (ushort)door.CloseOutTime + ",DoorAlerm2Long" + door.DoorAlerm2Long + ",door.AlarmMast= " + door.AlarmMast + " .AlarmTime=" + door.AlarmTime + ",PassBack= " + door.PassBack + ",MCardsOpen= " + (byte)door.MCardsOpen + "," + (byte)door.MCardsOpenInOut);
@@ -326,7 +322,7 @@ namespace ACS.Service.Impl
                   );
             if (!result)
             {
-                log.Info("TCPControl set door: Fail...");
+                log.Info("TCPControl set door: Fail..." + connector.TCPLastError);
             }
                      
         }
@@ -347,13 +343,12 @@ namespace ACS.Service.Impl
              *  byte Group
              *  )
              */
-            
 
             bool result = connector.AddTimeZone(
                 (byte)doortime.DoorNum,
                 (byte)doortime.DoorTimeNum,
-                doortime.StartTime,
-                doortime.EndTime,
+                DateUtil.StringToDateTime(doortime.StartTime),
+                DateUtil.StringToDateTime(doortime.EndTime),
                 getWeekByte(doortime),
                 true,
                 (byte)doortime.Identify,
@@ -362,7 +357,7 @@ namespace ACS.Service.Impl
                 );
             if (!result)
             {
-                log.Info("TCPControl set door: Fail...");
+                log.Info("TCPControl set door: Fail..." + connector.TCPLastError);
             }
             
         }
@@ -417,7 +412,30 @@ namespace ACS.Service.Impl
             bool result = connector.DelTimeZone((byte)DoorNum);
             if (!result)
             {
-                log.Info("TCPControl DelTimeZone: Fail...");
+                log.Info("TCPControl DelTimeZone: Fail..." + connector.TCPLastError);
+            }
+        }
+
+
+        public void DelHoliday()
+        {
+            log.Info("TCPControl DelHoliday:control=" + control.ControlID);
+            bool result = connector.DelHoliday();
+            if (!result)
+            {
+                log.Info("TCPControl DelHoliday: Fail..." + connector.TCPLastError);
+            }
+        }
+
+        public void AddHoliday(Holiday holiday)
+        {
+            log.Info("TCPControl AddHoliday:Holiday=" + JsonConvert.ObjectToJson(holiday));
+            bool result = connector.AddHoliday(
+                (byte)holiday.HolidayID,
+                holiday.StartTime,
+                holiday.EndTime);
+            {
+                log.Info("TCPControl AddHoliday: Fail..." + connector.TCPLastError);
             }
         }
 

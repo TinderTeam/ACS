@@ -20,27 +20,22 @@ namespace ACS.Service.Constant
         public const String EMPLOYEE_CODE_EXIST = "EMPLOYEE_CODE_EXIST";            //工号已存在
         public const String EMPLOYEE_NOT_EXIST = "EMPLOYEE_NOT_EXIST";              //工号不存在
         public const String HOLIDAY_NOT_EXIST = "HOLIDAY_NOT_EXIST";                //假日不存在
-        public const String EMPLOYEE_CARDNO_DUPLICATE = "EMPLOYEE_CARDNO_DUPLICATE";    //员工卡号重复
+        public const String EMPLOYEE_CARDNO_DUPLICATE = "EMPLOYEE_CARDNO_DUPLICATE";//员工卡号重复
         public const String DEPTNAME_EXIST = "DEPTNAME_EXIST";                      //用户名已存在
         public const String DEPT_HAS_CHILDREN = "DEPT_HAS_CHILDREN";                //部门存在子部门
         public const String ACCESS_NOT_EXIST = "ACCESS_NOT_EXIST";                  //门禁权限不存在
-
         public const String OPERATE_SUCCESS = "OPERATE_SUCCESS";                    //操作成功
         public const String OPERATE_FAILED = "OPERATE_FAILED";                      //操作失败
         public const String DELETE_CONTROL_ERR = "DELETE_CONTROL_ERR";              //删除控制器失败
         public const String CANT_DELETE_YOURSELF = "CANT_DELETE_YOURSELF";          //不能删除自己
+        public const String DEVICE_TYPE_NOT_FOUND = "DEVICE_TYPE_NOT_FOUND";        //设备类型获取失败
+        public const String CONNECT_FAILED = "CONNECT_FAILED";                      //设备连接失败
+        public const String EMPLOYEE_CODE_NOT_EXIST = "EMPLOYEE_CARD_NOT_EXIST";    //员工代码不存在
+        public const String EMPLOYEE_INDEX_NOT_EXIST = "EMPLOYEE_INDEX_NOT_EXIST";  //员工序号卡编号不存在
+        public const String DOOR_NOT_EXIST = "DOOR_NOT_EXIST";                      //门不存在
+        public const String CONTROL_NOT_EXIST = "CONTROL_NOT_EXIST";                //控制器不存在
+        public const String OPERATE_DEVICE_FAILED = "OPERATE_DEVICE_FAILED";        //设备操作失败
 
 
-        public const String CONNECT_FAILED = "CONNECT_FAILED";              //设备连接失败
-
-        public static string DOOR_NOT_EXIST { get; set; }
-
-        public static string CONTROL_NOT_EXIST { get; set; }
-
-        public static string OPERATE_DEVICE_FAILED { get; set; }
-
-        public static string EMPLOYEE_CODE_NOT_EXIST = "EMPLOYEE_CARD_NOT_EXIST";
-
-        public static string EMPLOYEE_INDEX_NOT_EXIST = "EMPLOYEE_INDEX_NOT_EXIST";
     }
 }

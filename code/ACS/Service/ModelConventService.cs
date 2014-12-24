@@ -87,8 +87,8 @@ namespace ACS.Service
             doortime.DoorID = model.DoorID;
             doortime.DoorTimeID = model.DoorTimeID;
             doortime.DoorTimeName = model.DoorTimeName;
-            doortime.EndTime = DateUtil.StringToDateTime(model.EndTime);
-            doortime.StartTime = DateUtil.StringToDateTime(model.StartTime);
+            doortime.EndTime = model.EndTime;
+            doortime.StartTime = model.StartTime;
             doortime.Enable = model.Enable;
             return doortime;
 

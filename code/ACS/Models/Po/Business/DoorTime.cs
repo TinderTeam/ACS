@@ -16,8 +16,8 @@ namespace ACS.Models.Po.Business
         private int doorTimeID;                     //开放时间编号
         private int doorID;                         //门编号
         private String doorTimeName;                //开放时间名称
-        public virtual DateTime StartTime { get; set; }                  //开始时间
-        public virtual DateTime EndTime { get; set; }                    //截止时间
+        public virtual String StartTime { get; set; }                  //开始时间
+        public virtual String EndTime { get; set; }                    //截止时间
         private String enable = "Disable";          //是否使能
         private bool monday = false;
         private bool tuesday = false;
@@ -32,7 +32,13 @@ namespace ACS.Models.Po.Business
         //根据接口补充加入
 
         public virtual int Identify { get; set; }       //识别方式
-        public virtual DateTime LimitDate { get; set; }   //到期日期
+        private  DateTime limitDate = Convert.ToDateTime("2099-01-01 00:00:00");  //到期日期默认未到期
+
+        public virtual  DateTime LimitDate
+        {
+            get { return limitDate; }
+            set { limitDate = value; }
+        }
 
         public virtual bool Monday
         {

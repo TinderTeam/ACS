@@ -30,5 +30,9 @@ namespace ACS.Service.device
          void SetDoorTime(DoorTimeView doortime);
 
          void DelTimeZone(int i);
+
+         void DelHoliday();
+
+         void AddHoliday(Holiday holiday);
     }
 }

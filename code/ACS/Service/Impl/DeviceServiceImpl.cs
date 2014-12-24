@@ -198,6 +198,8 @@ namespace ACS.Service.Impl
             orignalDoorTime.Friday = doorTime.Friday;
             orignalDoorTime.Saturday = doorTime.Saturday;
             orignalDoorTime.Sunday = doorTime.Sunday;
+            //
+            orignalDoorTime.LimitDate = DateUtil.StringToDateTime("2099-1-1 00:00:00");
 
             Door door = GetDao<Door>().getUniRecord(new QueryCondition(ConditionTypeEnum.EQUAL, Door.DOOR_ID, orignalDoorTime.DoorID.ToString()));
             Control control = GetDao<Control>().getUniRecord( new QueryCondition(ConditionTypeEnum.EQUAL, Control.CONTROL_ID, door.ControlID.ToString()));
@@ -368,6 +370,7 @@ namespace ACS.Service.Impl
                 ///1.重连该设备
                 ///2.对设备的门进行下发
                 ///3.对设备的时间段进行下发
+                ///4.对设备的假期进行下发
             #endregion
 
             //重新连接这个设备
@@ -397,7 +400,13 @@ namespace ACS.Service.Impl
             //获取门列表
 
             //初始化时间段
-            for (int i = 0; i < DeviceTypeCache.GetInstance().GetDeviceType(control.ControlID).DoorNum; i++)
+            DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
+            if (deviceType == null)
+            {
+                throw new FuegoException(ExceptionMsg.DEVICE_TYPE_NOT_FOUND);
+            }
+
+            for (int i = 0; i < deviceType.DoorNum; i++)
             {
                 deviceOperator.DelTimeZone(i);
             }
@@ -416,6 +425,18 @@ namespace ACS.Service.Impl
                 }
             }
 
+            #endregion
+
+            #region 假期操作
+
+            //删除全部假期信息
+            deviceOperator.DelHoliday();
+            List<Holiday> holidayList = GetDao<Holiday>().getAll();
+            foreach (Holiday holiday in holidayList)
+            {
+                deviceOperator.AddHoliday(holiday);
+            }
+           
             #endregion
 
         }
