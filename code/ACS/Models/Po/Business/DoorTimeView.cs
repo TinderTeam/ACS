@@ -11,6 +11,7 @@ namespace ACS.Models.Po.Business
         //从DoorTime中获取
         public const String DOOR_TIME_ID = "DoorTimeID";
         public const String CONTROL_ID = "ControlID";
+        public const String DOOR_ID = "DoorID";
         public const String ENABLE = "Enable";
         public const String DISABLE = "Disable";
 

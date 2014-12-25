@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.AccessDetail,ACS" table="t_access_detail"  >
+
+    <id name="AccessDetailID" column ="ACCESS_DETAIL_ID" >
+      <generator class ="identity"/>
+    </id>
+    
+    <property name="AccessID">
+      <column name="ACCESS_ID"/>
+    </property>
+    
+    <property name="AccessName">
+      <column name="ACCESS_NAME" length="50"/>
+    </property>
+    
+    <property name="ValueID">
+      <column name="VALUE_ID"/>
+    </property>
+
+    <property name="Type">
+      <column name="TYPE" length="20"/>
+    </property>
+
+    <property name="CreateUserID">
+      <column name="CREATE_USER_ID"/>
+    </property>
+
+    <property name="CreateDate">
+      <column name="CREATE_DATE"/>
+    </property>
+
+  </class>
+</hibernate-mapping>

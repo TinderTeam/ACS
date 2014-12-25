@@ -419,10 +419,27 @@ namespace ACS.Service.Impl
 
             foreach (DoorTimeView doortime in doorTimeViewList)
             {
-                if (doortime.Enable.Equals(DoorTimeView.ENABLE))
-                {
-                    deviceOperator.SetDoorTime(doortime);
+                //验证门是否启用
+                Door door=GetDao<Door>().getUniRecord(
+                    new QueryCondition(
+                        ConditionTypeEnum.EQUAL,
+                        DoorTimeView.DOOR_ID,
+                        doortime.DoorID.ToString()
+                       )
+                    );
+
+                if(door==null){
+                    throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
                 }
+
+                if (door.DoorEnable)
+                {
+                    if (doortime.Enable.Equals(DoorTimeView.ENABLE))
+                    {
+                        deviceOperator.SetDoorTime(doortime);
+                    }
+                }   
+        
             }
 
             #endregion

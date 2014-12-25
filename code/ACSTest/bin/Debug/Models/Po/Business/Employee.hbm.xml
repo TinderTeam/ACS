@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.Employee,ACS" table="t_employee"  >
+
+    <id name="EmployeeID" column ="EMPLOYEE_ID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="EmployeeName">
+      <column name="EMPLOYEE_NAME" length="50"/>
+    </property>
+
+    <property name="EmployeeCode">
+      <column name="EMPLOYEE_CODE" length="24"/>
+    </property>
+    
+    <property name="EnglishName">
+      <column name="ENGLISH_NAME" length="50"/>
+    </property>
+
+    <property name="CardNo">
+      <column name="CARD_NO" length="11"/>
+    </property>
+
+    <property name="Pin">
+      <column name="PIN" length="4"/>
+    </property>
+
+    <property name="EmpEnable">
+      <column name="EMP_ENABLE"/>
+    </property>
+
+    <property name="Sex">
+      <column name="SEX"/>
+    </property>
+
+    <property name="Birthday">
+      <column name="BIRTHDAY"/>
+    </property>
+
+    <property name="PersonCode">
+      <column name="PERSON_CODE" length="18"/>
+    </property>
+
+    <property name="Home">
+      <column name="HOME" length="60"/>
+    </property>
+
+    <property name="Phone">
+      <column name="PHONE" length="50"/>
+    </property>
+
+    <property name="Email">
+      <column name="EMAIL" length="50"/>
+    </property>
+
+    <property name="Car">
+      <column name="CAR" length="50"/>
+    </property>
+
+    <property name="JobID" type="int">
+      <column name="JOB_ID"/>
+    </property>
+
+    <property name="DeptID" type="int">
+      <column name="DEPT_ID"/>
+    </property>
+
+    <property name="Photo1">
+      <column name="PHOTO1" length="255"/>
+    </property>
+    
+    <property name="Photo2">
+      <column name="PHOTO2" length="255"/>
+    </property>
+    
+    <property name="RegDate">
+      <column name="REG_DATE"/>
+    </property>
+
+    <property name="EndDate">
+      <column name="END_DATE"/>
+    </property>
+
+    <property name="Deleted">
+      <column name="DELETED"/>
+    </property>
+
+    <property name="Leave">
+      <column name="LEAVE"/>
+    </property>
+
+    <property name="LeaveDate">
+      <column name="LEAVE_DATE"/>
+    </property>
+
+    <property name="BeKQ">
+      <column name="BE_KQ"/>
+    </property>
+
+    <property name="Pswd">
+      <column name="PSWD" length="20"/>
+    </property>
+
+    <property name="MapID">
+      <column name="MAP_ID"/>
+    </property>
+
+    <property name="XPoint">
+      <column name="X_POINT"/>
+    </property>
+
+    <property name="YPoint">
+      <column name="Y_POINT"/>
+    </property>
+
+    <property name="MapVisible">
+      <column name="MAP_VISIBLE"/>
+    </property>
+
+    <property name="OwnerDoor">
+      <column name="OWNER_DOOR"/>
+    </property>
+
+    <property name="LastEventID">
+      <column name="LAST_EVENT_ID"/>
+    </property>
+
+    <property name="Event2EmoID">
+      <column name="EVENT_2EMO_ID"/>
+    </property>
+
+    <property name="Status">
+      <column name="STATUS"/>
+    </property>
+
+    <property name="TimeStamp">
+      <column name="TIME_STAMP"/>
+    </property>
+
+    <property name="ShowCardNo">
+      <column name="SHOW_CARD_NO"/>
+    </property>
+
+    <property name="Note1">
+      <column name="NOTE1" length="50"/>
+    </property>
+
+    <property name="Note2">
+      <column name="NOTE2" length="50"/>
+    </property>
+
+    <property name="Note3">
+      <column name="NOTE3" length="50"/>
+    </property>
+
+    <property name="Note4">
+      <column name="NOTE4" length="50"/>
+    </property>
+
+    <property name="Note5">
+      <column name="NOTE5" length="50"/>
+    </property>
+
+    <property name="TimeStampx" type="DateTime">
+      <column name="TIME_STAMPX"/>
+    </property>
+
+    <property name="IsBlackCard">
+      <column name="IS_BLACK_CARD"/>
+    </property>
+
+    <property name="AscString">
+      <column name="ASC_STRING" length="255"/>
+    </property>
+
+    <property name="AccessID">
+      <column name="ACCESS_ID"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>

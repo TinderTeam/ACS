@@ -343,12 +343,15 @@ namespace ACS.Service.Impl
              *  byte Group
              *  )
              */
-
+            DateTime startTime = DateUtil.StringToDateTime(doortime.StartTime);
+            DateTime endTime = DateUtil.StringToDateTime(doortime.EndTime);
+            startTime.AddYears(2000);
+            endTime.AddYears(2000);
             bool result = connector.AddTimeZone(
                 (byte)doortime.DoorNum,
                 (byte)doortime.DoorTimeNum,
-                DateUtil.StringToDateTime(doortime.StartTime),
-                DateUtil.StringToDateTime(doortime.EndTime),
+                startTime,
+                endTime,
                 getWeekByte(doortime),
                 true,
                 (byte)doortime.Identify,
@@ -410,6 +413,7 @@ namespace ACS.Service.Impl
         {
             log.Info("TCPControl DelTimeZone:DoorNum=" + DoorNum);
             bool result = connector.DelTimeZone((byte)DoorNum);
+            log.Info("TCPControl DelTimeZone: Success...");
             if (!result)
             {
                 log.Info("TCPControl DelTimeZone: Fail..." + connector.TCPLastError);
@@ -421,6 +425,7 @@ namespace ACS.Service.Impl
         {
             log.Info("TCPControl DelHoliday:control=" + control.ControlID);
             bool result = connector.DelHoliday();
+            log.Info("TCPControl DelHoliday: Success...");
             if (!result)
             {
                 log.Info("TCPControl DelHoliday: Fail..." + connector.TCPLastError);
@@ -434,6 +439,8 @@ namespace ACS.Service.Impl
                 (byte)holiday.HolidayID,
                 holiday.StartTime,
                 holiday.EndTime);
+            log.Info("TCPControl AddHoliday: Success...");
+            if (!result)
             {
                 log.Info("TCPControl AddHoliday: Fail..." + connector.TCPLastError);
             }
