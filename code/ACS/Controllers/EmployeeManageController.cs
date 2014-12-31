@@ -307,6 +307,32 @@ namespace ACS.Controllers
 
             return ReturnJson(Rsp);
         }
+
+        public ActionResult DownAllCardList(String idList)
+        {
+            try
+            {
+                List<String> controlIDList = JsonConvert.JsonToObject<List<String>>(idList);
+                String uuID = DataCreatUtil.getUUID();
+                DownAllCardThread thread = new DownAllCardThread(controlIDList, uuID);
+                Thread oThread = new Thread(new ThreadStart(thread.Op));
+
+                oThread.Start();
+                Rsp.Obj = uuID;  
+            }
+            catch (FuegoException e)
+            {
+                log.Error("download failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (SystemException e)
+            {
+                log.Error("download failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
+        }
     }
 
 
@@ -330,6 +356,29 @@ namespace ACS.Controllers
             ProcessManageCache.startNewProcession(uuID);
             employeeService.DownCardList(list, uuID);
            
+        }
+    }
+
+    class DownAllCardThread
+    {
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private EmployeeService employeeService = ServiceContext.getInstance().getEmployeeService();
+        String uuID;
+        List<String> list;
+
+        public DownAllCardThread(List<String> list, String uuID)
+        {
+            this.list = list;
+            this.uuID = uuID;
+        }
+
+        public void Op()
+        {
+
+            //打开进度监控器
+            ProcessManageCache.startNewProcession(uuID);
+            employeeService.DownAllCardList(list, uuID);
+
         }
     }
 }

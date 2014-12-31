@@ -52,6 +52,8 @@ namespace ACS.Service
 
         void UpdateIndex(int receiveIndex, Employee obj);
         int getIndexByEmployeeID(String EmployeeID);
+
+        void DownAllCardList(List<string> list, string uuID);
     }
     public interface DeviceOperatorService
     {
@@ -71,6 +73,8 @@ namespace ACS.Service
         List<AccessDetail> getAccessDetailListByAccessID(string accessID);
 
         Dictionary<Control, List<DoorTimeView>> getControlListByAccessID(String accessID);
+
+        List<DoorTimeView> getDoorTimeViewListByControlID(string id);
     }
     public interface DeptService  : CommonService<Dept>
     {

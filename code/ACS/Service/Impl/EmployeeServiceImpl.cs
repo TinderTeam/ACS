@@ -273,9 +273,6 @@ namespace ACS.Service.Impl
                 log.Info("Download card list by control datetime map : uuid=" + uuID + ".map is" + JsonConvert.ObjectToJson(controlDateTimeMap.Keys) + JsonConvert.ObjectToJson(controlDateTimeMap.Values));
                 foreach (Control c in controlDateTimeMap.Keys)
                 {
-
-                   
-                    
                     if (controlDateTimeMap.ContainsKey(c) && controlDateTimeMap[c] != null)
                     {
                       
@@ -284,11 +281,37 @@ namespace ACS.Service.Impl
                             controlDateTimeMap[c],
                             getIndexByEmployeeID(employee.EmployeeID.ToString()));
                     }
-
-                }
-                
+                }               
             }
         }
+
+        public void DownAllCardList(List<String> list, String uuID)
+        {
+            log.Info("Download card list by Control : uuid=" + uuID + ".Control list is" + JsonConvert.ObjectToJson(list));
+
+            int i = 0;
+            foreach (String id in list)
+            {
+                int p = (100 * (i + 1) / list.Count);
+                ProcessManageCache.Update(uuID, p);
+                //获取这个控制器的时间列表
+                List<DoorTimeView> dateViewList=ServiceContext.getInstance().getAccessDetailService().getDoorTimeViewListByControlID(id);
+                Control control=Get<Control>(Control.CONTROL_ID, id);
+                if (control==null)
+                {
+                    throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST); 
+                }
+                List< Employee> employeeList=GetDao<Employee>().getAll();
+                foreach (Employee e in employeeList)
+                {
+                     DeviceOperatorFactory.getInstance().getDeviceOperator(control).cardInfoDownLoad(
+                            e,
+                            dateViewList,
+                            getIndexByEmployeeID(e.EmployeeID.ToString()));
+                }                 
+            }
+        }
+
 
         #endregion
 

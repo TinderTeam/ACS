@@ -190,6 +190,29 @@ namespace ACS.Controllers
             return ReturnJson(Rsp);
         }
 
+                //更新设备信息
+        public ActionResult downloadCard(String idList)
+        {
+            try
+            {
+                List<String> controlIDList = JsonConvert.JsonToObject<List<String>>(idList);
+                deviceService.UpdateDeviceInfo(this.getSessionUser().UserID, controlIDList);
+                //待实现
+            }
+            catch (FuegoException e)
+            {
+                log.Error("download failed", e);
+                Rsp.ErrorCode = e.GetErrorCode();
+            }
+            catch (SystemException e)
+            {
+                log.Error("download failed", e);
+                Rsp.ErrorCode = ExceptionMsg.FAIL;
+            }
+
+            return ReturnJson(Rsp);
+        }
+        
         #endregion
 
     }

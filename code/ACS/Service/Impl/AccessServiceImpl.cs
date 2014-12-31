@@ -344,6 +344,7 @@ namespace ACS.Service.Impl
              );
 
             List<AccessDetailView> detailList = GetDao<AccessDetailView>().getAll(IDCondition);
+
             //递归获取权限的DoorTimeList
             foreach (AccessDetailView a in detailList)
             {
@@ -371,6 +372,18 @@ namespace ACS.Service.Impl
 
             return new List<DoorTimeView>(map.Values);
         }
+
+        public List<DoorTimeView> getDoorTimeViewListByControlID(string ControlID)
+        {
+            QueryCondition IDCondition = new QueryCondition(
+            ConditionTypeEnum.EQUAL,
+            DoorTimeView.CONTROL_ID,
+            ControlID
+           );
+            List<DoorTimeView> detailList = GetDao<DoorTimeView>().getAll(IDCondition);
+            return detailList;
+        }
+
         #endregion
     }
 

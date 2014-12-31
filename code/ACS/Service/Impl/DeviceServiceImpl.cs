@@ -54,9 +54,18 @@ namespace ACS.Service.Impl
             foreach (Control control in controlList)
             {
                 TreeModel treeModel = new TreeModel();
+               
                 treeModel.Id = Control.CONTROL_TYPE + Control.SPLIT + control.ControlID.ToString();
                 treeModel.Pid = Control.CONTROL_TYPE + Control.SPLIT + "0";
-                treeModel.MenuName = control.ControlName;
+                if (control.Online)
+                {
+                    treeModel.MenuName = control.ControlName + "(" + Control.ONLINE + ")";
+                }
+                else
+                {
+                    treeModel.MenuName = control.ControlName + "(" + Control.OFFLINE + ")";
+                }
+                
                 treeModelList.Add(treeModel);
             }
             QueryCondition controlIDListCondition = new QueryCondition(ConditionTypeEnum.IN, Door.CONTROL_ID, controlIDList);
@@ -66,6 +75,16 @@ namespace ACS.Service.Impl
                 TreeModel treeModel = new TreeModel();
                 treeModel.Id = Control.DOOR_TYPE + Control.SPLIT + door.DoorID.ToString();
                 treeModel.Pid = Control.CONTROL_TYPE + Control.SPLIT + door.ControlID.ToString();
+                /*
+                if ()
+                {
+                    treeModel.MenuName = control.ControlName + "(" + Control.ONLINE + ")";
+                }
+                else
+                {
+                    treeModel.MenuName = control.ControlName + "(" + Control.OFFLINE + ")";
+                }
+                 */
                 treeModel.MenuName = door.DoorName;
                 treeModelList.Add(treeModel);
             }

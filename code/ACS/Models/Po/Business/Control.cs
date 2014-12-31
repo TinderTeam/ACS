@@ -15,6 +15,9 @@ namespace ACS.Models.Po.Business
         public const String CONTROL_TYPE = "C";
         public const String DOOR_TYPE = "D";
         public const String IP = "Ip";
+        public const String ONLINE = "在线";
+        public const String OFFLINE = "离线";
+
         private int controlID;                              //控制器ID
         private int netID;                                  //连接号即
         private String code;                                //编号
