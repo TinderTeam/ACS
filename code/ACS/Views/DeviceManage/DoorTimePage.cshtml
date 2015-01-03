@@ -25,25 +25,25 @@
             <div style="margin-top:20px;margin-bottom:20px;margin-left:40px;">
                 <table style="table-layout:fixed;">
                     <tr style ="height:35px">
-                        <td style="width:90px;">时间段名称：</td>
+                        <td style="width:90px;">@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorTimeName")</td>
                         <td style="width:150px;">
                             <input name="DoorTimeName" class="mini-textbox" vtype="maxLength:50" required="true" value=""/>
                             <input name ="DoorTimeID" class="mini-textbox" style="display:none" value=""/>
                         </td>
-                        <td style="width:90px;">启用：</td>
+                        <td style="width:90px;">@Resources.Common_Resource.ResourceManager.GetString("Enable")</td>
                         <td style="width:150px;">
                             <select name="Enable" class="mini-radiobuttonlist">
-                                <option value="Enable">启用</option>
-                                <option value="Disable">禁用</option>
+                                <option value="Enable">@Resources.Common_Resource.ResourceManager.GetString("Enable")</option>
+                                <option value="Disable">@Resources.Common_Resource.ResourceManager.GetString("Disable")</option>
                             </select>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >起始时间：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("StartTime")</td>
                         <td >
                             <input name="StartTime" class="mini-timespinner"  format="H:mm:ss" />
                         </td>
-                        <td >结束时间：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("EndTime")</td>
                         <td >
                             <input name="EndTime" class="mini-timespinner"  format="H:mm:ss" />
                         </td>
@@ -51,35 +51,35 @@
                 </table>
             </div>
         <fieldset style="border:solid 1px #aaa;padding:3px;margin-left:40px;margin-right:40px;">
-                <legend >日期范围</legend>
+                <legend >@Resources.DeviceManage_Resource.ResourceManager.GetString("DateRange")</legend>
                 <div style="padding-left:25px;margin-top:10px;margin-bottom:10px;">
                     <table>
                         <tr style ="height:35px">
                             <td style="width:90px;">
-                                <input name="Monday" class="mini-checkbox" text="星期一" trueValue="true" falseValue="false" />
+                                <input name="Monday" class="mini-checkbox" text="@Resources.AccessManage_Resource.ResourceManager.GetString("Monday")" trueValue="true" falseValue="false" />
                             </td>
                             <td style="width:90px;">
-                                <input name="Tuesday" class="mini-checkbox" text="星期二" trueValue="true" falseValue="false" />
+                                <input name="Tuesday" class="mini-checkbox" text="@Resources.AccessManage_Resource.ResourceManager.GetString("Tuesday")" trueValue="true" falseValue="false" />
                             </td>
                             <td style="width:90px;">
-                                <input name="Wednesday" class="mini-checkbox" text="星期三" trueValue="true" falseValue="false" />
+                                <input name="Wednesday" class="mini-checkbox" text="@Resources.AccessManage_Resource.ResourceManager.GetString("Wednesday")" trueValue="true" falseValue="false" />
                             </td>
                             <td style="width:90px;">
-                                <input name="Thursday" class="mini-checkbox" text="星期四" trueValue="true" falseValue="false" />
+                                <input name="Thursday" class="mini-checkbox" text="@Resources.AccessManage_Resource.ResourceManager.GetString("Thursday")" trueValue="true" falseValue="false" />
                             </td>
                         </tr>
                         <tr style ="height:35px">
                             <td style="width:90px;">
-                                <input name="Friday" class="mini-checkbox" text="星期五" trueValue="true" falseValue="false" />
+                                <input name="Friday" class="mini-checkbox" text="@Resources.AccessManage_Resource.ResourceManager.GetString("Friday")" trueValue="true" falseValue="false" />
                             </td>
                             <td style="width:90px;">
-                                <input name="Saturday" class="mini-checkbox" text="星期六" trueValue="true" falseValue="false" />
+                                <input name="Saturday" class="mini-checkbox" text="@Resources.AccessManage_Resource.ResourceManager.GetString("Saturday")" trueValue="true" falseValue="false" />
                             </td>
                             <td style="width:90px;">
-                                <input name="Sunday" class="mini-checkbox" text="星期日" trueValue="true" falseValue="false" />
+                                <input name="Sunday" class="mini-checkbox" text="@Resources.AccessManage_Resource.ResourceManager.GetString("Sunday")" trueValue="true" falseValue="false" />
                             </td>
                             <td style="width:90px;">
-                                <input name="Holiday" class="mini-checkbox" text="假日" trueValue="true" falseValue="false" />
+                                <input name="Holiday" class="mini-checkbox" text="@Resources.AccessManage_Resource.ResourceManager.GetString("Holiday")" trueValue="true" falseValue="false" />
                             </td>
                         </tr>
                     </table>
@@ -88,8 +88,8 @@
                         
       
         <div style="text-align:center;padding:5px;">                            
-            <a id="Modify" class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">确定</a>       
-            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>        
+            <a id="Modify" class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">@Resources.Common_Resource.ResourceManager.GetString("Cancel")</a>        
         </div>  
     </form>
     <script type="text/javascript">

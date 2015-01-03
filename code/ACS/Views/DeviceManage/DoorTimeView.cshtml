@@ -2,7 +2,7 @@
     <table style="width:100%;">
         <tr>
             <td style="width:100%;">
-                <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow()">编辑</a>     
+                <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow()">@Resources.Common_Resource.ResourceManager.GetString("Modify")</a>     
             </td>
         </tr>
     </table>           
@@ -12,18 +12,18 @@
             url="LoadDoorTimeList"  idField="DoorTimeID" multiSelect="true">
             <div property="columns">
                 <div type="checkcolumn" ></div>                  
-                <div field="Enable" width="30" headerAlign="center" allowSort="true">启用</div>
-                <div field="DoorTimeName" width="50" headerAlign="center" allowSort="true" >时间段名称</div>
-                <div field="StartTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">开始时间</div>
-                <div field="EndTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">截止时间</div>
-                <div field="Monday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期一</div>
-                <div field="Tuesday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期二</div>
-                <div field="Wednesday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期三</div>
-                <div field="Thursday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期四</div>
-                <div field="Friday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期五</div>
-                <div field="Saturday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期六</div>
-                <div field="Sunday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">星期日</div>
-                <div field="Holiday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">假期</div>
+                <div field="Enable" width="30" headerAlign="center" allowSort="true">@Resources.Common_Resource.ResourceManager.GetString("Enable")</div>
+                <div field="DoorTimeName" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorTimeName")</div>
+                <div field="StartTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">@Resources.DeviceManage_Resource.ResourceManager.GetString("StartTime")</div>
+                <div field="EndTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">@Resources.DeviceManage_Resource.ResourceManager.GetString("EndTime")</div>
+                <div field="Monday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Monday")</div>
+                <div field="Tuesday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Tuesday")</div>
+                <div field="Wednesday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Wednesday")</div>
+                <div field="Thursday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Thursday")</div>
+                <div field="Friday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Friday")</div>
+                <div field="Saturday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Saturday")</div>
+                <div field="Sunday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Sunday")</div>
+                <div field="Holiday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Holiday")</div>
             </div>
     </div>
 </div>

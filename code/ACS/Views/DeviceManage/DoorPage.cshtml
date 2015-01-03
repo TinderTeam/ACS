@@ -25,20 +25,20 @@
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
                     <tr style ="height:35px">
-                        <td style="width:90px;">门名称：</td>
+                        <td style="width:90px;">@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorName")</td>
                         <td style="width:150px;">
                             <input name="DoorName" class="mini-textbox" vtype="maxLength:50" required="true"  value=""/>
                             <input name ="DoorID" class="mini-textbox" style="display:none" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >开门时间(S)：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("OpenTime")</td>
                         <td>    
                             <input name="OpenTime" class="mini-textbox" dateFormat="yyyy-MM-dd HH:mm:ss" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >开门超时(S)：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("OpenOutTime")</td>
                         <td>    
                             <input name="CloseOutTime" class="mini-textbox" dateFormat="yyyy-MM-dd HH:mm:ss" value=""/>
                         </td>
@@ -47,8 +47,8 @@
             </div>    
       
         <div style="text-align:center;padding:5px;">                            
-            <a id="Modify" class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">确定</a>       
-            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>        
+            <a id="Modify" class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">@Resources.Common_Resource.ResourceManager.GetString("Cancel")</a>        
         </div>  
     </form>
     <script type="text/javascript">

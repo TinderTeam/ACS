@@ -43,34 +43,34 @@
     }    
 </style>
     <fieldset style="width:96%;border:solid 1px #aaa;margin-top:0px;position:relative;">
-        <legend>员工查询</legend>
+        <legend>@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeSearch")</legend>
         <div id="editForm1" style="padding:0px;">
             <input class="mini-hidden" name="id"/>
             <form id="searchForm" method="post">
             <table style="width:100%;">
                 <tr>
-                    <td style="width:40px;">部门：</td>
+                    <td style="width:40px;">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Dept")</td>
                     <td style="width:130px;">
                         <input name="DeptID" class="mini-combobox" valueField="DeptID" textField="DeptName" 
-                        url="../DeptManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="请选择部门..."
+                        url="../DeptManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
                         />
                     </td>
-                    <td style="width:40px;">职位：</td>
+                    <td style="width:40px;">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Job")</td>
                     <td style="width:130px;">
                         <input name="JobID" class="mini-combobox" valueField="JobID" textField="JobName"
-                        url="../JobManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="请选择部门..."
+                        url="../JobManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
                         />
                     </td>
-                    <td style="width:40px;">姓名：</td>
+                    <td style="width:40px;">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeName")</td>
                     <td style="width:130px;">
                         <input name="EmployeeName" class="mini-textbox" />
                     </td>
-                    <td style="width:40px;">工号：</td>
+                    <td style="width:40px;">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeCode")</td>
                     <td style="width:150px;">
                         <input name="EmployeeCode" class="mini-textbox" />
                     </td>
                     <td style="width:150px;">
-                        <a class="mini-button " iconCls="icon-search" onclick="search()">查询</a>
+                        <a class="mini-button " iconCls="icon-search" onclick="search()">@Resources.Common_Resource.ResourceManager.GetString("Search")</a>
                     </td>  
                 </tr>
             </table>
@@ -82,15 +82,15 @@
         <table style="width:100%;">
             <tr>
                 <td style="width:100%;">
-                    <a class="mini-button" iconCls="icon-add" onclick="onModifyRow('Create')">增加</a>
-                    <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow('Modify')">编辑</a>
-                    <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>   
-                    <a class="mini-button" iconCls="icon-undo" onclick="leave()">离职</a> 
-                    <a class="mini-button" iconCls="icon-lock" onclick="cancel()">注销</a> 
-                    <a class="mini-button" iconCls="icon-node" onclick="card()">发卡</a>       
-                    <a class="mini-button" iconCls="icon-node" onclick="privilege()">权限配置</a>   
-                    <a class="mini-button" iconCls="icon-node" onclick="downloadCard()">下发卡信息</a>   
-                    <span class="bar Hide" style="text-align:right" >操作进度：<span class="progressBar" id="bar"></span></span>  
+                    <a class="mini-button" iconCls="icon-add" onclick="onModifyRow('Create')">@Resources.Common_Resource.ResourceManager.GetString("Create")</a>
+                    <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow('Modify')">@Resources.Common_Resource.ResourceManager.GetString("Modify")</a>
+                    <a class="mini-button" iconCls="icon-remove" onclick="remove()">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a>   
+                    <a class="mini-button" iconCls="icon-undo" onclick="leave()">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Leave")</a> 
+                    <a class="mini-button" iconCls="icon-lock" onclick="cancel()">@Resources.EmployeeManage_Resource.ResourceManager.GetString("LogOut")</a> 
+                    <a class="mini-button" iconCls="icon-node" onclick="card()">@Resources.EmployeeManage_Resource.ResourceManager.GetString("SendCard")</a>       
+                    <a class="mini-button" iconCls="icon-node" onclick="privilege()">@Resources.EmployeeManage_Resource.ResourceManager.GetString("PrivilegeSet")</a>   
+                    <a class="mini-button" iconCls="icon-node" onclick="downloadCard()">@Resources.EmployeeManage_Resource.ResourceManager.GetString("DownLoadCard")</a>   
+                    <span class="bar Hide" style="text-align:right" >@Resources.Common_Resource.ResourceManager.GetString("OperationProgress")<span class="progressBar" id="bar"></span></span>  
                 </td>
 
             </tr>
@@ -101,20 +101,19 @@
         url="Load"  idField="EmployeeID" multiSelect="true">
         <div property="columns">
             <div type="checkcolumn" ></div>                  
-            <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Code")</div>    
-            <div field="EmployeeName" width="70" headerAlign="center" allowSort="true" align="center">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Name")</div>    
-            <div field="AccessName" width="70" headerAlign="center" allowSort="true">权限</div>
-            <div field="Sex" width="70" headerAlign="center" allowSort="true" align="center" renderer="onSexRenderer">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Sex")</div>   
-            <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_CardNo")</div>
-            <div field="EmpEnable" width="70" headerAlign="center" allowSort="true" renderer="onYesRenderer">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EmpEnable")</div>
-            <div field="EndDate" width="70" headerAlign="center" allowSort="true" align="center" dateFormat="yyyy-MM-dd">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_EndDate")</div> 
-            <div field="DeptName" width="70" headerAlign="center" allowSort="true" align="center">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_DeptID")</div>    
-            <div field="JobName" width="70" headerAlign="center" allowSort="true" align="center">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_JobID")</div>    
-            <div field="Leave" width="70" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Leave")</div>
-
-            <div field="PersonCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_PersonCode")</div>   
-            <div field="Phone" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Phone")</div>
-            <div field="LastEventID" width="80" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_LastEventID")</div>
+            <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeCode")</div>    
+            <div field="EmployeeName" width="70" headerAlign="center" allowSort="true" align="center">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeName")</div>    
+            <div field="AccessName" width="70" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Privilege")</div>
+            <div field="Sex" width="70" headerAlign="center" allowSort="true" align="center" renderer="onSexRenderer">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Sex")</div>   
+            <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("CardNo")</div>
+            <div field="EmpEnable" width="70" headerAlign="center" allowSort="true" renderer="onYesRenderer">@Resources.EmployeeManage_Resource.ResourceManager.GetString("LogOut")</div>
+            <div field="EndDate" width="70" headerAlign="center" allowSort="true" align="center" dateFormat="yyyy-MM-dd">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EndDate")</div> 
+            <div field="DeptName" width="70" headerAlign="center" allowSort="true" align="center">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Dept")</div>    
+            <div field="JobName" width="70" headerAlign="center" allowSort="true" align="center">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Job")</div>    
+            <div field="Leave" width="70" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Leave")</div>
+            <div field="PersonCode" width="70" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("PersonCode")</div>   
+            <div field="Phone" width="70" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Phone")</div>
+            <div field="LastEventID" width="80" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("LastEvent")</div>
             <!--<div field="Car" width="70" headerAlign="center" allowSort="true"></div>
             <div field="JobID" width="70" headerAlign="center" allowSort="true"></div>    
             <div field="DeptID" width="70" headerAlign="center" allowSort="true">DeptID</div>    

@@ -47,7 +47,7 @@
 
 
 <div class="mini-fit" >
-    <div class="mini-panel" title="设备监控" iconCls="icon-add" 
+    <div class="mini-panel" title="@Resources.Monitor_Resource.ResourceManager.GetString("DeviceMonitor")" iconCls="icon-add" 
         style="width:100%;height:100%;"showToolbar="false"
         showCloseButton="false" showFooter="true">
 
@@ -64,16 +64,16 @@
                                 <tr>
                                     <td style="width:100%;">
 
-                                        <span class="door Hide" ><a class="mini-button" iconCls="icon-ok" onclick="OperateDevice('1')">开门</a></span>
-                                        <span class="door Hide"><a class="mini-button" iconCls="icon-remove" onclick="OperateDevice('2')">关门</a></span>
-                                        <span class="door Hide"><a class="mini-button" iconCls="icon-lock" onclick="OperateDevice('3')">锁门</a></span>
-                                       <span class="door Hide"> <a class="mini-button" iconCls="icon-unlock" onclick="OperateDevice('4')">解锁</a></span>
-                                        <span class="door Hide"><a class="mini-button" iconCls="icon-no" onclick="OperateDevice('5')">火警</a>           </span>                             
-                                        <span class="door Hide"><a class="mini-button" iconCls="icon-no" onclick="OperateDevice('7')">报警</a></span>
-                                        <span class="door Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('6')">火警解除</a> </span>  
-                                        <span class="door Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('8')">报警解除</a></span>
-                                        <span class="control Hide"><a class="mini-button" iconCls="icon-undo" style="width:95%" onclick="DeviceDownload()">下发设备卡信息</a> </span>         
-                                        <span class="bar Hide" >操作进度：<span class="progressBar" id="bar"></span></span>
+                                        <span class="door Hide" ><a class="mini-button" iconCls="icon-ok" onclick="OperateDevice('1')">@Resources.Monitor_Resource.ResourceManager.GetString("OpenDoor")</a></span>
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-remove" onclick="OperateDevice('2')">@Resources.Monitor_Resource.ResourceManager.GetString("CloseDoor")</a></span>
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-lock" onclick="OperateDevice('3')">@Resources.Monitor_Resource.ResourceManager.GetString("LockDoor")</a></span>
+                                        <span class="door Hide"> <a class="mini-button" iconCls="icon-unlock" onclick="OperateDevice('4')">@Resources.Monitor_Resource.ResourceManager.GetString("UnlockDoor")</a></span>
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-no" onclick="OperateDevice('5')">@Resources.Monitor_Resource.ResourceManager.GetString("FireAlarm")</a>           </span>                             
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-no" onclick="OperateDevice('7')">@Resources.Monitor_Resource.ResourceManager.GetString("Alarm")</a></span>
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('6')">@Resources.Monitor_Resource.ResourceManager.GetString("FireAlarmRemove")</a> </span>  
+                                        <span class="door Hide"><a class="mini-button" iconCls="icon-undo" onclick="OperateDevice('8')">@Resources.Monitor_Resource.ResourceManager.GetString("AlarmRemove")</a></span>
+                                        <span class="control Hide"><a class="mini-button" iconCls="icon-undo" style="width:95%" onclick="DeviceDownload()">@Resources.Monitor_Resource.ResourceManager.GetString("DeviceDownload")</a> </span>         
+                                        <span class="bar Hide" >@Resources.Common_Resource.ResourceManager.GetString("OperationProgress")<span class="progressBar" id="bar"></span></span>
                                    </td>
                                 </tr>
                             </table>           
@@ -90,11 +90,11 @@
                         <div id ="datagrid1" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
                             idField="HolidayID" multiSelect="true">
                             <div property="columns">              
-                                <div field="EventTime" width="70" headerAlign="center" allowSort="true">时间    </div>    
-                                <div field="CardNo" width="70" headerAlign="center" allowSort="true">卡号</div>    
-                                <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">姓名</div>
-                                <div field="DoorID" width="70" headerAlign="center" allowSort="true">门</div>   
-                                <div field="EventType" width="70" headerAlign="center" allowSort="true">事件</div>
+                                <div field="EventTime" width="70" headerAlign="center" allowSort="true">@Resources.Monitor_Resource.ResourceManager.GetString("EventTime")</div>    
+                                <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.Monitor_Resource.ResourceManager.GetString("CardNo")</div>    
+                                <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">@Resources.Monitor_Resource.ResourceManager.GetString("EmployeeName")</div>
+                                <div field="DoorID" width="70" headerAlign="center" allowSort="true">@Resources.Monitor_Resource.ResourceManager.GetString("Door")</div>   
+                                <div field="EventType" width="70" headerAlign="center" allowSort="true">@Resources.Monitor_Resource.ResourceManager.GetString("Event")</div>
                             </div>
                         </div> 
                     </div>
@@ -102,12 +102,12 @@
             </div>        
 
             <div size="200px" showCollapseButton="true">
-                 <div class="mini-panel" title="事件" iconCls="icon-add" style="width:100%;height:100%;"
+                 <div class="mini-panel" title="@Resources.Monitor_Resource.ResourceManager.GetString("Event")" iconCls="icon-add" style="width:100%;height:100%;"
                      showToolbar="false" showCloseButton="false" showFooter="true">
                      <table style="width:inherit;height:100%;">
                              <td>
                                 <div id="eventCard1" class="mini-panel Hide"
-                                    title="最新事件" style="width:310px;height:150px;" 
+                                    title="@Resources.Monitor_Resource.ResourceManager.GetString("LatestEvent")" style="width:310px;height:150px;" 
                                    >
                                     <!---事件卡片--->
                                     <div class="mini-splitter" style="width:300px;height:110px;" vertical="false">
@@ -117,19 +117,19 @@
                                         <div style="width:200px">
                                             <table>
                                                 <tr>
-                                                    <td>事件类别：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EventType")</td>
                                                     <td id="cardEventName1" data=""></td>
                                                 </tr> 
                                                 <tr id="cardEmployeeNamelabel1">
-                                                    <td>姓名：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EmployeeName")</td>
                                                     <td id="cardEmployeeName1" data=""></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>控制器：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("Control")</td>
                                                     <td id="cardDevice1" data=""></td>
                                                 </tr>
                                                  <tr>
-                                                    <td>事件时间：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EventTime")</td>
                                                     <td id="cardTime1" data="" ></td>
                                                 </tr>                                   
                                             </table>
@@ -139,7 +139,7 @@
                              </td>
                              <td>
                                   <div id="eventCard2" class="mini-panel Hide"
-                                    title="最新事件" style="width:310px;height:150px;" 
+                                    title="@Resources.Monitor_Resource.ResourceManager.GetString("LatestEvent")" style="width:310px;height:150px;" 
                                    >
                                      <div class="mini-splitter" style="width:300px;height:110px;" vertical="false">
                                         <div size="85px" showCollapseButton="false">
@@ -149,19 +149,19 @@
                                             <table>
                                                
                                                 <tr>
-                                                    <td>事件：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EventType")</td>
                                                     <td id="cardEventName2" data=""></td>
                                                 </tr> 
                                                 <tr id="cardEmployeeNamelabel2">
-                                                    <td>姓名：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EmployeeName")</td>
                                                     <td id="cardEmployeeName2" data=""></td>
                                                 </tr>
                                                 <tr>
-                                                    <td>控制器：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("Control")</td>
                                                     <td id="cardDevice2" data=""></td>
                                                 </tr>
                                                  <tr>
-                                                    <td>事件时间：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EventTime")</td>
                                                     <td id="cardTime2" data=""></td>
                                                 </tr>                                   
                                             </table>
@@ -171,7 +171,7 @@
                              </td>
                            <td>
                                   <div id="eventCard3" class="mini-panel Hide" 
-                                    title="最新事件" style="width:310px;height:150px;"
+                                    title="@Resources.Monitor_Resource.ResourceManager.GetString("LatestEvent")" style="width:310px;height:150px;"
                                     bodyStyle="padding:5;">
                                     <div class="mini-splitter" style="width:300px;height:110px;" vertical="false">
                                         <div size="85px" showCollapseButton="false">
@@ -181,19 +181,19 @@
                                             <table>
                                                
                                                 <tr>
-                                                    <td>事件：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EventType")</td>
                                                     <td id="cardEventName3" data=""></td>
                                                 </tr> 
                                                 <tr id="cardEmployeeNamelabel3">
-                                                    <td>姓名：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EmployeeName")</td>
                                                     <td id="cardEmployeeName3" data=""></td>
                                                 </tr> 
                                                 <tr>
-                                                    <td>控制器：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("Control")</td>
                                                     <td id="cardDevice3" data=""></td>
                                                 </tr>
                                                  <tr>
-                                                    <td>事件时间：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EventTime")</td>
                                                     <td id="cardTime3" data=""></td>
                                                 </tr>                                   
                                             </table>
@@ -203,7 +203,7 @@
                              </td>
                              <td>
                                 <div id="eventCard4" class="mini-panel Hide" 
-                                    title="最新事件" style="width:310px;height:150px;" 
+                                    title="@Resources.Monitor_Resource.ResourceManager.GetString("LatestEvent")" style="width:310px;height:150px;" 
                                     bodyStyle="padding:5;">
                                    <div class="mini-splitter" style="width:300px;height:110px;" vertical="false">
                                         <div size="85px" showCollapseButton="false">
@@ -213,19 +213,19 @@
                                             <table>
                                                
                                                 <tr>
-                                                    <td>事件：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EventType")</td>
                                                     <td id="cardEventName4" data=""></td>
                                                 </tr> 
                                                 <tr>
-                                                    <td>姓名：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("EmployeeName")</td>
                                                     <td id="cardEmployeeName4" data=""></td>
                                                 </tr> 
                                                 <tr>
-                                                    <td>控制器：</td>
+                                                    <td>@Resources.Monitor_Resource.ResourceManager.GetString("Control")</td>
                                                     <td id="cardDevice4" data=""></td>
                                                 </tr>
                                                  <tr>
-                                                    <td >事件时间：</td>
+                                                    <td >@Resources.Monitor_Resource.ResourceManager.GetString("EventTime")</td>
                                                     <td id="cardTime4" data=""></td>
                                                 </tr>                                   
                                             </table>

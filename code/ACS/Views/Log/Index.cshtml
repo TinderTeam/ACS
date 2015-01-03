@@ -13,12 +13,12 @@
         margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
     }    
 </style>
-    <h1>系统日志</h1>
+    <h1>@Resources.Log_Resource.ResourceManager.GetString("SystemLog")</h1>
     <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
             <table style="width:100%;">
                 <tr>
                     <td style="width:100%;">
-                        <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>     
+                        <a class="mini-button" iconCls="icon-remove" onclick="remove()">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a>     
                     </td>
                 </tr>
             </table>           
@@ -28,11 +28,11 @@
         url="Load"  idField="LogID" multiSelect="true">
         <div property="columns">
             <div field ="LogID" type="checkcolumn" ></div>   
-            <div field="LogID" width="70" headerAlign="center" allowSort="true">日志ID</div>    
-            <div field="LogDateTime" width="70" headerAlign="center" allowSort="true" align="center" dateFormat="yyyy-MM-dd HH:mm:ss">时间</div>    
-            <div field="LogEvent" width="70" headerAlign="center" allowSort="true" align="center">操作类型</div>   
-            <div field="Msg" width="70" headerAlign="center" allowSort="true" align="center">操作内容</div>
-            <div field="Result" width="70" headerAlign="center" allowSort="true" align="center" >操作结果</div>
+            <div field="LogID" width="70" headerAlign="center" allowSort="true">@Resources.Log_Resource.ResourceManager.GetString("LogID")</div>    
+            <div field="LogDateTime" width="70" headerAlign="center" allowSort="true" align="center" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.Log_Resource.ResourceManager.GetString("LogDateTime")</div>    
+            <div field="LogEvent" width="70" headerAlign="center" allowSort="true" align="center">@Resources.Log_Resource.ResourceManager.GetString("LogEvent")</div>   
+            <div field="Msg" width="70" headerAlign="center" allowSort="true" align="center">@Resources.Log_Resource.ResourceManager.GetString("Msg")</div>
+            <div field="Result" width="70" headerAlign="center" allowSort="true" align="center" >@Resources.Log_Resource.ResourceManager.GetString("Result")</div>
             
         </div>
     </div> 

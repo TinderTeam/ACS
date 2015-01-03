@@ -30,7 +30,7 @@ html, body
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
                     <tr style ="height:35px">
-                        <td style="width:70px;">类型名称：</td>
+                        <td style="width:80px;">@Resources.EventTypeManage_Resource.ResourceManager.GetString("EventTypeName")</td>
                         <td style="width:150px;">    
                             <input name="EventTypeName" class="mini-textbox" vtype="maxLength:50" required="true" value=""/>
                             <input name ="EventTypeID" class="mini-textbox" style="display:none" value=""/>
@@ -38,39 +38,39 @@ html, body
                     </tr>
                     <tr style ="height:35px">
                         <input id="Fcolor" name ="ForegroundColor" class="mini-textbox" style="display:none" value=""/>
-                        <td>前景色：</td>
+                        <td>@Resources.EventTypeManage_Resource.ResourceManager.GetString("ForegroundColor")</td>
                         <td >    
                             <a href="javascript:void(0)" class="ku"></a>
                         </td>
                     </tr>
                     <tr style ="height:35px">
                         <input id="Bcolor" name ="BackgroundColor" class="mini-textbox" style="display:none" value=""/>
-                        <td >背景色：</td>
+                        <td >@Resources.EventTypeManage_Resource.ResourceManager.GetString("BackgroundColor")</td>
                         <td >    
                             <a href="javascript:void(0)" class="lu"></a>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >事件级别</td>
+                        <td >@Resources.EventTypeManage_Resource.ResourceManager.GetString("Level")</td>
                         <td >    
                             <input name="Level" class="mini-textbox" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >可见</td>
+                        <td >@Resources.EventTypeManage_Resource.ResourceManager.GetString("Visible")</td>
                         <td >    
                             <select name="Visible" class="mini-radiobuttonlist">
-                                <option value="true">是</option>
-                                <option value="false">否</option>
+                                <option value="true">@Resources.Common_Resource.ResourceManager.GetString("Yes")</option>
+                                <option value="false">@Resources.Common_Resource.ResourceManager.GetString("No")</option>
                             </select>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >报警</td>
+                        <td >@Resources.EventTypeManage_Resource.ResourceManager.GetString("Alarm")</td>
                         <td >    
                             <select name="Alarm" class="mini-radiobuttonlist">
-                                <option value="true">是</option>
-                                <option value="false">否</option>
+                                <option value="true">@Resources.Common_Resource.ResourceManager.GetString("Yes")</option>
+                                <option value="false">@Resources.Common_Resource.ResourceManager.GetString("No")</option>
                             </select>
                         </td>
                     </tr>         
@@ -78,8 +78,8 @@ html, body
             </div>
        
         <div style="text-align:center;padding:5px;">             
-            <a class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">确定</a>                    
-            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
+            <a class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>                    
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">@Resources.Common_Resource.ResourceManager.GetString("Cancel")</a>       
         </div>    
     </form>
 <script type="text/javascript">

@@ -25,7 +25,7 @@
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
                 <tr style ="height:35px">
-                    <td style="width:90px;">上级部门：</td>
+                    <td style="width:90px;">@Resources.DeptAndJob_Resource.ResourceManager.GetString("ParentDept")</td>
                     <td style="width:150px;">
                         <input name="FatherDeptName" class="mini-textbox" readonly="readonly" value=""/>
                         <input name="FatherDeptID" class="mini-textbox" style="display:none" value=""/>
@@ -33,7 +33,7 @@
                     
                 </tr>
                 <tr style ="height:35px">
-                    <td >部门名称：</td>
+                    <td >@Resources.DeptAndJob_Resource.ResourceManager.GetString("DeptName")</td>
                     <td >    
                         <input name="DeptName" class="mini-textbox" vtype="maxLength:50" required="true"  value=""/>
                         <input name="DeptID" class="mini-textbox" style="display:none" value=""/>
@@ -41,13 +41,13 @@
                 </tr>
                 <tr style ="height:35px">
                     
-                    <td >部门编号：</td>
+                    <td >@Resources.DeptAndJob_Resource.ResourceManager.GetString("DeptCode")</td>
                     <td >    
                         <input name ="DeptCode" class="mini-textbox" vtype="maxLength:50" value=""/>
                     </td>
                 </tr>
                 <tr style ="height:35px">
-                    <td >备注：</td>
+                    <td >@Resources.DeptAndJob_Resource.ResourceManager.GetString("Note")</td>
                     <td >    
                         <input name ="Note" class="mini-textbox" value=""/>
                     </td>
@@ -58,9 +58,9 @@
 
                   
         <div style="text-align:center;padding:5px;">
-            <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">确定</a>               
-            <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">确定</a>       
-            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
+            <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>               
+            <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">@Resources.Common_Resource.ResourceManager.GetString("Cancel")</a>       
         </div>  
     </form>
     <script type="text/javascript">

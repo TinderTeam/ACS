@@ -25,17 +25,17 @@
     allowResize="true" pageSize="20" allowCellEdit="true" allowCellSelect="true" multiSelect="true">
         <div property="columns">
     
-             <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Code")</div>    
-             <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_Name")</div>    
-             <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EmployeeManage_CardNo")
+             <div field="EmployeeCode" width="70" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeCode")</div>    
+             <div field="EmployeeName" width="70" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeName")</div>    
+             <div field="CardNo" width="70" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("CardNo")
                  <input property="editor" class="mini-textbox" style="width:100%;"/>
              </div>      
         </div>
     </div>
 </div>
      <div style="text-align:center;padding:5px;">               
-        <a class="mini-button" onclick="SaveData" style="width:60px;margin-right:20px;">确定</a>       
-        <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>       
+        <a class="mini-button" onclick="SaveData" style="width:60px;margin-right:20px;">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>       
+        <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">@Resources.Common_Resource.ResourceManager.GetString("Cancel")</a>       
     </div>
 </body>
 </html>

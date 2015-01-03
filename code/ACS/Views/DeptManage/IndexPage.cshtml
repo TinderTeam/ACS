@@ -14,12 +14,12 @@
     }    
 </style>
 <div class="mini-fit" >
-    <div class="mini-panel" title="部门管理" style="width:100%;height:100%;" showToolbar="true">
+    <div class="mini-panel" title="@Resources.DeptAndJob_Resource.ResourceManager.GetString("DeptManage")" style="width:100%;height:100%;" showToolbar="true">
          <!--toolbar-->
         <div property="toolbar">
-            <a class="mini-button" iconCls="icon-add" onclick="onEditNode('Create')">增加</a>
-            <a class="mini-button" iconCls="icon-edit" onclick="onEditNode('Modify')">修改</a>
-            <a class="mini-button" iconCls="icon-remove" onclick="onRemoveNode()">删除</a> 
+            <a class="mini-button" iconCls="icon-add" onclick="onEditNode('Create')">@Resources.Common_Resource.ResourceManager.GetString("Create")</a>
+            <a class="mini-button" iconCls="icon-edit" onclick="onEditNode('Modify')">@Resources.Common_Resource.ResourceManager.GetString("Modify")</a>
+            <a class="mini-button" iconCls="icon-remove" onclick="onRemoveNode()">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a> 
         </div>                  
         <!--body-->
         <ul id="deptTree" class="mini-tree" url="../DeptManage/LoadTree" style="width:100%;height:100%;padding:0px;" 

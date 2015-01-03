@@ -25,41 +25,41 @@
             <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
                 <table style="table-layout:fixed;">
                     <tr style ="height:35px">
-                        <td style="width:90px;">控制器名称：</td>
+                        <td style="width:90px;">@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlName")</td>
                         <td style="width:150px;">
                             <input name="ControlName" class="mini-textbox" vtype="maxLength:50" required="true" value=""/>
                             <input name ="ControlID" class="mini-textbox" style="display:none" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >控制器类型：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlType")</td>
                         <td>    
                             <input id="ControlType" name="TypeID" class="mini-combobox" valueField="TypeID" textField="TypeName" 
                                 url="../DeviceManage/LoadTypeList" onvaluechanged="onDeptChanged" required="true"
-                                emptyText="请选择类型"
+                                emptyText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
                                 />
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >控制器编号：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlCode")</td>
                         <td>    
                             <input name="Code" class="mini-textbox" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >控制器序列号：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlSerial")</td>
                         <td>    
                             <input name="Serial" class="mini-textbox" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >IP地址：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("IPAddr")</td>
                         <td>    
                             <input name="Ip" class="mini-textbox" onvalidation ="IPValidation" required="true" value=""/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
-                        <td >端口号：</td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlPort")</td>
                         <td> 
                             <input name="Port" class="mini-textbox" vtype="range:0,65535" required="true" value=""/>
                         </td>
@@ -68,9 +68,9 @@
             </div>    
       
         <div style="text-align:center;padding:5px;">               
-            <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">确定</a>               
-            <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">确定</a>       
-            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">取消</a>        
+            <a id="Create" class="mini-button"  onclick="onSaveData('Create')" style="display:none">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>               
+            <a id="Modify" class="mini-button" onclick="onSaveData('Modify')" style="display:none">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>       
+            <a class="mini-button" onclick="CloseWindow('cancel')" style="width:60px;">@Resources.Common_Resource.ResourceManager.GetString("Cancel")</a>        
         </div>  
     </form>
     <script type="text/javascript">

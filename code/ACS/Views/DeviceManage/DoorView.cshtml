@@ -2,7 +2,7 @@
     <table style="width:100%;">
         <tr>
             <td style="width:100%;">
-                <a class="mini-button" iconCls="icon-edit" onclick="onModifyDoor('Modify')">编辑</a>    
+                <a class="mini-button" iconCls="icon-edit" onclick="onModifyDoor('Modify')">@Resources.Common_Resource.ResourceManager.GetString("Modify")</a>    
             </td>
         </tr>
     </table>           
@@ -12,10 +12,10 @@
             url="LoadDoorList"  idField="DoorID" multiSelect="true">
             <div property="columns">
                 <div type="checkcolumn" ></div>                  
-                <div field="DoorName" width="70" headerAlign="center" allowSort="true">门名称</div>
-                <div field="DoorSerial" width="50" headerAlign="center" allowSort="true" >门编号</div>
-                <div field="OpenTime" width="50" headerAlign="center" allowSort="true" >开门时间</div>
-                <div field="CloseOutTime" width="50" headerAlign="center" allowSort="true" >开门超时时间</div>
+                <div field="DoorName" width="70" headerAlign="center" allowSort="true">@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorName")</div>
+                <div field="DoorSerial" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorCode")</div>
+                <div field="OpenTime" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("OpenTime")</div>
+                <div field="CloseOutTime" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("OpenOutTime")</div>
             </div>
     </div>
 </div>

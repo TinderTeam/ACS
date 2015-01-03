@@ -36,10 +36,10 @@
          <div class="mini-splitter" style="width:100%;height:100%;">
             <div size="200px" showCollapseButton="true">
                 <!----设备树--->
-                 <div class="mini-panel" title="设备管理" style="width:100%;height:100%;" showToolbar="true">
+                 <div class="mini-panel" title="@Resources.DeviceManage_Resource.ResourceManager.GetString("DeviceManage")" style="width:100%;height:100%;" showToolbar="true">
                     <!--toolbar-->
                     <div property="toolbar">
-                        <a class="mini-button" iconCls="icon-reload" onclick="treeUpdate()">刷新</a>
+                        <a class="mini-button" iconCls="icon-reload" onclick="treeUpdate()">@Resources.Common_Resource.ResourceManager.GetString("Refresh")</a>
                     </div>                  
                      <!----设备树--->
                         <ul id="deviceTree" class="mini-tree" url="LoadTree" style="width:inherit;padding:3px;" 
@@ -50,15 +50,15 @@
             </div>
             <!----设备信息栏--->
             <div showCollapseButton="true">
-                <div id ="DeviceView" class="mini-panel" title="控制器管理" style="width:100%;height:100%;" showToolbar="true">
+                <div id ="DeviceView" class="mini-panel" title="@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlManage")" style="width:100%;height:100%;" showToolbar="true">
                     @Html.Partial("DeviceView") 
                     <!--<div id="content" class="mini-panel" style="width:100%;height:100%;" showHeader="false"></div>-->
                 </div>
-                <div id ="DoorView" class="mini-panel" title="门管理" style="width:100%;height:100%;" showToolbar="true">
+                <div id ="DoorView" class="mini-panel" title="@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorManage")" style="width:100%;height:100%;" showToolbar="true">
                     @Html.Partial("DoorView") 
                     <!--<div id="content" class="mini-panel" style="width:100%;height:100%;" showHeader="false"></div>-->
                 </div>
-                <div id ="DoorTimeView" class="mini-panel" title="时间段管理" style="width:100%;height:100%;" showToolbar="true">
+                <div id ="DoorTimeView" class="mini-panel" title="@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorTimeManage")" style="width:100%;height:100%;" showToolbar="true">
                     @Html.Partial("DoorTimeView") 
                 </div>    
              </div>

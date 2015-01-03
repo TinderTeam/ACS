@@ -14,27 +14,27 @@
     }    
 </style>   
     <fieldset style="width:95%;border:solid 1px #aaa;margin-top:8px;position:relative;">
-        <legend>@Resources.Label_Resource.ResourceManager.GetString("EventRecord_CardRecordSearch")</legend>
+        <legend>@Resources.EventRecord_Resource.ResourceManager.GetString("EventRecordSearch")</legend>
         <div id="editForm1" style="padding:5px;">
             <input class="mini-hidden" name="id"/>
             <form id="searchForm" method="post">
                 <table style="width:100%;">
                     <tr>
-                        <td style="width:80px;">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_DeptSearch")</td>
+                        <td style="width:80px;">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Dept")</td>
                         <td style="width:150px;">
                             <input name="DeptID" class="mini-combobox" valueField="DeptID" textField="DeptName" 
-                            url="../DeptManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="请选择部门..."
+                            url="../DeptManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
                             />
                         </td>
-                        <td style="width:80px;">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_JobSearch")</td>
+                        <td style="width:80px;">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Job")</td>
                         <td style="width:150px;">
                             <input name="JobID" class="mini-combobox" valueField="JobID" textField="JobName"
-                            url="../JobManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="请选择部门..."
+                            url="../JobManage/LoadTree" allowInput="true" showNullItem="true" nullItemText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
                             />
                         </td>
-                        <td style="width:80px;">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_DoorSearch")</td>
+                        <td style="width:80px;">@Resources.EventRecord_Resource.ResourceManager.GetString("Door")</td>
                         <td style="width:150px;"><input name="DoorName" class="mini-textbox"></td>
-                        <td style="width:80px;">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_TimeSearch")</td>
+                        <td style="width:80px;">@Resources.EventRecord_Resource.ResourceManager.GetString("Time")</td>
                         <td style="width:150px;">
                             <input name="EventTimeStart" class="mini-datepicker" format="yyyy-MM-dd HH:mm:ss" timeFormat="HH:mm:ss" 
                                     showTime="true" showOkButton="true" showTodayButton="false"/>-
@@ -45,20 +45,20 @@
                         </td>  
                     </tr>
                     <tr>
-                        <td>@Resources.Label_Resource.ResourceManager.GetString("EventRecord_CardNoSearch")</td>
+                        <td>@Resources.EmployeeManage_Resource.ResourceManager.GetString("CardNo")</td>
                         <td><input name="CardNo" class="mini-textbox"/></td>
-                        <td>@Resources.Label_Resource.ResourceManager.GetString("EventRecord_NameSearch")</td>
+                        <td>@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeName")</td>
                         <td><input name="EmployeeName" class="mini-textbox"/></td>
-                        <td>@Resources.Label_Resource.ResourceManager.GetString("EventRecord_CodeSearch")</td>
+                        <td>@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeCode")</td>
                         <td><input name="EmployeeCode" class="mini-textbox"/></td>
-                        <td>@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventTypeSearch")</td>
+                        <td>@Resources.EventRecord_Resource.ResourceManager.GetString("EventType")</td>
                         <td>
                             <input name="EventTypeID" class="mini-combobox" valueField="EventTypeID" textField="EventTypeName" 
-                                url="../EventRecord/LoadEventTypeList" allowInput="true" showNullItem="true" nullItemText="请选择..."
+                                url="../EventRecord/LoadEventTypeList" allowInput="true" showNullItem="true" nullItemText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
                             />
                         </td>
                         <td style="width:150px;">
-                            <a class="mini-button " iconCls="icon-search" onclick="search()">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Search")</a>
+                            <a class="mini-button " iconCls="icon-search" onclick="search()">@Resources.Common_Resource.ResourceManager.GetString("Search")</a>
                         </td>
                     </tr>
                 </table>
@@ -69,7 +69,7 @@
         <table style="width:100%;">
             <tr>
                 <td style="width:100%;">
-                    <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>     
+                    <a class="mini-button" iconCls="icon-remove" onclick="remove()">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a>     
                 </td>
             </tr>
         </table>           
@@ -82,35 +82,35 @@
             <div type="indexcolumn" width="50px"></div>        
             <div name="ForegroundColorColumn" field="ForegroundColor" width="70px" headerAlign="center" allowSort="true"></div>    
             <div name="BackgroundColorColumn" field="BackgroundColor" width="70px" headerAlign="center" allowSort="true"></div>                  
-            <div field="EmployeeName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EmployeeName")</div>    
-            <div field="EmployeeCode" width="100px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EmployeeCode")</div>    
-            <div field="CardNo" width="100px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_CardNo")</div>
-            <div field="EventTime" width="150px" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventTime")</div>   
-            <div field="ControlName" width="100px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_ControlID")</div>
-            <div field="DoorName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_DoorID")</div>
-            <div field="EventTypeName" width="70px" headerAlign="center" align="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EventType")</div> 
-            <div field="Modify" width="70px" headerAlign="center" allowSort="true" renderer ="onYesRenderer">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Modify")</div>    
-            <div field="EnglishName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EnglishName")</div>    
-            <div field="Sex" width="70px" headerAlign="center" allowSort="true" align="center" renderer="onSexRenderer">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Sex")</div>
+            <div field="EmployeeName" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeName")</div>    
+            <div field="EmployeeCode" width="100px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EmployeeCode")</div>    
+            <div field="CardNo" width="100px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("CardNo")</div>
+            <div field="EventTime" width="150px" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.EventRecord_Resource.ResourceManager.GetString("Time")</div>   
+            <div field="ControlName" width="100px" headerAlign="center" allowSort="true">@Resources.EventRecord_Resource.ResourceManager.GetString("Control")</div>
+            <div field="DoorName" width="70px" headerAlign="center" allowSort="true">@Resources.EventRecord_Resource.ResourceManager.GetString("Door")</div>
+            <div field="EventTypeName" width="70px" headerAlign="center" align="center" allowSort="true">@Resources.EventRecord_Resource.ResourceManager.GetString("EventType")</div> 
+            <div field="Modify" width="70px" headerAlign="center" allowSort="true" renderer ="onYesRenderer">@Resources.EventRecord_Resource.ResourceManager.GetString("EventRecordModify")</div>    
+            <div field="EnglishName" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("EnglishName")</div>    
+            <div field="Sex" width="70px" headerAlign="center" allowSort="true" align="center" renderer="onSexRenderer">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Sex")</div>
 
-            <div field="EmpEnable" width="70px" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_EmpEnable")</div>   
-            <div field="DeptName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_DeptID")</div>
-            <div field="JobName" width="80px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_JobID")</div>
-            <div field="Leave" width="70px" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Leave")</div>   
-            <div field="LeaveDate" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_LeaveDate")</div>
-            <div field="BeKQ" width="80px" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_BeKQ")</div>
-            <div field="RegTime" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_RegTime")</div>   
-            <div field="PersonCode" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_PersonCode")</div>
-            <div field="Phone" width="80px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Phone")</div>
-            <div field="Email" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Email")</div>   
+            <div field="EmpEnable" width="70px" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">@Resources.EmployeeManage_Resource.ResourceManager.GetString("LogOut")</div>   
+            <div field="DeptName" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Dept")</div>
+            <div field="JobName" width="80px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Job")</div>
+            <div field="Leave" width="70px" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Leave")</div>   
+            <div field="LeaveDate" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("LeaveDate")</div>
+            <div field="BeKQ" width="80px" headerAlign="center" allowSort="true" align="center" renderer ="onYesRenderer">@Resources.EmployeeManage_Resource.ResourceManager.GetString("BeKQ")</div>
+            <div field="RegTime" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("RegTime")</div>   
+            <div field="PersonCode" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("PersonCode")</div>
+            <div field="Phone" width="80px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Phone")</div>
+            <div field="Email" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Email")</div>   
             
-            <div field="Car" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Car")</div>
-            <div field="Birthday" width="80px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Birthday")</div>
-            <div field="Home" width="80px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Home")</div>
-            <div field="Note1" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Note1")</div>   
-            <div field="Note2" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Note2")</div>
-            <div field="Note3" width="80px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Note3")</div>
-            <div field="Note4" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("EventRecord_Note4")</div>   
+            <div field="Car" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Car")</div>
+            <div field="Birthday" width="80px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Birthday")</div>
+            <div field="Home" width="80px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Home")</div>
+            <div field="Note1" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Note1")</div>   
+            <div field="Note2" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Note2")</div>
+            <div field="Note3" width="80px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Note3")</div>
+            <div field="Note4" width="70px" headerAlign="center" allowSort="true">@Resources.EmployeeManage_Resource.ResourceManager.GetString("Note4")</div>   
                                
         </div>
     </div> 

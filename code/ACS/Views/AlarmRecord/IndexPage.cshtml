@@ -14,21 +14,21 @@
     }    
 </style>   
     <fieldset style="width:96%;border:solid 1px #aaa;margin-top:8px;position:relative;">
-        <legend>@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmRecordSearch")</legend>
+        <legend>@Resources.AlarmRecord_Resource.ResourceManager.GetString("AlarmRecordSearch")</legend>
         <div id="editForm1" style="padding:5px;">
             <input class="mini-hidden" name="id"/>
             <form id="searchForm" method="post">
                 <table style="width:100%;">
                     <tr>
-                        <td style="width:60px;">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmTypeSearch")</td>
+                        <td style="width:60px;">@Resources.AlarmRecord_Resource.ResourceManager.GetString("AlarmType")</td>
                         <td style="width:130px;">
                             <input name="EventTypeID" class="mini-combobox" valueField="EventTypeID" textField="EventTypeName" 
-                                url="../AlarmRecord/LoadEventTypeList" allowInput="true" showNullItem="true" nullItemText="请选择..."
+                                url="../AlarmRecord/LoadEventTypeList" allowInput="true" showNullItem="true" nullItemText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
                             />
                         </td>
-                        <td style="width:20px;">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_DoorSearch")</td>
+                        <td style="width:20px;">@Resources.AlarmRecord_Resource.ResourceManager.GetString("Door")</td>
                         <td style="width:130px;"><input name="DoorName" class="mini-textbox"></td>
-                        <td style="width:40px;">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_TimeSearch")</td>
+                        <td style="width:40px;">@Resources.AlarmRecord_Resource.ResourceManager.GetString("AlarmTime")</td>
                         <td style="width:130px;">
                             <input name="AlarmTimeStart" class="mini-datepicker" format="yyyy-MM-dd HH:mm:ss" timeFormat="HH:mm:ss" 
                                 showTime="true" showOkButton="true" showTodayButton="false"/>-
@@ -38,7 +38,7 @@
                                 showTime="true" showOkButton="true" showTodayButton="false"/>
                         </td>
                         <td style="width:130px;">
-                            <a class="mini-button " iconCls="icon-search" onclick="search()">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_Search")</a>
+                            <a class="mini-button " iconCls="icon-search" onclick="search()">@Resources.Common_Resource.ResourceManager.GetString("Search")</a>
                         </td>  
                     </tr>
                 </table>
@@ -49,7 +49,7 @@
         <table style="width:100%;">
             <tr>
                 <td style="width:100%;">
-                    <a class="mini-button" iconCls="icon-remove" onclick="remove()">删除</a>     
+                    <a class="mini-button" iconCls="icon-remove" onclick="remove()">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a>     
                 </td>
             </tr>
         </table>           
@@ -62,10 +62,10 @@
             <div type="indexcolumn" width="15px"></div>
             <div name="ForegroundColorColumn" field="ForegroundColor" width="70" headerAlign="center" allowSort="true"></div>    
             <div name="BackgroundColorColumn" field="BackgroundColor" width="70" headerAlign="center" allowSort="true"></div>
-            <div field="EventTypeName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmType")</div>                       
-            <div field="AlarmTime" width="140px" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_AlarmTime")</div>    
-            <div field="DoorName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_DoorID")</div>    
-            <div field="ControlName" width="70px" headerAlign="center" allowSort="true">@Resources.Label_Resource.ResourceManager.GetString("AlarmRecord_ControlID")</div>        
+            <div field="EventTypeName" width="70px" headerAlign="center" allowSort="true">@Resources.AlarmRecord_Resource.ResourceManager.GetString("AlarmType")</div>                       
+            <div field="AlarmTime" width="140px" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.AlarmRecord_Resource.ResourceManager.GetString("AlarmTime")</div>    
+            <div field="DoorName" width="70px" headerAlign="center" allowSort="true">@Resources.AlarmRecord_Resource.ResourceManager.GetString("Door")</div>    
+            <div field="ControlName" width="70px" headerAlign="center" allowSort="true">@Resources.AlarmRecord_Resource.ResourceManager.GetString("Control")</div>        
         </div>
     </div> 
 </div>

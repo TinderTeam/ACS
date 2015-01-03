@@ -13,22 +13,22 @@
         margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;
     }    
 </style>
-    <h1>用户管理</h1>      
+    <h1>@Resources.UserManage_Resource.ResourceManager.GetString("UserManage")</h1>      
     <div style="width:100%;">
         <div class="mini-toolbar" style="border-bottom:0;padding:0px;">
             <table style="width:100%;">
                 <tr>
                     <td style="width:100%;">
-                        <a class="mini-button" iconCls="icon-add" onclick="onModifyRow('Create')">增加</a>
-                        <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow('Modify')">编辑</a>
-                        <a class="mini-button" iconCls="icon-expand" onclick="PrivilegeTree('Menu')">菜单权限</a>
-                        <a class="mini-button" iconCls="icon-collapse" onclick="PrivilegeTree('Device')">设备权限</a>
-                        <a class="mini-button" iconCls="icon-remove" onclick="onRemoveRow()">删除</a>       
+                        <a class="mini-button" iconCls="icon-add" onclick="onModifyRow('Create')">@Resources.Common_Resource.ResourceManager.GetString("Create")</a>
+                        <a class="mini-button" iconCls="icon-edit" onclick="onModifyRow('Modify')">@Resources.Common_Resource.ResourceManager.GetString("Modify")</a>
+                        <a class="mini-button" iconCls="icon-expand" onclick="PrivilegeTree('Menu')">@Resources.UserManage_Resource.ResourceManager.GetString("MenuPrivilege")</a>
+                        <a class="mini-button" iconCls="icon-collapse" onclick="PrivilegeTree('Device')">@Resources.UserManage_Resource.ResourceManager.GetString("DevicePrivilege")</a>
+                        <a class="mini-button" iconCls="icon-remove" onclick="onRemoveRow()">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a>       
                     </td>
                     <td style="white-space:nowrap;">
                         <form id="searchForm" method="post">
                         <input id ="key" name="UserName" class="mini-textbox" emptyText="请输入姓名" style="width:150px;"/>   
-                        <a class="mini-button" onclick="search()">查询</a>
+                        <a class="mini-button" onclick="search()">@Resources.Common_Resource.ResourceManager.GetString("Search")</a>
                         </form>
                     </td>
                 </tr>
@@ -41,15 +41,15 @@
         <div property="columns">
             <!--<div type="indexcolumn"></div>        -->
             <div type="checkcolumn" ></div>                  
-            <div field="UserID" width="80" headerAlign="center" allowSort="true">用户系统ID</div>    
-            <div field="UserName" width="120" headerAlign="center" allowSort="true">用户名</div>    
-            <div field="UserDesc" width="120" headerAlign="center" allowSort="true">用户描述</div>
-            <div header="日志" headerAlign="center" style="text-align:center">
+            <div field="UserID" width="80" headerAlign="center" allowSort="true">@Resources.UserManage_Resource.ResourceManager.GetString("UserID")</div>    
+            <div field="UserName" width="120" headerAlign="center" allowSort="true">@Resources.UserManage_Resource.ResourceManager.GetString("UserName")</div>    
+            <div field="UserDesc" width="120" headerAlign="center" allowSort="true">@Resources.UserManage_Resource.ResourceManager.GetString("UserDesc")</div>
+            <div header="@Resources.UserManage_Resource.ResourceManager.GetString("Log")" headerAlign="center" style="text-align:center">
                 <div property="columns">
-                    <div field="CreateUserID" width="80" headerAlign="center" allowSort="true">创建者ID</div>   
-                    <div field="CreateDate" width="120" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">创建时间</div>
-                    <div field="ModifyUserID" width="80" headerAlign="center" allowSort="true">最后编辑者ID</div>
-                    <div field="ModifyDate" width="120" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">最后编辑时间</div> 
+                    <div field="CreateUserID" width="80" headerAlign="center" allowSort="true">@Resources.UserManage_Resource.ResourceManager.GetString("CreateUserID")</div>   
+                    <div field="CreateDate" width="120" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.UserManage_Resource.ResourceManager.GetString("CreateDate")</div>
+                    <div field="ModifyUserID" width="80" headerAlign="center" allowSort="true">@Resources.UserManage_Resource.ResourceManager.GetString("ModifyUserID")</div>
+                    <div field="ModifyDate" width="120" headerAlign="center" allowSort="true" dateFormat="yyyy-MM-dd HH:mm:ss">@Resources.UserManage_Resource.ResourceManager.GetString("ModifyDate")</div> 
                 </div>
             </div>                            
         </div>

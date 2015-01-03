@@ -9,12 +9,12 @@
     <table style="width:100%;">
         <tr>
             <td style="width:100%;">
-                <a class="mini-button" iconCls="icon-add" onclick="onModifyControl('Create')">增加</a>
-                <a class="mini-button" iconCls="icon-edit" onclick="onModifyControl('Modify')">编辑</a>
-                <a class="mini-button" iconCls="icon-remove" onclick="onRemoveControl()">删除</a>
-                <a class="mini-button" iconCls="icon-node" onclick="updateInfo()">更新信息</a>    
-                <a class="mini-button" iconCls="icon-node" onclick="downloadcard()">下发卡信息</a>   
-                <span class="bar Hide" style="text-align:right" >操作进度：<span class="progressBar" id="bar"></span></span>  
+                <a class="mini-button" iconCls="icon-add" onclick="onModifyControl('Create')">@Resources.Common_Resource.ResourceManager.GetString("Create")</a>
+                <a class="mini-button" iconCls="icon-edit" onclick="onModifyControl('Modify')">@Resources.Common_Resource.ResourceManager.GetString("Modify")</a>
+                <a class="mini-button" iconCls="icon-remove" onclick="onRemoveControl()">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a>
+                <a class="mini-button" iconCls="icon-node" onclick="updateInfo()">@Resources.DeviceManage_Resource.ResourceManager.GetString("UpdateInfo")</a>    
+                <a class="mini-button" iconCls="icon-node" onclick="downloadcard()">@Resources.DeviceManage_Resource.ResourceManager.GetString("DownloadInfo")</a>   
+                <span class="bar Hide" style="text-align:right" >@Resources.Common_Resource.ResourceManager.GetString("OperationProgress")<span class="progressBar" id="bar"></span></span>  
             </td>
         </tr>
     </table>           
@@ -24,13 +24,13 @@
             url="Load"  idField="ControlID" multiSelect="true">
             <div property="columns">
                 <div type="checkcolumn" ></div>                  
-                <div field="ControlName" width="70" headerAlign="center" allowSort="true">控制器名称</div>
-                <div field="Code" width="50" headerAlign="center" allowSort="true" >控制器编号</div>
-                <div field="Online" width="50" headerAlign="center" allowSort="true" >控制器状态</div>
-                <div field="TypeID" width="50" headerAlign="center" allowSort="true" >控制器类型</div>
-                <div field="Serial" width="50" headerAlign="center" allowSort="true" >序列号</div>
-                <div field="Ip" width="50" headerAlign="center" allowSort="true">IP地址</div>
-                <div field="Port" width="30" headerAlign="center" allowSort="true">端口号</div>
+                <div field="ControlName" width="70" headerAlign="center" allowSort="true">@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlName")</div>
+                <div field="Code" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlCode")</div>
+                <div field="Online" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlStatus")</div>
+                <div field="TypeID" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlType")</div>
+                <div field="Serial" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlSerial")</div>
+                <div field="Ip" width="50" headerAlign="center" allowSort="true">@Resources.DeviceManage_Resource.ResourceManager.GetString("IPAddr")</div>
+                <div field="Port" width="30" headerAlign="center" allowSort="true">@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlPort")</div>
             </div>
     </div>
 </div>

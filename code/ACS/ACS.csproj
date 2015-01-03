@@ -136,15 +136,70 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\Label_Resource.Designer.cs">
+    <Compile Include="App_GlobalResources\Common_Resource.designer.cs">
+      <DependentUpon>Common_Resource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Label_Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Resource.Designer.cs">
+    <Compile Include="App_GlobalResources\AccessManage_Resource.designer.cs">
+      <DependentUpon>AccessManage_Resource.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\AlarmRecord_Resource.designer.cs">
+      <DependentUpon>AlarmRecord_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\DeptAndJob_Resource.designer.cs">
+      <DependentUpon>DeptAndJob_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventTypeManage_Resource.designer.cs">
+      <DependentUpon>EventTypeManage_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\DeviceManage_Resource.designer.cs">
+      <DependentUpon>DeviceManage_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\EmployeeManage_Resource.designer.cs">
+      <DependentUpon>EmployeeManage_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\EventRecord_Resource.designer.cs">
+      <DependentUpon>EventRecord_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\HolidayManage_Resource.designer.cs">
+      <DependentUpon>HolidayManage_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\Index_Resource.designer.cs">
+      <DependentUpon>Index_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\Log_Resource.designer.cs">
+      <DependentUpon>Log_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\Monitor_Resource.designer.cs">
+      <DependentUpon>Monitor_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="App_GlobalResources\UserManage_Resource.designer.cs">
+      <DependentUpon>UserManage_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -338,15 +393,63 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="bin\Log4Net.config" />
+    <Content Include="App_GlobalResources\Common_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Common_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\AccessManage_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AccessManage_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\AlarmRecord_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>AlarmRecord_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\DeptAndJob_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DeptAndJob_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EventTypeManage_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EventTypeManage_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\DeviceManage_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>DeviceManage_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EmployeeManage_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EmployeeManage_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\EventRecord_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>EventRecord_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\HolidayManage_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>HolidayManage_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Index_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Index_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Log_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Log_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\Monitor_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Monitor_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_GlobalResources\UserManage_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>UserManage_Resource.designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="DeviceConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Properties\PublishProfiles\11.pubxml" />
-    <Content Include="App_GlobalResources\Label_Resource.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Label_Resource.Designer.cs</LastGenOutput>
-    </Content>
     <EmbeddedResource Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -1758,12 +1861,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_GlobalResources\Resource.resx">
-      <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

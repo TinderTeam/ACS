@@ -21,67 +21,67 @@
 <body>
     <div class="mini-fit">
         <div id="tabs1" class="mini-tabs" activeindex="0" style="width: 100%; height: 100%;">
-            <div title="根据权限选择">
+            <div title="@Resources.AccessManage_Resource.ResourceManager.GetString("SelectByAccess")">
 
                 <div id="treegrid1" class="mini-treegrid" style="width: 100%; height: 93%;" 
                     showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid" checkedField="CheckNode"
                     resultAsTree="false" allowResize="true" showCheckBox="true" onbeforenodecheck="onBeforeNodeCheck">
                     <div property="columns">
                         <div type="indexcolumn"></div>
-                        <div name="taskname" field="NodeName" width="120" headeralign="center" allowsort="true">权限名称</div>
-                        <div field="Type" width="80" headeralign="center" allowsort="true">类型</div>
-                        <div header="门禁时间" headeralign="center">
+                        <div name="taskname" field="NodeName" width="120" headeralign="center" allowsort="true">@Resources.AccessManage_Resource.ResourceManager.GetString("AccessName")</div>
+                        <div field="Type" width="80" headeralign="center" allowsort="true">@Resources.AccessManage_Resource.ResourceManager.GetString("Type")</div>
+                        <div header="@Resources.AccessManage_Resource.ResourceManager.GetString("AccessTime")" headeralign="center">
                             <div property="columns" >
-                                <div field="StartTime" width="80" headeralign="center" dateFormat="HH:mm:ss" allowsort="true">开始时间</div>
-                                <div field="EndTime" width="80" headeralign="center" dateFormat="HH:mm:ss" allowsort="true">截止时间</div>
-                                <div field="Monday" width="30" headerAlign="center" renderer ="onYesRenderer">星期一</div>
-                                <div field="Tuesday" width="30" headerAlign="center" renderer ="onYesRenderer">星期二</div>
-                                <div field="Wednesday" width="30" headerAlign="center" renderer ="onYesRenderer">星期三</div>
-                                <div field="Thursday" width="30" headerAlign="center" renderer ="onYesRenderer">星期四</div>
-                                <div field="Friday" width="30" headerAlign="center" renderer ="onYesRenderer">星期五</div>
-                                <div field="Saturday" width="30" headerAlign="center" renderer ="onYesRenderer">星期六</div>
-                                <div field="Sunday" width="30" headerAlign="center" renderer ="onYesRenderer">星期日</div>
-                                <div field="Holiday" width="30" headerAlign="center" renderer ="onYesRenderer">假期</div>
+                                <div field="StartTime" width="80" headeralign="center" dateFormat="HH:mm:ss" allowsort="true">@Resources.AccessManage_Resource.ResourceManager.GetString("StartTime")</div>
+                                <div field="EndTime" width="80" headeralign="center" dateFormat="HH:mm:ss" allowsort="true">@Resources.AccessManage_Resource.ResourceManager.GetString("EndTime")</div>
+                                <div field="Monday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Monday")</div>
+                                <div field="Tuesday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Tuesday")</div>
+                                <div field="Wednesday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Wednesday")</div>
+                                <div field="Thursday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Thursday")</div>
+                                <div field="Friday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Friday")</div>
+                                <div field="Saturday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Saturday")</div>
+                                <div field="Sunday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Sunday")</div>
+                                <div field="Holiday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Holiday")</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div style="text-align: center; padding: 5px;">
-                    <a class="mini-button" onclick="onSaveData('AccessSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
-                    <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">取消</a>
+                    <a class="mini-button" onclick="onSaveData('AccessSubmit')"  style="width: 60px; margin-right: 20px;">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>
+                    <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">@Resources.Common_Resource.ResourceManager.GetString("Cancel")</a>
                 </div>
 
             </div>
 
-            <div title="根据设备选择" iconcls="icon-cut">
+            <div title="@Resources.AccessManage_Resource.ResourceManager.GetString("SelectByDevice")" iconcls="icon-cut">
                 <div id="devicetreegrid" class="mini-treegrid" style="width: 100%; height: 93%;" 
                     showTreeIcon="true" treeColumn="taskname" idField="Id" parentField="Pid" checkedField="CheckNode"
                     resultAsTree="false" allowResize="true" showCheckBox="true">
                     <div property="columns">
                         <div type="indexcolumn"></div>
-                        <div name="taskname" field="NodeName" width="120" headeralign="center" allowsort="true">权限名称</div>
-                        <div field="Type" width="80" headeralign="center" allowsort="true">类型</div>
-                        <div header="门禁时间" headeralign="center">
+                        <div name="taskname" field="NodeName" width="120" headeralign="center" allowsort="true">@Resources.AccessManage_Resource.ResourceManager.GetString("AccessName")</div>
+                        <div field="Type" width="80" headeralign="center" allowsort="true">@Resources.AccessManage_Resource.ResourceManager.GetString("Type")</div>
+                        <div header="@Resources.AccessManage_Resource.ResourceManager.GetString("AccessTime")" headeralign="center">
                             <div property="columns" >
-                                <div field="StartTime" width="80" headeralign="center" dateFormat="HH:mm:ss" allowsort="true">开始时间</div>
-                                <div field="EndTime" width="80" headeralign="center" dateFormat="HH:mm:ss" allowsort="true">截止时间</div>
-                                <div field="Monday" width="30" headerAlign="center" renderer ="onYesRenderer">星期一</div>
-                                <div field="Tuesday" width="30" headerAlign="center" renderer ="onYesRenderer">星期二</div>
-                                <div field="Wednesday" width="30" headerAlign="center" renderer ="onYesRenderer">星期三</div>
-                                <div field="Thursday" width="30" headerAlign="center" renderer ="onYesRenderer">星期四</div>
-                                <div field="Friday" width="30" headerAlign="center" renderer ="onYesRenderer">星期五</div>
-                                <div field="Saturday" width="30" headerAlign="center" renderer ="onYesRenderer">星期六</div>
-                                <div field="Sunday" width="30" headerAlign="center" renderer ="onYesRenderer">星期日</div>
-                                <div field="Holiday" width="30" headerAlign="center" renderer ="onYesRenderer">假期</div>
+                                <div field="StartTime" width="80" headeralign="center" dateFormat="HH:mm:ss" allowsort="true">@Resources.AccessManage_Resource.ResourceManager.GetString("StartTime")</div>
+                                <div field="EndTime" width="80" headeralign="center" dateFormat="HH:mm:ss" allowsort="true">@Resources.AccessManage_Resource.ResourceManager.GetString("EndTime")</div>
+                                <div field="Monday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Monday")</div>
+                                <div field="Tuesday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Tuesday")</div>
+                                <div field="Wednesday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Wednesday")</div>
+                                <div field="Thursday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Thursday")</div>
+                                <div field="Friday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Friday")</div>
+                                <div field="Saturday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Saturday")</div>
+                                <div field="Sunday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Sunday")</div>
+                                <div field="Holiday" width="30" headerAlign="center" renderer ="onYesRenderer">@Resources.AccessManage_Resource.ResourceManager.GetString("Holiday")</div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div style="text-align: center; padding: 5px;">
-                    <a class="mini-button" onclick="onSaveData('DeviceSubmit')"  style="width: 60px; margin-right: 20px;">确定</a>
-                    <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">取消</a>
+                    <a class="mini-button" onclick="onSaveData('DeviceSubmit')"  style="width: 60px; margin-right: 20px;">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>
+                    <a class="mini-button" onclick="CloseWindow('cancel')" style="width: 60px;">@Resources.Common_Resource.ResourceManager.GetString("Cancel")</a>
                 </div>
             </div>
 
