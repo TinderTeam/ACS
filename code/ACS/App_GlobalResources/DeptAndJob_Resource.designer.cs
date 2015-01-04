@@ -61,6 +61,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 无法删除一级部门！ 的本地化字符串。
+        /// </summary>
+        internal static string CantDeleteRoot {
+            get {
+                return ResourceManager.GetString("CantDeleteRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 无法编辑一级部门！ 的本地化字符串。
+        /// </summary>
+        internal static string CantModifyRoot {
+            get {
+                return ResourceManager.GetString("CantModifyRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 部门编号 的本地化字符串。
         /// </summary>
         internal static string DeptCode {

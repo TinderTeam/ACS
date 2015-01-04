@@ -126,6 +126,9 @@
   <data name="Browse" xml:space="preserve">
     <value>浏览</value>
   </data>
+  <data name="CancelConfirm" xml:space="preserve">
+    <value>确定注销选中记录？</value>
+  </data>
   <data name="Car" xml:space="preserve">
     <value>车牌号</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="DownLoadCard" xml:space="preserve">
     <value>下发卡信息</value>
+  </data>
+  <data name="DownLoadCardConfirm" xml:space="preserve">
+    <value>确定下发选中记录？</value>
   </data>
   <data name="Email" xml:space="preserve">
     <value>邮箱</value>
@@ -167,6 +173,9 @@
   </data>
   <data name="Leave" xml:space="preserve">
     <value>离职</value>
+  </data>
+  <data name="LeaveConfirm" xml:space="preserve">
+    <value>确定该员工已离职？</value>
   </data>
   <data name="LeaveDate" xml:space="preserve">
     <value>离职时间</value>
@@ -200,6 +209,9 @@
   </data>
   <data name="Photo2" xml:space="preserve">
     <value>照片2</value>
+  </data>
+  <data name="PleaseSelectRootAccess" xml:space="preserve">
+    <value>请选择一条根权限</value>
   </data>
   <data name="Privilege" xml:space="preserve">
     <value>权限</value>

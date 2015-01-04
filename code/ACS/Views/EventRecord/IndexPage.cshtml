@@ -139,7 +139,7 @@
 
             var rows = grid.getSelecteds();
             if (rows.length > 0) {
-                if (confirm("确定删除选中记录？")) {
+                if (confirm("@Resources.Common_Resource.ResourceManager.GetString("DeleteRowConfirm")")) {
                     //获取选中的对象ID
                     var ids = [];
                     for (var i = 0, l = rows.length; i < l; i++) {
@@ -147,8 +147,6 @@
                         ids.push(r.EventID);
                     }
                     var idList = mini.encode(ids);
-
-                    grid.loading("操作中，请稍后......");
                     $.ajax({
                         url: "../EventRecord/Delete?data=" + idList,
                         success: function (json) {
@@ -163,7 +161,7 @@
                     });
                 }
             } else {
-                alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             }
         }
 

@@ -68,16 +68,16 @@
                 var rows = grid.getSelecteds();
                 var row = grid.getSelected();
                 if (rows.length != 1) {
-                    mini.alert("请选中一条记录");
+                    mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
                     return;
                 }
                 else {
-                    var titleName = "编辑用户";
+                    var titleName = "@Resources.Common_Resource.ResourceManager.GetString("Modify")";
                     var userID = row.UserID;
                 }
             }
             else if (type == "Create") {
-                var titleName = "新增用户";
+                var titleName = "@Resources.Common_Resource.ResourceManager.GetString("Create")";
             }
             mini.open({
                 url: "../UserManage/ShowPage",
@@ -104,11 +104,20 @@
         function PrivilegeTree(type) {
             var rows = grid.getSelecteds();
             var row = grid.getSelected();
+            var titleName;
+            if (type == "Menu")
+            {
+                titleName = "@Resources.UserManage_Resource.ResourceManager.GetString("MenuPrivilege")";
+            }
+            else if (type == "Device")
+            {
+                titleName = "@Resources.UserManage_Resource.ResourceManager.GetString("DevicePrivilege")";
+            }
             if (rows.length == 1) {
                 var id = row.UserID;
                 mini.open({
                     url: "../UserManage/ShowPrivilege",
-                    title: "菜单权限", width: 400, height: 600,
+                    title: titleName, width: 400, height: 600,
                     onload: function () {
                         var iframe = this.getIFrameEl();
                         var data = { action: type, id: row.UserID };
@@ -121,7 +130,7 @@
                     }
                 });
             } else {
-                mini.alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             }
 
         }
@@ -131,7 +140,7 @@
             var rows = grid.getSelecteds();
 
             if (rows.length > 0) {
-                if (confirm("确定删除选中记录？")) {
+                if (confirm("@Resources.Common_Resource.ResourceManager.GetString("DeleteRowConfirm")")) {
            
                     var ids = [];
                     for (var i = 0, l = rows.length; i < l; i++) {
@@ -147,7 +156,7 @@
                         success: function (json) {
                             var Rsp = mini.decode(json);
                             if (Rsp.ErrorCode == "Success") {
-                                mini.alert("删除成功！");
+                                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("DeleteSuccess")");
                                 grid.reload();
                             }
                             else {
@@ -159,7 +168,7 @@
                     });
                 }
             } else {
-                mini.alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             }
         }
         //用户搜索

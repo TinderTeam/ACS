@@ -80,7 +80,7 @@
         function IPValidation(e) {
             if (e.isValid) {
                 if (isIP(e.value) == false) {
-                    e.errorText = "请输入正确格式的IP地址";
+                    e.errorText = "@Resources.DeviceManage_Resource.ResourceManager.GetString("PleaseInputIPAddr")";
                     e.isValid = false;
                 }
             }
@@ -164,7 +164,7 @@
         }
         function CloseWindow(action) {
             if (action == "close" && form.isChanged()) {
-                if (confirm("数据被修改了，是否先保存？")) {
+                if (confirm("@Resources.Common_Resource.ResourceManager.GetString("SaveDataOrNot")")) {
                     return false;
                 }
             }

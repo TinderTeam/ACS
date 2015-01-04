@@ -66,12 +66,12 @@
             var row = grid.getSelected();
             if (rows.length != 1)
             {
-                mini.alert("请选择一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
                 return;
             }
             mini.open({
                 url: "../EventTypeManage/ShowPage",
-                title: "编辑事件类型", width: 350, height: 350,
+                title: "@Resources.Common_Resource.ResourceManager.GetString("Modify")", width: 350, height: 350,
                 onload: function () {
                     var iframe = this.getIFrameEl();
                     var data = { id: row.EventTypeID };

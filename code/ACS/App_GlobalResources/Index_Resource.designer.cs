@@ -79,6 +79,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 验证码 的本地化字符串。
+        /// </summary>
+        internal static string IdentifyCode {
+            get {
+                return ResourceManager.GetString("IdentifyCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 首页 的本地化字符串。
         /// </summary>
         internal static string Index {
@@ -111,6 +120,15 @@ namespace Resources {
         internal static string OldPasswordNull {
             get {
                 return ResourceManager.GetString("OldPasswordNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 密码 的本地化字符串。
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace Resources {
         internal static string SelectTheme {
             get {
                 return ResourceManager.GetString("SelectTheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 用户名 的本地化字符串。
+        /// </summary>
+        internal static string UserName {
+            get {
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
     }

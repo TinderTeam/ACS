@@ -166,7 +166,7 @@
         function cancel() {
             var rows = grid.getSelecteds();
             if (rows.length > 0) {
-                if (confirm("确定注销选中记录？")) {
+                if (confirm("@Resources.EmployeeManage_Resource.ResourceManager.GetString("CancelConfirm")")) {
 
                     var ids = [];
                     for (var i = 0, l = rows.length; i < l; i++) {
@@ -174,7 +174,6 @@
                         ids.push(r.EmployeeID);
                     }
                     var json = mini.encode(ids);
-                    grid.loading("操作中，请稍后......");
                     $.ajax({
                         url: "../EmployeeManage/Cancel",
                         type: 'post',
@@ -194,7 +193,7 @@
                     });
                 }
             } else {
-                alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             }
         }
 
@@ -234,7 +233,7 @@
         function downloadCard() {
             var rows = grid.getSelecteds();
             if (rows.length > 0) {
-                if (confirm("确定下发选中记录？")) {
+                if (confirm("@Resources.EmployeeManage_Resource.ResourceManager.GetString("DownLoadCardConfirm")")) {
 
                     var ids = [];
                     for (var i = 0, l = rows.length; i < l; i++) {
@@ -261,14 +260,14 @@
                     });
                 }
             } else {
-                alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             }
         }
         //离职操作
         function leave() {
             var rows = grid.getSelecteds();
             if (rows.length > 0) {
-                if (confirm("确定该员工已离职？")) {
+                if (confirm("@Resources.EmployeeManage_Resource.ResourceManager.GetString("LeaveConfirm")")) {
 
                     var ids = [];
                     for (var i = 0, l = rows.length; i < l; i++) {
@@ -296,7 +295,7 @@
                     });
                 }
             } else {
-                alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             }
         }
         //发卡操作
@@ -309,10 +308,9 @@
                     ids.push(r.EmployeeID);
                 }
                 var json = mini.encode(ids);
-                grid.loading("操作中，请稍后......");
                 mini.open({
                     url: "../EmployeeManage/Card",
-                    title: "员工发卡", width: 560, height: 500,
+                    title: "@Resources.EmployeeManage_Resource.ResourceManager.GetString("SendCard")", width: 560, height: 500,
                     onload: function () {
                         var iframe = this.getIFrameEl();
                         var data = {id: json };
@@ -323,7 +321,7 @@
                     }
                 });
             } else {
-                alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             }
         }
         //新增、编辑窗口页面
@@ -332,13 +330,13 @@
             var row = grid.getSelected();
             if (type == 'Modify') {
                 if (rows.length != 1) {
-                    mini.alert("请选中一条记录");
+                    mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
                     return;
                 }
-                var titleName = "编辑员工";
+                var titleName = "@Resources.Common_Resource.ResourceManager.GetString("Modify")";
                 var value = row.EmployeeID;
             } else if (type == 'Create') {
-                var titleName = "新增员工";
+                var titleName = "@Resources.Common_Resource.ResourceManager.GetString("Create")";
                 var value = "";
             }
             mini.open({
@@ -354,14 +352,13 @@
 
                 }
             });
-
         }
         function remove() {
             
             var rows = grid.getSelecteds();
 
             if (rows.length > 0) {
-                if (confirm("确定删除选中记录？")) {
+                if (confirm("@Resources.Common_Resource.ResourceManager.GetString("DeleteRowConfirm")")) {
            
                     var ids = [];
                     for (var i = 0, l = rows.length; i < l; i++) {
@@ -377,7 +374,7 @@
                         success: function (json) {
                             var Rsp = mini.decode(json);
                             if (Rsp.ErrorCode == "Success") {
-                                mini.alert("删除成功！");
+                                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("DeleteSuccess")");
                                 grid.reload();
                             }
                             else {
@@ -390,7 +387,7 @@
                     });
                 }
             } else {
-                alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             }
         }
 
@@ -416,13 +413,13 @@
             var rows = grid.getSelecteds();
             var row = grid.getSelected();
             if (rows.length != 1) {
-                mini.alert("请选中一条记录");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
                 return;
             }
             var value = row.EmployeeID;
             mini.open({
                 url: "../EmployeeManage/AccessPage",
-                title: "权限配置", width: 1024, height: 600,
+                title: "@Resources.EmployeeManage_Resource.ResourceManager.GetString("PrivilegeSet")", width: 1024, height: 600,
                 onload: function () {
                     var iframe = this.getIFrameEl();
                     var data = {id: value };

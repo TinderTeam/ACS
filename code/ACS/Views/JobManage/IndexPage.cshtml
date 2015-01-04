@@ -42,12 +42,12 @@
         var value;
         if ((type == "Create") || ((node) && (type == "Modify"))) {
             if (type == "Modify") {
-                titleName = "编辑职位";
+                titleName = "@Resources.Common_Resource.ResourceManager.GetString("Modify")";
                 value = tree.getValue();
                 name = node.JobName;
             }
             else if (type == "Create") {
-                titleName = "新增职位";
+                titleName = "@Resources.Common_Resource.ResourceManager.GetString("Create")";
                 value = null;
                 name = null;
             }
@@ -70,7 +70,7 @@
             });
         }
         else {
-            alert("请选中一个节点");
+            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectNode")");
         }
     }
     //删除职位
@@ -84,7 +84,7 @@
         var json = mini.encode(ids);
     
         if (node) {
-            if (confirm("确定删除选中节点?")) {
+            if (confirm("@Resources.Common_Resource.ResourceManager.GetString("DeleteRowConfirm")")) {
 
                 $.ajax({
                     url: "../JobManage/Delete",
@@ -94,7 +94,7 @@
                     success: function (json) {
                         var Rsp = mini.decode(json);
                         if (Rsp.ErrorCode == "Success") {
-                            mini.alert("删除成功！");
+                            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("DeleteSuccess")");
                             tree.removeNode(node);
                         }
                         else {
@@ -108,7 +108,7 @@
             }
         }
         else {
-            alert("请选中一个节点");
+            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectNode")");
         }
     }
     </script>

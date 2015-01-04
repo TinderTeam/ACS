@@ -126,6 +126,9 @@
   <data name="AccessTime" xml:space="preserve">
     <value>门禁时间</value>
   </data>
+  <data name="DeleteAccessConfirm" xml:space="preserve">
+    <value>确定删除选中门禁权限?</value>
+  </data>
   <data name="EndTime" xml:space="preserve">
     <value>截至时间</value>
   </data>

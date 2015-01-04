@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 确定注销选中记录？ 的本地化字符串。
+        /// </summary>
+        internal static string CancelConfirm {
+            get {
+                return ResourceManager.GetString("CancelConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 车牌号 的本地化字符串。
         /// </summary>
         internal static string Car {
@@ -120,6 +129,15 @@ namespace Resources {
         internal static string DownLoadCard {
             get {
                 return ResourceManager.GetString("DownLoadCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定下发选中记录？ 的本地化字符串。
+        /// </summary>
+        internal static string DownLoadCardConfirm {
+            get {
+                return ResourceManager.GetString("DownLoadCardConfirm", resourceCulture);
             }
         }
         
@@ -210,6 +228,15 @@ namespace Resources {
         internal static string Leave {
             get {
                 return ResourceManager.GetString("Leave", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确定该员工已离职？ 的本地化字符串。
+        /// </summary>
+        internal static string LeaveConfirm {
+            get {
+                return ResourceManager.GetString("LeaveConfirm", resourceCulture);
             }
         }
         
@@ -309,6 +336,15 @@ namespace Resources {
         internal static string Photo2 {
             get {
                 return ResourceManager.GetString("Photo2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请选择一条根权限 的本地化字符串。
+        /// </summary>
+        internal static string PleaseSelectRootAccess {
+            get {
+                return ResourceManager.GetString("PleaseSelectRootAccess", resourceCulture);
             }
         }
         

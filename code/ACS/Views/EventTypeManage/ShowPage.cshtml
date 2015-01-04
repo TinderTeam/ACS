@@ -158,7 +158,7 @@ html, body
 
         function CloseWindow(action) {
             if (action == "close" && form.isChanged()) {
-                if (confirm("数据被修改了，是否先保存？")) {
+                if (confirm("@Resources.Common_Resource.ResourceManager.GetString("SaveDataOrNot")")) {
                     return false;
                 }
             }

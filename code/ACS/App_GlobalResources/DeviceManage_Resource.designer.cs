@@ -133,6 +133,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 正在删除控制器及配置信息... 的本地化字符串。
+        /// </summary>
+        internal static string DeletingControlInfo {
+            get {
+                return ResourceManager.GetString("DeletingControlInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 设备管理 的本地化字符串。
         /// </summary>
         internal static string DeviceManage {
@@ -196,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 确定下发选中记录？ 的本地化字符串。
+        /// </summary>
+        internal static string DownloadInfoConfirm {
+            get {
+                return ResourceManager.GetString("DownloadInfoConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 结束时间 的本地化字符串。
         /// </summary>
         internal static string EndTime {
@@ -232,11 +250,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 请输入正确格式的IP地址！ 的本地化字符串。
+        /// </summary>
+        internal static string PleaseInputIPAddr {
+            get {
+                return ResourceManager.GetString("PleaseInputIPAddr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 起始时间 的本地化字符串。
         /// </summary>
         internal static string StartTime {
             get {
                 return ResourceManager.GetString("StartTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 将更新与该控制器有关的权限信息，是否继续？ 的本地化字符串。
+        /// </summary>
+        internal static string UpdateControlInfo {
+            get {
+                return ResourceManager.GetString("UpdateControlInfo", resourceCulture);
             }
         }
         

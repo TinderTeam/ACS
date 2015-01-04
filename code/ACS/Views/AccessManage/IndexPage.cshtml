@@ -87,17 +87,17 @@
             {
                 var node = tree.getSelectedNode();
                 if ((!node) || (node.Pid != "0")) {
-                    alert("请选中一个根节点");
+                    mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRoot")");
                     return;
                 }
                 else {
-                    var titleName = "编辑名称";
+                    var titleName = "@Resources.AccessManage_Resource.ResourceManager.GetString("ModifyName")";
                     var accessID = node.AccessDetailID;
                 }
             }
             else if(type == "Create")
             {
-                var titleName = "新增权限";
+                var titleName = "@Resources.Common_Resource.ResourceManager.GetString("Create")";
             }
             mini.open({
                 url: "../AccessManage/ShowPage",
@@ -127,7 +127,7 @@
             if ((node)&&(node.Pid == "0")) {
                 mini.open({
                     url: "../AccessManage/AccessEdit",
-                    title: "新增权限", width: 1024, height: 600,
+                    title: "@Resources.AccessManage_Resource.ResourceManager.GetString("ModifyAccess")", width: 1024, height: 600,
                     onload: function () {
                         var iframe = this.getIFrameEl();
                         var data = { id: node.ValueID };
@@ -141,7 +141,7 @@
                 });
             }
             else {
-                alert("请选中一个根节点");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRoot")");
             }
         }
         //删除权限
@@ -149,7 +149,7 @@
             var tree = mini.get("#treegrid");
             var node = tree.getSelectedNode();
             if ((node)&&(node._level == 0)) {
-                if (confirm("确定删除选中门禁权限?")) {
+                if (confirm("@Resources.AccessManage_Resource.ResourceManager.GetString("DeleteAccessConfirm")")) {
                     //通过Ajax删除节点
                     //方法：removeAccess
                     var ids = Array(node.ValueID.toString());
@@ -162,7 +162,7 @@
                         success: function (json) {
                         var Rsp = mini.decode(json);
                         if (Rsp.ErrorCode == "Success") {
-                            mini.alert("删除成功！");
+                            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("DeleteSuccess")");
                             tree.load("../AccessManage/LoadAllAccessDetail");
                         }
                         else {
@@ -176,7 +176,7 @@
                 }
             }
             else {
-                alert("请选中一个根节点");
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRoot")");
             }
         }
         

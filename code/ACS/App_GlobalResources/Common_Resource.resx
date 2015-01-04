@@ -126,6 +126,15 @@
   <data name="Delete" xml:space="preserve">
     <value>删除</value>
   </data>
+  <data name="DeleteNodeConfirm" xml:space="preserve">
+    <value>确认删除选中节点？</value>
+  </data>
+  <data name="DeleteRowConfirm" xml:space="preserve">
+    <value>确认删除选中记录？</value>
+  </data>
+  <data name="DeleteSuccess" xml:space="preserve">
+    <value>删除成功!</value>
+  </data>
   <data name="Disable" xml:space="preserve">
     <value>禁用</value>
   </data>
@@ -150,14 +159,29 @@
   <data name="OperationProgress" xml:space="preserve">
     <value>操作进度：</value>
   </data>
+  <data name="OperationSuccess" xml:space="preserve">
+    <value>操作成功</value>
+  </data>
   <data name="PleaseSelect" xml:space="preserve">
     <value>请选择...</value>
   </data>
   <data name="PleaseSelectDate" xml:space="preserve">
     <value>请选择日期</value>
   </data>
+  <data name="PleaseSelectNode" xml:space="preserve">
+    <value>请选择一个节点！</value>
+  </data>
+  <data name="PleaseSelectRoot" xml:space="preserve">
+    <value>请选择一个根节点！</value>
+  </data>
+  <data name="PleaseSelectRow" xml:space="preserve">
+    <value>请选择一条记录！</value>
+  </data>
   <data name="Refresh" xml:space="preserve">
     <value>刷新</value>
+  </data>
+  <data name="SaveDataOrNot" xml:space="preserve">
+    <value>数据被修改了，是否先保存？</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>查询</value>

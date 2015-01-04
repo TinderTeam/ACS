@@ -141,6 +141,9 @@
   <data name="DateRange" xml:space="preserve">
     <value>日期范围</value>
   </data>
+  <data name="DeletingControlInfo" xml:space="preserve">
+    <value>正在删除控制器及配置信息...</value>
+  </data>
   <data name="DeviceManage" xml:space="preserve">
     <value>设备管理</value>
   </data>
@@ -162,6 +165,9 @@
   <data name="DownloadInfo" xml:space="preserve">
     <value>下发卡信息</value>
   </data>
+  <data name="DownloadInfoConfirm" xml:space="preserve">
+    <value>确定下发选中记录？</value>
+  </data>
   <data name="EndTime" xml:space="preserve">
     <value>结束时间</value>
   </data>
@@ -174,8 +180,14 @@
   <data name="OpenTime" xml:space="preserve">
     <value>开门时间(S)</value>
   </data>
+  <data name="PleaseInputIPAddr" xml:space="preserve">
+    <value>请输入正确格式的IP地址！</value>
+  </data>
   <data name="StartTime" xml:space="preserve">
     <value>起始时间</value>
+  </data>
+  <data name="UpdateControlInfo" xml:space="preserve">
+    <value>将更新与该控制器有关的权限信息，是否继续？</value>
   </data>
   <data name="UpdateInfo" xml:space="preserve">
     <value>更新信息</value>

@@ -456,7 +456,7 @@
         function OperateDevice(cmd) {
            
             if (doorID == 0 && controlID==0) {
-                alert('请选择一个门');
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectNode")");
             } else {
                 var url = "/Monitor/OperateDevice?DoorID=" + doorID +"&cmdCode=" + cmd;
                 $.ajax({
@@ -465,7 +465,7 @@
                     data: "",
                     cache: false,
                     success: function (text) {
-                        mini.alert("操作完成！");
+                        mini.alert("@Resources.Common_Resource.ResourceManager.GetString("OperationSuccess")");
                         OperateAddItem(cmd, doorID);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
@@ -524,7 +524,7 @@
         //操作处理
         function DeviceDownload() {
             if (doorID == 0 && controlID == 0) {
-                alert('请选择一个控制器');
+                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectNode")");
             } else {
                 var url = "/Monitor/DeviceDownload?&ControlID=" + controlID;
                 

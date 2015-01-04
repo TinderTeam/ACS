@@ -28,7 +28,7 @@
         var rows = doorGrid.getSelecteds();
         var row = doorGrid.getSelected();
         if (rows.length == 1) {
-            var titleName = "编辑门";
+            var titleName = "@Resources.Common_Resource.ResourceManager.GetString("Modify")";
             var value = row.DoorID;
             mini.open({
                 url: "../DeviceManage/DoorPage",
@@ -49,7 +49,7 @@
             });
         } 
         else {
-            mini.alert("请选择一条记录");
+            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
         }
     }
 </script>

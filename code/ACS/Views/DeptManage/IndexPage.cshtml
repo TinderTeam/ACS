@@ -41,15 +41,15 @@
         var value = tree.getValue();
         if (node) {
             if ((type == "Modify") && (node._level == 0)) {
-                mini.alert("无法编辑一级部门");
+                mini.alert("@Resources.DeptAndJob_Resource.ResourceManager.GetString("CantModifyRoot")");
                 return;   
             }
             else if ((type == "Modify") && (node._level > 0))
             {
-                var titleName = "编辑部门";
+                var titleName = "@Resources.Common_Resource.ResourceManager.GetString("Modify")";
             }
             else if (type == "Create") {
-                var titleName = "新增部门";
+                var titleName = "@Resources.Common_Resource.ResourceManager.GetString("Create")";
             }
             mini.open({
                 url: "../DeptManage/ShowPage",
@@ -72,7 +72,7 @@
             });
         }
         else {
-            mini.alert("请选中一个节点");
+            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectNode")");
         }
     }
     //删除部门
@@ -88,10 +88,10 @@
         if (node) {
             if (node._level == 0)
             {
-                mini.alert("无法删除一级部门");
+                mini.alert("@Resources.DeptAndJob_Resource.ResourceManager.GetString("CantDeleteRoot")");
                 return;
             }
-            if (confirm("确定删除选中节点?")) {
+            if (confirm("@Resources.Common_Resource.ResourceManager.GetString("DeleteNodeConfirm")")) {
 
                 $.ajax({
                     url: "../DeptManage/Delete",
@@ -101,7 +101,7 @@
                     success: function (json) {
                         var Rsp = mini.decode(json);
                         if (Rsp.ErrorCode == "Success") {
-                            mini.alert("删除成功！");
+                            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("DeleteSuccess")");
                             tree.removeNode(node);
                         }
                         else {
@@ -115,7 +115,7 @@
             }
         }
         else {
-            mini.alert("请选中一个部门");
+            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectNode")");
         }
     }
     </script>

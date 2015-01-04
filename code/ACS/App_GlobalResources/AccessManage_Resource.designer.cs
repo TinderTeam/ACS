@@ -88,6 +88,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 确定删除选中门禁权限? 的本地化字符串。
+        /// </summary>
+        internal static string DeleteAccessConfirm {
+            get {
+                return ResourceManager.GetString("DeleteAccessConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 截至时间 的本地化字符串。
         /// </summary>
         internal static string EndTime {

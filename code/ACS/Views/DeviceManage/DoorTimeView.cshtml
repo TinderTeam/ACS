@@ -35,13 +35,13 @@
         var rows = grid.getSelecteds();
         var row = grid.getSelected();
         if (rows.length != 1) {
-            mini.alert("请选中一条记录");
+            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectRow")");
             return;
         }
         var value = row.DoorTimeID;
         mini.open({
             url: "../DeviceManage/DoorTimePage",
-            title: "编辑时间段", width: 560, height: 350,
+            title: "@Resources.Common_Resource.ResourceManager.GetString("Modify")", width: 560, height: 350,
             onload: function () {
                 var iframe = this.getIFrameEl();
                 var data = { id: value };

@@ -123,6 +123,9 @@
   <data name="Exit" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="IdentifyCode" xml:space="preserve">
+    <value>验证码</value>
+  </data>
   <data name="Index" xml:space="preserve">
     <value>首页</value>
   </data>
@@ -134,6 +137,9 @@
   </data>
   <data name="OldPasswordNull" xml:space="preserve">
     <value>原密码不能为空</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>密码</value>
   </data>
   <data name="PasswordNotSame" xml:space="preserve">
     <value>请输入相同的密码</value>
@@ -149,5 +155,8 @@
   </data>
   <data name="SelectTheme" xml:space="preserve">
     <value>选择皮肤</value>
+  </data>
+  <data name="UserName" xml:space="preserve">
+    <value>用户名</value>
   </data>
 </root>

@@ -88,6 +88,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 确认删除选中节点？ 的本地化字符串。
+        /// </summary>
+        internal static string DeleteNodeConfirm {
+            get {
+                return ResourceManager.GetString("DeleteNodeConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 确认删除选中记录？ 的本地化字符串。
+        /// </summary>
+        internal static string DeleteRowConfirm {
+            get {
+                return ResourceManager.GetString("DeleteRowConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 删除成功! 的本地化字符串。
+        /// </summary>
+        internal static string DeleteSuccess {
+            get {
+                return ResourceManager.GetString("DeleteSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 禁用 的本地化字符串。
         /// </summary>
         internal static string Disable {
@@ -160,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 操作成功 的本地化字符串。
+        /// </summary>
+        internal static string OperationSuccess {
+            get {
+                return ResourceManager.GetString("OperationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 请选择... 的本地化字符串。
         /// </summary>
         internal static string PleaseSelect {
@@ -178,11 +214,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查找类似 请选择一个节点！ 的本地化字符串。
+        /// </summary>
+        internal static string PleaseSelectNode {
+            get {
+                return ResourceManager.GetString("PleaseSelectNode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请选择一个根节点！ 的本地化字符串。
+        /// </summary>
+        internal static string PleaseSelectRoot {
+            get {
+                return ResourceManager.GetString("PleaseSelectRoot", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 请选择一条记录！ 的本地化字符串。
+        /// </summary>
+        internal static string PleaseSelectRow {
+            get {
+                return ResourceManager.GetString("PleaseSelectRow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 刷新 的本地化字符串。
         /// </summary>
         internal static string Refresh {
             get {
                 return ResourceManager.GetString("Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 数据被修改了，是否先保存？ 的本地化字符串。
+        /// </summary>
+        internal static string SaveDataOrNot {
+            get {
+                return ResourceManager.GetString("SaveDataOrNot", resourceCulture);
             }
         }
         
