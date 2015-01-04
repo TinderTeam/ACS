@@ -70,40 +70,6 @@ namespace ACS.Service
             return menuTreeList;
         }
 
-        internal static List<DoorTime> toDoorTimeList(List<DoorTimeModel> modelList)
-        {
-
-            List<DoorTime> list = new List<DoorTime>();
-            foreach(DoorTimeModel model in modelList){
-                list.Add(toDoorTime(model));
-            }
-            return list;
-        }
-
-        internal static DoorTime toDoorTime(DoorTimeModel model)
-        {
-
-            DoorTime doortime = new DoorTime();
-            doortime.DoorID = model.DoorID;
-            doortime.DoorTimeID = model.DoorTimeID;
-            doortime.DoorTimeName = model.DoorTimeName;
-            doortime.EndTime = model.EndTime;
-            doortime.StartTime = model.StartTime;
-            doortime.Enable = model.Enable;
-            return doortime;
-
-        }
-
-        internal static Control toControl(ControllerModel m)
-        {
-            Control control = new Control();
-            control.Address = m.Address;
-            control.ControlName = m.ControlName;
-            control.ControlID = m.ControlID;
-            control.Ip = m.Ip;
-            return control;
-        }
-
         internal static List<QueryCondition> getAccessDetailIDConditionByViewList(List<AccessDetailView> viewList)
         {
             List<QueryCondition> list = new List<QueryCondition>();
@@ -130,21 +96,7 @@ namespace ACS.Service
         }
 
         
-        internal static AlarmRecord toAlarmRecord(EventMsg eventMsg)
-        {
-            AlarmRecord r = new AlarmRecord();
-            return r;
-        }
 
-        internal static EventRecord toEventRecord(EventMsg eventMsg)
-        {
-            EventRecord r = new EventRecord();
-            return r;
-        }
 
-        internal static EventModel toEventModel(EventMsg eventMsg)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

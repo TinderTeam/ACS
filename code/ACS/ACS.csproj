@@ -222,8 +222,6 @@
     <Compile Include="Common\Dao\impl\CommonDaoImpl.cs" />
     <Compile Include="Common\Dao\impl\ViewDaoCommonImpl.cs" />
     <Compile Include="Common\Dao\QueryCondition.cs" />
-    <Compile Include="Common\Service\BasicServiceFrameWork.cs" />
-    <Compile Include="Common\Service\exception\DataManipulationException.cs" />
     <Compile Include="Common\Util\DataCreatUtil.cs" />
     <Compile Include="Common\Util\DataTypeConvert.cs" />
     <Compile Include="Common\Util\DateUtil.cs" />
@@ -251,18 +249,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model\ControllerModel.cs" />
-    <Compile Include="Models\Model\DeviceModel.cs" />
     <Compile Include="Models\Model\DeviceTypeModel.cs" />
-    <Compile Include="Models\Model\DoorModel.cs" />
-    <Compile Include="Models\Model\DoorTimeModel.cs" />
     <Compile Include="Models\Model\EventModel.cs" />
-    <Compile Include="Models\Model\FormColumn.cs" />
-    <Compile Include="Models\Model\ColumnModel.cs" />
     <Compile Include="Models\Model\MonitorEventModel.cs" />
     <Compile Include="Models\Model\TreeModel.cs" />
-    <Compile Include="Models\Model\PrivilegeSet.cs" />
-    <Compile Include="Models\Model\DeptModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
     <Compile Include="Models\Model\AccessDetailModel.cs" />
     <Compile Include="Models\Model\AttributeModel.cs" />
@@ -298,7 +288,6 @@
     <Compile Include="Service\Constant\ExceptionMsg.cs" />
     <Compile Include="Service\Constant\OperateDeviceCmdEnum.cs" />
     <Compile Include="Service\Constant\ServiceConfigConstants.cs" />
-    <Compile Include="Service\DeviceControlThread.cs" />
     <Compile Include="Service\device\DeviceOperator.cs" />
     <Compile Include="Service\device\DeviceOperatorFactory.cs" />
     <Compile Include="Service\device\EventHandel.cs" />
@@ -321,7 +310,6 @@
     <Compile Include="Service\Impl\EventTypeServiceImpl.cs" />
     <Compile Include="Service\ModelConventService.cs" />
     <Compile Include="Service\Impl\PlatFormServiceImpl.cs" />
-    <Compile Include="Service\ModelVerificationService.cs" />
     <Compile Include="Service\ServiceConstant.cs" />
     <Compile Include="Service\ServiceContext.cs" />
     <Compile Include="Service\ServiceInterface.cs" />
@@ -1776,12 +1764,6 @@
     <Content Include="Scripts\themes\silver\style.css" />
     <Content Include="Scripts\tongji.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Test\Dept.txt" />
-    <Content Include="Test\DeviceTree.txt" />
-    <Content Include="Test\Job.txt" />
-    <Content Include="Test\tasks.txt" />
-    <Content Include="Test\test.jpg" />
-    <Content Include="Test\tree.txt" />
     <Content Include="upload\EmployeePhoto\45fcd0d7-48bf-4510-8393-ff47925550c8.jpg" />
     <Content Include="upload\EmployeePhoto\a08afc16-b9df-4a7b-8fe8-96f04f4bcf49.jpg" />
     <Content Include="upload\EmployeePhoto\a4d311a1-af25-470b-88b3-f9d68d9c9b72.jpg" />
