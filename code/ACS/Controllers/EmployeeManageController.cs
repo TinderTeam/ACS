@@ -111,9 +111,10 @@ namespace ACS.Controllers
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.JOBID, employeeFilter.JobID.ToString()));
                 }
+  
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.EMPLOYEENAME, employeeFilter.EmployeeName));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.EMPLOYEECODE, employeeFilter.EmployeeCode));
-                
+
             }
             
             return filterCondition;

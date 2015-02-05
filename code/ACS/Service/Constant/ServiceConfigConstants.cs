@@ -23,5 +23,11 @@ namespace ACS.Service.Constant
             return path;
         }
 
+
+        internal static String getDeviceIdentifyConfigXmlPath()
+        {
+            String path = getAppPath() + "DeviceIdentifyConfig.xml";
+            return path;
+        }
     }
 }

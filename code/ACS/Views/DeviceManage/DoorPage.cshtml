@@ -29,6 +29,7 @@
                         <td style="width:150px;">
                             <input name="DoorName" class="mini-textbox" vtype="maxLength:50" required="true"  value=""/>
                             <input name ="DoorID" class="mini-textbox" style="display:none" value=""/>
+                            <input name="AlarmMast" id="AlarmMast" class="mini-textbox" style="display:none" value="0"/>
                         </td>
                     </tr>
                     <tr style ="height:35px">
@@ -42,7 +43,65 @@
                         <td>    
                             <input name="CloseOutTime" class="mini-textbox" dateFormat="yyyy-MM-dd HH:mm:ss" value=""/>
                         </td>
-                    </tr>             
+                    </tr>
+
+                    <!-- 长时间开门报警 -->
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorAlerm2Long")</td>
+                        <td>    
+                            <input name="DoorAlerm2Long" class="mini-checkbox"  trueValue="true" falseValue="false" />
+                        </td>
+                    </tr>
+                    <!-- 门报警事件 -->
+                    <tr style ="height:35px">
+                        
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("AlarmMast")</td>
+                        <td>    
+                            <input bit="1" class="bit-1 alarm-mast-change" type="checkbox" value=""/>
+                            @Resources.DeviceManage_Resource.ResourceManager.GetString("DoorAlerm")
+                            <input bit="2" class="bit-2 alarm-mast-change" type="checkbox" value=""/> 
+                            @Resources.DeviceManage_Resource.ResourceManager.GetString("DoorAlerm2Long")
+                        </td>
+                    </tr>
+                    <tr style ="height:35px">
+                        <td ></td>
+                        <td>    
+                            <input bit="4" class=" bit-4 alarm-mast-change" type="checkbox" value=""/>
+                            @Resources.DeviceManage_Resource.ResourceManager.GetString("IllegalCard")
+                            <input bit="8" class=" bit-8 alarm-mast-change" type="checkbox" value=""/>
+                            @Resources.DeviceManage_Resource.ResourceManager.GetString("IllegalTime")
+                        </td>
+                    </tr>
+                    <!-- 报警持续时间 -->
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("AlarmTime")</td>
+                        <td>    
+                            <input name="AlarmTime" class="mini-textbox" value=""/>                   
+                        </td>
+                    </tr> 
+                    <!-- 双向检测 -->
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("PassBack")</td>
+                        <td>    
+                             <input name="PassBack" class="mini-checkbox"  trueValue="true" falseValue="false" />
+                        </td>
+                    </tr>
+                    <!-- 多人开门时候的人数量 -->
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("MCardsOpen")</td>
+                        <td>    
+                            <input name="MCardsOpen" class="mini-textbox" value=""/>    
+                        </td>
+                    </tr>
+
+                    <!-- 多人开门控制进出方向 -->
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("MCardsOpenInOut")</td>
+                        <td>    
+                            <input name="MCardsOpenInOut" class="mini-textbox" value=""/>    
+                        </td>
+                    </tr>
+                                            
                 </table>
             </div>    
       
@@ -67,6 +126,7 @@
                     var Rsp = mini.decode(json);
                     if (Rsp.ErrorCode == "Success") {
                         form.setData(Rsp.Obj);
+                        updateCheckbox();
                     } else {
                         mini.alert(Rsp.Message);
                     }
@@ -82,6 +142,8 @@
         function onSaveData() {
             var o = form.getData();
             var json = mini.encode(o);
+
+
             form.validate();
             if (form.isValid() == false) return;
             $.ajax({
@@ -113,6 +175,41 @@
             if (window.CloseOwnerWindow) return window.CloseOwnerWindow(action);
             else window.close();
         }
+      
+        $('.alarm-mast-change').click(function () {
+            var bit = $(this).attr("bit");
+            var value=$('#AlarmMast').val();
+            if ($(this).attr("checked") == "checked") {
+                value = Number(value) + Number(bit);
+            }
+            else {
+                value = Number(value) - Number(bit);
+            }
+            $('#AlarmMast').val(value);
+            //test
+            var typevalue = mini.get("AlarmMast");
+            typevalue.setValue(value);
+        });
+
+        function updateCheckbox() {
+            var typevalue = mini.get("AlarmMast");
+            var value= typevalue.getValue();
+            $('#AlarmMast').val(value);
+
+            if ((value & 1) != 0) {
+                $('.bit-1').attr("checked", "checked");
+            }
+            if ((value & 2) != 0) {
+                $('.bit-2').attr("checked", "checked");
+            }
+            if ((value & 4) != 0) {
+                $('.bit-4').attr("checked", "checked");
+            }
+            if ((value & 8) != 0) {
+                $('.bit-8').attr("checked", "checked");
+            }
+        }
+
     </script>
 </body>
 </html>

@@ -67,9 +67,7 @@ namespace ACS.Service.device
         }
         public void cardEventHandel(EventMsg eventMsg)
         {
-            log.Info("[CardEvent] msg:.....");
-
-                 
+            log.Info("[CardEvent] msg:.....");  
             try
             {
                 EventRecord eventRecord = new EventRecord();
@@ -79,10 +77,21 @@ namespace ACS.Service.device
 
                 eventRecord.EventTypeID = eventMsg.EventType;
                 eventRecord.CardNo = eventMsg.CardNo.ToString();
+
+                /*修改 2015/1/28
+                 * 先获取卡的员工信息
+                 */
+
+                int employeeID=ServiceContext.getInstance().getEmployeeService().GetEmployeeIDByCardID(eventRecord.EventTypeID);
+                eventRecord.EmployeeID = employeeID;
+        
                 ServiceContext.getInstance().getEventRecordService().Create(eventRecord);
 
-                //更新员工的最近刷卡时间
-                ServiceContext.getInstance().getEmployeeService().UpdateLastEvent(eventRecord.CardNo, eventRecord.EventID);
+                if (employeeID != -1)
+                {
+                    //更新员工的最近刷卡时间
+                    ServiceContext.getInstance().getEmployeeService().UpdateLastEvent(eventRecord.CardNo, eventRecord.EventID);
+                }
             }
             catch (Exception e)
             {

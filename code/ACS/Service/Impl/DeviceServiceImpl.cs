@@ -217,8 +217,8 @@ namespace ACS.Service.Impl
             orignalDoorTime.Friday = doorTime.Friday;
             orignalDoorTime.Saturday = doorTime.Saturday;
             orignalDoorTime.Sunday = doorTime.Sunday;
-            //
-            orignalDoorTime.LimitDate = DateUtil.StringToDateTime("2099-1-1 00:00:00");
+            orignalDoorTime.Identify = doorTime.Identify;
+            orignalDoorTime.LimitDate =doorTime.LimitDate;
 
             Door door = GetDao<Door>().getUniRecord(new QueryCondition(ConditionTypeEnum.EQUAL, Door.DOOR_ID, orignalDoorTime.DoorID.ToString()));
             Control control = GetDao<Control>().getUniRecord( new QueryCondition(ConditionTypeEnum.EQUAL, Control.CONTROL_ID, door.ControlID.ToString()));
@@ -240,6 +240,12 @@ namespace ACS.Service.Impl
             orignalDoor.DoorName = door.DoorName;
             orignalDoor.OpenTime = door.OpenTime;
             orignalDoor.CloseOutTime = door.CloseOutTime;
+            orignalDoor.AlarmMast = door.AlarmMast;
+            orignalDoor.AlarmTime = door.AlarmTime;
+            orignalDoor.DoorAlerm2Long = door.DoorAlerm2Long;
+            orignalDoor.MCardsOpen = door.MCardsOpen;
+            orignalDoor.MCardsOpenInOut = door.MCardsOpenInOut;
+            orignalDoor.PassBack = door.PassBack;
             GetDao<Door>().update(orignalDoor);
             ServiceContext.getInstance().getLogService().CreateLog(userID, ServiceConstant.MODIFY_LOG, (LogOperable)orignalDoor, ServiceConstant.SUCCESS);
         }

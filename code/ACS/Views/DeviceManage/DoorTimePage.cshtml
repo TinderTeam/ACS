@@ -47,7 +47,33 @@
                         <td >
                             <input name="EndTime" class="mini-timespinner"  format="H:mm:ss" />
                         </td>
-                    </tr>           
+                    </tr>
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("Identify")</td>
+                        <td >
+                            <input id="Identify" name="Identify" class="mini-combobox" valueField="TypeID" textField="Name" 
+                                url="../DeviceManage/LoadIndetifyTypeList"
+                                emptyText="@Resources.Common_Resource.ResourceManager.GetString("Indetify")"
+                                />
+                        </td>
+
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("LimitDate")</td>
+                        <td >
+                            <input name="LimitDate" class="mini-datepicker" emptyText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelectDate")" required="true"/>    
+    
+                        </td>
+                    </tr>  
+                    <!----
+                    <tr style ="height:35px">
+                        <td >Resources.DeviceManage_Resource.ResourceManager.GetString("Group")</td>
+                        <td >
+                            <input name="Group" class="mini-textbox" />
+                        </td>
+                        <td >Resources.DeviceManage_Resource.ResourceManager.GetString("Second")</td>
+                        <td >
+                            <input name="Second" class="mini-textbox" />
+                        </td>
+                    </tr> --->        
                 </table>
             </div>
         <fieldset style="border:solid 1px #aaa;padding:3px;margin-left:40px;margin-right:40px;">

@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.EmployeeView,ACS" table="t_employee_view"  >
+
+    <id name="EmployeeID" column ="EMPLOYEE_ID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="EmployeeName">
+      <column name="EMPLOYEE_NAME" length="50"/>
+    </property>
+
+    <property name="EmployeeCode">
+      <column name="EMPLOYEE_CODE" length="24"/>
+    </property>
+    
+    <property name="CardNo">
+      <column name="CARD_NO" length="11"/>
+    </property>
+
+    <property name="EmpEnable">
+      <column name="EMP_ENABLE"/>
+    </property>
+
+    <property name="Sex">
+      <column name="SEX"/>
+    </property>
+
+    <property name="PersonCode">
+      <column name="PERSON_CODE" length="24"/>
+    </property>
+
+    <property name="Phone">
+      <column name="PHONE" length="50"/>
+    </property>
+
+    <property name="JobID">
+      <column name="JOB_ID"/>
+    </property>
+
+    <property name="DeptID">
+      <column name="DEPT_ID"/>
+    </property>
+
+    <property name="AccessID">
+      <column name="ACCESS_ID"/>
+    </property>
+
+    <property name="Photo1">
+      <column name="PHOTO1" length="50"/>
+    </property>
+    
+    <property name="Photo2">
+      <column name="PHOTO2" length="50"/>
+    </property>
+
+    <property name="EndDate">
+      <column name="END_DATE"/>
+    </property>
+
+    <property name="Leave">
+      <column name="LEAVE"/>
+    </property>
+
+    <property name="LastEventID">
+      <column name="LAST_EVENT_ID"/>
+    </property>
+    
+    <property name="DeptName">
+      <column name="DEPT_NAME" length="50"/>
+    </property>
+    
+    <property name="JobName">
+      <column name="JOB_NAME" length="50"/>
+    </property>
+    
+    <property name="AccessName">
+      <column name="ACCESS_NAME" length="50"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>

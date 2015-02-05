@@ -103,6 +103,56 @@ namespace ACS.Service
             return null;
         }
     }
+    public class DeviceIdentifyTypeCache
+    {
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static DeviceIdentifyTypeCache instance = new DeviceIdentifyTypeCache();
+
+        public List<IndetifyTypeType> TypeList = new List<IndetifyTypeType>();
+
+        public static DeviceIdentifyTypeCache GetInstance()
+        {
+            if (null == instance)
+            {
+                instance = new DeviceIdentifyTypeCache();
+            }
+            return instance;
+        }
+        private DeviceIdentifyTypeCache()
+        {
+            load();
+        }
+
+
+        private void load()
+        {
+
+            XmlDocument xml = new XmlDocument();
+            xml.Load(ServiceConfigConstants.getDeviceIdentifyConfigXmlPath());
+            XmlNode root = xml.SelectSingleNode("/root");
+            XmlNodeList xnl = root.ChildNodes;
+            for (int i = 0; i < xnl.Count; i++)
+            {
+                XmlElement e = (XmlElement)xnl.Item(i);
+                IndetifyTypeType type = new IndetifyTypeType();
+                type.TypeID = Convert.ToInt32(e.GetAttribute("typeID"));
+                type.Name = e.GetAttribute("typeName");
+                TypeList.Add(type);
+            }
+        }
+        public IndetifyTypeType GetDeviceType(int identifyTypeID)
+        {
+            foreach (IndetifyTypeType e in TypeList)
+            {
+                if (e.TypeID == identifyTypeID)
+                {
+                    return e;
+                }
+            }
+            log.Warn("can not find device type. the identifyTypeID is " + identifyTypeID);
+            return null;
+        }
+    }
 
     public class ProcessManageCache
     {
