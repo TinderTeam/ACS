@@ -35,6 +35,7 @@ namespace ACS.Service.Constant
         public const String DOOR_NOT_EXIST = "DOOR_NOT_EXIST";                      //门不存在
         public const String CONTROL_NOT_EXIST = "CONTROL_NOT_EXIST";                //控制器不存在
         public const String OPERATE_DEVICE_FAILED = "OPERATE_DEVICE_FAILED";        //设备操作失败
+        public const String OPERATE_DEVICE_NOT_ONLINE = "OPERATE_DEVICE_NOT_ONLINE";    //设备不在线
 
 
     }

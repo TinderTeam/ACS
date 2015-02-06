@@ -403,11 +403,6 @@ namespace ACS.Service.Impl
             return weekByte;
         }
 
-        #endregion
-
-        #region DeviceOperator 成员
-
-
         public void DelTimeZone(int DoorNum)
         {
             log.Info("TCPControl DelTimeZone:DoorNum=" + DoorNum);

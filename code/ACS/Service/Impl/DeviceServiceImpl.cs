@@ -321,8 +321,17 @@ namespace ACS.Service.Impl
                 log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
                 throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
             }
-            DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
-            deviceOperator.Operate(cmdCode, door);
+            //检查设备是否在线
+            if (!OnlineDeviceCache.checkOnline(control.Ip))
+            {
+                log.Warn("device is not online: " + control.Ip);
+                throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);   //设备不在线
+            }
+            else
+            {
+                DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+                deviceOperator.Operate(cmdCode, door);
+            }
         }
 
         public void DeviceDownload(string controlID, string uuID)
@@ -335,6 +344,12 @@ namespace ACS.Service.Impl
             {
                 log.Error("can not find the control by id, the control id is " + controlID);
                 throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
+            }
+            //检查设备是否在线
+            if (!OnlineDeviceCache.checkOnline(control.Ip))
+            {
+                log.Warn("device is not online: " + control.Ip);
+                throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);   //设备不在线
             }
             DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
 
@@ -381,6 +396,14 @@ namespace ACS.Service.Impl
                     Control.CONTROL_ID,
                     controlID
                     ));
+
+                //检查设备是否在线
+                if (!OnlineDeviceCache.checkOnline(control.Ip))
+                {
+                    log.Warn("device is not online: " + control.Ip);
+                    throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);   //设备不在线
+                }
+
                 UpdateUniDeviceInfo(userID,control);
 
             }
@@ -400,7 +423,14 @@ namespace ACS.Service.Impl
 
             //重新连接这个设备
             DeviceOperator deviceOperator= DeviceOperatorFactory.getInstance().initDeviceOperator(control);
-            
+
+            //检查设备是否在线
+            if (!OnlineDeviceCache.checkOnline(control.Ip))
+            {
+                log.Warn("device is not online: " + control.Ip);
+                throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);   //设备不在线
+            }
+
             #region 门操作
             //获取门列表
 

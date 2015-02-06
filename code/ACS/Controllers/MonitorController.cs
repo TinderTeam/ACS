@@ -169,7 +169,7 @@ namespace ACS.Controllers
     /// </summary>
     class DeviceOperatorThread
     {
-
+        private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
         String uuID;
         String controlID;
@@ -182,11 +182,20 @@ namespace ACS.Controllers
 
         public void Op()
         {
-   
-            //打开进度监控器
-            ProcessManageCache.startNewProcession(uuID);
-            deviceService.DeviceDownload(controlID, uuID);
-           
+            try
+            {
+                ProcessManageCache.startNewProcession(uuID);
+                deviceService.DeviceDownload(controlID, uuID);
+
+            }
+            catch (FuegoException e)
+            {
+                log.Error("op error", e);
+            }
+            catch (Exception e)
+            {
+                log.Error("op failed", e);
+            } 
         }
     }
 

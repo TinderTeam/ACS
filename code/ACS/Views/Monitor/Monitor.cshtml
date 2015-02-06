@@ -251,7 +251,7 @@
         var eventIndex = 0;   //事件最新编号
         var alarmIndex = 0;   //报警最新编号
         var clock = 5000;       //定时器更新间隔
-        var barClock = 2000;       //定时器更新间隔
+        var barClock = 500;       //定时器更新间隔
         var barStart = false;
         var barValue = 0;
         var barUUID = "";
@@ -465,8 +465,13 @@
                     data: "",
                     cache: false,
                     success: function (text) {
-                        mini.alert("@Resources.Common_Resource.ResourceManager.GetString("OperationSuccess")");
-                        OperateAddItem(cmd, doorID);
+                        var Rsp = mini.decode(text);
+                        if (Rsp.ErrorCode == "Success") {
+                            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("OperationSuccess")");
+                            OperateAddItem(cmd, doorID);
+                        } else {
+                            mini.alert(Rsp.Message);
+                        }
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert(jqXHR.responseText);
