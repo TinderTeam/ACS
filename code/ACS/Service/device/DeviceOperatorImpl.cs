@@ -22,8 +22,6 @@ namespace ACS.Service.Impl
         private Control control;
         private TcpipClass connector;
 
-  
-
         private DeviceService deviceService = ServiceContext.getInstance().getDeviceService();
 
         public Control GetControl()
@@ -36,8 +34,7 @@ namespace ACS.Service.Impl
            this.control = control;
            connector = new TcpipClass();
            connector.RxDataEvent += ShowMsg;
-           connector.OnEventHandler += EventHandler;
-          
+           connector.OnEventHandler += EventHandler;         
        }
  
         public void Connect()
@@ -59,7 +56,6 @@ namespace ACS.Service.Impl
  
 
         }
-
         #region 事件接口
         public void EventHandler(byte EType, byte Second, byte Minute, byte Hour, byte Day, byte Month, int Year, byte DoorStatus,
             byte Ver, byte FuntionByte, Boolean Online, byte CardsofPackage, UInt64 CardNo, byte Door, byte EventType,
@@ -198,10 +194,6 @@ namespace ACS.Service.Impl
 
         }
 
-
-
-
-
         public void cardInfoDownLoad(Employee employee,List<DoorTimeView> doorTimeList,int employeeIndex)
         {
             log.Info("CardInfo: "+ employeeIndex+ employee + doorTimeList);
@@ -281,8 +273,6 @@ namespace ACS.Service.Impl
             }
         }
 
-
-
         public bool ClearAllCards()
         {
             if (!connector.ClearAllCards())
@@ -301,10 +291,6 @@ namespace ACS.Service.Impl
             return connector;
         }
 
-
-
-
-        #region DeviceOperator 成员
         public void SetDoor(Door door)
         {
             log.Info("TCPControl set door: DoorNum= " + door.DoorNum + ",OpenTime=" + door.OpenTime + ",CloseOutTime=" + (ushort)door.CloseOutTime + ",DoorAlerm2Long" + door.DoorAlerm2Long + ",door.AlarmMast= " + door.AlarmMast + " .AlarmTime=" + door.AlarmTime + ",PassBack= " + door.PassBack + ",MCardsOpen= " + (byte)door.MCardsOpen + "," + (byte)door.MCardsOpenInOut);
@@ -414,7 +400,6 @@ namespace ACS.Service.Impl
             }
         }
 
-
         public void DelHoliday()
         {
             log.Info("TCPControl DelHoliday:control=" + control.ControlID);
@@ -440,6 +425,5 @@ namespace ACS.Service.Impl
             }
         }
 
-        #endregion
     }
 }

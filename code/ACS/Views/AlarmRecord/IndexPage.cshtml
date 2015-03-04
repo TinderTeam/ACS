@@ -26,8 +26,12 @@
                                 url="../AlarmRecord/LoadEventTypeList" allowInput="true" showNullItem="true" nullItemText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
                             />
                         </td>
-                        <td style="width:20px;">@Resources.AlarmRecord_Resource.ResourceManager.GetString("Door")</td>
-                        <td style="width:130px;"><input name="DoorName" class="mini-textbox"></td>
+
+                         <td style="width:80px;">@Resources.EventRecord_Resource.ResourceManager.GetString("Door")</td>
+                        <td style="width:150px;">
+                            <input name="DoorID" class="mini-combobox" valueField="DoorID" textField="DoorName"
+                            url="../DeviceManage/LoadDoorName" allowInput="true" showNullItem="true" nullItemText="@Resources.Common_Resource.ResourceManager.GetString("PleaseSelect")"
+                        </td>
                         <td style="width:40px;">@Resources.AlarmRecord_Resource.ResourceManager.GetString("AlarmTime")</td>
                         <td style="width:130px;">
                             <input name="AlarmTimeStart" class="mini-datepicker" format="yyyy-MM-dd HH:mm:ss" timeFormat="HH:mm:ss" 

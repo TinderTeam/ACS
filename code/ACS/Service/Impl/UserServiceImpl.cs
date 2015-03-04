@@ -77,6 +77,11 @@ namespace ACS.Service.Impl
                     throw new FuegoException(ExceptionMsg.CANT_DELETE_YOURSELF);
                 }
             }
+
+
+
+
+
             if (!ValidatorUtil.isEmpty(userIDList))
             {
                 //删除该用户拥有的菜单权限和设备权限

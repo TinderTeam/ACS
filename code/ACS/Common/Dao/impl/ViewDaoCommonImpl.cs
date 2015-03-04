@@ -36,8 +36,6 @@ namespace ACS.Common.Dao.impl
                 {
                     objectList.Add(result);
                 }
-
-
             }
             catch (System.Exception re)
             {

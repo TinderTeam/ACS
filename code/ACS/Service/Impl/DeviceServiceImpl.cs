@@ -297,9 +297,6 @@ namespace ACS.Service.Impl
             }
         }
 
-
-
-
         #region DeviceService 成员
 
 
@@ -310,6 +307,7 @@ namespace ACS.Service.Impl
             Control control = null;
             Door door = null;
             door = Get<Door>(Door.DOOR_ID, doorID);
+
             if (null == door)
             {
                 log.Error("can not find the door by id, the door id is " + doorID);
@@ -336,9 +334,6 @@ namespace ACS.Service.Impl
 
         public void DeviceDownload(string controlID, string uuID)
         {
-
-
-
             Control control = Get(controlID);
             if (null == control)
             {

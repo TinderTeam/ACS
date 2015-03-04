@@ -16,6 +16,7 @@ using ACS.Service.Constant;
 using ACS.Models.Po.CF;
 using ACS.Common.Dao;
 using ACS.Common.Constant;
+using ACS.Dao;
 namespace ACS.Controllers
 {
     public class DeviceManageController : MiniUITableController<Control>
@@ -38,6 +39,13 @@ namespace ACS.Controllers
         {
             List<TreeModel> deviceTreeList = deviceService.getDeviceTreeByID(this.getSessionUser().UserID.ToString());
             return ReturnJson(deviceTreeList);
+        }
+
+        // 加载门下拉列表
+        public ActionResult LoadDoorName()
+        {
+            List<Door> tree = DaoContext.getInstance().getDoorDao().getAll();
+            return ReturnJson(tree);
         }
 
         //根据用户ID获取控制器列表

@@ -22,17 +22,20 @@ namespace ACS.Controllers
         {
             return eventRecordService;
         }
+
         //加载刷卡记录类型列表
         public ActionResult LoadEventTypeList()
         {
             List<EventTypeModel> typeList = eventRecordService.GetEventTypeList();
             return ReturnJson(typeList);
         }
+
         //加载刷卡记录列表
         public override ActionResult Load(String data)
         {
             return LoadTable<EventRecordView>(GetFilterCondition(data));
         }
+
         //用于实现条件查询功能
         public override List<QueryCondition> GetFilterCondition(String json)
         {
@@ -44,29 +47,36 @@ namespace ACS.Controllers
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EventRecordView.DEPTID, eventRecordFilter.DeptID));
                 }
+
                 if (!ValidatorUtil.isEmpty(eventRecordFilter.JobID))
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.JOBID, eventRecordFilter.JobID));
                 }
+
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.DOORNAME, eventRecordFilter.DoorName));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.CARDNO, eventRecordFilter.CardNo));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEENAME, eventRecordFilter.EmployeeName));
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEECODE, eventRecordFilter.EmployeeCode));
+
                 if (!ValidatorUtil.isEmpty(eventRecordFilter.EventTypeID))
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EventRecordView.EVENTTYPEID, eventRecordFilter.EventTypeID));
                 }
+
                 if (!DateUtil.DateTimeIsEmpty(eventRecordFilter.EventTimeStart))
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.BIGER_EQ, EventRecordView.EVNETTIME, DateUtil.DateTimeToString(eventRecordFilter.EventTimeStart)));
                 }
+
                 if (!DateUtil.DateTimeIsEmpty(eventRecordFilter.EventTimeEnd))
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.LOWER_EQ, EventRecordView.EVNETTIME, DateUtil.DateTimeToString(eventRecordFilter.EventTimeEnd)));
                 }
+
             }
             return filterCondition;
         }
+
         class EventRecordFilterModel
         {
             //从EventRecord表中获得
