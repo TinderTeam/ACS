@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <device typeID="0" typeName="单卡识别"/>
+  <device typeID="1" typeName="密码"/>
+  <device typeID="2" typeName="卡+密码"/>
+  <device typeID="3" typeName="双卡"/>
+  <device typeID="4" typeName="自由通行"/>
+  <device typeID="5" typeName="定时开关门"/>
+  <device typeID="6" typeName="定时报警"/>
+  <device typeID="7" typeName="按钮时间"/>
+  <device typeID="8" typeName="定制"/>
+</root>

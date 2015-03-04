@@ -40,18 +40,24 @@
                                 />
                         </td>
                     </tr>
+
+                    <!---
                     <tr style ="height:35px">
-                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlCode")</td>
+                        <td >
+                        Resources.DeviceManage_Resource.ResourceManager.GetString("ControlCode")
+                        </td>
                         <td>    
                             <input name="Code" class="mini-textbox" value=""/>
                         </td>
                     </tr>
+                    --->                   
                     <tr style ="height:35px">
                         <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlSerial")</td>
                         <td>    
                             <input name="Serial" class="mini-textbox" value=""/>
                         </td>
                     </tr>
+                   
                     <tr style ="height:35px">
                         <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("IPAddr")</td>
                         <td>    
@@ -63,7 +69,35 @@
                         <td> 
                             <input name="Port" class="mini-textbox" vtype="range:0,65535" required="true" value=""/>
                         </td>
-                    </tr>               
+                    </tr>  
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("FireTime")</td>
+                        <td>
+                            <input name="FireTime" class="mini-textbox" vtype="range:1,65535" value="1"/>
+                        </td>
+                    </tr> 
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("AlarmTime")</td>
+                        <td>    
+                            <input name="AlarmTime" class="mini-textbox" vtype="range:1,65535" value=""/>
+                        </td>
+                    </tr> 
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("DuressPIN")</td>
+                        <td>    
+                            <input name="DuressPIN" class="mini-textbox" vtype="maxLength:4" value=""/>
+                        </td>
+                    </tr>    
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("LockEach")</td>
+                        <td>    
+                             <select name="LockEach" class="mini-radiobuttonlist">
+                                <option value="1"/>@Resources.DeviceManage_Resource.ResourceManager.GetString("LockEach12")
+                                <option value="2"/>@Resources.DeviceManage_Resource.ResourceManager.GetString("LockEach34")
+                            </select>
+                        </td>
+                    </tr> 
+                              
                 </table>
             </div>    
       

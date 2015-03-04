@@ -251,6 +251,7 @@
     </Compile>
     <Compile Include="Models\Model\DeviceTypeModel.cs" />
     <Compile Include="Models\Model\EventModel.cs" />
+    <Compile Include="Models\Model\IndetifyTypeType.cs" />
     <Compile Include="Models\Model\MonitorEventModel.cs" />
     <Compile Include="Models\Model\TreeModel.cs" />
     <Compile Include="Models\Model\AjaxRspModel.cs" />
@@ -433,6 +434,10 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>UserManage_Resource.designer.cs</LastGenOutput>
     </Content>
+    <EmbeddedResource Include="DeviceIdentifyConfig.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="DeviceConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -468,6 +473,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\EventRecord.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\AlarmRecord.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1860,7 +1866,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4346</DevelopmentServerPort>
+          <DevelopmentServerPort>63618</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

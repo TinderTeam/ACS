@@ -79,6 +79,13 @@ namespace ACS.Controllers
             return ReturnJson(typeList);
         }
 
+        //加载控制器识别方式类型列表
+        public ActionResult LoadIndetifyTypeList()
+        {
+            List<IndetifyTypeType> typeList = DeviceIdentifyTypeCache.GetInstance().TypeList;
+            return ReturnJson(typeList);
+        }
+
         //根据DoorID加载DoorTimeList
         public ActionResult LoadDoorTimeList(String data)
         {
@@ -174,7 +181,7 @@ namespace ACS.Controllers
             {
                 List<String> controlIDList = JsonConvert.JsonToObject<List<String>>(idList);
                 deviceService.UpdateDeviceInfo(this.getSessionUser().UserID, controlIDList);
-                //待实现
+               
             }
             catch (FuegoException e)
             {
@@ -190,14 +197,13 @@ namespace ACS.Controllers
             return ReturnJson(Rsp);
         }
 
-                //更新设备信息
+        //更新设备信息
         public ActionResult downloadCard(String idList)
         {
             try
             {
                 List<String> controlIDList = JsonConvert.JsonToObject<List<String>>(idList);
                 deviceService.UpdateDeviceInfo(this.getSessionUser().UserID, controlIDList);
-                //待实现
             }
             catch (FuegoException e)
             {

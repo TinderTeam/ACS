@@ -17,8 +17,8 @@ namespace ACS.Models.Model
         public int CreateUserID { get; set; }               //创建者ID
         //public DateTime CreateDate { get; set; }            //创建时间
         public String NodeName { get; set; }                //树节点名称，可以是AccessName、ControlName、DoorName、DoorTimeName
-        public String StartTime { get; set; }             //DoorTime的开始时间
-        public String EndTime { get; set; }               //DoorTime的结束时间
+        private DateTime startTime = Convert.ToDateTime("2000-01-01 00:00:00");  //开始时间
+        private DateTime endTime = Convert.ToDateTime("2000-01-01 00:00:00");    //截止时间
         public bool CheckNode { get; set; }                 //节点是否勾选
         public bool Monday { get; set; }
         public bool Tuesday { get; set; }
@@ -29,6 +29,18 @@ namespace ACS.Models.Model
         public bool Sunday { get; set; }
         public bool Holiday { get; set; }
         public List<AccessDetailModel> Children { get; set; }    //子节点
+
+        public virtual DateTime StartTime
+        {
+            get { return startTime; }
+            set { startTime = value; }
+        }
+
+        public virtual DateTime EndTime
+        {
+            get { return endTime; }
+            set { endTime = value; }
+        }
 
         public AccessDetailModel()
         {

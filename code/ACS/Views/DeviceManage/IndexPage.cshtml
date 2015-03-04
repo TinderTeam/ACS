@@ -49,7 +49,7 @@
                 </div>         
             </div>
             <!----设备信息栏--->
-            <div showCollapseButton="true">
+            <div>
                 <div id ="DeviceView" class="mini-panel" title="@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlManage")" style="width:100%;height:100%;" showToolbar="true">
                     @Html.Partial("DeviceView") 
                     <!--<div id="content" class="mini-panel" style="width:100%;height:100%;" showHeader="false"></div>-->
@@ -66,8 +66,12 @@
 </div>
     <script type="text/javascript">
         mini.parse();
-        var form = new mini.Form("form1");
-
+        //默认打开控制器列表页面
+        var controlGrid = mini.get("#controlGird");
+        $("#DeviceView").attr('style', 'width:100%;height:100%;');
+        $("#DoorTimeView").attr('style', 'display:none');
+        $("#DoorView").attr('style', 'display:none');
+        controlGrid.load();
         //点击控制器或者门
         function onNodeClick() {
             var doorTimegrid = mini.get("#doorTimeGird");
@@ -98,7 +102,6 @@
                 doorTimegrid.load({ data: id });
             }
         }
-
         function treeUpdate() {
             mini.get("deviceTree").load();
         }

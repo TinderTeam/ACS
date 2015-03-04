@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AlarmMast" xml:space="preserve">
+    <value>报警事件</value>
+  </data>
+  <data name="AlarmTime" xml:space="preserve">
+    <value>报警时长</value>
+  </data>
   <data name="ControlCode" xml:space="preserve">
     <value>控制器编号</value>
   </data>
@@ -147,6 +153,12 @@
   <data name="DeviceManage" xml:space="preserve">
     <value>设备管理</value>
   </data>
+  <data name="DoorAlerm" xml:space="preserve">
+    <value>门报警</value>
+  </data>
+  <data name="DoorAlerm2Long" xml:space="preserve">
+    <value>开门超时报警</value>
+  </data>
   <data name="DoorCode" xml:space="preserve">
     <value>门编号</value>
   </data>
@@ -171,14 +183,29 @@
   <data name="EndTime" xml:space="preserve">
     <value>结束时间</value>
   </data>
+  <data name="IllegalCard" xml:space="preserve">
+    <value>无效卡</value>
+  </data>
+  <data name="IllegalTime" xml:space="preserve">
+    <value>无效时间</value>
+  </data>
   <data name="IPAddr" xml:space="preserve">
     <value>IP地址</value>
+  </data>
+  <data name="MCardsOpen" xml:space="preserve">
+    <value>多人开门数量</value>
+  </data>
+  <data name="MCardsOpenInOut" xml:space="preserve">
+    <value>多人开门方向</value>
   </data>
   <data name="OpenOutTime" xml:space="preserve">
     <value>开门超时(S)</value>
   </data>
   <data name="OpenTime" xml:space="preserve">
     <value>开门时间(S)</value>
+  </data>
+  <data name="PassBack" xml:space="preserve">
+    <value>双向检测</value>
   </data>
   <data name="PleaseInputIPAddr" xml:space="preserve">
     <value>请输入正确格式的IP地址！</value>
@@ -191,5 +218,35 @@
   </data>
   <data name="UpdateInfo" xml:space="preserve">
     <value>更新信息</value>
+  </data>
+  <data name="DuressPIN" xml:space="preserve">
+    <value>胁持密码</value>
+  </data>
+  <data name="FireTime" xml:space="preserve">
+    <value>火警报警时间</value>
+  </data>
+  <data name="Group" xml:space="preserve">
+    <value>分组的组号</value>
+  </data>
+  <data name="Indetify" xml:space="preserve">
+    <value>识别方式</value>
+  </data>
+  <data name="LimitDate" xml:space="preserve">
+    <value>有效期截止</value>
+  </data>
+  <data name="LockEach" xml:space="preserve">
+    <value>互锁设置</value>
+  </data>
+  <data name="LockEach12" xml:space="preserve">
+    <value>1-2门互锁</value>
+  </data>
+  <data name="LockEach34" xml:space="preserve">
+    <value>3-4门互锁</value>
+  </data>
+  <data name="Second" xml:space="preserve">
+    <value>保留</value>
+  </data>
+  <data name="Identify" xml:space="preserve">
+    <value>识别方式</value>
   </data>
 </root>

@@ -1,0 +1,20 @@
+﻿[
+	{id: "C_1", text: "控制器1"},	
+	{id: "D_1", text: "门1", pid: "C_1"},
+	{id: "D_2", text: "门2", pid: "C_1"},
+	{id: "D_3", text: "门3", pid: "C_1"},
+	{id: "D_4", text: "门4", pid: "C_1"},
+	{id: "D_5", text: "门5", pid: "C_1"},
+	{id: "C_2", text: "控制器2"},	
+	{id: "D_6", text: "门6", pid: "C_2"},
+	{id: "D_7", text: "门7", pid: "C_2"},
+	{id: "D_8", text: "门8", pid: "C_2"},
+	{id: "D_9", text: "门9", pid: "C_2"},
+	{id: "D_10", text: "门10", pid: "C_2"},
+	{id: "C_3", text: "控制器3"},	
+	{id: "D_11", text: "门11", pid: "C_3"},
+	{id: "D_12", text: "门12", pid: "C_3"},
+	{id: "D_13", text: "门13", pid: "C_3"},
+	{id: "D_14", text: "门14", pid: "C_3"},
+	{id: "D_15", text: "门15", pid: "C_3"}
+]

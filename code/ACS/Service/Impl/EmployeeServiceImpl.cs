@@ -225,6 +225,28 @@ namespace ACS.Service.Impl
         #region EmployeeService 成员
 
         /// <summary>
+        /// 通过卡ID获取雇员ID信息
+        /// </summary>
+        /// <param name="cardID"></param>
+        /// <returns>没有则返回-1</returns>
+        public int GetEmployeeIDByCardID(int cardID)
+        {
+             QueryCondition condition = new QueryCondition(
+                ConditionTypeEnum.EQUAL,
+                Employee.Card,
+                cardID.ToString());
+            Employee employee=GetDao().getUniRecord(condition);
+            if (employee != null)
+            {
+                return employee.EmployeeID;
+            }else{
+                return -1;
+            }
+        }
+
+
+
+        /// <summary>
         /// 根据卡号更新员工时间刷新
         /// </summary>
         /// <param name="cardID"></param>
@@ -240,10 +262,12 @@ namespace ACS.Service.Impl
                 employee.LastEventID=eventID;
                 GetDao().update(employee);
             }
+                /* 修改 2015/1/28 如果没有关联人员则只记录，不抛出错误
             else
             {
                 throw new FuegoException(ExceptionMsg.EMPLOYEE_CODE_NOT_EXIST);
             }
+                 */
         }
 
         #endregion
