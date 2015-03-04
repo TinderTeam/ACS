@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  <device typeID="1" typeName="类别1" door_num="4" time_num="8" />
+  <device typeID="2" typeName="类别2" door_num="8" time_num="16" />
+</root>

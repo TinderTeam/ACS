@@ -406,10 +406,10 @@ namespace ACS.Service.Impl
 
             foreach (Door door in doorList)
             {
-                if (door.DoorEnable)
-                {
+                //if (door.DoorEnable)
+                //{
                     deviceOperator.SetDoor(door);
-                }
+                //}
 
             }
 
@@ -451,13 +451,13 @@ namespace ACS.Service.Impl
                     throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
                 }
 
-                if (door.DoorEnable)
-                {
+                //if (door.DoorEnable)
+                //{
                     if (doortime.Enable.Equals(DoorTimeView.ENABLE))
                     {
                         deviceOperator.SetDoorTime(doortime);
                     }
-                }   
+                //}   
         
             }
 
