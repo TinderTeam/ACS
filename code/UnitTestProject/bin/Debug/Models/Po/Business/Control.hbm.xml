@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.Control,ACS" table="TControl"  >
+
+    <id name="ControlID" column ="ControlID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="NetID">
+      <column name="NetID"/>
+    </property>
+
+    <property name="Code">
+      <column name="Code" length="50"/>
+    </property>
+    
+    <property name="ControlName">
+      <column name="Name" length="50"/>
+    </property>
+
+    <property name="Address">
+      <column name="Address" length="50"/>
+    </property>
+
+    <property name="Serial">
+      <column name="Serial" length="50"/>
+    </property>
+
+    <property name="TypeID">
+      <column name="Type"/>
+    </property>
+
+    <property name="Enable">
+      <column name="Enable"/>
+    </property>
+
+    <property name="DuressPin" type="string">
+      <column name="DuressPIN" length="50"/>
+    </property>
+
+    <property name="AreaID" type="int">
+      <column name="AreaID"/>
+    </property>
+
+    <property name="Www" type="string">
+      <column name="www" length="255"/>
+    </property>
+
+    <property name="Ip" type="string">
+      <column name="IP" length="255"/>
+    </property>
+
+    <property name="Port" type="int">
+      <column name="port"/>
+    </property>
+
+    <property name="ByIP">
+      <column name="ByIP"/>
+    </property>
+
+    <property name="LockEach">
+      <column name="LockEach"/>
+    </property>
+
+    <property name="FireTime">
+      <column name="fireTime"/>
+    </property>
+
+    <property name="AlarmTime">
+      <column name="AlarmTime"/>
+    </property>
+
+    <property name="AlarmMast">
+      <column name="AlarmMast"/>
+    </property>
+    
+<!--
+    <property name="ControlGroup">
+      <column name="Group"/>
+    </property>
+-->
+    
+    <property name="TimeTamp" type="DateTime">
+      <column name="TimeTamp"/>
+    </property>
+
+    <property name="LocalSetup">
+      <column name="LocalSetup" length="50"/>
+    </property>
+
+    <property name="MapID" type="int">
+      <column name="MapID"/>
+    </property>
+
+    <property name="XPoint" type="int">
+      <column name="XPoint"/>
+    </property>
+
+    <property name="YPoint" type="int">
+      <column name="YPoint"/>
+    </property>
+
+    <property name="MapVisible">
+      <column name="MapVisible"/>
+    </property>
+
+    <property name="Online">
+      <column name="Online"/>
+    </property>
+
+    <property name="DoorOpen">
+      <column name="DoorOpen"/>
+    </property>
+
+    <property name="FunctionMast">
+      <column name="FunctionMast"/>
+    </property>
+
+    <property name="Output">
+      <column name="OutPut" length="50"/>
+    </property>
+
+    <property name="Input">
+      <column name="InPut" length="50"/>
+    </property>
+
+    <property name="Is16">
+      <column name="is16"/>
+    </property>
+
+    <property name="OpenTime">
+      <column name="OpenTime"/>
+    </property>
+
+    <property name="CloseTime">
+      <column name="CloseTime"/>
+    </property>
+
+    <property name="FloorDelay">
+      <column name="FloorDelay"/>
+    </property>
+
+    <property name="OtherFuction">
+      <column name="OtherFuction"/>
+    </property>
+
+    <property name="MxOutPort">
+      <column name="MXxOutPort"/>
+    </property>
+
+    <property name="AesPin">
+      <column name="AESPin" length="50"/>
+    </property>
+
+    <property name="UseAes">
+      <column name="UseAES"/>
+    </property>
+
+    <property name="IcAddress">
+      <column name="ICAddress"/>
+    </property>
+
+    <property name="IcIsSt">
+      <column name="ICisST"/>
+    </property>
+
+  </class>
+</hibernate-mapping>
+
+<!--
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.Control,ACS" table="t_control"  >
+
+    <id name="ControlID" column ="CONTROL_ID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="NetID">
+      <column name="NET_ID"/>
+    </property>
+
+    <property name="Code">
+      <column name="CODE" length="50"/>
+    </property>
+    
+    <property name="ControlName">
+      <column name="CONTROL_NAME" length="50"/>
+    </property>
+
+    <property name="Address">
+      <column name="ADDRESS" length="50"/>
+    </property>
+
+    <property name="Serial">
+      <column name="SERIAL" length="50"/>
+    </property>
+
+    <property name="TypeID">
+      <column name="TYPE_ID"/>
+    </property>
+
+    <property name="Enable">
+      <column name="ENABLE"/>
+    </property>
+
+    <property name="DuressPin" type="string">
+      <column name="DURESS_PIN" length="50"/>
+    </property>
+
+    <property name="AreaID" type="int">
+      <column name="AREA_ID"/>
+    </property>
+
+    <property name="Www" type="string">
+      <column name="WWW" length="255"/>
+    </property>
+
+    <property name="Ip" type="string">
+      <column name="IP" length="255"/>
+    </property>
+
+    <property name="Port" type="int">
+      <column name="PORT"/>
+    </property>
+
+    <property name="ByIP">
+      <column name="BY_IP"/>
+    </property>
+
+    <property name="LockEach">
+      <column name="LOCK_EACH"/>
+    </property>
+
+    <property name="FireTime">
+      <column name="FIRE_TIME"/>
+    </property>
+
+    <property name="AlarmTime">
+      <column name="ALARM_TIME"/>
+    </property>
+
+    <property name="AlarmMast">
+      <column name="ALARM_MAST"/>
+    </property>
+
+    <property name="ControlGroup">
+      <column name="CONTROL_GROUP"/>
+    </property>
+
+    <property name="TimeTamp" type="DateTime">
+      <column name="TIME_TAMP"/>
+    </property>
+
+    <property name="LocalSetup">
+      <column name="LOCAL_SETUP" length="50"/>
+    </property>
+
+    <property name="MapID" type="int">
+      <column name="MAP_ID"/>
+    </property>
+
+    <property name="XPoint" type="int">
+      <column name="X_POINT"/>
+    </property>
+
+    <property name="YPoint" type="int">
+      <column name="Y_POINT"/>
+    </property>
+
+    <property name="MapVisible">
+      <column name="MAP_VISIBLE"/>
+    </property>
+
+    <property name="Online">
+      <column name="ONLINE"/>
+    </property>
+
+    <property name="DoorOpen">
+      <column name="DOOR_OPEN"/>
+    </property>
+
+    <property name="FunctionMast">
+      <column name="FUNCTION_MAST"/>
+    </property>
+
+    <property name="Output">
+      <column name="OUTPUT" length="50"/>
+    </property>
+
+    <property name="Input">
+      <column name="INPUT" length="50"/>
+    </property>
+
+    <property name="Is16">
+      <column name="IS16"/>
+    </property>
+
+    <property name="OpenTime">
+      <column name="OPEN_TIME"/>
+    </property>
+
+    <property name="CloseTime">
+      <column name="CLOSE_TIME"/>
+    </property>
+
+    <property name="FloorDelay">
+      <column name="FLOOR_DELAY"/>
+    </property>
+
+    <property name="OtherFuction">
+      <column name="OTHRE_FUNCTION"/>
+    </property>
+
+    <property name="MxOutPort">
+      <column name="MX_OUT_PORT"/>
+    </property>
+
+    <property name="AesPin">
+      <column name="AES_PIN" length="50"/>
+    </property>
+
+    <property name="UseAes">
+      <column name="USE_AES"/>
+    </property>
+
+    <property name="IcAddress">
+      <column name="IC_ADDRESS"/>
+    </property>
+
+    <property name="IcIsSt">
+      <column name="IC_IS_ST"/>
+    </property>
+
+  </class>
+</hibernate-mapping>
+-->

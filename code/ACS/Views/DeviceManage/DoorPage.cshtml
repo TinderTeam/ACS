@@ -22,7 +22,7 @@
 <body> 
     <form id="DoorForm" method="post">
 
-            <div style="margin-top:20px;margin-bottom:20px;margin-left:70px;">
+            <div style="margin-top:20px;margin-bottom:20px;margin-left:40px;">
                 <table style="table-layout:fixed;">
                     <tr style ="height:35px">
                         <td style="width:90px;">@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorName")</td>
@@ -31,79 +31,79 @@
                             <input name ="DoorID" class="mini-textbox" style="display:none" value=""/>
                             <input name="AlarmMast" id="AlarmMast" class="mini-textbox" style="display:none" value="0"/>
                         </td>
+                        <td style="width:90px;">@Resources.DeviceManage_Resource.ResourceManager.GetString("AlarmTime")</td>
+                        <td style="width:150px;">    
+                            <input name="AlarmTime" class="mini-textbox" value=""/>                   
+                        </td>
                     </tr>
                     <tr style ="height:35px">
                         <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("OpenTime")</td>
                         <td>    
                             <input name="OpenTime" class="mini-textbox" dateFormat="yyyy-MM-dd HH:mm:ss" value=""/>
                         </td>
-                    </tr>
-                    <tr style ="height:35px">
                         <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("OpenOutTime")</td>
                         <td>    
                             <input name="CloseOutTime" class="mini-textbox" dateFormat="yyyy-MM-dd HH:mm:ss" value=""/>
                         </td>
                     </tr>
-
+                    <tr style ="height:35px">
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("MCardsOpen")</td>
+                        <td>    
+                            <input name="MCardsOpen" class="mini-textbox" value=""/>    
+                        </td>
+                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("MCardsOpenInOut")</td>
+                        <td>    
+                            <input name="MCardsOpenInOut" class="mini-textbox" value=""/>    
+                        </td>
+                    </tr>
                     <!-- 长时间开门报警 -->
                     <tr style ="height:35px">
                         <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorAlerm2Long")</td>
                         <td>    
                             <input name="DoorAlerm2Long" class="mini-checkbox"  trueValue="true" falseValue="false" />
                         </td>
-                    </tr>
-                    <!-- 门报警事件 -->
-                    <tr style ="height:35px">
-                        
-                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("AlarmMast")</td>
-                        <td>    
-                            <input bit="1" class="bit-1 alarm-mast-change" type="checkbox" value=""/>
-                            @Resources.DeviceManage_Resource.ResourceManager.GetString("DoorAlerm")
-                            <input bit="2" class="bit-2 alarm-mast-change" type="checkbox" value=""/> 
-                            @Resources.DeviceManage_Resource.ResourceManager.GetString("DoorAlerm2Long")
-                        </td>
-                    </tr>
-                    <tr style ="height:35px">
-                        <td ></td>
-                        <td>    
-                            <input bit="4" class=" bit-4 alarm-mast-change" type="checkbox" value=""/>
-                            @Resources.DeviceManage_Resource.ResourceManager.GetString("IllegalCard")
-                            <input bit="8" class=" bit-8 alarm-mast-change" type="checkbox" value=""/>
-                            @Resources.DeviceManage_Resource.ResourceManager.GetString("IllegalTime")
-                        </td>
-                    </tr>
-                    <!-- 报警持续时间 -->
-                    <tr style ="height:35px">
-                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("AlarmTime")</td>
-                        <td>    
-                            <input name="AlarmTime" class="mini-textbox" value=""/>                   
-                        </td>
-                    </tr> 
-                    <!-- 双向检测 -->
-                    <tr style ="height:35px">
                         <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("PassBack")</td>
                         <td>    
                              <input name="PassBack" class="mini-checkbox"  trueValue="true" falseValue="false" />
                         </td>
-                    </tr>
-                    <!-- 多人开门时候的人数量 -->
-                    <tr style ="height:35px">
-                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("MCardsOpen")</td>
-                        <td>    
-                            <input name="MCardsOpen" class="mini-textbox" value=""/>    
-                        </td>
-                    </tr>
-
-                    <!-- 多人开门控制进出方向 -->
-                    <tr style ="height:35px">
-                        <td >@Resources.DeviceManage_Resource.ResourceManager.GetString("MCardsOpenInOut")</td>
-                        <td>    
-                            <input name="MCardsOpenInOut" class="mini-textbox" value=""/>    
-                        </td>
-                    </tr>
-                                            
+                    </tr>                                            
                 </table>
-            </div>    
+            </div>
+            <fieldset style="border:solid 1px #aaa;padding:3px;margin-left:40px;margin-right:40px;">
+                <legend >@Resources.DeviceManage_Resource.ResourceManager.GetString("AlarmMast")</legend>
+                <div style="padding-left:25px;margin-top:10px;margin-bottom:10px;">
+                    <table>
+                        <tr style ="height:35px">
+                            <td style="width:20px;">
+                                <input bit="1" class="bit-1 alarm-mast-change" type="checkbox" value=""/>
+                            </td>
+                            <td style="width:120px;">
+                                @Resources.DeviceManage_Resource.ResourceManager.GetString("DoorAlerm")
+                            </td>
+                            <td style="width:20px;">    
+                                <input bit="2" class="bit-2 alarm-mast-change" type="checkbox" value=""/>
+                            </td>
+                            <td style="width:120px;"> 
+                                @Resources.DeviceManage_Resource.ResourceManager.GetString("DoorAlerm2Long")
+                            </td>
+                        </tr>
+                        <tr style ="height:35px">
+                            <td style="width:20px;">
+                                <input bit="4" class=" bit-4 alarm-mast-change" type="checkbox" value=""/>
+                            </td>
+                            <td style="width:120px;">
+                                @Resources.DeviceManage_Resource.ResourceManager.GetString("IllegalCard")
+                            </td>
+                            <td style="width:20px;">    
+                                <input bit="8" class=" bit-8 alarm-mast-change" type="checkbox" value=""/>
+                            </td>
+                            <td style="width:120px;">
+                                @Resources.DeviceManage_Resource.ResourceManager.GetString("IllegalTime")
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </fieldset>    
       
         <div style="text-align:center;padding:5px;">                            
             <a id="Modify" class="mini-button" onclick="onSaveData()" style="width:60px;margin-right:20px;">@Resources.Common_Resource.ResourceManager.GetString("OK")</a>       

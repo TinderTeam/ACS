@@ -467,15 +467,15 @@ namespace TcpipIntface
         /// 设置心跳 
         private void SetXinTiao()
         {
-            /*    byte[] inValue = new byte[] { 1, 0, 0, 0, 0x88, 0x13, 0, 0, 0xd0, 0x07, 0, 0 };// 首次探测时间5 秒, 间隔侦测时间2 秒
+            //    byte[] inValue = new byte[] { 1, 0, 0, 0, 0x88, 0x13, 0, 0, 0xd0, 0x07, 0, 0 };// 首次探测时间5 秒, 间隔侦测时间2 秒
 
-                uint dummy = 0;
-                byte[] inOptionValues = new byte[Marshal.SizeOf(dummy) * 3];
-                BitConverter.GetBytes((uint)1).CopyTo(inOptionValues, 0);//是否启用Keep-Alive
-                BitConverter.GetBytes((uint)2000).CopyTo(inOptionValues, Marshal.SizeOf(dummy));//多长时间开始第一次探测
-                BitConverter.GetBytes((uint)2000).CopyTo(inOptionValues, Marshal.SizeOf(dummy) * 2);//探测时间间隔
+            //    uint dummy = 0;
+            //    byte[] inOptionValues = new byte[Marshal.SizeOf(dummy) * 3];
+            //    BitConverter.GetBytes((uint)1).CopyTo(inOptionValues, 0);//是否启用Keep-Alive
+            //    BitConverter.GetBytes((uint)2000).CopyTo(inOptionValues, Marshal.SizeOf(dummy));//多长时间开始第一次探测
+            //    BitConverter.GetBytes((uint)2000).CopyTo(inOptionValues, Marshal.SizeOf(dummy) * 2);//探测时间间隔
 
-            sock.IOControl(IOControlCode.KeepAliveValues, inOptionValues, null);*/
+            //sock.IOControl(IOControlCode.KeepAliveValues, inOptionValues, null);
         }
 
         /// <summary>
@@ -566,63 +566,63 @@ namespace TcpipIntface
         /// 检测socket的状态
         /// </summary>
         /// <returns></returns>
-        /* public bool checkSocketState()
-        {
-            try
-            {  
-                if (!IsconnectSuccess)
-                {
-                    return false;
-                }
-                else//已创建套接字，但未connected
-                {
-                    #region 异步连接代码
+        // public bool checkSocketState()
+        //{
+        //    try
+        //    {  
+        //        if (!IsconnectSuccess)
+        //        {
+        //            return false;
+        //        }
+        //        else//已创建套接字，但未connected
+        //        {
+        //            #region 异步连接代码
 
-                 //   TimeoutObject.Reset(); //复位timeout事件
-                    try
-                    {  
-                        IPAddress serverIp = IPAddress.Parse(remoteHost);
-                        int serverPort = Convert.ToInt32(remotePort);
-                        iep = new IPEndPoint(serverIp, serverPort);
-                      //  sock.BeginConnect(iep , connectedCallback, sock); 
-                        sock.BeginConnect(iep, new AsyncCallback( connectedCallback), sock );
+        //         //   TimeoutObject.Reset(); //复位timeout事件
+        //            try
+        //            {  
+        //                IPAddress serverIp = IPAddress.Parse(remoteHost);
+        //                int serverPort = Convert.ToInt32(remotePort);
+        //                iep = new IPEndPoint(serverIp, serverPort);
+        //              //  sock.BeginConnect(iep , connectedCallback, sock); 
+        //                sock.BeginConnect(iep, new AsyncCallback( connectedCallback), sock );
 
-                        SetXinTiao();//设置心跳参数
-                    }
-                    catch (Exception err)
-                    {
-                        SockErrorStr = err.ToString();
-                        return false;
-                    }
+        //                SetXinTiao();//设置心跳参数
+        //            }
+        //            catch (Exception err)
+        //            {
+        //                SockErrorStr = err.ToString();
+        //                return false;
+        //            }
 
-                    if (TimeoutObject.WaitOne(2000, false))//直到timeout，或者TimeoutObject.set()
-                    {
-                        if (IsconnectSuccess)
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        SockErrorStr = "Time Out";
-                        return false;
-                    }
+        //            if (TimeoutObject.WaitOne(2000, false))//直到timeout，或者TimeoutObject.set()
+        //            {
+        //                if (IsconnectSuccess)
+        //                {
+        //                    return true;
+        //                }
+        //                else
+        //                {
+        //                    return false;
+        //                }
+        //            }
+        //            else
+        //            {
+        //                SockErrorStr = "Time Out";
+        //                return false;
+        //            }
 
-                    #endregion
-                }
+        //            #endregion
+        //        }
 
-            }
-            catch (SocketException se)
-            {
-                SockErrorStr = se.ToString();
-                return false;
-            }
-        }
-         */
+        //    }
+        //    catch (SocketException se)
+        //    {
+        //        SockErrorStr = se.ToString();
+        //        return false;
+        //    }
+        //}
+
         /// 异步连接回调函数
         private void connectedCallback(IAsyncResult iar)
         {   

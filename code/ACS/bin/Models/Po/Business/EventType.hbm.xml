@@ -1,70 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
-  <class name="ACS.Models.Po.Business.EventType,ACS" table="TEventType"  >
-
-    <id name="EventTypeID" column ="EventID" >
-      <generator class ="identity"/>
-    </id>
-
-    <property name="EventTypeName">
-      <column name="Event" length="50"/>
-    </property>
-    
-    <property name="Level">
-      <column name="Level"/>
-    </property>
-
-    <property name="Visible">
-      <column name="Visible"/>
-    </property>
-
-    <property name="Affirm">
-      <column name="affirm"/>
-    </property>
-
-    <property name="Alarm">
-      <column name="Alarm"/>
-    </property>
-
-    <property name="ForegroundColor">
-      <column name="ForegroundColor" length="10"/>
-    </property>
-
-    <property name="BackgroundColor">
-      <column name="BackgroundColor" length="10"/>
-    </property>
-
-    <property name="Event0">
-      <column name="Event0"/>
-    </property>
-
-    <property name="Event1">
-      <column name="Event1"/>
-    </property>
-
-    <property name="Event2">
-      <column name="Event2"/>
-    </property>
-    
-    <property name="Event3">
-      <column name="Event3"/>
-    </property>
-
-    <property name="Event4">
-      <column name="Event4"/>
-    </property>
-
-    <property name="Event5">
-      <column name="Event5"/>
-    </property>
-
-  </class>
-</hibernate-mapping>
-
-<!--
-
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
   <class name="ACS.Models.Po.Business.EventType,ACS" table="t_event_type"  >
 
     <id name="EventTypeID" column ="EVENT_TYPE_ID" >
@@ -125,4 +61,3 @@
 
   </class>
 </hibernate-mapping>
--->

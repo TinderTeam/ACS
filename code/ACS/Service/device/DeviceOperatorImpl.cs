@@ -175,8 +175,8 @@ namespace ACS.Service.Impl
             bool result = connector.AddTimeZone(
                 (ushort)door.DoorNum, 
                 (byte)doorTime.DoorTimeNum, 
-                DateUtil.StringToDateTime(doorTime.StartTime),
-               DateUtil.StringToDateTime(doorTime.EndTime), 
+                doorTime.StartTime,
+               doorTime.EndTime, 
                 week, 
                 true, 
                 (byte)1, 
@@ -328,8 +328,8 @@ namespace ACS.Service.Impl
              *  byte Group
              *  )
              */
-            DateTime startTime = DateUtil.StringToDateTime(doortime.StartTime);
-            DateTime endTime = DateUtil.StringToDateTime(doortime.EndTime);
+            DateTime startTime = doortime.StartTime;
+            DateTime endTime = doortime.EndTime;
             startTime.AddYears(2000);
             endTime.AddYears(2000);
             bool result = connector.AddTimeZone(

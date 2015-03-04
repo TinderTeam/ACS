@@ -132,7 +132,7 @@ namespace ACS.Service.Impl
                     DoorTime doorTime = new DoorTime();
                     doorTime.DoorID = door.DoorID;
                     doorTime.DoorTimeName = "Time" + j;
-                    doorTime.DoorTimeNum = i;
+                    doorTime.DoorTimeNum = j;
                     doorTimeList.Add(doorTime);
                 }
             }
@@ -217,6 +217,7 @@ namespace ACS.Service.Impl
             orignalDoorTime.Friday = doorTime.Friday;
             orignalDoorTime.Saturday = doorTime.Saturday;
             orignalDoorTime.Sunday = doorTime.Sunday;
+            orignalDoorTime.Holiday = doorTime.Holiday;
             orignalDoorTime.Identify = doorTime.Identify;
             orignalDoorTime.LimitDate =doorTime.LimitDate;
 
@@ -319,17 +320,8 @@ namespace ACS.Service.Impl
                 log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
                 throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
             }
-            //检查设备是否在线
-            if (!OnlineDeviceCache.checkOnline(control.Ip))
-            {
-                log.Warn("device is not online: " + control.Ip);
-                throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);   //设备不在线
-            }
-            else
-            {
-                DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
-                deviceOperator.Operate(cmdCode, door);
-            }
+            DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+            deviceOperator.Operate(cmdCode, door);
         }
 
         public void DeviceDownload(string controlID, string uuID)
@@ -339,12 +331,6 @@ namespace ACS.Service.Impl
             {
                 log.Error("can not find the control by id, the control id is " + controlID);
                 throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
-            }
-            //检查设备是否在线
-            if (!OnlineDeviceCache.checkOnline(control.Ip))
-            {
-                log.Warn("device is not online: " + control.Ip);
-                throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);   //设备不在线
             }
             DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
 
@@ -391,14 +377,6 @@ namespace ACS.Service.Impl
                     Control.CONTROL_ID,
                     controlID
                     ));
-
-                //检查设备是否在线
-                if (!OnlineDeviceCache.checkOnline(control.Ip))
-                {
-                    log.Warn("device is not online: " + control.Ip);
-                    throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);   //设备不在线
-                }
-
                 UpdateUniDeviceInfo(userID,control);
 
             }
@@ -418,14 +396,7 @@ namespace ACS.Service.Impl
 
             //重新连接这个设备
             DeviceOperator deviceOperator= DeviceOperatorFactory.getInstance().initDeviceOperator(control);
-
-            //检查设备是否在线
-            if (!OnlineDeviceCache.checkOnline(control.Ip))
-            {
-                log.Warn("device is not online: " + control.Ip);
-                throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);   //设备不在线
-            }
-
+            
             #region 门操作
             //获取门列表
 
@@ -437,10 +408,10 @@ namespace ACS.Service.Impl
 
             foreach (Door door in doorList)
             {
-                if (door.DoorEnable)
-                {
-                    deviceOperator.SetDoor(door);
-                }
+                //if (door.DoorEnable)
+                //{
+                    //deviceOperator.SetDoor(door);
+                //}
 
             }
 
@@ -482,29 +453,29 @@ namespace ACS.Service.Impl
                     throw new FuegoException(ExceptionMsg.DOOR_NOT_EXIST);
                 }
 
-                if (door.DoorEnable)
-                {
+                //if (door.DoorEnable)
+                //{
                     if (doortime.Enable.Equals(DoorTimeView.ENABLE))
                     {
                         deviceOperator.SetDoorTime(doortime);
                     }
-                }   
+                //}   
         
             }
 
             #endregion
 
-            #region 假期操作
+            //#region 假期操作
 
-            //删除全部假期信息
-            deviceOperator.DelHoliday();
-            List<Holiday> holidayList = GetDao<Holiday>().getAll();
-            foreach (Holiday holiday in holidayList)
-            {
-                deviceOperator.AddHoliday(holiday);
-            }
-           
-            #endregion
+            ////删除全部假期信息
+            //deviceOperator.DelHoliday();
+            //List<Holiday> holidayList = GetDao<Holiday>().getAll();
+            //foreach (Holiday holiday in holidayList)
+            //{
+            //    deviceOperator.AddHoliday(holiday);
+            //}
+
+            //#endregion
 
         }
 

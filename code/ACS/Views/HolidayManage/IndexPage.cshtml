@@ -97,11 +97,14 @@
                         url: "../HolidayManage/Delete?data=" + idList,
                         success: function (json) {
                             var Rsp = mini.decode(json);
-                            if (Rsp.ErrorCode=="Success")
-                            {
+                            if (Rsp.ErrorCode == "Success") {
+                                mini.alert("@Resources.Common_Resource.ResourceManager.GetString("DeleteSuccess")");
                                 grid.reload();
                             }
-                            mini.alert(Rsp.Message);
+                            else
+                            {
+                                mini.alert(Rsp.Message);
+                            } 
                         },
                         error: function () {
                         }

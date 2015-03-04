@@ -1,40 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
-  <class name="ACS.Models.Po.Log.SystemLog,ACS" table="TLog"  >
-
-    <id name="LogID" column ="LogID" >
-      <generator class ="identity"/>
-    </id>
-
-    <property name="LogDateTime">
-      <column name="LogDateTime"/>
-    </property>
-
-    <property name="UserCode">
-      <column name="UserCode" />
-    </property>
-    
-    <property name="LogEvent">
-      <column name="Event" length="255"/>
-    </property>
-
-    <property name="Msg">
-      <column name="msg"/>
-    </property>
-    
-    <property name="Result">
-      <column name="ResultStr"/>
-    </property>
-
-    <property name="Computer">
-      <column name="Computer" length ="50"/>
-    </property>
-
-  </class>
-</hibernate-mapping>
-
-<!--
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
   <class name="ACS.Models.Po.Log.SystemLog,ACS" table="t_system_log"  >
 
     <id name="LogID" column ="LOG_ID" >
@@ -67,4 +32,3 @@
 
   </class>
 </hibernate-mapping>
--->

@@ -33,8 +33,8 @@ namespace ACS.Models.Po.Business
 
         //DoorTime标准获取
         private String doorTimeName;        //门时间段名称
-        private String startTime;         //开始时间
-        private String endTime;           //截止时间
+        private DateTime startTime = Convert.ToDateTime("2000-01-01 00:00:00");  //开始时间
+        private DateTime endTime = Convert.ToDateTime("2000-01-01 00:00:00");    //截止时间
         public virtual int DoorTimeNum { get; set; }
 
         public virtual bool Monday { get; set; }
@@ -118,13 +118,13 @@ namespace ACS.Models.Po.Business
             set { doorTimeName = value; }
         }
 
-        public virtual String StartTime
+        public virtual DateTime StartTime
         {
             get { return startTime; }
             set { startTime = value; }
         }
 
-        public virtual String EndTime
+        public virtual DateTime EndTime
         {
             get { return endTime; }
             set { endTime = value; }

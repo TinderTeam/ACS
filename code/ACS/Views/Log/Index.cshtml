@@ -61,7 +61,7 @@
                             if (Rsp.ErrorCode == "Success") {
                                 grid.reload();
                             }
-                            mini.alert(Rsp.Message);
+                            mini.alert("@Resources.Common_Resource.ResourceManager.GetString("DeleteSuccess")");
                         },
                         error: function () {
                         }

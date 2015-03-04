@@ -9,13 +9,13 @@
 </div>
 <div class = "mini-fit">
     <div id ="doorTimeGird" class="mini-datagrid" style="width:100%;height:100%;" allowResize="true"
-            url="LoadDoorTimeList"  idField="DoorTimeID" multiSelect="true">
+            url="LoadDoorTimeList"  idField="DoorTimeID">
             <div property="columns">
                 <div type="checkcolumn" ></div>                  
                 <div field="Enable" width="30" headerAlign="center" allowSort="true">@Resources.Common_Resource.ResourceManager.GetString("Enable")</div>
                 <div field="DoorTimeName" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("DoorTimeName")</div>
-                <div field="StartTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">@Resources.DeviceManage_Resource.ResourceManager.GetString("StartTime")</div>
-                <div field="EndTime" width="90" headerAlign="center" allowSort="true" dateFormat="HH:mm:ss">@Resources.DeviceManage_Resource.ResourceManager.GetString("EndTime")</div>
+                <div field="StartTime" width="90" headerAlign="center" allowSort="true" align="center" dateFormat="HH:mm:ss">@Resources.DeviceManage_Resource.ResourceManager.GetString("StartTime")</div>
+                <div field="EndTime" width="90" headerAlign="center" allowSort="true" align="center" dateFormat="HH:mm:ss">@Resources.DeviceManage_Resource.ResourceManager.GetString("EndTime")</div>
                 <div field="Monday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Monday")</div>
                 <div field="Tuesday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Tuesday")</div>
                 <div field="Wednesday" type="checkboxcolumn" trueValue="1" falseValue="0" width="30" headerAlign="center">@Resources.AccessManage_Resource.ResourceManager.GetString("Wednesday")</div>
@@ -41,7 +41,7 @@
         var value = row.DoorTimeID;
         mini.open({
             url: "../DeviceManage/DoorTimePage",
-            title: "@Resources.Common_Resource.ResourceManager.GetString("Modify")", width: 560, height: 420,
+            title: "@Resources.Common_Resource.ResourceManager.GetString("Modify")", width: 560, height: 380,
             onload: function () {
                 var iframe = this.getIFrameEl();
                 var data = { id: value };

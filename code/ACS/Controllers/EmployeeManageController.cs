@@ -109,7 +109,7 @@ namespace ACS.Controllers
                 }
                 if (!ValidatorUtil.isEmpty(employeeFilter.JobID))
                 {
-                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.JOBID, employeeFilter.JobID.ToString()));
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EmployeeView.JOBID, employeeFilter.JobID.ToString()));
                 }
   
                 filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EmployeeView.EMPLOYEENAME, employeeFilter.EmployeeName));

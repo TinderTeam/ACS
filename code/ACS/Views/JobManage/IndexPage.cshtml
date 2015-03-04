@@ -17,9 +17,9 @@
     <div class="mini-panel" title="@Resources.DeptAndJob_Resource.ResourceManager.GetString("JobManage")" style="width:100%;height:100%;" showToolbar="true">
          <!--toolbar-->
         <div property="toolbar">
-            <a class="mini-button" iconCls="icon-addfolder" onclick="onEditNode('Create')" plain="true">@Resources.Common_Resource.ResourceManager.GetString("Create")</a>
-            <a class="mini-button" iconCls="icon-edit" onclick="onEditNode('Modify')" plain="true">@Resources.Common_Resource.ResourceManager.GetString("Modify")</a>
-            <a class="mini-button" iconCls="icon-remove" onclick="onRemoveNode()" plain="true">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a>
+            <a class="mini-button" iconCls="icon-add" onclick="onEditNode('Create')">@Resources.Common_Resource.ResourceManager.GetString("Create")</a>
+            <a class="mini-button" iconCls="icon-edit" onclick="onEditNode('Modify')">@Resources.Common_Resource.ResourceManager.GetString("Modify")</a>
+            <a class="mini-button" iconCls="icon-remove" onclick="onRemoveNode()">@Resources.Common_Resource.ResourceManager.GetString("Delete")</a>
         </div>                  
         <!--body-->
         <ul id="jobTree" class="mini-tree" url="../JobManage/LoadTree" style="width:100%;height:100%;padding:0px;" 
