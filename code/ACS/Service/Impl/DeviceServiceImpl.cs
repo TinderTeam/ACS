@@ -38,7 +38,7 @@ namespace ACS.Service.Impl
             List<TreeModel> treeModelList = new List<TreeModel>();
             List<String> controlIDList = privilegeService.getPrivilegeValueList(userID, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN);
             //刷新设备在线信息
-            StartMonitor(controlIDList);
+            //StartMonitor(controlIDList);
 
             //生成根节点
             TreeModel rootTreeModel = new TreeModel();

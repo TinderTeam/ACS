@@ -28,15 +28,15 @@
                 <!--
                 <div field="Code" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlCode")</div>
                     -->
-                <div field="Online" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlStatus")</div>
-                <div field="TypeID" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlType")</div>
+                <div field="Online" width="50" headerAlign="center" allowSort="true" align="center" renderer="onlineStatusRenderer">@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlStatus")</div>
+                <div field="TypeID" width="50" headerAlign="center" allowSort="true" align="center" renderer="controlTypeRenderer">@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlType")</div>
                 <div field="Serial" width="50" headerAlign="center" allowSort="true" >@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlSerial")</div>
-                <div field="Ip" width="50" headerAlign="center" allowSort="true">@Resources.DeviceManage_Resource.ResourceManager.GetString("IPAddr")</div>
-                <div field="Port" width="30" headerAlign="center" allowSort="true">@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlPort")</div>
+                <div field="Ip" width="50" headerAlign="center" align="center" allowSort="true">@Resources.DeviceManage_Resource.ResourceManager.GetString("IPAddr")</div>
+                <div field="Port" width="30" headerAlign="center" align="center" allowSort="true">@Resources.DeviceManage_Resource.ResourceManager.GetString("ControlPort")</div>
             </div>
     </div>
 </div>
-
+@Html.Partial("../Public/js")
 <script type="text/javascript">
 
     var barClock = 2000;       //定时器更新间隔
