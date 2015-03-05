@@ -443,19 +443,19 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ErrorMsg_Resource.designer.cs</LastGenOutput>
     </Content>
-    <EmbeddedResource Include="DeviceIdentifyConfig.xml">
+    <Content Include="DeviceIdentifyConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DeviceConfig.xml">
+    </Content>
+    <Content Include="DeviceConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </Content>
     <None Include="Properties\PublishProfiles\11.pubxml" />
-    <EmbeddedResource Include="hibernate.cfg.xml">
+    <Content Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
+    </Content>
     <Content Include="log4net.dll" />
     <EmbeddedResource Include="Models\Po\CF\SystemUser.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

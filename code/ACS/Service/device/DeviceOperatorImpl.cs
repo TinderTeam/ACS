@@ -19,6 +19,7 @@ namespace ACS.Service.Impl
     public class DeviceOperatorImpl :  System.ContextBoundObject,DeviceOperator
     {
         private static log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        
         private Control control;
         private TcpipClass connector;
 

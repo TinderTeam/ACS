@@ -37,7 +37,9 @@ namespace ACS.Service.Impl
         {
             List<TreeModel> treeModelList = new List<TreeModel>();
             List<String> controlIDList = privilegeService.getPrivilegeValueList(userID, ServiceConstant.SYS_ACCESS_TYPE_DEVICE_DOMAIN);
-            
+            //刷新设备在线信息
+            StartMonitor(controlIDList);
+
             //生成根节点
             TreeModel rootTreeModel = new TreeModel();
             rootTreeModel.Id = Control.CONTROL_TYPE + Control.SPLIT + "0";
@@ -148,6 +150,13 @@ namespace ACS.Service.Impl
             //增加设备权限
             log.Info("Create privileges of the new control creater.");
             privilegeService.CreateDomainPrivilege(userID.ToString(), control.ControlID.ToString());
+        }
+        //修改控制器
+        public override void Modify(int userID, Control control){
+            base.Modify(userID, control);
+            List<String> contrilIdList = new List<String>();
+            contrilIdList.Add(control.ControlID.ToString());
+            StartMonitor(contrilIdList);
         }
         //删除控制器
         public override void Delete(int userID, List<String> idList)
@@ -417,11 +426,7 @@ namespace ACS.Service.Impl
 
             foreach (Door door in doorList)
             {
-                //if (door.DoorEnable)
-                //{
-                    //deviceOperator.SetDoor(door);
-                //}
-
+                deviceOperator.SetDoor(door);
             }
 
             #endregion
@@ -474,17 +479,17 @@ namespace ACS.Service.Impl
 
             #endregion
 
-            //#region 假期操作
+            #region 假期操作
 
             ////删除全部假期信息
-            //deviceOperator.DelHoliday();
-            //List<Holiday> holidayList = GetDao<Holiday>().getAll();
-            //foreach (Holiday holiday in holidayList)
-            //{
-            //    deviceOperator.AddHoliday(holiday);
-            //}
+            deviceOperator.DelHoliday();
+            List<Holiday> holidayList = GetDao<Holiday>().getAll();
+            foreach (Holiday holiday in holidayList)
+            {
+                deviceOperator.AddHoliday(holiday);
+            }
 
-            //#endregion
+            #endregion
 
         }
 
