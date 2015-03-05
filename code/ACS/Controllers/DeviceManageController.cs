@@ -189,7 +189,6 @@ namespace ACS.Controllers
             {
                 List<String> controlIDList = JsonConvert.JsonToObject<List<String>>(idList);
                 deviceService.UpdateDeviceInfo(this.getSessionUser().UserID, controlIDList);
-               
             }
             catch (FuegoException e)
             {

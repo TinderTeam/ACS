@@ -40,6 +40,12 @@ namespace ACS.Service.Impl
 
             QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL, "EmployeeCode", obj.EmployeeCode);
             Employee old = employeeDao.getUniRecord(condition);
+
+           
+            //对时间进行处理
+             DateTime now=DateTime.Now;
+             obj.EndDate = now.AddYears(10);
+
             if ((null != old) && (old.EmployeeID != obj.EmployeeID))
             {
                 log.Error("create failed, the employeeCode has exist. employeeCode is " + obj.EmployeeCode);

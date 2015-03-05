@@ -96,47 +96,56 @@ namespace ACS.Service.Impl
         public override void Create(int userID, Control control)
         {          
             log.Info("Create a new control.  userID="+userID+"control=" +JsonConvert.ObjectToJson(control));
-           
-            //根据控制器创建门
-            DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
-            if (null == deviceType)     //控制器类型为空
-            {
-                log.Error("Control create Failed,deviceType not exist, the type is " + control.TypeID);
-                throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
-            }
-            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,Control.IP,control.Ip);
-            Control orignalcontrol = GetDao<Control>().getUniRecord(condition);
-            if (null != orignalcontrol)     //控制器ID重复
-            {
-                log.Error("Control create Failed,IP has exist, the IP is " + control.Ip);
-                throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
-            }
+
+            #region 控制器创建参数验证
+                DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
+                if (null == deviceType)     //控制器类型为空
+                {
+                    log.Error("Control create Failed,deviceType not exist, the type is " + control.TypeID);
+                    throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
+                }
+                QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,Control.IP,control.Ip);
+                Control orignalcontrol = GetDao<Control>().getUniRecord(condition);
+                if (null != orignalcontrol)     //控制器ID重复
+                {
+                    log.Error("Control create Failed,IP has exist, the IP is " + control.Ip);
+                    throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
+                }
+            #endregion
+
             //创建控制器
             base.Create(userID, control);
-          
-            //根据控制器创建时间
-            List<DoorTime> doorTimeList = new List<DoorTime>();
-            log.Info("Create doors and doortimes of the new control. Doors' number is :" + deviceType.DoorNum + ".Times' number is:" + deviceType.TimeNum);
+            //连接控制器
+            List<String> contrilIdList=new List<String>();
+            contrilIdList.Add(control.ControlID.ToString());
+            StartMonitor(contrilIdList);
 
-            for (int i = 0; i < deviceType.DoorNum; i++)
-            {
+            //刷新控制器在线状态
 
-                Door door = new Door();
-                door.ControlID = control.ControlID;
-                door.DoorName = "Door" + i.ToString();
-                door.DoorNum = i;
-                GetDao<Door>().create(door);
+            #region 根据控制器创建门/时间
+                List<DoorTime> doorTimeList = new List<DoorTime>();
+                log.Info("Create doors and doortimes of the new control. Doors' number is :" + deviceType.DoorNum + ".Times' number is:" + deviceType.TimeNum);
 
-                for (int j = 0; j < deviceType.TimeNum; j++)
+                for (int i = 0; i < deviceType.DoorNum; i++)
                 {
-                    DoorTime doorTime = new DoorTime();
-                    doorTime.DoorID = door.DoorID;
-                    doorTime.DoorTimeName = "Time" + j;
-                    doorTime.DoorTimeNum = j;
-                    doorTimeList.Add(doorTime);
+
+                    Door door = new Door();
+                    door.ControlID = control.ControlID;
+                    door.DoorName = "Door" + i.ToString();
+                    door.DoorNum = i;
+                    GetDao<Door>().create(door);
+
+                    for (int j = 0; j < deviceType.TimeNum; j++)
+                    {
+                        DoorTime doorTime = new DoorTime();
+                        doorTime.DoorID = door.DoorID;
+                        doorTime.DoorTimeName = "Time" + j;
+                        doorTime.DoorTimeNum = j;
+                        doorTimeList.Add(doorTime);
+                    }
                 }
-            }
-            GetDao<DoorTime>().create(doorTimeList);
+                GetDao<DoorTime>().create(doorTimeList);
+            #endregion
             
             //增加设备权限
             log.Info("Create privileges of the new control creater.");
@@ -295,7 +304,9 @@ namespace ACS.Service.Impl
             {
                 log.Info("start monitor contorl,contorl ip is " + control.Ip);
                 DeviceOperatorFactory.getInstance().getDeviceOperator(control);
+                control.Online = true;
             }
+            GetDao().update(controlList);
         }
 
         #region DeviceService 成员
