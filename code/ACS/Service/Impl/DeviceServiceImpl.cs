@@ -75,16 +75,14 @@ namespace ACS.Service.Impl
                 TreeModel treeModel = new TreeModel();
                 treeModel.Id = Control.DOOR_TYPE + Control.SPLIT + door.DoorID.ToString();
                 treeModel.Pid = Control.CONTROL_TYPE + Control.SPLIT + door.ControlID.ToString();
-                /*
-                if ()
-                {
-                    treeModel.MenuName = control.ControlName + "(" + Control.ONLINE + ")";
-                }
-                else
-                {
-                    treeModel.MenuName = control.ControlName + "(" + Control.OFFLINE + ")";
-                }
-                 */
+                //if ()
+                //{
+                //    treeModel.MenuName = control.ControlName + "(" + Control.ONLINE + ")";
+                //}
+                //else
+                //{
+                //    treeModel.MenuName = control.ControlName + "(" + Control.OFFLINE + ")";
+                //}
                 treeModel.MenuName = door.DoorName;
                 treeModelList.Add(treeModel);
             }
@@ -98,19 +96,19 @@ namespace ACS.Service.Impl
             log.Info("Create a new control.  userID="+userID+"control=" +JsonConvert.ObjectToJson(control));
 
             #region 控制器创建参数验证
-                DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
-                if (null == deviceType)     //控制器类型为空
-                {
-                    log.Error("Control create Failed,deviceType not exist, the type is " + control.TypeID);
-                    throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
-                }
-                QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,Control.IP,control.Ip);
-                Control orignalcontrol = GetDao<Control>().getUniRecord(condition);
-                if (null != orignalcontrol)     //控制器ID重复
-                {
-                    log.Error("Control create Failed,IP has exist, the IP is " + control.Ip);
-                    throw new FuegoException(ExceptionMsg.OPERATE_FAILED);
-                }
+            DeviceTypeModel deviceType = DeviceTypeCache.GetInstance().GetDeviceType(control.TypeID);
+            if (null == deviceType)     //控制器类型为空
+            {
+                log.Error("Control create Failed,deviceType not exist, the type is " + control.TypeID);
+                throw new FuegoException(ExceptionMsg.CONTROL_TYPE_IS_EMPTY);
+            }
+            QueryCondition condition = new QueryCondition(ConditionTypeEnum.EQUAL,Control.IP,control.Ip);
+            Control orignalcontrol = GetDao<Control>().getUniRecord(condition);
+            if (null != orignalcontrol)     //控制器IP重复
+            {
+                log.Error("Control create Failed,IP has exist, the IP is " + control.Ip);
+                throw new FuegoException(ExceptionMsg.CONTROL_IP_EXIST);
+            }
             #endregion
 
             //创建控制器

@@ -201,6 +201,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="App_GlobalResources\ErrorMsg_Resource.designer.cs">
+      <DependentUpon>ErrorMsg_Resource.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -434,19 +439,23 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>UserManage_Resource.designer.cs</LastGenOutput>
     </Content>
-    <Content Include="DeviceIdentifyConfig.xml">
+    <Content Include="App_GlobalResources\ErrorMsg_Resource.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ErrorMsg_Resource.designer.cs</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="DeviceIdentifyConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DeviceConfig.xml">
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeviceConfig.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </EmbeddedResource>
     <None Include="Properties\PublishProfiles\11.pubxml" />
-    <Content Include="hibernate.cfg.xml">
+    <EmbeddedResource Include="hibernate.cfg.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
-    </Content>
+    </EmbeddedResource>
     <Content Include="log4net.dll" />
     <EmbeddedResource Include="Models\Po\CF\SystemUser.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -520,7 +529,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Log\SystemLog.hbm.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Models\Po\Business\EmployeeIndex.hbm.xml">
       <SubType>Designer</SubType>

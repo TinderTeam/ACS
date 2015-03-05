@@ -14,7 +14,6 @@ namespace ACS.Service.Constant
         public const String LOGIN_FAILED = "LOGIN_FAILED";                          //登录失败
         public const String USER_EXISTED = "USER_EXISTED";                          //用户已存在
         public const String OLD_PASSWORD_WRONG = "OLD_PASSWORD_WRONG";              //原密码错误
-        public const String DATE_FOMATE = "DATE_FOMATE";                            //数据格式
         public const String DATA_CONVERT_ERROR = "DATA_CONVERT_ERROR";              //数据转换错误
         public const String USERNAME_EXIST = "USERNAME_EXIST";                      //用户名已存在
         public const String EMPLOYEE_CODE_EXIST = "EMPLOYEE_CODE_EXIST";            //工号已存在
@@ -36,6 +35,8 @@ namespace ACS.Service.Constant
         public const String CONTROL_NOT_EXIST = "CONTROL_NOT_EXIST";                //控制器不存在
         public const String OPERATE_DEVICE_FAILED = "OPERATE_DEVICE_FAILED";        //设备操作失败
         public const String OPERATE_DEVICE_NOT_ONLINE = "OPERATE_DEVICE_NOT_ONLINE";    //设备不在线
+        public const String CONTROL_TYPE_IS_EMPTY = "CONTROL_TYPE_IS_EMPTY";        //控制器类型不能为空
+        public const String CONTROL_IP_EXIST = "CONTROL_IP_EXIST";                  //控制器IP地址重复
 
 
     }

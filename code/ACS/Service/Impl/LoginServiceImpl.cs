@@ -67,13 +67,13 @@ namespace ACS.Service.Impl
             if (null == user)
             {
                 log.Error("session has out of time,username is " + userName);
-                throw new FuegoException(ExceptionMsg.USERNAME_PASSWORD_WRONG);
+                throw new FuegoException(ExceptionMsg.USER_NOT_EXISTED);
             }
 
             if (!user.Pswd.Equals(oldPswd))
             {
                 log.Info("old password is wrong. user name is " + userName);
-                throw new FuegoException(ExceptionMsg.USERNAME_PASSWORD_WRONG);
+                throw new FuegoException(ExceptionMsg.OLD_PASSWORD_WRONG);
             }
             
             user.Pswd = newPswd;

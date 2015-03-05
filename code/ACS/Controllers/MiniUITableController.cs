@@ -195,12 +195,12 @@ namespace ACS.Controllers
             }
             catch (FuegoException e)
             {
-                log.Error("create failed", e);
+                log.Error("Modify failed", e);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
-                log.Error("create failed", e);
+                log.Error("Modify failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
 
@@ -217,12 +217,12 @@ namespace ACS.Controllers
             }
             catch (FuegoException e)
             {
-                log.Error("create failed", e);
+                log.Error("delete failed", e);
                 Rsp.ErrorCode = e.GetErrorCode();
             }
             catch (Exception e)
             {
-                log.Error("create failed", e);
+                log.Error("delete failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
            // Response.Write(JsonConvert.ObjectToJson(Rsp));

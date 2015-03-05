@@ -30,7 +30,7 @@ namespace ACS.Service.Impl
             log.LogEvent = logEvent;
             log.Msg = msg;
             log.Result = result;
-            log.UserCode = userID;
+            log.UserCode = userID.ToString();
             base.Create(log);
         }
         #endregion
@@ -44,7 +44,7 @@ namespace ACS.Service.Impl
                 operlog.LogEvent = operType;
                 operlog.Msg = operObj.GetObjType() + ":" + operObj.GetObjName();
                 operlog.Result = operResult;
-                operlog.UserCode = userID;
+                operlog.UserCode = userID.ToString();
                 GetDao().create(operlog);
             }
             catch (Exception e)
@@ -68,7 +68,7 @@ namespace ACS.Service.Impl
                         operlog.LogEvent = operType;
                         operlog.Msg = logOperable.GetObjType() + ":" + logOperable.GetObjName();
                         operlog.Result = operResult;
-                        operlog.UserCode = userID;
+                        operlog.UserCode = userID.ToString();
                         logList.Add(operlog);
                     }
                     GetDao().create(logList);

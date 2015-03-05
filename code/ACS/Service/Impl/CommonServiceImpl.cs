@@ -69,12 +69,12 @@ namespace ACS.Service.Impl
 
         public virtual void Modify(E obj)
         {
-            Validator(obj);
+            //Validator(obj);
             DaoContext.getInstance().getDao<E>().update(obj);
         }
         public virtual void Modify(int userID ,E obj)
         {
-            Validator(obj);
+            //Validator(obj);
             DaoContext.getInstance().getDao<E>().update(obj);
             CreateOperateLog(userID, ServiceConstant.MODIFY_LOG,obj);
         }
