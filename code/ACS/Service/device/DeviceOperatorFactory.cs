@@ -24,16 +24,18 @@ namespace ACS.Service.device
 
             foreach (var item in keyList)
             {
- 
-                bool status = OnlineDeviceCache.checkOnline(item);
                 Control control = deviceOperatorMap[item].GetControl();
-                if(status != control.Online)
+                //在线状态测试
+                //bool status = OnlineDeviceCache.checkOnline(item);
+                if (null != control)
                 {
-
-                    log.Warn("the control ip is " + control.Ip+ "the control status change,now status is " + status);
-                     ServiceContext.getInstance().getDeviceService().OnlineStatus(control, status);
+                    bool status = DeviceOperatorFactory.getInstance().getDeviceOperator(control).CheckOnline();
+                    if(status != control.Online)
+                    {
+                        log.Warn("the control ip is " + control.Ip+ "the control status change,now status is " + status);
+                        ServiceContext.getInstance().getDeviceService().OnlineStatus(control, status);
+                    }
                 }
- 
             }
         }
 

@@ -47,6 +47,8 @@ namespace ACS.Service
                 return false;
             }
             return true;
+
+            
         }
     }
     public class DeviceTypeCache

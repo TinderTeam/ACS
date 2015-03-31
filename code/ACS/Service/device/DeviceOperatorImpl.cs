@@ -37,7 +37,13 @@ namespace ACS.Service.Impl
            connector.RxDataEvent += ShowMsg;
            connector.OnEventHandler += EventHandler;         
        }
- 
+
+        public bool CheckOnline()
+        {
+            log.Info("checkout control. IP=" + control.Ip + "   Connect=" + connector.IsconnectSuccess);
+            return connector.IsconnectSuccess;
+        }
+
         public void Connect()
         {
             log.Info("Start new Connect on devcie;" + control.ControlID);

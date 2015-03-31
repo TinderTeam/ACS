@@ -27,8 +27,12 @@ namespace ACS.Controllers
             return View();
         }
 
+
         public ActionResult GetNewEvent(String data)
         {
+            //更新一下连接状态
+            DeviceOperatorFactory.getInstance().CheckOnline();
+
             String[] attr = JsonConvert.JsonToObject<String[]>(data);
             String doorID=attr[0];
             String eventID = attr[1];

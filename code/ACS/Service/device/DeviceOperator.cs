@@ -34,5 +34,7 @@ namespace ACS.Service.device
          void DelHoliday();
 
          void AddHoliday(Holiday holiday);
+
+         bool CheckOnline();
     }
 }
