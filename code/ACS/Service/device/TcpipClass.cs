@@ -40,8 +40,8 @@ namespace TcpipIntface
         private Socket sock;
         private IPEndPoint iep;   
         private System.Timers.Timer timer;  
-        private ManualResetEvent TimeoutObject = new ManualResetEvent(false); 
-        private object lockObj_IsConnectSuccess = new object();
+       // private ManualResetEvent TimeoutObject = new ManualResetEvent(false); 
+       // private object lockObj_IsConnectSuccess = new object();
 
         private string remoteHost = "192.168.0.71";
         private int remotePort = 8000;
@@ -51,13 +51,13 @@ namespace TcpipIntface
         private byte nBytesWrite = 0; 
         private byte LastCmd;
         private Boolean  Busy;
-        private volatile Boolean FisWaiting;
-        public Boolean IsconnectSuccess = false; //异步连接情况，由异步连接回调函数置位
+        private volatile Boolean FisWaiting;        
         private String SockErrorStr = null;
-
         protected byte Ver, Fun, CardNumInPack, DoorStatus;
         protected Boolean isEndDate, isOrPIN, isShowName, isCardorPIN;
         #endregion
+
+        public Boolean IsconnectSuccess = false; //异步连接情况，由异步连接回调函数置位
                 
         #region 委托事件声明 
         public delegate void delSocketDisconnected();
@@ -506,7 +506,7 @@ namespace TcpipIntface
                 byte[] tmp = new byte[1];
 
                 sock.Blocking = false;
-                sock.Send(tmp, 0, 0);
+                sock.Send(tmp, 1, 0);
                 //Console.WriteLine("Connected!");
                 connectState = true; //若Send错误会跳去执行catch体，而不会执行其try体里其之后的代码
             }
@@ -523,6 +523,7 @@ namespace TcpipIntface
                     SockErrorStr = e.ToString();
                     //Console.WriteLine("Disconnected: error code {0}!", e.NativeErrorCode);
                     connectState = false;
+                    IsconnectSuccess = false;
                     Console.WriteLine("IsSocketConnected ");
                 }
             }
@@ -548,11 +549,17 @@ namespace TcpipIntface
             #endregion
 
             #region 过程
-
-            if (s == null)
+            try
+            {
+                if (s == null)
+                    return false;
+                return !((s.Poll(1000, SelectMode.SelectRead) && (s.Available == 0)) || !s.Connected);
+            }
+            catch (SocketException e)
+            {
+                IsconnectSuccess = false;
                 return false;
-            return !((s.Poll(1000, SelectMode.SelectRead) && (s.Available == 0)) || !s.Connected);
-
+            }
             /* The long, but simpler-to-understand version:
 
                     bool part1 = s.Poll(1000, SelectMode.SelectRead);
@@ -731,7 +738,7 @@ namespace TcpipIntface
             try
             { 
                 isHeartTime++;
-                if (isHeartTime > 7)
+                if (isHeartTime >5)
                 { 
                     isHeartTime = 0; 
                     if (sock == null)
@@ -741,9 +748,10 @@ namespace TcpipIntface
                     }
                     else // if
                     {
-                        if ((!IsSocketConnected()) || (!sock.Connected) || (!IsSocketConnected(sock)))
+                        if ((!sock.Connected) || (!IsSocketConnected(sock)) ||(!IsSocketConnected()))
                         {
                             timer.Enabled = false;
+                            IsconnectSuccess = false;
                             Reconnect();
                         }
                     }
@@ -752,6 +760,7 @@ namespace TcpipIntface
             catch (Exception ex)
             {
                 SockErrorStr = ex.ToString();
+                IsconnectSuccess = false;
                 Console.WriteLine(string.Format("timer_Tick {0}", ex.Message)); 
                 timer.Enabled = true;
             } 

@@ -127,8 +127,9 @@ namespace ACS.Controllers
             {
 
                 OperateDeviceCmdEnum cmd = (OperateDeviceCmdEnum)cmdCode;
+                
                 deviceService.OperateDevice(cmd, DoorID);
-               
+
             }
             catch (FuegoException e)
             {

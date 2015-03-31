@@ -299,7 +299,7 @@ namespace ACS.Service.Impl
             GetDao().update(control);
         }
 
-        private void checkOnline(object sender, System.Timers.ElapsedEventArgs e)
+        public void checkOnline(object sender, System.Timers.ElapsedEventArgs e)
         {
             DeviceOperatorFactory.getInstance().CheckOnline();
         }
@@ -337,6 +337,11 @@ namespace ACS.Service.Impl
             {
                 log.Error("can not find the control by id, the control id is " + door.ControlID.ToString());
                 throw new FuegoException(ExceptionMsg.CONTROL_NOT_EXIST);
+            }
+            if (!control.Online)
+            {
+                log.Error("control is not online. " + control.Ip);
+                throw new FuegoException(ExceptionMsg.OPERATE_DEVICE_NOT_ONLINE);
             }
             DeviceOperator deviceOperator = DeviceOperatorFactory.getInstance().getDeviceOperator(control);
             deviceOperator.Operate(cmdCode, door);

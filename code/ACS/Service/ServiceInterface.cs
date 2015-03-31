@@ -100,7 +100,6 @@ namespace ACS.Service
         void OperateDevice(OperateDeviceCmdEnum cmdCode,String doorID);
 
         void OnlineStatus(Control control,bool status);
-
         void DeviceDownload(string controlID, string uuID);
 
         //更新设备列表批量操作

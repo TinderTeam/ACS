@@ -292,8 +292,33 @@
             $(".control").addClass("Hide");
         }
 
+        //更新树
+        function updateTree() {
+            var url=
+            $.ajax({
+                url: "../DeviceManage/LoadTree",
+                type: 'post',
+                cache: false,
+                success: function (text) {
+                    var deviceTree = mini.get("#deviceTree");
+ 
+                    var tree = eval('(' + text + ')');
+                    for (var i = 0; i < tree.length; i++) {
+                        var node = deviceTree.getNode(tree[i].Id);
+                        deviceTree.updateNode(node, {MenuName:tree[i].MenuName});    
+                    }
+                   
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(text);
+                }
+            });
+        }
+
     //事物刷新方法
         function update(result) {
+            updateTree();
+
             var list = result.DataList;
             if (list.length > 0) {
                
