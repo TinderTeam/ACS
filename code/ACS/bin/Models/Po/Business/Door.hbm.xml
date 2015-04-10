@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.Door,ACS" table="TDoor"  >
+
+    <id name="DoorID" column ="DoorID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="ControlID">
+      <column name="ControlID"/>
+    </property>
+
+    <property name="DoorName">
+      <column name="DoorName" length="50"/>
+    </property>
+    
+    <property name="DoorSerial">
+      <column name="DoorSerial" length="50"/>
+    </property>
+
+    <property name="DoorAddress">
+      <column name="DoorAddress"/>
+    </property>
+
+    <property name="OpenTime">
+      <column name="OpenTime"/>
+    </property>
+
+    <property name="CloseOutTime">
+      <column name="CloseOutTime"/>
+    </property>
+    
+    <property name="DoorAlerm2Long">
+      <column name="DoorAlerm2Long"/>
+    </property>
+
+    <property name="PassBack">
+      <column name="PassBack"/>
+    </property>
+
+    <property name="DoorEnable">
+      <column name="DoorEnable"/>
+    </property>
+
+    <property name="DoorVisible">
+      <column name="DoorVisible"/>
+    </property>
+
+    <property name="MapID">
+      <column name="MapID"/>
+    </property>
+
+    <property name="XPoint">
+      <column name="XPoint"/>
+    </property>
+
+    <property name="YPoint">
+      <column name="YPoint"/>
+    </property>
+
+    <property name="MapVisible">
+      <column name="MapVisible"/>
+    </property>
+
+    <property name="IsKQ">
+      <column name="isKQ"/>
+    </property>
+
+    <property name="IsRepast">
+      <column name="isRepast"/>
+    </property>
+
+    <property name="AlarmMast">
+      <column name="AlarmMast"/>
+    </property>
+
+    <property name="AlarmTime">
+      <column name="AlarmTime"/>
+    </property>
+
+    <property name="IsMainDoor">
+      <column name="isMainDoor"/>
+    </property>
+
+    <property name="ReaderIn">
+      <column name="ReaderIn" length="50"/>
+    </property>
+
+    <property name="ReaderOut">
+      <column name="ReaderOut" length="50"/>
+    </property>
+
+    <property name="MCardsOpen">
+      <column name="MCardsOpen"/>
+    </property>
+
+    <property name="MCardsOpenInOut">
+      <column name="MCardsOpenInOut"/>
+    </property>
+
+    <property name="DoorNum">
+      <column name="DoorNum"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>
+
+
+<!--
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.Door,ACS" table="t_door"  >
+
+    <id name="DoorID" column ="DOOR_ID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="ControlID">
+      <column name="CONTROL_ID"/>
+    </property>
+
+    <property name="DoorName">
+      <column name="DOOR_NAME" length="50"/>
+    </property>
+    
+    <property name="DoorSerial">
+      <column name="DOOR_SERIAL" length="50"/>
+    </property>
+
+    <property name="DoorAddress">
+      <column name="DOOR_ADDRESS"/>
+    </property>
+
+    <property name="OpenTime">
+      <column name="OPEN_TIME"/>
+    </property>
+
+    <property name="CloseOutTime">
+      <column name="CLOSE_OUT_TIME"/>
+    </property>
+    
+    <property name="DoorAlerm2Long">
+      <column name="DOOR_ALERM2_LONG"/>
+    </property>
+
+    <property name="PassBack">
+      <column name="PASS_BACK"/>
+    </property>
+
+    <property name="DoorEnable">
+      <column name="DOOR_ENABLE"/>
+    </property>
+
+    <property name="DoorVisible">
+      <column name="DOOR_VISIBLE"/>
+    </property>
+
+    <property name="MapID">
+      <column name="MAP_ID"/>
+    </property>
+
+    <property name="XPoint">
+      <column name="X_POINT"/>
+    </property>
+
+    <property name="YPoint">
+      <column name="Y_POINT"/>
+    </property>
+
+    <property name="MapVisible">
+      <column name="MAP_VISIBLE"/>
+    </property>
+
+    <property name="IsKQ">
+      <column name="IS_KQ"/>
+    </property>
+
+    <property name="IsRepast">
+      <column name="IS_REPAST"/>
+    </property>
+
+    <property name="AlarmMast">
+      <column name="ALARM_MAST"/>
+    </property>
+
+    <property name="AlarmTime">
+      <column name="ALARM_TIME"/>
+    </property>
+
+    <property name="IsMainDoor">
+      <column name="IS_MAIN_DOOR"/>
+    </property>
+
+    <property name="ReaderIn">
+      <column name="READER_IN" length="50"/>
+    </property>
+
+    <property name="ReaderOut">
+      <column name="READER_OUT" length="50"/>
+    </property>
+
+    <property name="MCardsOpen">
+      <column name="M_CARDS_OPEN"/>
+    </property>
+
+    <property name="MCardsOpenInOut">
+      <column name="M_CARDS_OPEN_IN_OUT"/>
+    </property>
+
+    <property name="DoorNum">
+      <column name="DOOR_NUM"/>
+    </property>
+    
+  </class>
+</hibernate-mapping>
+-->

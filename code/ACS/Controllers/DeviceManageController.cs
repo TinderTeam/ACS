@@ -204,7 +204,7 @@ namespace ACS.Controllers
             return ReturnJson(Rsp);
         }
 
-        //更新设备信息
+        //下载卡片
         public ActionResult downloadCard(String idList)
         {
             try
@@ -222,7 +222,6 @@ namespace ACS.Controllers
                 log.Error("download failed", e);
                 Rsp.ErrorCode = ExceptionMsg.FAIL;
             }
-
             return ReturnJson(Rsp);
         }
         

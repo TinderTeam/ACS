@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.DoorTime,ACS" table="TDoorTime"  >
+
+    <id name="DoorTimeID" column ="ID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="DoorID">
+      <column name="DoorID"/>
+    </property>
+
+    <property name="DoorTimeName">
+      <column name="DoorTimeName" length="50"/>
+    </property>
+
+    <property name="Enable">
+      <column name="ENABLE" length="10"/>
+    </property>
+    
+    <property name="StartTime" >
+      <column name="FrmTime"/>
+    </property>
+
+    <property name="EndTime">
+      <column name="ToTime"/>
+    </property>
+
+    <property name="Sunday">
+      <column name="Week1"/>
+    </property>
+    
+    <property name="Monday">
+      <column name="Week2"/>
+    </property>
+    
+    <property name="Tuesday">
+      <column name="Week3"/>
+    </property>
+    
+    <property name="Wednesday">
+      <column name="Week4"/>
+    </property>
+    
+    <property name="Thursday">
+      <column name="Week5"/>
+    </property>
+
+    <property name="Friday">
+      <column name="Week6"/>
+    </property>
+
+    <property name="Saturday">
+      <column name="Week7"/>
+    </property>
+
+ 
+
+    <property name="Holiday">
+      <column name="Holiday"/>
+    </property>
+    
+    <property name="DoorTimeNum" >
+      <column name="DoorTimeNum"/>
+    </property>
+
+    <property name="Identify" >
+      <column name="Indetify"/>
+    </property>
+
+    <property name="LimitDate" >
+      <column name="EndDate"/>
+    </property>
+  </class>
+</hibernate-mapping>
+<!--
+
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" >
+  <class name="ACS.Models.Po.Business.DoorTime,ACS" table="t_door_time"  >
+
+    <id name="DoorTimeID" column ="DOOR_TIME_ID" >
+      <generator class ="identity"/>
+    </id>
+
+    <property name="DoorID">
+      <column name="DOOR_ID"/>
+    </property>
+
+    <property name="DoorTimeName">
+      <column name="DOOR_TIME_NAME" length="50"/>
+    </property>
+
+    <property name="Enable">
+      <column name="ENABLE" length="10"/>
+    </property>
+    
+    <property name="StartTime" >
+      <column name="START_TIME"/>
+    </property>
+
+    <property name="EndTime">
+      <column name="END_TIME"/>
+    </property>
+
+    <property name="Monday">
+      <column name="MONDAY"/>
+    </property>
+    
+    <property name="Tuesday">
+      <column name="TUESDAY"/>
+    </property>
+    
+    <property name="Wednesday">
+      <column name="WEDNESDAY"/>
+    </property>
+    
+    <property name="Thursday">
+      <column name="THURSDAY"/>
+    </property>
+
+    <property name="Friday">
+      <column name="FRIDAY"/>
+    </property>
+
+    <property name="Saturday">
+      <column name="SATURDAY"/>
+    </property>
+
+    <property name="Sunday">
+      <column name="SUNDAY"/>
+    </property>
+
+    <property name="Holiday">
+      <column name="HOLIDAY"/>
+    </property>
+    
+    <property name="DoorTimeNum" >
+      <column name="DOOR_TIME_NUM"/>
+    </property>
+
+    <property name="Identify" >
+      <column name="IDENTIFY"/>
+    </property>
+
+    <property name="LimitDate" >
+      <column name="LIMIT_DATE"/>
+    </property>
+  </class>
+</hibernate-mapping>
+
+-->
