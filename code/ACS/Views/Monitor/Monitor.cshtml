@@ -361,7 +361,7 @@
                         cache: false,
                         success: function (text) {
                             var result = eval('(' + text + ')');
-                      
+                            
                             //调用更新方法
                             update(result);
                         
@@ -425,13 +425,15 @@
         function addItem(item) {
             var row =
            {
-               'EventTime': 'asdgsadgs',        //属性名用引号括起来，属性间由逗号隔开
-               'EmployeeName': 'asdgsadgs',
-               'DoorID': 'asdgsadgs',
-               'EventType': 'asdgsadgs',
-               'CardNo': 'sdfgdsg'
+               'EventTime': item.EventTime,        //属性名用引号括起来，属性间由逗号隔开
+               'EmployeeName': item.EmployeeName,
+               'DoorID': item.DoorID,
+               'EventType': item.EventType,
+               'CardNo': item.CardNo
            };
-            mini.get("#datagrid1").addRow(item, 0);
+           // alert("card="+item.CardNo);
+           // mini.get("#datagrid1").addRow(item, 0);
+            mini.get("#datagrid1").addRow(row, 0);
         }
        //增加事件
         function addEvent(src, eventName, employeeName, device, time, type) {

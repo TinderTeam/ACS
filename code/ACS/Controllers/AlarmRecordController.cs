@@ -45,7 +45,11 @@ namespace ACS.Controllers
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AlarmRecordView.EVENTTYPEID, alarmRecordFilter.EventTypeID.ToString()));
                 }
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, AlarmRecordView.DOORNAME, alarmRecordFilter.DoorName));
+                if (!ValidatorUtil.isEmpty(alarmRecordFilter.DoorID))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, AlarmRecordView.DOORID, alarmRecordFilter.DoorID));
+                }
+
                 if (!DateUtil.DateTimeIsEmpty(alarmRecordFilter.AlarmTimeStart))
                 {
                     filterCondition.Add(new QueryCondition(ConditionTypeEnum.BIGER_EQ, AlarmRecordView.ALARMTIME, DateUtil.DateTimeToString(alarmRecordFilter.AlarmTimeStart)));
@@ -63,7 +67,7 @@ namespace ACS.Controllers
             public DateTime AlarmTimeEnd { get; set; }      //查询截至时间
             public String EventTypeID { get; set; }         //事件类型ID
             public String DoorName { get; set; }            //门名称
-
+            public String DoorID { get; set; }            //门名称
         }
     }
 }

@@ -50,13 +50,29 @@ namespace ACS.Controllers
 
                 if (!ValidatorUtil.isEmpty(eventRecordFilter.JobID))
                 {
-                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.JOBID, eventRecordFilter.JobID));
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EventRecordView.JOBID, eventRecordFilter.JobID));
                 }
 
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.DOORNAME, eventRecordFilter.DoorName));
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.CARDNO, eventRecordFilter.CardNo));
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEENAME, eventRecordFilter.EmployeeName));
-                filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEECODE, eventRecordFilter.EmployeeCode));
+                if (!ValidatorUtil.isEmpty(eventRecordFilter.DoorID))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.EQUAL, EventRecordView.DOORID, eventRecordFilter.DoorID));
+                }
+                if (!ValidatorUtil.isEmpty(eventRecordFilter.CardNo))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.CARDNO, eventRecordFilter.CardNo));
+                }
+                if (!ValidatorUtil.isEmpty(eventRecordFilter.EmployeeName))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEENAME, eventRecordFilter.EmployeeName));
+                }
+                if (!ValidatorUtil.isEmpty(eventRecordFilter.EmployeeCode))
+                {
+                    filterCondition.Add(new QueryCondition(ConditionTypeEnum.INCLUDLE, EventRecordView.EMPLOYEECODE, eventRecordFilter.EmployeeCode));
+                }
+              
+               
+               
+               
 
                 if (!ValidatorUtil.isEmpty(eventRecordFilter.EventTypeID))
                 {
@@ -89,6 +105,7 @@ namespace ACS.Controllers
             public String EmployeeName { get; set; }
             public String EmployeeCode { get; set; }
             public String EventTypeID { get; set; }
+            public String DoorID { get; set; }
         }
 
     }

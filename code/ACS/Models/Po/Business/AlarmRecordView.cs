@@ -11,6 +11,8 @@ namespace ACS.Models.Po.Business
         public const String EVENTTYPEID = "EventTypeID";
         public const String DOORNAME = "DoorName";
         public const String ALARMTIME = "AlarmTime";
+        public const String DOORID = "DoorID";
+        
         //从AlarmRecord表中获得
         private int alarmID;                //时间ID
         private DateTime alarmTime;         //时间时间
