@@ -41,7 +41,7 @@ namespace ACS.Service
         void saveEmployeeCard(int userID, List<Employee> employeeModelList);
         void modifyAccess(int userID, String employeeID, String AccessID);
         void UpdateLastEvent(string cardID, int eventID);
-        int GetEmployeeIDByCardID(int cardID);
+        int GetEmployeeIDByCardID(String cardID);
         void DownCardList(List<string> list, String uuID);
 
         void DeleteIndex(List<string> idList);

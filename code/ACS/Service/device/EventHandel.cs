@@ -82,7 +82,7 @@ namespace ACS.Service.device
                  * 先获取卡的员工信息
                  */
 
-                int employeeID=ServiceContext.getInstance().getEmployeeService().GetEmployeeIDByCardID(eventRecord.EventTypeID);
+                int employeeID=ServiceContext.getInstance().getEmployeeService().GetEmployeeIDByCardID(eventRecord.CardNo);
                 eventRecord.EmployeeID = employeeID;
         
                 ServiceContext.getInstance().getEventRecordService().Create(eventRecord);

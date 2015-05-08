@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<root>
-  <device typeID="1" typeName="单门" door_num="1" time_num="16" />
-  <device typeID="2" typeName="2门" door_num="2" time_num="16" />
-  <device typeID="3" typeName="4门" door_num="4" time_num="8" />
-</root>

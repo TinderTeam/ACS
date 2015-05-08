@@ -235,7 +235,7 @@ namespace ACS.Service.Impl
         /// </summary>
         /// <param name="cardID"></param>
         /// <returns>没有则返回-1</returns>
-        public int GetEmployeeIDByCardID(int cardID)
+        public int GetEmployeeIDByCardID(String cardID)
         {
              QueryCondition condition = new QueryCondition(
                 ConditionTypeEnum.EQUAL,
